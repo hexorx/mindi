@@ -1,4 +1,5 @@
 """Invoke the actual Hermes tool and cua backend, without an LLM or paid inference."""
+import atexit
 import base64
 import json
 import os
@@ -6,10 +7,27 @@ from pathlib import Path
 import subprocess
 import sys
 import time
+import tempfile
 
+# This program consumes the image itself. Declare native image support in an
+# isolated config so Hermes does not send screenshots to auxiliary inference.
+# Do not change the operator's persistent profile or mock the tool/backend.
+smoke_home = tempfile.TemporaryDirectory(prefix="hermes-desktop-smoke-")
+atexit.register(smoke_home.cleanup)
+Path(smoke_home.name, "config.yaml").write_text(json.dumps({
+    "model": {"supports_vision": True},
+    "toolsets": ["computer_use"],
+    "computer_use": {"grant_existing_profile": True},
+}))
+os.environ["HERMES_HOME"] = smoke_home.name
 os.environ["HERMES_COMPUTER_USE_BACKEND"] = "cua"
 sys.path.insert(0, "/opt/hermes")
 from tools.computer_use_tool import handle_computer_use, release_computer_use_session, set_approval_callback
+
+# Regression gate: fail before capture if upstream changes native-image routing.
+from tools.computer_use.tool import _should_route_through_aux_vision
+if _should_route_through_aux_vision():
+    raise RuntimeError("Smoke capture must return images without auxiliary inference")
 
 session = "agent-box-container-smoke"
 set_approval_callback(lambda action, args, summary: "approve_once")
