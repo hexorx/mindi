@@ -20,15 +20,7 @@ case "$operation" in
         volume=${4:?New empty destination volume}
         docker volume inspect "$volume" >/dev/null
         docker run --rm -i --network none --mount "type=volume,src=$volume,dst=/restore" \
-            --entrypoint python3 "$image" -c '
-import os, pathlib, sys, tarfile
-root = pathlib.Path("/restore")
-if any(root.iterdir()): raise SystemExit("memory: restore requires an empty destination")
-with tarfile.open(fileobj=sys.stdin.buffer, mode="r|gz") as archive:
-    archive.extractall(root, filter="data")
-for path in [root, *root.rglob("*")]:
-    os.chown(path, 1000, 1000, follow_symlinks=False)
-' < "$archive"
+            --entrypoint python3 "$image" /opt/agent-box/memory_archive.py < "$archive"
         ;;
     *) echo 'memory: expected backup or restore' >&2; exit 1 ;;
 esac
