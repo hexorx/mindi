@@ -2,7 +2,7 @@
 
 Tracking: [HEX-89](/HEX/issues/HEX-89). Authority: [approved HEX-85 plan, sections 1, 8 and 10](/HEX/issues/HEX-85#document-plan), revision `15796e3c-0e69-4e8b-8921-fe4d4bc1fdde`.
 
-**Source inventory verified 2026-09-27. Josh withheld redistribution authorization on 2026-09-27; public image publishing remains gated.** This PR adds records only: no source code, compiled assets, or later multi-agent code is imported. The allowlist defines a technical boundary, not a license grant. P1 records the decision; completing this provenance task does not authorize redistribution or unblock P9.
+**Source inventory verified 2026-09-27. Josh's MIT grant on 2026-09-27 supersedes the earlier withholding decision.** [HEX-102](/HEX/issues/HEX-102) records the grant for the allowlisted inputs below. This change adds records only: no source code, compiled assets, or later multi-agent code is imported. The technical allowlist remains unchanged. The source-rights gate is satisfied for those inputs; P9 still requires third-party license and notice reconciliation before public image publishing.
 
 ## Immutable sources
 
@@ -36,15 +36,19 @@ Strip Buzz helpers/presence/relay/Redis/MinIO/database-init, Command/Control/web
 
 ## Source authorization decision
 
-**Recorded state: withheld — redistribution authorization has been explicitly withheld.** Josh approved the extraction plan and provenance work. That approval is not recorded as a source license grant. The destination MIT `LICENSE` does not establish rights for imported source or third-party components.
+**Recorded state: authorized under the MIT License for the covered inputs.** Grantor and copyright holder: **Josh Robinson (`hexorx`)**, using the name on his [GitHub profile](https://github.com/hexorx). The existing root [MIT LICENSE](../LICENSE) contains `Copyright (c) 2026 Josh Robinson`; retain its copyright and permission notices in all copies or substantial portions of the Software.
 
-Both pinned snapshots were inspected using complete recursive Git trees (`truncated: false`). Neither contains a tracked filename matching LICENSE, COPYING or NOTICE, case-insensitively. This is a filename-search result, not proof of ownership or the absence of every possible embedded term. No source license is inferred or assigned here.
+On **2026-09-27**, Josh answered the human-only build-path question in [HEX-85, interaction `143e9180-0579-4458-a03b-7f70cc83b890`](/HEX/issues/HEX-85#interaction-143e9180-0579-4458-a03b-7f70cc83b890). He selected **“I own mindi-stack and grant rights; I will give license terms in a note”** and supplied **“MIT”** in the free-text field. Mindi (CEO) records that response as Josh, the rights holder, granting the MIT License for the allowlisted `mindi-dev/mindi-stack` inputs for use in `hexorx/mindi`.
 
-On 2026-09-27, Josh (board) answered the source-rights question in [HEX-89](/HEX/issues/HEX-89), interaction `f704bd0a-6b4a-460d-9ddc-12de70d18a6d`: **“Withhold redistribution authorization.”** The question covered the enumerated inputs at both pinned commits above. This records the board decision, not a claim that Josh owns those inputs. No rights-holder authority, license terms or attribution grant was supplied. The technical allowlist remains an inventory, not permission to extract or redistribute source. Private distribution is not an automatic workaround.
+Covered inputs are the manifest's `adapt` and `reference` entries at baseline `b5ac82d8e6352cbb9716430f4dea560ad7d4266f` and isolated Tailscale reference `3ae5dec66c4c5610b45f81e6f09e20273b2c4748`. The MIT terms permit use, modification and redistribution subject to retention of the copyright and permission notices. All technical boundaries and required rewrites above remain in force: excluded paths, compiled bundles, other revisions and wholesale history imports remain excluded.
 
-P9 remains blocked on redistribution authorization. Any later change requires a new explicit decision with owner/authority, covered inputs, permitted extraction and redistribution, exact license terms, required attribution, date and evidence; it must supersede this record explicitly.
+### Superseded decision (historical evidence)
 
-P9 must fail closed while authorization is withheld and must separately reconcile final image dependency licenses/notices before public publishing. This documentation PR adds no release workflow or automated publishing gate; the enforcement belongs to P9. No deployment is authorized by this record.
+Earlier on 2026-09-27, Josh answered **“Withhold redistribution authorization”** in [HEX-89, interaction `f704bd0a-6b4a-460d-9ddc-12de70d18a6d`](/HEX/issues/HEX-89#interaction-f704bd0a-6b4a-460d-9ddc-12de70d18a6d). That response supplied no rights-holder assertion or license terms. **The later HEX-85 ownership assertion and MIT response explicitly supersede that withholding record for the covered inputs.** The manifest retains the old decision under `redistributionDecision.supersedes` for audit history.
+
+Both pinned snapshots were inspected using complete recursive Git trees (`truncated: false`). Neither contains a tracked filename matching LICENSE, COPYING or NOTICE, case-insensitively. That historical filename-search result remains unchanged; the authority now comes from the subsequent rights-holder grant, not an inferred source-tree license.
+
+P3/P4/P6 may proceed within the allowlist under this grant. P9's source-authorization condition is satisfied for the covered inputs, but **P9 must still fail closed until final dependency licenses, required notices and applicable source obligations are reconciled**. Hermes, Hindsight, Tailscale and other third-party dependencies retain their own licenses; this MIT grant does not relicense them or certify the final image for redistribution. This documentation change adds no release workflow or automated publishing gate. No deployment is authorized by this record.
 
 ## Third-party provenance and notice ledger
 
@@ -68,4 +72,4 @@ P9 must reconcile this ledger with the final SBOM and ship actual required notic
 
 GitHub commit and recursive-tree APIs verified full commit/tree IDs. The manifest records blob IDs from those trees; downloaded selected source bodies were checked against their Git blob IDs. Missing/new files must not be silently added by a future importer. Source inspection is not a runtime test.
 
-This is documentation/data only. No behavioral tests were added. Scaffold build, lint, typecheck and test results and the PR check status are recorded in HEX-89. The withholding decision and its evidence are recorded above. Before P9 publishing, obtain a superseding authorization decision, close every release-evidence item above and implement the fail-closed publishing gate.
+This is documentation/data only. No behavioral tests were added. Original scaffold verification is recorded in [HEX-89](/HEX/issues/HEX-89); grant-update verification is recorded in [HEX-102](/HEX/issues/HEX-102) and its PR. The superseding MIT grant and historical withholding evidence are recorded above. Before P9 publishing, close every release-evidence item above and implement the fail-closed publishing gate.
