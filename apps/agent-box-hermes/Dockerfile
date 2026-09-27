@@ -20,7 +20,7 @@ ENV HOME=/home/agent USER=hermes HERMES_HOME=/home/agent/.hermes \
     HERMES_PROFILE=default HERMES_WRITE_SAFE_ROOT=/home/agent \
     HERMES_LAZY_INSTALL_TARGET=/home/agent/.hermes/lazy-packages \
     XDG_RUNTIME_DIR=/run/user/1000 XDG_SESSION_TYPE=wayland \
-    WAYLAND_DISPLAY=wayland-1 DISPLAY=:0 \
+    WAYLAND_DISPLAY=wayland-1 SWAYSOCK=/run/user/1000/sway-ipc.sock DISPLAY=:0 \
     WLR_BACKENDS=headless WLR_HEADLESS_OUTPUTS=1 WLR_LIBINPUT_NO_DEVICES=1 WLR_RENDERER=pixman \
     DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus \
     CUA_DRIVER_RS_ENABLE_WAYLAND=1 CUA_DRIVER_RS_TELEMETRY_ENABLED=0 GTK_A11Y=atspi \

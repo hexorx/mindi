@@ -4,6 +4,8 @@ import subprocess
 import sys
 
 try:
+    subprocess.run(["swaymsg", "-t", "get_version"], stdout=subprocess.DEVNULL,
+                   stderr=subprocess.DEVNULL, timeout=3, check=True)
     frame = subprocess.run(["grim", "-"], stdout=subprocess.PIPE, stderr=subprocess.DEVNULL,
                            timeout=3, check=True).stdout
     if not frame.startswith(b"\x89PNG\r\n\x1a\n") or len(frame) < 100:

@@ -2,6 +2,9 @@ import importlib.util
 import json
 from pathlib import Path
 import tempfile
+import runpy
+import subprocess
+from unittest.mock import patch, MagicMock
 import unittest
 
 
@@ -65,6 +68,23 @@ class ConfigurationTest(unittest.TestCase):
         hashed = module("bootstrap").password_hash(secret)
         self.assertTrue(hashed.startswith(b"$6$"))
         self.assertNotIn(secret.read_bytes(), hashed)
+
+
+class ReadinessTest(unittest.TestCase):
+    def test_requires_sway_ipc_even_when_frame_and_listeners_work(self):
+        health = Path(__file__).parents[1] / "runtime/health.py"
+        frame = MagicMock(stdout=b"\x89PNG\r\n\x1a\n" + b"x" * 100)
+        with patch("subprocess.run", return_value=frame) as run, \
+             patch("socket.create_connection"):
+            runpy.run_path(str(health))
+            def fail_ipc(args, **kwargs):
+                if args[0] == "swaymsg":
+                    raise subprocess.CalledProcessError(1, args)
+                return frame
+            run.side_effect = fail_ipc
+            with self.assertRaises(SystemExit) as exit_status:
+                runpy.run_path(str(health))
+            self.assertEqual(exit_status.exception.code, 1)
 
 
 if __name__ == "__main__": unittest.main()
