@@ -37,7 +37,8 @@ def call(args):
     result = handle_computer_use(args, session_id=session)
     result = json.loads(result) if isinstance(result, str) else result
     if not isinstance(result, dict) or result.get("error") or result.get("ok") is False:
-        raise RuntimeError("Hermes computer_use failed for " + args["action"])
+        code = result.get("code", "unspecified") if isinstance(result, dict) else "invalid_response"
+        raise RuntimeError(f"Hermes computer_use failed for {args['action']}: {code}")
     return result
 
 
@@ -52,9 +53,11 @@ try:
     if not (image.startswith(b"\x89PNG") or image.startswith(b"\xff\xd8")) or len(image) < 100:
         raise RuntimeError("Invalid screenshot")
     Path("/run/user/1000/smoke-screenshot").write_bytes(image)
-    call({"action": "click", "coordinate": [100, 100]})
-    call({"action": "type", "text": "hermes-desktop-smoke"})
-    call({"action": "key", "keys": "enter"})
+    # Sway exposes compositor input, not per-window background injection.
+    # Explicit foreground delivery lets cua activate and verify our test window.
+    call({"action": "click", "coordinate": [100, 100], "delivery_mode": "foreground"})
+    call({"action": "type", "text": "hermes-desktop-smoke", "delivery_mode": "foreground"})
+    call({"action": "key", "keys": "enter", "delivery_mode": "foreground"})
     target = Path("/run/user/1000/smoke-input")
     for _ in range(50):
         if target.exists(): break
