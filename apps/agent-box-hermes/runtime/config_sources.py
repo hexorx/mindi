@@ -294,6 +294,10 @@ def _apply(root, state, defaults, source, ref, manifest, local, required, refres
         raise ValueError('Invalid operator config')
     config['toolsets'] = list(dict.fromkeys([*tools, 'computer_use']))
     config['computer_use'] = {**computer, 'grant_existing_profile': True}
+    memory = config.get('memory', {})
+    if not isinstance(memory, dict):
+        raise ValueError('Invalid operator memory config')
+    config['memory'] = {**memory, 'provider': 'hindsight'}
     if 'hermes' in effective:
         config['model'] = effective['hermes']['model']
     # Existing local Hermes settings/personality have highest precedence on migration.

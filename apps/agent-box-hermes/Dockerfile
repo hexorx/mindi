@@ -11,6 +11,14 @@ RUN test "$TARGETARCH" = amd64 \
  && rm -rf /var/lib/apt/lists/* /etc/s6-overlay/s6-rc.d /etc/cont-init.d \
  && usermod -u 1000 -d /home/agent hermes && groupmod -g 1000 hermes \
  && install -d -o hermes -g hermes /home/agent
+# Isolated dependency graph; pg0 0.14.0 bundles PostgreSQL and pgvector.
+# Hindsight migrations select psycopg 3, which its slim package does not declare.
+# Construct the migration engine at build time to verify the driver can load.
+COPY apps/agent-box-hermes/build/patch_hindsight.py /opt/build/patch_hindsight.py
+RUN python3 -m venv /opt/hindsight \
+ && /opt/hindsight/bin/pip install --no-cache-dir 'hindsight-api-slim[embedded-db]==0.6.1' 'pg0-embedded==0.14.0' 'psycopg[binary]==3.2.10' \
+ && /opt/hindsight/bin/python /opt/build/patch_hindsight.py \
+ && /opt/hindsight/bin/python -c "from sqlalchemy import create_engine; create_engine('postgresql+psycopg://localhost/hindsight')"
 # No remote installer execution. Release asset SHA256 from GitHub release metadata.
 RUN curl -fsSL --retry 3 https://github.com/trycua/cua/releases/download/cua-driver-rs-v0.30.1/cua-driver-rs-0.30.1-linux-x86_64-binary.tar.gz -o /tmp/cua.tar.gz \
  && echo '82411700ae43fa34f6263eb603866c77d4e25e5556ffa03d92cd79cbab9472a2  /tmp/cua.tar.gz' | sha256sum -c - \
@@ -39,7 +47,7 @@ RUN mkdir -p /etc/s6-overlay/s6-rc.d/user2/contents.d \
  && rm -rf /tmp/agent-box-s6-db
 WORKDIR /home/agent
 EXPOSE 8443
-VOLUME ["/home/agent"]
+VOLUME ["/home/agent", "/var/lib/agent-box/hindsight"]
 HEALTHCHECK --interval=10s --timeout=5s --start-period=30s CMD ["/command/s6-setuidgid", "hermes", "python3", "/opt/agent-box/health.py"]
 ENTRYPOINT ["/init"]
 CMD []
