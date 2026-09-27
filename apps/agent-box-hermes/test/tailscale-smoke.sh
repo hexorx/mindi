@@ -126,19 +126,35 @@ docker exec "$box" tailscale serve status --json | jq -e '
 # A second tailnet node may reach only the authenticated HTTPS origin.
 docker run -d --name "$peer" --network "$net" -e TS_USERSPACE=true -e TS_HOSTNAME=smoke-peer \
     -e TS_AUTHKEY="$(new_key)" -e TS_EXTRA_ARGS=--login-server=http://headscale:8080 \
+    -e TS_OUTBOUND_HTTP_PROXY_LISTEN=127.0.0.1:1056 \
     "$tailscale_image" >/dev/null
 wait_backend "$peer" Running
 box_ip=$(docker exec "$box" tailscale ip -4)
-probe() { printf '%b' "$2" | docker exec -i "$peer" timeout 10 tailscale nc "$box_ip" "$1" 2>/dev/null | head -c 16 || true; }
+# Use the peer's outbound proxy so the request traverses its tailnet stack.
+# HTTPS is required on 8443. CONNECT status also detects open, silent TCP ports.
+probe() {
+    docker run --rm --network "container:$peer" --entrypoint curl "$image" \
+        --silent --insecure --max-time 10 --noproxy '' \
+        --proxy http://127.0.0.1:1056 --proxytunnel \
+        --output /dev/null --write-out '%{http_connect} %{http_code}' \
+        "https://$box_ip:$1/" || true
+}
 reached=
 for _ in $(seq 1 15); do
-    [ "$(probe 8443 'GET / HTTP/1.0\r\n\r\n' | head -c 5)" = HTTP/ ] && { reached=1; break; }
+    [ "$(probe 8443)" = '200 401' ] && { reached=1; break; }
     sleep 2
 done
 [ -n "$reached" ] || fail "peer could not reach the authenticated desktop origin"
 for port in 5900 6080 1055 1056; do
-    [ -z "$(probe "$port" 'GET / HTTP/1.0\r\n\r\n')" ] || fail "tailnet peer reached loopback port $port"
+    result=$(probe "$port")
+    case "$result" in
+        200\ *) fail "tailnet peer reached loopback port $port" ;;
+        000\ *|502\ *|503\ *|504\ *) ;; # Dial timed out or was refused.
+        *) fail "unexpected proxy result for port $port: $result" ;;
+    esac
 done
+# A broken peer/proxy must not make the negative probes pass.
+[ "$(probe 8443)" = '200 401' ] || fail "peer lost desktop connectivity during exposure checks"
 
 # Restart without any enrollment key: the persisted node identity is reused.
 rm -f "$scratch/secrets/tailscale_authkey"
