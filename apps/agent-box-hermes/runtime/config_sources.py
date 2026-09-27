@@ -307,7 +307,13 @@ def _apply(root, state, defaults, source, ref, manifest, local, required, refres
     status = {'state': 'degraded' if degraded else 'ready', 'source': remote['source'] if remote else 'defaults',
               'commit': remote['commit'] if remote else None, 'contentHash': 'sha256:' + digest,
               'localOverride': bool(local), 'reason': 'optional-source-unavailable' if degraded else None}
-    if old and old['status']['contentHash'] == status['contentHash'] and old['selection'] == selection and old['remote'] == remote:
+    managed_links = True
+    for name in ('config.yaml', 'AGENTS.md'):
+        path = root / name
+        if path.is_symlink() and os.readlink(path) != f'.agent-box/current/{name}':
+            raise ValueError('Unmanaged symlink')
+        managed_links = managed_links and path.is_symlink()
+    if old and managed_links and old['status']['contentHash'] == status['contentHash'] and old['selection'] == selection and old['remote'] == remote:
         atomic_json(state / 'status.json', status)
         return status
     snapshot = {'selection': selection, 'remote': remote, 'operator': operator, 'operatorPersona': local_persona,
@@ -333,6 +339,7 @@ def _apply(root, state, defaults, source, ref, manifest, local, required, refres
                     raise ValueError('Unmanaged symlink')
             else:
                 link = root / f'.{name}.next'
+                link.unlink(missing_ok=True)
                 link.symlink_to(expected)
                 os.replace(link, target)
         if old:

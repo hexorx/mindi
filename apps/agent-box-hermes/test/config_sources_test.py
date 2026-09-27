@@ -120,6 +120,24 @@ class SourceTest(unittest.TestCase):
         self.assertEqual(self.config()['model'], 'remote-model')
         self.assertEqual(self.persona(), 'Remote persona')
 
+    def test_interrupted_initial_migration_resumes(self):
+        self.home.mkdir()
+        (self.home / 'config.yaml').write_text('{"model": "operator"}')
+        (self.home / 'AGENTS.md').write_text('Operator persona')
+        replace = resolver.os.replace
+        def fail_link(source, target):
+            if str(source).endswith('.config.yaml.next'):
+                raise OSError('interrupted migration')
+            return replace(source, target)
+        with patch.object(resolver.os, 'replace', side_effect=fail_link):
+            with self.assertRaises(OSError): self.remote()
+        self.assertEqual(self.config()['model'], 'operator')
+        self.remote()
+        self.assertTrue((self.home / 'config.yaml').is_symlink())
+        self.assertTrue((self.home / 'AGENTS.md').is_symlink())
+        self.assertEqual(self.config()['model'], 'operator')
+        self.assertEqual(self.persona(), 'Operator persona')
+
     def test_activation_failure_leaves_old_revision(self):
         first = self.remote()
         current = os.readlink(self.home / '.agent-box/current')
