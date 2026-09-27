@@ -1,0 +1,101 @@
+[
+  {
+    "schemaVersion": 1,
+    "boxes": [
+      {
+        "boxId": "ef182828-9a75-4ff6-b873-267f677dca12",
+        "flavor": "hermes",
+        "endpoint": "http://helper.example.ts.net",
+        "imageDigest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "configRevision": "b5ac82d8e6352cbb9716430f4dea560ad7d4266f",
+        "apiCredentialRef": "helper_api",
+        "capabilities": [
+          "desktop",
+          "memory",
+          "hermes-api"
+        ],
+        "registration": null
+      }
+    ]
+  },
+  {
+    "schemaVersion": 1,
+    "boxes": [
+      {
+        "boxId": "ef182828-9a75-4ff6-b873-267f677dca12",
+        "flavor": "hermes",
+        "endpoint": "https://helper.example.ts.net",
+        "imageDigest": "latest",
+        "configRevision": "b5ac82d8e6352cbb9716430f4dea560ad7d4266f",
+        "apiCredentialRef": "helper_api",
+        "capabilities": [
+          "desktop",
+          "memory",
+          "hermes-api"
+        ],
+        "registration": null
+      }
+    ]
+  },
+  {
+    "schemaVersion": 1,
+    "boxes": [
+      {
+        "boxId": "ef182828-9a75-4ff6-b873-267f677dca12",
+        "flavor": "hermes",
+        "endpoint": "https://helper.example.ts.net",
+        "imageDigest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "configRevision": "b5ac82d8e6352cbb9716430f4dea560ad7d4266f",
+        "apiCredentialRef": "helper_api",
+        "capabilities": [
+          "desktop",
+          "memory",
+          "hermes-api"
+        ],
+        "registration": null,
+        "apiKey": "fixture-only"
+      }
+    ]
+  },
+  {
+    "schemaVersion": 1,
+    "boxes": [
+      {
+        "boxId": "ef182828-9a75-4ff6-b873-267f677dca12",
+        "flavor": "hermes",
+        "endpoint": "https://helper.example.ts.net",
+        "imageDigest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "configRevision": "b5ac82d8e6352cbb9716430f4dea560ad7d4266f",
+        "apiCredentialRef": "../secret",
+        "capabilities": [
+          "desktop",
+          "memory",
+          "hermes-api"
+        ],
+        "registration": null
+      }
+    ]
+  },
+  {
+    "schemaVersion": 1,
+    "boxes": [
+      {
+        "boxId": "ef182828-9a75-4ff6-b873-267f677dca12",
+        "flavor": "hermes",
+        "endpoint": "https://helper.example.ts.net",
+        "imageDigest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "configRevision": "b5ac82d8e6352cbb9716430f4dea560ad7d4266f",
+        "apiCredentialRef": "helper_api",
+        "capabilities": [
+          "desktop",
+          "memory",
+          "hermes-api"
+        ],
+        "registration": {
+          "companyId": "not-a-uuid",
+          "agentId": "not-a-uuid"
+        }
+      }
+    ]
+  }
+]

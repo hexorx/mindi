@@ -1,0 +1,8 @@
+{
+  "schemaVersion": 1,
+  "flavor": "hermes",
+  "identity": { "name": "helper" },
+  "persona": { "instructionsFile": "persona/AGENTS.md" },
+  "memory": { "mode": "embedded" },
+  "network": { "tailscale": false }
+}
