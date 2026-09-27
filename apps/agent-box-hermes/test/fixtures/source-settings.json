@@ -1,0 +1,17 @@
+{
+  "valid": [
+    {"schemaVersion": 1, "flavor": "hermes"},
+    {"schemaVersion": 1, "flavor": "hermes", "identity": {"name": "helper"}, "hermes": {"model": "operator-selected-model"}, "persona": {"instructionsFile": "persona/AGENTS.md"}}
+  ],
+  "invalid": [
+    {"schemaVersion": 2, "flavor": "hermes"},
+    {"schemaVersion": true, "flavor": "hermes"},
+    {"schemaVersion": 1, "flavor": "other"},
+    {"schemaVersion": 1, "flavor": "hermes", "hooks": {"boot": "false"}},
+    {"schemaVersion": 1, "flavor": "hermes", "network": {"tailscale": true}},
+    {"schemaVersion": 1, "flavor": "hermes", "memory": {"mode": "external", "endpoint": "https://example.invalid"}},
+    {"schemaVersion": 1, "flavor": "hermes", "hermes": {"model": "x", "apiKey": "fixture"}},
+    {"schemaVersion": 1, "flavor": "hermes", "identity": {"name": " "}},
+    {"schemaVersion": 1, "flavor": "hermes", "persona": {"instructionsFile": "../escape"}}
+  ]
+}
