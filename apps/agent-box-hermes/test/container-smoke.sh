@@ -2,9 +2,14 @@
 set -euo pipefail
 image=${1:?Supply the locally built image tag}
 scratch=$(mktemp -d)
+tests=$(cd "$(dirname "$0")" && pwd)
 container="hermes-smoke-${RANDOM}-${RANDOM}"
+home_volume="$container-home"
+memory_volume="$container-memory"
+restore_volume="$container-restored"
 cleanup() {
     docker rm -fv "$container" >/dev/null 2>&1 || true
+    docker volume rm "$home_volume" "$memory_volume" "$restore_volume" >/dev/null 2>&1 || true
     rm -rf "$scratch"
 }
 trap cleanup EXIT
@@ -19,22 +24,39 @@ p = pathlib.Path(sys.argv[1])
 (p / 'curl.conf').write_text('user = "desktop:' + (p / 'desktop_password').read_text().strip() + '"\n')
 (p / 'curl.conf').chmod(0o600)
 PYTHON
-docker run -d --name "$container" --shm-size=256m --security-opt=no-new-privileges \
-    -p 127.0.0.1::8443 --mount "type=bind,src=$scratch,dst=/run/secrets,readonly" "$image" >/dev/null
-for _ in $(seq 1 60); do
-    state=$(docker inspect -f '{{.State.Status}}' "$container")
-    if [ "$state" = exited ] || [ "$state" = dead ]; then
-        docker logs "$container"
-        exit 1
-    fi
-    health=$(docker inspect -f '{{.State.Health.Status}}' "$container")
-    [ "$health" != healthy ] || break
-    sleep 2
-done
-if [ "$health" != healthy ]; then
+printf 'fixture-llm-key' > "$scratch/memory_llm_key"
+printf 'fixture-embedding-key' > "$scratch/memory_embeddings_key"
+docker volume create "$home_volume" >/dev/null
+docker volume create "$memory_volume" >/dev/null
+start_container() {
+    docker run -d --name "$container" --shm-size=256m --security-opt=no-new-privileges \
+        -e MEMORY_LLM_BASE_URL=http://127.0.0.1:9999/v1 \
+        -e MEMORY_EMBEDDINGS_BASE_URL=http://127.0.0.1:9999/v1 \
+        --mount "type=volume,src=$home_volume,dst=/home/agent" \
+        --mount "type=volume,src=$1,dst=/var/lib/agent-box/hindsight" \
+        --mount "type=bind,src=$tests,dst=/test,readonly" \
+        -p 127.0.0.1::8443 --mount "type=bind,src=$scratch,dst=/run/secrets,readonly" "$image" >/dev/null
+    start_fixture
+}
+start_fixture() {
+    docker exec -d --user 1000:1000 "$container" python3 /test/mock-memory-provider.py
+}
+wait_healthy() {
+    for _ in $(seq 1 150); do
+        state=$(docker inspect -f '{{.State.Status}}' "$container")
+        if [ "$state" = exited ] || [ "$state" = dead ]; then
+            docker logs "$container"
+            exit 1
+        fi
+        health=$(docker inspect -f '{{.State.Health.Status}}' "$container")
+        [ "$health" != healthy ] || return 0
+        sleep 2
+    done
     docker logs "$container"
     exit 1
-fi
+}
+start_container "$memory_volume"
+wait_healthy
 # Exercise configuration validation with root-owned Docker output descriptors.
 # Reopening /dev/stderr after switching to uid 1000 must not be required.
 docker exec --user 1000:1000 "$container" nginx -t -c /etc/agent-box/nginx.conf
@@ -72,9 +94,41 @@ with ctx.wrap_socket(socket.create_connection(('127.0.0.1', port)), server_hostn
     assert response.split(b'\r\n', 1)[0].endswith(b'101 Switching Protocols'), 'WebSocket authentication/upgrade failed'
 PYTHON
 docker exec --user 1000:1000 "$container" /opt/hermes/.venv/bin/python /opt/agent-box/smoke.py
+docker exec --user 1000:1000 "$container" python3 /test/memory-probe.py retain
+# A process/container restart must preserve data and the box-derived bank.
+docker restart --time 20 "$container" >/dev/null
+start_fixture
+wait_healthy
+docker exec --user 1000:1000 "$container" python3 /test/memory-probe.py recall
 # PID 1 is s6; SIGTERM must stop its children before Docker's kill deadline.
 start=$SECONDS
 docker stop --time 20 "$container" >/dev/null
 [ $((SECONDS - start)) -lt 20 ]
 [ "$(docker inspect -f '{{.State.ExitCode}}' "$container")" = 0 ]
-printf 'Authenticated desktop, real Hermes computer-use, and graceful shutdown passed.\n'
+# Back up only after the complete container has cleanly stopped.
+"$tests/../scripts/memory-volume.sh" backup "$container" "$scratch/memory.tar.gz"
+docker volume create "$restore_volume" >/dev/null
+"$tests/../scripts/memory-volume.sh" restore "$container" "$scratch/memory.tar.gz" "$restore_volume"
+docker rm "$container" >/dev/null
+start_container "$memory_volume"
+wait_healthy
+docker exec --user 1000:1000 "$container" python3 /test/memory-probe.py recall
+docker stop --time 20 "$container" >/dev/null
+docker rm "$container" >/dev/null
+start_container "$restore_volume"
+wait_healthy
+docker exec --user 1000:1000 "$container" python3 /test/memory-probe.py recall
+docker stop --time 20 "$container" >/dev/null
+[ "$(docker inspect -f '{{.State.ExitCode}}' "$container")" = 0 ]
+docker rm "$container" >/dev/null
+# Missing inference credentials must fail clearly, without echoing values.
+mkdir "$scratch/missing"
+cp "$scratch"/desktop_* "$scratch/missing/"
+docker run -d --name "$container" --mount "type=bind,src=$scratch/missing,dst=/run/secrets,readonly" "$image" >/dev/null
+for _ in $(seq 1 30); do
+    [ "$(docker inspect -f '{{.State.Status}}' "$container")" != exited ] || break
+    sleep 1
+done
+[ "$(docker inspect -f '{{.State.Status}}' "$container")" = exited ]
+docker logs "$container" 2>&1 | grep -F 'memory: missing runtime secret memory_llm_key'
+printf 'Desktop, real Hindsight retain/recall, restart, recreation, offline restore and missing-key diagnostic passed.\n'

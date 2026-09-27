@@ -75,7 +75,9 @@ class ReadinessTest(unittest.TestCase):
         health = Path(__file__).parents[1] / "runtime/health.py"
         frame = MagicMock(stdout=b"\x89PNG\r\n\x1a\n" + b"x" * 100)
         with patch("subprocess.run", return_value=frame) as run, \
-             patch("socket.create_connection"):
+             patch("socket.create_connection"), \
+             patch("urllib.request.urlopen"), \
+             patch("json.load", return_value={"status": "healthy"}):
             runpy.run_path(str(health))
             def fail_ipc(args, **kwargs):
                 if args[0] == "swaymsg":
