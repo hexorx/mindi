@@ -8,8 +8,8 @@ services:
       PAPERCLIP_CALLBACK_KEY: ${PAPERCLIP_CALLBACK_KEY:?Set PAPERCLIP_CALLBACK_KEY}
       PAPERCLIP_API_URL: ${PAPERCLIP_API_URL:?Set PAPERCLIP_API_URL}
     platform: linux/amd64
-    ports:
-      - "127.0.0.1:8443:8443"
+    expose:
+      - "8443"
     volumes:
       - box-home:/home/agent
       - box-memory:/var/lib/agent-box/hindsight

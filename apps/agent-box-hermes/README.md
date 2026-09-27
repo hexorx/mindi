@@ -1,10 +1,10 @@
 # Hermes desktop
 
-One linux/amd64 container, one persistent root/default Hermes profile, and an s6-supervised headless Sway desktop. The official Hermes installation remains sealed at `/opt/hermes`; run it as uid 1000 via `docker exec --user 1000:1000 <container> /opt/hermes/.venv/bin/hermes ...`. Model calls need separately provisioned model credentials; boot and the computer-use smoke need none. There is no autonomous inference loop in this phase. Gateway integration, embedded memory and optional networking are separate work. Optional settings/personality sources are described in [CONFIG-SOURCES.md](CONFIG-SOURCES.md).
+One linux/amd64 container, one persistent root/default Hermes profile, and an s6-supervised headless Sway desktop. The official Hermes installation remains sealed at `/opt/hermes`; run it as uid 1000 via `docker exec --user 1000:1000 <container> /opt/hermes/.venv/bin/hermes ...`. Model calls need separately provisioned model credentials; boot and the computer-use smoke need none. There is no autonomous inference loop in this phase. The P7 build includes the Hermes API and P4 embedded memory; optional networking remains separate. Optional settings/personality sources are described in [CONFIG-SOURCES.md](CONFIG-SOURCES.md).
 
 ## Run
 
-From the repository root, provide three operator-owned files outside the checkout: a random desktop password (16–256 bytes, one line), a TLS certificate valid for the hostname used, and its private key. Set `DESKTOP_PASSWORD_FILE`, `DESKTOP_TLS_CERT_FILE`, and `DESKTOP_TLS_KEY_FILE` to their absolute paths. Then:
+From the repository root, provide three operator-owned files outside the checkout: a random desktop password (16–256 bytes, one line), a TLS certificate valid for the hostname used, and its private key. Set `DESKTOP_PASSWORD_FILE`, `DESKTOP_TLS_CERT_FILE`, and `DESKTOP_TLS_KEY_FILE` to their absolute paths. Also supply `API_SERVER_KEY`, `PAPERCLIP_CALLBACK_KEY`, and `PAPERCLIP_API_URL` in the runtime environment (see [P7.md](P7.md)). Then:
 
 ```sh
 docker compose -f stacks/agent-box-hermes/compose.yaml up --build

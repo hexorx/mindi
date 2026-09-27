@@ -1,4 +1,4 @@
-"""Root-only bootstrap; credentials never enter environment variables or logs."""
+"""Root-only bootstrap; credentials are never written to logs or persistent config."""
 import os
 from pathlib import Path
 import shutil
@@ -14,6 +14,8 @@ def password_hash(secret):
 
 
 def main():
+    from api_server import environment as api_environment
+    api_environment(os.environ)  # Fail closed before starting any service.
     if os.environ.get("HERMES_PROFILE") != "default" or os.environ.get("HERMES_HOME") != "/home/agent/.hermes":
         raise ValueError("Only the default profile and fixed home are supported")
     runtime = Path("/run/user/1000")

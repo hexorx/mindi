@@ -1,5 +1,6 @@
 import importlib.util
 import json
+import os
 from pathlib import Path
 import tempfile
 import runpy
@@ -89,7 +90,8 @@ class ReadinessTest(unittest.TestCase):
         with patch("subprocess.run", return_value=frame) as run, \
              patch("socket.create_connection"), \
              patch("urllib.request.urlopen"), \
-             patch("json.load", return_value={"status": "healthy"}):
+             patch.dict(os.environ, {"API_SERVER_KEY": "fixture-only-api-key"}), \
+             patch("json.load", side_effect=[{"status": "healthy"}, {"status": "ok"}]):
             runpy.run_path(str(health))
             def fail_ipc(args, **kwargs):
                 if args[0] == "swaymsg":
