@@ -26,8 +26,10 @@ POLL_SECONDS = 10
 SERVE_RETRY_SECONDS = 300
 HOSTNAME = re.compile(r"^[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?$")
 LOGIN_SERVER = re.compile(r"^https?://[A-Za-z0-9.-]+(?::[0-9]{1,5})?/?$")
-LOCKED_PREFS = ["--ssh=false", "--webclient=false", "--advertise-exit-node=false",
-                "--advertise-routes=", "--accept-routes=false", "--accept-dns=false"]
+UP_PREFS = ["--ssh=false", "--shields-up=false", "--advertise-exit-node=false",
+            "--advertise-routes=", "--accept-routes=false", "--accept-dns=false"]
+# The pinned CLI exposes webclient only on set, not up.
+LOCKED_PREFS = [*UP_PREFS, "--webclient=false"]
 
 
 class ConfigError(ValueError):
@@ -72,7 +74,7 @@ def prepare_state_dir(path, ismount=os.path.ismount, chown=os.chown):
 
 
 def enroll_args(config):
-    args = ["up", "--reset", "--timeout=60s", *LOCKED_PREFS]
+    args = ["up", "--reset", "--timeout=60s", *UP_PREFS]
     if config["hostname"]:
         args.append("--hostname=" + config["hostname"])
     if config["login_server"]:

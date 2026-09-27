@@ -40,6 +40,8 @@ class FakeTailscale:
         if args == ["status", "--json"]:
             return subprocess.CompletedProcess(args, 0, json.dumps({"BackendState": self.backend}), "")
         if args[0] == "up":
+            if any(a.startswith("--webclient") for a in args):
+                return fail  # Unsupported by the pinned Tailscale up CLI.
             key = next((a.split("file:", 1)[1] for a in args if a.startswith("--auth-key=file:")), None)
             if key is None:
                 return fail
@@ -132,8 +134,11 @@ class LifecycleTest(Base):
         self.assertIn("--auth-key=file:" + str(self.key), up)
         self.assertIn("--reset", up)
         self.assertIn("--hostname=helper-box", up)
-        for pref in ts.LOCKED_PREFS:
+        for pref in ts.UP_PREFS:
             self.assertIn(pref, up)
+        self.assertNotIn("--webclient=false", up)
+        self.assertIn("--shields-up=false", up)
+        for pref in ts.LOCKED_PREFS:
             self.assertIn(pref, fake.called(["set"])[0])
         self.assertNotIn("tskey-fixture-one", json.dumps(fake.calls))
         self.assertTrue((self.state / ts.ENROLLED_MARKER).exists())
