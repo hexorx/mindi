@@ -30,6 +30,9 @@ def main():
     path.write_bytes(b"desktop:" + password_hash("/run/secrets/desktop_password"))
     path.chmod(0o600)
     os.chown(path, 1000, 1000)
+    # Validate as the service user, including permissions on all nginx temp paths.
+    subprocess.run(["/command/s6-setuidgid", "hermes", "nginx", "-t",
+                    "-c", "/etc/agent-box/nginx.conf"], check=True)
     home = Path("/home/agent")
     if home.is_symlink():
         raise ValueError("Home must not be a symlink")

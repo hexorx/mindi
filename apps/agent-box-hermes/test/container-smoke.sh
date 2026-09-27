@@ -35,6 +35,14 @@ if [ "$health" != healthy ]; then
     docker logs "$container"
     exit 1
 fi
+# Every enabled nginx module must use private, service-writable temp storage.
+docker exec --user 1000:1000 "$container" python3 -c '
+import os
+from pathlib import Path
+for name in ("client", "proxy", "fastcgi", "uwsgi", "scgi"):
+    path = Path("/run/user/1000") / name
+    assert path.is_dir() and os.access(path, os.W_OK), str(path)
+'
 port=$(docker port "$container" 8443/tcp | sed 's/.*://')
 base="https://127.0.0.1:$port"
 for path in /vnc.html /websockify; do
