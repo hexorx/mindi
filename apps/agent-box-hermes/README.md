@@ -97,3 +97,9 @@ path, bank isolation and loopback listeners across restart, container
 recreation, and restore to a new volume. Only the OpenAI-compatible inference
 HTTP service is a deterministic test fixture; no paid inference is used. A
 production-provider inference check remains part of the approved canary.
+
+Hindsight 0.6.1 migration compatibility: the image build applies a fingerprint-guarded
+patch to five upstream migrations, replacing raw SQL COMMIT around concurrent index
+operations with Alembic autocommit blocks for psycopg 3. Dependency upgrades must
+review/remove this patch; changed source fails the build. Normal migration statements
+remain transactional. Container CI validates startup against a fresh pg0 database.

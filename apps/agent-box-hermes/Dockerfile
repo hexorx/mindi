@@ -14,8 +14,10 @@ RUN test "$TARGETARCH" = amd64 \
 # Isolated dependency graph; pg0 0.14.0 bundles PostgreSQL and pgvector.
 # Hindsight migrations select psycopg 3, which its slim package does not declare.
 # Construct the migration engine at build time to verify the driver can load.
+COPY apps/agent-box-hermes/build/patch_hindsight.py /opt/build/patch_hindsight.py
 RUN python3 -m venv /opt/hindsight \
  && /opt/hindsight/bin/pip install --no-cache-dir 'hindsight-api-slim[embedded-db]==0.6.1' 'pg0-embedded==0.14.0' 'psycopg[binary]==3.2.10' \
+ && /opt/hindsight/bin/python /opt/build/patch_hindsight.py \
  && /opt/hindsight/bin/python -c "from sqlalchemy import create_engine; create_engine('postgresql+psycopg://localhost/hindsight')"
 # No remote installer execution. Release asset SHA256 from GitHub release metadata.
 RUN curl -fsSL --retry 3 https://github.com/trycua/cua/releases/download/cua-driver-rs-v0.30.1/cua-driver-rs-0.30.1-linux-x86_64-binary.tar.gz -o /tmp/cua.tar.gz \
