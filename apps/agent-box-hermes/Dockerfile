@@ -6,7 +6,7 @@ ARG TARGETARCH
 RUN test "$TARGETARCH" = amd64 \
  && apt-get update && apt-get install -y --no-install-recommends \
     sway grim wtype wl-clipboard foot xwayland dbus at-spi2-core \
-    fonts-dejavu-core fonts-noto-color-emoji wayvnc novnc websockify nginx openssl \
+    fonts-dejavu-core fonts-noto-color-emoji wayvnc novnc websockify nginx openssl python3-yaml \
  && apt-get purge -y sudo openssh-server \
  && rm -rf /var/lib/apt/lists/* /etc/s6-overlay/s6-rc.d /etc/cont-init.d \
  && usermod -u 1000 -d /home/agent hermes && groupmod -g 1000 hermes \
@@ -27,7 +27,7 @@ ENV HOME=/home/agent USER=hermes HERMES_HOME=/home/agent/.hermes \
     S6_BEHAVIOUR_IF_STAGE2_FAILS=2 S6_KILL_GRACETIME=10000
 COPY apps/agent-box-hermes/runtime/ /opt/agent-box/
 COPY apps/agent-box-hermes/desktop/ /etc/agent-box/
-COPY apps/agent-box-hermes/defaults/persona/AGENTS.md /opt/agent-box/AGENTS.md
+COPY apps/agent-box-hermes/defaults/ /opt/agent-box/defaults/
 COPY apps/agent-box-hermes/s6-rc.d/ /etc/s6-overlay/s6-rc.d/
 COPY --chmod=755 apps/agent-box-hermes/cont-init.d/ /etc/cont-init.d/
 # s6's built-in top bundle requires both user and user2, even when user2 is empty.
