@@ -1,0 +1,18 @@
+# Optional overlay: docker compose -f compose.yaml -f compose.tailscale.yaml up -d
+# Userspace networking: no /dev/net/tun, NET_ADMIN, host network or privileged mode.
+services:
+  hermes:
+    environment:
+      AGENT_BOX_TAILSCALE: "1"
+      AGENT_BOX_TAILSCALE_HOSTNAME: ${AGENT_BOX_TAILSCALE_HOSTNAME:-}
+    volumes:
+      # Node identity; root-owned and separate from the agent home. Never copy it to another box.
+      - box-tailscale:/var/lib/tailscale
+    secrets:
+      - tailscale_authkey
+secrets:
+  tailscale_authkey:
+    # Single-use, tagged, non-ephemeral key. Only read while the node is logged out.
+    file: ${TAILSCALE_AUTHKEY_FILE:?Set TAILSCALE_AUTHKEY_FILE}
+volumes:
+  box-tailscale:

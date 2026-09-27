@@ -1,5 +1,6 @@
 # syntax=docker/dockerfile:1.7
 # Adapted from the allowlisted mindi-stack b5ac82d Dockerfile; see docs/extraction-provenance.md.
+FROM tailscale/tailscale:v1.102.4@sha256:2667499ed87ae29218f292556ba062918402dd5e92e93637af14867e4df12dd3 AS tailscale
 FROM nousresearch/hermes-agent:v2026.8.18@sha256:22e37bb4ed1b0f50cb6bd991dca7ecacd6c9f29df9b4a20fc989d32bc763ccf6
 USER root
 ARG TARGETARCH
@@ -16,6 +17,8 @@ RUN curl -fsSL --retry 3 https://github.com/trycua/cua/releases/download/cua-dri
  && echo '82411700ae43fa34f6263eb603866c77d4e25e5556ffa03d92cd79cbab9472a2  /tmp/cua.tar.gz' | sha256sum -c - \
  && tar -xzf /tmp/cua.tar.gz -C /usr/local/bin cua-driver \
  && chmod 755 /usr/local/bin/cua-driver && rm /tmp/cua.tar.gz
+# Optional userspace Tailscale; disabled unless AGENT_BOX_TAILSCALE=1. No containerboot entrypoint.
+COPY --from=tailscale /usr/local/bin/tailscaled /usr/local/bin/tailscale /usr/local/bin/
 ENV HOME=/home/agent USER=hermes HERMES_HOME=/home/agent/.hermes \
     HERMES_PROFILE=default HERMES_WRITE_SAFE_ROOT=/home/agent \
     HERMES_LAZY_INSTALL_TARGET=/home/agent/.hermes/lazy-packages \

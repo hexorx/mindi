@@ -16,13 +16,39 @@ The supervisor starts as root solely to prepare ephemeral secret files and volum
 
 Desktop access authorizes control of the box's dedicated session. Inject only box-specific credentials. Password hashes and TLS keys are copied into private `/run/user/1000` storage at boot and never baked into image layers. Restart to rotate files. Avoid overriding the fixed runtime home, profile, UID or Wayland environment. Wayland uses pixman with no GPU or host display access. Press Super+Enter for a terminal.
 
+## Optional userspace Tailscale (P6)
+
+Off by default. With `AGENT_BOX_TAILSCALE` unset, `0` or `false`, no daemon starts and `/run/agent-box/network.json` reports `disabled/disabled`; ordinary Docker networking and the loopback-published desktop work unchanged. This is the mode for CI and hosts without a tailnet.
+
+To enable, add the overlay and a runtime key file:
+
+```sh
+TAILSCALE_AUTHKEY_FILE=/abs/path/authkey AGENT_BOX_TAILSCALE_HOSTNAME=helper-box \
+  docker compose -f stacks/agent-box-hermes/compose.yaml -f stacks/agent-box-hermes/compose.tailscale.yaml up -d
+```
+
+- **No TUN or capabilities.** `tailscaled --tun=userspace-networking` runs under s6 as its own longrun. It needs no `/dev/net/tun`, `NET_ADMIN`, host network or privileged mode. If it exits, s6 restarts only this service; desktop and memory keep running.
+- **Independent identity.** Node state lives in the `box-tailscale` volume at `/var/lib/tailscale`, root-owned (0700) and separate from `/home/agent`. Startup refuses to enroll unless that path is its own mount, so identity cannot silently vanish on recreation. Never copy this volume to another box.
+- **Enrollment.** Use a single-use, tagged, non-ephemeral key (for example `tag:agent-box`). The key is passed to `tailscale up` as `--auth-key=file:<path>`, never through argv, environment or logs. It is only read while the node is logged out, and each distinct key is tried once. After enrollment, replace the file with an empty one or remove the secret. Restarts reuse the persisted identity without it.
+- **Revocation and re-enrollment.** If an admin expires or removes the node, health reports `not_ready/not_enrolled` and the desktop stays up. Supplying a new key file re-enrolls without restarting the container. A rejected key reports `not_ready/unauthorized`.
+- **Locked preferences.** Every enrollment and start forces `--ssh=false --webclient=false --advertise-exit-node=false --advertise-routes= --accept-routes=false --accept-dns=false`. `up --reset` clears any operator user, so the uid 1000 agent gets read-only LocalAPI access and cannot enable SSH, Serve or Funnel.
+- **Private Serve only.** The only published endpoint is `https:443 -> https+insecure://127.0.0.1:8443`, the authenticated desktop origin. On every start, and if drift is detected, any other Serve or Funnel config is reset. Funnel is never enabled. If the tailnet lacks HTTPS certificates, Serve is withdrawn, health reports `degraded/unavailable`, and it retries every 5 minutes.
+- **Loopback rule.** Userspace Tailscale forwards inbound tailnet TCP to `127.0.0.1:<port>`. So raw VNC (5900), websockify (6080) and the egress proxies bind `127.0.0.2`, which tailnet peers cannot reach. **Any future loopback-only service (Hindsight, Hermes API) must bind `127.0.0.2`, or it will be tailnet-reachable when Tailscale is on.** Recommended tailnet policy still restricts `tag:agent-box` to `tcp:443` from approved sources.
+- **Tailnet egress.** Userspace mode does not route application traffic. Callers that need tailnet-only URLs (for example a Paperclip callback, P7) use SOCKS5 `127.0.0.2:1055` or the HTTP proxy `127.0.0.2:1056`.
+- **Health.** `/run/agent-box/network.json` holds a `{status, code}` object matching the `network` check in `@mindi/agent-box-core`. `isRegistrationReady` treats anything but `ready` as not ready when Tailscale is enabled. The Docker `HEALTHCHECK` stays desktop-only.
+
+Mapping `network.tailscale` from a config source to `AGENT_BOX_TAILSCALE` is P5 work.
+
 ## Verification
 
 ```sh
 pnpm build && pnpm lint && pnpm typecheck && pnpm test
 docker buildx build --platform linux/amd64 --load -t hermes-desktop:smoke -f apps/agent-box-hermes/Dockerfile .
 apps/agent-box-hermes/test/container-smoke.sh hermes-desktop:smoke
+apps/agent-box-hermes/test/tailscale-smoke.sh hermes-desktop:smoke
 ```
+
+`tailscale-smoke.sh` runs the real `tailscaled` against a disposable, digest-pinned Headscale control server (no Tailscale account or secrets). It proves enrollment without TUN or added capabilities, locked preferences, a Serve config free of Funnel and TCP forwards, identical node ID after a restart with the key removed, `not_enrolled` after node expiry while the desktop stays healthy, and re-enrollment with a fresh key. A second tailnet node checks that it reaches the authenticated 8443 origin but not 5900, 6080 or the egress proxies. Headscale cannot issue Serve certificates, so HTTPS Serve itself is verified on a real tailnet during the P10 canary.
 
 The container job builds cleanly without model/account secrets, checks unauthenticated HTTP/WebSocket denial and authenticated upgrade, rejects cross-origin requests, calls the actual Hermes `computer_use` handler with the real cua backend for capture/click/type, verifies typed text reaches a disposable GUI input sink, and sends SIGTERM with a 20-second shutdown deadline. No mocked backend or model inference is used. Unit tests cover private/idempotent configuration, preservation of settings, invalid shapes, symlinks, extra profiles and password handling. Docker must be available to claim the integration checks passed; local unit tests alone are insufficient.
 

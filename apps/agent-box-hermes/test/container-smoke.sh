@@ -46,6 +46,16 @@ for name in ("client", "proxy", "fastcgi", "uwsgi", "scgi"):
     path = Path("/run/user/1000") / name
     assert path.is_dir() and os.access(path, os.W_OK), str(path)
 '
+# Tailscale is off by default: no daemon, disabled network health, raw VNC off forwarded loopback.
+docker exec --user 1000:1000 "$container" python3 -c '
+import json, pathlib, socket
+assert json.loads(pathlib.Path("/run/agent-box/network.json").read_text()) == {"status": "disabled", "code": "disabled"}
+assert not any(p.read_text().strip() == "tailscaled" for p in pathlib.Path("/proc").glob("[0-9]*/comm"))
+for port in (5900, 6080):
+    with socket.socket() as s:
+        s.settimeout(1)
+        assert s.connect_ex(("127.0.0.1", port)) != 0, port
+'
 port=$(docker port "$container" 8443/tcp | sed 's/.*://')
 base="https://127.0.0.1:$port"
 for path in /vnc.html /websockify; do
