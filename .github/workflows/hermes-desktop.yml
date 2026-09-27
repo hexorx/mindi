@@ -1,0 +1,21 @@
+name: Hermes desktop
+on:
+  pull_request:
+    paths:
+      - apps/agent-box-hermes/**
+      - stacks/agent-box-hermes/**
+      - .github/workflows/hermes-desktop.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  container:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/setup-buildx-action@v3
+      - name: Build clean linux/amd64 image
+        run: docker buildx build --platform linux/amd64 --load -t hermes-desktop:smoke -f apps/agent-box-hermes/Dockerfile .
+      - name: Authenticate, exercise real computer-use, stop gracefully
+        run: apps/agent-box-hermes/test/container-smoke.sh hermes-desktop:smoke

@@ -1,0 +1,8 @@
+**
+!apps/
+!apps/agent-box-hermes/
+!apps/agent-box-hermes/runtime/**
+!apps/agent-box-hermes/desktop/**
+!apps/agent-box-hermes/defaults/persona/AGENTS.md
+!apps/agent-box-hermes/s6-rc.d/**
+!apps/agent-box-hermes/cont-init.d/**
