@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Offline, consistent archive. Restore only into a newly created empty volume.
 set -euo pipefail
+umask 077
 operation=${1:?backup or restore}
 container=${2:?Stopped source container}
 archive=${3:?Archive filename}
