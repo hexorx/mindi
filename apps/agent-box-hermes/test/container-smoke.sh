@@ -22,6 +22,11 @@ PYTHON
 docker run -d --name "$container" --shm-size=256m --security-opt=no-new-privileges \
     -p 127.0.0.1::8443 --mount "type=bind,src=$scratch,dst=/run/secrets,readonly" "$image" >/dev/null
 for _ in $(seq 1 60); do
+    state=$(docker inspect -f '{{.State.Status}}' "$container")
+    if [ "$state" = exited ] || [ "$state" = dead ]; then
+        docker logs "$container"
+        exit 1
+    fi
     health=$(docker inspect -f '{{.State.Health.Status}}' "$container")
     [ "$health" != healthy ] || break
     sleep 2

@@ -30,7 +30,13 @@ COPY apps/agent-box-hermes/desktop/ /etc/agent-box/
 COPY apps/agent-box-hermes/defaults/persona/AGENTS.md /opt/agent-box/AGENTS.md
 COPY apps/agent-box-hermes/s6-rc.d/ /etc/s6-overlay/s6-rc.d/
 COPY --chmod=755 apps/agent-box-hermes/cont-init.d/ /etc/cont-init.d/
-RUN find /etc/s6-overlay/s6-rc.d -name run -exec chmod 755 {} +
+# s6's built-in top bundle requires both user and user2, even when user2 is empty.
+# Compile at build time so missing bundles/dependencies fail before publishing an image.
+RUN mkdir -p /etc/s6-overlay/s6-rc.d/user2/contents.d \
+ && find /etc/s6-overlay/s6-rc.d -name run -exec chmod 755 {} + \
+ && /command/s6-rc-compile /tmp/agent-box-s6-db \
+      /etc/s6-overlay/s6-rc.d /package/admin/s6-overlay/etc/s6-rc/sources \
+ && rm -rf /tmp/agent-box-s6-db
 WORKDIR /home/agent
 EXPOSE 8443
 VOLUME ["/home/agent"]
