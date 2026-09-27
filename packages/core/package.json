@@ -1,0 +1,25 @@
+{
+  "name": "@mindi/core",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "dev": "tsc -p tsconfig.json --watch",
+    "lint": "eslint .",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "node --test test/*.test.js"
+  },
+  "devDependencies": {
+    "@mindi/typescript-config": "workspace:*",
+    "@mindi/eslint-config": "workspace:*",
+    "typescript": "5.9.3",
+    "eslint": "10.11.0"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  }
+}
