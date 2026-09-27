@@ -1,0 +1,3 @@
+#!/command/with-contenv sh
+set -eu
+exec s6-setuidgid hermes sway --config /etc/agent-box/sway.conf

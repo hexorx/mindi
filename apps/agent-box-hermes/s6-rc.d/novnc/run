@@ -1,0 +1,3 @@
+#!/command/with-contenv sh
+set -eu
+exec s6-setuidgid hermes websockify --web=/usr/share/novnc 127.0.0.1:6080 127.0.0.1:5900

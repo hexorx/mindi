@@ -1,0 +1,3 @@
+#!/command/with-contenv sh
+set -eu
+exec s6-setuidgid hermes nginx -c /etc/agent-box/nginx.conf -g 'daemon off;'
