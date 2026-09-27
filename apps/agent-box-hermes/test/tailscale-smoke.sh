@@ -149,7 +149,7 @@ for port in 5900 6080 1055 1056; do
     result=$(probe "$port")
     case "$result" in
         200\ *) fail "tailnet peer reached loopback port $port" ;;
-        000\ *|502\ *|503\ *|504\ *) ;; # Dial timed out or was refused.
+        000\ *|500\ *|502\ *|503\ *|504\ *) ;; # Tailscale returns 500 on refused dials.
         *) fail "unexpected proxy result for port $port: $result" ;;
     esac
 done
