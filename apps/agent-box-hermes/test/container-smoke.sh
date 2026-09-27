@@ -35,6 +35,9 @@ if [ "$health" != healthy ]; then
     docker logs "$container"
     exit 1
 fi
+# Exercise configuration validation with root-owned Docker output descriptors.
+# Reopening /dev/stderr after switching to uid 1000 must not be required.
+docker exec --user 1000:1000 "$container" nginx -t -c /etc/agent-box/nginx.conf
 # Every enabled nginx module must use private, service-writable temp storage.
 docker exec --user 1000:1000 "$container" python3 -c '
 import os
