@@ -1,0 +1,27 @@
+services:
+  hermes:
+    build:
+      context: ../..
+      dockerfile: apps/agent-box-hermes/Dockerfile
+    platform: linux/amd64
+    ports:
+      - "127.0.0.1:8443:8443"
+    volumes:
+      - box-home:/home/agent
+    secrets:
+      - desktop_password
+      - desktop_tls_cert
+      - desktop_tls_key
+    shm_size: 256mb
+    stop_grace_period: 20s
+    security_opt:
+      - no-new-privileges:true
+secrets:
+  desktop_password:
+    file: ${DESKTOP_PASSWORD_FILE:?Set DESKTOP_PASSWORD_FILE}
+  desktop_tls_cert:
+    file: ${DESKTOP_TLS_CERT_FILE:?Set DESKTOP_TLS_CERT_FILE}
+  desktop_tls_key:
+    file: ${DESKTOP_TLS_KEY_FILE:?Set DESKTOP_TLS_KEY_FILE}
+volumes:
+  box-home:

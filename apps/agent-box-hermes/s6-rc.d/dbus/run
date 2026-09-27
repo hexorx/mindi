@@ -1,0 +1,3 @@
+#!/command/with-contenv sh
+set -eu
+exec s6-setuidgid hermes dbus-daemon --session --address=unix:path=/run/user/1000/bus --nofork --nopidfile

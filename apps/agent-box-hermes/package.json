@@ -8,7 +8,7 @@
     "dev": "tsc -p tsconfig.json --watch",
     "lint": "eslint .",
     "typecheck": "tsc -p tsconfig.json --noEmit",
-    "test": "node --test test/*.test.js"
+    "test": "node --test test/*.test.js && python3 -B -m unittest discover -s test -p \"*_test.py\""
   },
   "devDependencies": {
     "@mindi/typescript-config": "workspace:*",

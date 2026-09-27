@@ -1,0 +1,3 @@
+#!/command/with-contenv sh
+set -eu
+exec s6-setuidgid hermes /opt/agent-box/wait-wayland.sh wayvnc --disable-resizing 127.0.0.1 5900
