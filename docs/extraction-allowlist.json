@@ -1,0 +1,662 @@
+{
+  "schemaVersion": 1,
+  "repository": "mindi-dev/mindi-stack",
+  "defaultTreatment": "exclude",
+  "publicRedistribution": "withheld",
+  "redistributionDecision": {
+    "decisionMaker": "Josh (board)",
+    "recordedDate": "2026-09-27",
+    "decision": "Withhold redistribution authorization",
+    "issue": "HEX-89",
+    "interactionId": "f704bd0a-6b4a-460d-9ddc-12de70d18a6d",
+    "evidence": "/HEX/issues/HEX-89",
+    "scope": "Enumerated inputs at both pinned snapshots",
+    "licenseGrant": null
+  },
+  "snapshots": [
+    {
+      "role": "baseline",
+      "commit": "b5ac82d8e6352cbb9716430f4dea560ad7d4266f",
+      "tree": "1ffc48217d44dda2b9d2bf8d739bb9eb2870e63c",
+      "files": [
+        {
+          "source": "bootfetch.sh",
+          "blob": "6b09dafc165b443b81c7bc7c2d989380ec6a0c37",
+          "mode": "reference",
+          "destination": "packages/agent-box-core/ (new implementation)",
+          "reason": "Rewrite identity/config lifecycle; no verbatim account/bootstrap code"
+        },
+        {
+          "source": "infra/agent-box/Dockerfile",
+          "blob": "d04e60fa6d0ff3b0e3dbed530bef82cd55bfc5b8",
+          "mode": "adapt",
+          "destination": "apps/agent-box-hermes/Dockerfile",
+          "reason": "Retain only the scoped behavior; apply section 1 rewrites below"
+        },
+        {
+          "source": "infra/agent-box/README.md",
+          "blob": "cf879ff23380045211e242ae12dc5c76ef58cf0c",
+          "mode": "exclude",
+          "destination": "\u2014",
+          "reason": "Outside the selected runtime; write new standalone wiring if needed"
+        },
+        {
+          "source": "infra/agent-box/buzz-presence.sh",
+          "blob": "656a227e89a5fe653de14875634c2e607deeb968",
+          "mode": "exclude",
+          "destination": "\u2014",
+          "reason": "Excluded Buzz/Command/herdr/account UI/default SSH integration"
+        },
+        {
+          "source": "infra/agent-box/configure-agent-box.sh",
+          "blob": "9eae1bf2b472bc40ade29d631c8e0cdcdc4522de",
+          "mode": "exclude",
+          "destination": "\u2014",
+          "reason": "Outside the selected runtime; write new standalone wiring if needed"
+        },
+        {
+          "source": "infra/agent-box/configure-hermes-buzz.ts",
+          "blob": "436016245503744975527c98914f444d94b0fd89",
+          "mode": "exclude",
+          "destination": "\u2014",
+          "reason": "Excluded Buzz/Command/herdr/account UI/default SSH integration"
+        },
+        {
+          "source": "infra/agent-box/configure-hermes-computer-use.ts",
+          "blob": "3e95d828c7d91181c9dbe54ea91743171509c4e6",
+          "mode": "adapt",
+          "destination": "apps/agent-box-hermes/configure-hermes-computer-use.ts",
+          "reason": "Retain only the scoped behavior; apply section 1 rewrites below"
+        },
+        {
+          "source": "infra/agent-box/configure-hermes-dashboard.ts",
+          "blob": "d3807be413d618425cc7273ab3e9ddcf2400b4fb",
+          "mode": "adapt",
+          "destination": "apps/agent-box-hermes/configure-hermes-dashboard.ts",
+          "reason": "Retain only the scoped behavior; apply section 1 rewrites below"
+        },
+        {
+          "source": "infra/agent-box/configure-hermes-hindsight.ts",
+          "blob": "ab6de277c41f977ad4c92d4deaee677f9b7a0598",
+          "mode": "adapt",
+          "destination": "apps/agent-box-hermes/configure-hermes-hindsight.ts",
+          "reason": "Retain only the scoped behavior; apply section 1 rewrites below"
+        },
+        {
+          "source": "infra/agent-box/configure-hermes-webhook.py",
+          "blob": "a3ba07cb11cba804b48d8b5c50815d2fbd2e287b",
+          "mode": "exclude",
+          "destination": "\u2014",
+          "reason": "Excluded Buzz/Command/herdr/account UI/default SSH integration"
+        },
+        {
+          "source": "infra/agent-box/cont-init.d/018-agent-box",
+          "blob": "519282737e10a7f918f79b1aa745c952fa05b8a0",
+          "mode": "exclude",
+          "destination": "\u2014",
+          "reason": "Outside the selected runtime; write new standalone wiring if needed"
+        },
+        {
+          "source": "infra/agent-box/cont-init.d/025-agent-box-gateway",
+          "blob": "8e149467e7b4e0624a3ee660c6de444c32875439",
+          "mode": "exclude",
+          "destination": "\u2014",
+          "reason": "Outside the selected runtime; write new standalone wiring if needed"
+        },
+        {
+          "source": "infra/agent-box/entrypoint.sh",
+          "blob": "248317342a29a99fc83e73bb60cae72e0d569503",
+          "mode": "reference",
+          "destination": "packages/agent-box-core/ (new implementation)",
+          "reason": "Rewrite identity/config lifecycle; no verbatim account/bootstrap code"
+        },
+        {
+          "source": "infra/agent-box/google-chrome-wayland.sh",
+          "blob": "da85f38e11cbd9fc001d976721aac77f52925519",
+          "mode": "adapt",
+          "destination": "apps/agent-box-hermes/google-chrome-wayland.sh",
+          "reason": "Retain only the scoped behavior; apply section 1 rewrites below"
+        },
+        {
+          "source": "infra/agent-box/identity-watch.sh",
+          "blob": "e5f3bd4d9055d6845b956864ba83293a8f39ee78",
+          "mode": "reference",
+          "destination": "packages/agent-box-core/ (new implementation)",
+          "reason": "Rewrite identity/config lifecycle; no verbatim account/bootstrap code"
+        },
+        {
+          "source": "infra/agent-box/identity.sh",
+          "blob": "1a0943b11a71402f9ae95c27040eef3434b8ec8f",
+          "mode": "reference",
+          "destination": "packages/agent-box-core/ (new implementation)",
+          "reason": "Rewrite identity/config lifecycle; no verbatim account/bootstrap code"
+        },
+        {
+          "source": "infra/agent-box/install-herdr-integrations.sh",
+          "blob": "9d3f9b1bc0c89dc066089c348ceb701c8bbeb9f5",
+          "mode": "exclude",
+          "destination": "\u2014",
+          "reason": "Excluded Buzz/Command/herdr/account UI/default SSH integration"
+        },
+        {
+          "source": "infra/agent-box/plugins/mindi-box/dashboard/dist/index.js",
+          "blob": "aae9009629b3a1ef650b3526d17051657a98586d",
+          "mode": "exclude",
+          "destination": "\u2014",
+          "reason": "Excluded Buzz/Command/herdr/account UI/default SSH integration"
+        },
+        {
+          "source": "infra/agent-box/plugins/mindi-box/dashboard/manifest.json",
+          "blob": "0bfea03641548602ec23f459c83fca70efca8d13",
+          "mode": "exclude",
+          "destination": "\u2014",
+          "reason": "Excluded Buzz/Command/herdr/account UI/default SSH integration"
+        },
+        {
+          "source": "infra/agent-box/plugins/mindi-box/dashboard/plugin_api.py",
+          "blob": "726a877b067ae86928f7b665b760c3c9f5fb4a7b",
+          "mode": "exclude",
+          "destination": "\u2014",
+          "reason": "Excluded Buzz/Command/herdr/account UI/default SSH integration"
+        },
+        {
+          "source": "infra/agent-box/plugins/mindi-box/plugin.yaml",
+          "blob": "2a1688a17ccbc646e6c6a7a5b8377b725e763dac",
+          "mode": "exclude",
+          "destination": "\u2014",
+          "reason": "Excluded Buzz/Command/herdr/account UI/default SSH integration"
+        },
+        {
+          "source": "infra/agent-box/plugins/mindi-desktop/dashboard/dist/index.js",
+          "blob": "74c8b97ff6a5c9b4bf93329b3706418b4323a427",
+          "mode": "exclude",
+          "destination": "\u2014",
+          "reason": "Opaque compiled plugin bundle; no maintained source in this plugin tree"
+        },
+        {
+          "source": "infra/agent-box/plugins/mindi-desktop/dashboard/manifest.json",
+          "blob": "e2570c4a600749edc9fc27950bfed00b11938e44",
+          "mode": "adapt",
+          "destination": "apps/agent-box-hermes/plugins/mindi-desktop/dashboard/manifest.json",
+          "reason": "Retain only the scoped behavior; apply section 1 rewrites below"
+        },
+        {
+          "source": "infra/agent-box/plugins/mindi-desktop/plugin.yaml",
+          "blob": "8633b21aeabb9b90470a8f9478ec9a97cacea14d",
+          "mode": "adapt",
+          "destination": "apps/agent-box-hermes/plugins/mindi-desktop/plugin.yaml",
+          "reason": "Retain only the scoped behavior; apply section 1 rewrites below"
+        },
+        {
+          "source": "infra/agent-box/s6-rc.d/at-spi/dependencies.d/base",
+          "blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+          "mode": "adapt",
+          "destination": "apps/agent-box-hermes/s6-rc.d/at-spi/dependencies.d/base",
+          "reason": "Retain only the scoped behavior; apply section 1 rewrites below"
+        },
+        {
+          "source": "infra/agent-box/s6-rc.d/at-spi/dependencies.d/dbus",
+          "blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+          "mode": "adapt",
+          "destination": "apps/agent-box-hermes/s6-rc.d/at-spi/dependencies.d/dbus",
+          "reason": "Retain only the scoped behavior; apply section 1 rewrites below"
+        },
+        {
+          "source": "infra/agent-box/s6-rc.d/at-spi/run",
+          "blob": "efddd64b8e5ae6a0bf6a1312712fb895ffe3b8f5",
+          "mode": "adapt",
+          "destination": "apps/agent-box-hermes/s6-rc.d/at-spi/run",
+          "reason": "Retain only the scoped behavior; apply section 1 rewrites below"
+        },
+        {
+          "source": "infra/agent-box/s6-rc.d/at-spi/type",
+          "blob": "5883cff0cd1514b2836f4ffa39fdac769a5213cb",
+          "mode": "adapt",
+          "destination": "apps/agent-box-hermes/s6-rc.d/at-spi/type",
+          "reason": "Retain only the scoped behavior; apply section 1 rewrites below"
+        },
+        {
+          "source": "infra/agent-box/s6-rc.d/buzz-presence/dependencies.d/base",
+          "blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+          "mode": "exclude",
+          "destination": "\u2014",
+          "reason": "Excluded Buzz/Command/herdr/account UI/default SSH integration"
+        },
+        {
+          "source": "infra/agent-box/s6-rc.d/buzz-presence/run",
+          "blob": "6926fa5fc30ac3dc0ad5b9fdc562ee01dbc14912",
+          "mode": "exclude",
+          "destination": "\u2014",
+          "reason": "Excluded Buzz/Command/herdr/account UI/default SSH integration"
+        },
+        {
+          "source": "infra/agent-box/s6-rc.d/buzz-presence/type",
+          "blob": "5883cff0cd1514b2836f4ffa39fdac769a5213cb",
+          "mode": "exclude",
+          "destination": "\u2014",
+          "reason": "Excluded Buzz/Command/herdr/account UI/default SSH integration"
+        },
+        {
+          "source": "infra/agent-box/s6-rc.d/dbus/dependencies.d/base",
+          "blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+          "mode": "adapt",
+          "destination": "apps/agent-box-hermes/s6-rc.d/dbus/dependencies.d/base",
+          "reason": "Retain only the scoped behavior; apply section 1 rewrites below"
+        },
+        {
+          "source": "infra/agent-box/s6-rc.d/dbus/run",
+          "blob": "1b5de524a1ed3d4164109e28260a7195d7d5fd7b",
+          "mode": "adapt",
+          "destination": "apps/agent-box-hermes/s6-rc.d/dbus/run",
+          "reason": "Retain only the scoped behavior; apply section 1 rewrites below"
+        },
+        {
+          "source": "infra/agent-box/s6-rc.d/dbus/type",
+          "blob": "5883cff0cd1514b2836f4ffa39fdac769a5213cb",
+          "mode": "adapt",
+          "destination": "apps/agent-box-hermes/s6-rc.d/dbus/type",
+          "reason": "Retain only the scoped behavior; apply section 1 rewrites below"
+        },
+        {
+          "source": "infra/agent-box/s6-rc.d/herdr/dependencies.d/base",
+          "blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+          "mode": "exclude",
+          "destination": "\u2014",
+          "reason": "Excluded Buzz/Command/herdr/account UI/default SSH integration"
+        },
+        {
+          "source": "infra/agent-box/s6-rc.d/herdr/run",
+          "blob": "240f92b3c43519d59e289841539aad1bf9bf3a0c",
+          "mode": "exclude",
+          "destination": "\u2014",
+          "reason": "Excluded Buzz/Command/herdr/account UI/default SSH integration"
+        },
+        {
+          "source": "infra/agent-box/s6-rc.d/herdr/type",
+          "blob": "5883cff0cd1514b2836f4ffa39fdac769a5213cb",
+          "mode": "exclude",
+          "destination": "\u2014",
+          "reason": "Excluded Buzz/Command/herdr/account UI/default SSH integration"
+        },
+        {
+          "source": "infra/agent-box/s6-rc.d/hermes-dashboard/dependencies.d/base",
+          "blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+          "mode": "adapt",
+          "destination": "apps/agent-box-hermes/s6-rc.d/hermes-dashboard/dependencies.d/base",
+          "reason": "Retain only the scoped behavior; apply section 1 rewrites below"
+        },
+        {
+          "source": "infra/agent-box/s6-rc.d/hermes-dashboard/run",
+          "blob": "64408493ae6f1d77447fa008bb073bd4b5118721",
+          "mode": "adapt",
+          "destination": "apps/agent-box-hermes/s6-rc.d/hermes-dashboard/run",
+          "reason": "Retain only the scoped behavior; apply section 1 rewrites below"
+        },
+        {
+          "source": "infra/agent-box/s6-rc.d/hermes-dashboard/type",
+          "blob": "5883cff0cd1514b2836f4ffa39fdac769a5213cb",
+          "mode": "adapt",
+          "destination": "apps/agent-box-hermes/s6-rc.d/hermes-dashboard/type",
+          "reason": "Retain only the scoped behavior; apply section 1 rewrites below"
+        },
+        {
+          "source": "infra/agent-box/s6-rc.d/hindsight/dependencies.d/base",
+          "blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+          "mode": "adapt",
+          "destination": "apps/agent-box-hermes/s6-rc.d/hindsight/dependencies.d/base",
+          "reason": "Retain only the scoped behavior; apply section 1 rewrites below"
+        },
+        {
+          "source": "infra/agent-box/s6-rc.d/hindsight/run",
+          "blob": "0d51392d86ab186990f611dc04d56959af5b0839",
+          "mode": "adapt",
+          "destination": "apps/agent-box-hermes/s6-rc.d/hindsight/run",
+          "reason": "Retain only the scoped behavior; apply section 1 rewrites below"
+        },
+        {
+          "source": "infra/agent-box/s6-rc.d/hindsight/type",
+          "blob": "5883cff0cd1514b2836f4ffa39fdac769a5213cb",
+          "mode": "adapt",
+          "destination": "apps/agent-box-hermes/s6-rc.d/hindsight/type",
+          "reason": "Retain only the scoped behavior; apply section 1 rewrites below"
+        },
+        {
+          "source": "infra/agent-box/s6-rc.d/identity-watch/dependencies.d/base",
+          "blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+          "mode": "exclude",
+          "destination": "\u2014",
+          "reason": "Outside the selected runtime; write new standalone wiring if needed"
+        },
+        {
+          "source": "infra/agent-box/s6-rc.d/identity-watch/run",
+          "blob": "2cafc37165b46592fa6cb26ed8e74bb53fba0477",
+          "mode": "exclude",
+          "destination": "\u2014",
+          "reason": "Outside the selected runtime; write new standalone wiring if needed"
+        },
+        {
+          "source": "infra/agent-box/s6-rc.d/identity-watch/type",
+          "blob": "5883cff0cd1514b2836f4ffa39fdac769a5213cb",
+          "mode": "exclude",
+          "destination": "\u2014",
+          "reason": "Outside the selected runtime; write new standalone wiring if needed"
+        },
+        {
+          "source": "infra/agent-box/s6-rc.d/novnc/dependencies.d/base",
+          "blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+          "mode": "adapt",
+          "destination": "apps/agent-box-hermes/s6-rc.d/novnc/dependencies.d/base",
+          "reason": "Retain only the scoped behavior; apply section 1 rewrites below"
+        },
+        {
+          "source": "infra/agent-box/s6-rc.d/novnc/dependencies.d/wayvnc",
+          "blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+          "mode": "adapt",
+          "destination": "apps/agent-box-hermes/s6-rc.d/novnc/dependencies.d/wayvnc",
+          "reason": "Retain only the scoped behavior; apply section 1 rewrites below"
+        },
+        {
+          "source": "infra/agent-box/s6-rc.d/novnc/run",
+          "blob": "7a8779725b7693846f8bd3fe3d5448354193be01",
+          "mode": "adapt",
+          "destination": "apps/agent-box-hermes/s6-rc.d/novnc/run",
+          "reason": "Retain only the scoped behavior; apply section 1 rewrites below"
+        },
+        {
+          "source": "infra/agent-box/s6-rc.d/novnc/type",
+          "blob": "5883cff0cd1514b2836f4ffa39fdac769a5213cb",
+          "mode": "adapt",
+          "destination": "apps/agent-box-hermes/s6-rc.d/novnc/type",
+          "reason": "Retain only the scoped behavior; apply section 1 rewrites below"
+        },
+        {
+          "source": "infra/agent-box/s6-rc.d/sshd/dependencies.d/base",
+          "blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+          "mode": "exclude",
+          "destination": "\u2014",
+          "reason": "Excluded Buzz/Command/herdr/account UI/default SSH integration"
+        },
+        {
+          "source": "infra/agent-box/s6-rc.d/sshd/run",
+          "blob": "955e737e7657fe4726f8e58a90c0da44060c44d6",
+          "mode": "exclude",
+          "destination": "\u2014",
+          "reason": "Excluded Buzz/Command/herdr/account UI/default SSH integration"
+        },
+        {
+          "source": "infra/agent-box/s6-rc.d/sshd/type",
+          "blob": "5883cff0cd1514b2836f4ffa39fdac769a5213cb",
+          "mode": "exclude",
+          "destination": "\u2014",
+          "reason": "Excluded Buzz/Command/herdr/account UI/default SSH integration"
+        },
+        {
+          "source": "infra/agent-box/s6-rc.d/sway/dependencies.d/base",
+          "blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+          "mode": "adapt",
+          "destination": "apps/agent-box-hermes/s6-rc.d/sway/dependencies.d/base",
+          "reason": "Retain only the scoped behavior; apply section 1 rewrites below"
+        },
+        {
+          "source": "infra/agent-box/s6-rc.d/sway/dependencies.d/dbus",
+          "blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+          "mode": "adapt",
+          "destination": "apps/agent-box-hermes/s6-rc.d/sway/dependencies.d/dbus",
+          "reason": "Retain only the scoped behavior; apply section 1 rewrites below"
+        },
+        {
+          "source": "infra/agent-box/s6-rc.d/sway/run",
+          "blob": "584924194c214c626b0f0b9aefcb48a3f923c1c5",
+          "mode": "adapt",
+          "destination": "apps/agent-box-hermes/s6-rc.d/sway/run",
+          "reason": "Retain only the scoped behavior; apply section 1 rewrites below"
+        },
+        {
+          "source": "infra/agent-box/s6-rc.d/sway/type",
+          "blob": "5883cff0cd1514b2836f4ffa39fdac769a5213cb",
+          "mode": "adapt",
+          "destination": "apps/agent-box-hermes/s6-rc.d/sway/type",
+          "reason": "Retain only the scoped behavior; apply section 1 rewrites below"
+        },
+        {
+          "source": "infra/agent-box/s6-rc.d/user/contents.d/at-spi",
+          "blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+          "mode": "adapt",
+          "destination": "apps/agent-box-hermes/s6-rc.d/user/contents.d/at-spi",
+          "reason": "Retain only the scoped behavior; apply section 1 rewrites below"
+        },
+        {
+          "source": "infra/agent-box/s6-rc.d/user/contents.d/buzz-presence",
+          "blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+          "mode": "exclude",
+          "destination": "\u2014",
+          "reason": "Excluded Buzz/Command/herdr/account UI/default SSH integration"
+        },
+        {
+          "source": "infra/agent-box/s6-rc.d/user/contents.d/dbus",
+          "blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+          "mode": "adapt",
+          "destination": "apps/agent-box-hermes/s6-rc.d/user/contents.d/dbus",
+          "reason": "Retain only the scoped behavior; apply section 1 rewrites below"
+        },
+        {
+          "source": "infra/agent-box/s6-rc.d/user/contents.d/herdr",
+          "blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+          "mode": "exclude",
+          "destination": "\u2014",
+          "reason": "Excluded Buzz/Command/herdr/account UI/default SSH integration"
+        },
+        {
+          "source": "infra/agent-box/s6-rc.d/user/contents.d/hermes-dashboard",
+          "blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+          "mode": "adapt",
+          "destination": "apps/agent-box-hermes/s6-rc.d/user/contents.d/hermes-dashboard",
+          "reason": "Retain only the scoped behavior; apply section 1 rewrites below"
+        },
+        {
+          "source": "infra/agent-box/s6-rc.d/user/contents.d/hindsight",
+          "blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+          "mode": "adapt",
+          "destination": "apps/agent-box-hermes/s6-rc.d/user/contents.d/hindsight",
+          "reason": "Retain only the scoped behavior; apply section 1 rewrites below"
+        },
+        {
+          "source": "infra/agent-box/s6-rc.d/user/contents.d/identity-watch",
+          "blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+          "mode": "exclude",
+          "destination": "\u2014",
+          "reason": "Outside the selected runtime; write new standalone wiring if needed"
+        },
+        {
+          "source": "infra/agent-box/s6-rc.d/user/contents.d/novnc",
+          "blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+          "mode": "adapt",
+          "destination": "apps/agent-box-hermes/s6-rc.d/user/contents.d/novnc",
+          "reason": "Retain only the scoped behavior; apply section 1 rewrites below"
+        },
+        {
+          "source": "infra/agent-box/s6-rc.d/user/contents.d/sshd",
+          "blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+          "mode": "exclude",
+          "destination": "\u2014",
+          "reason": "Excluded Buzz/Command/herdr/account UI/default SSH integration"
+        },
+        {
+          "source": "infra/agent-box/s6-rc.d/user/contents.d/sway",
+          "blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+          "mode": "adapt",
+          "destination": "apps/agent-box-hermes/s6-rc.d/user/contents.d/sway",
+          "reason": "Retain only the scoped behavior; apply section 1 rewrites below"
+        },
+        {
+          "source": "infra/agent-box/s6-rc.d/user/contents.d/wayvnc",
+          "blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+          "mode": "adapt",
+          "destination": "apps/agent-box-hermes/s6-rc.d/user/contents.d/wayvnc",
+          "reason": "Retain only the scoped behavior; apply section 1 rewrites below"
+        },
+        {
+          "source": "infra/agent-box/s6-rc.d/wayvnc/dependencies.d/base",
+          "blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+          "mode": "adapt",
+          "destination": "apps/agent-box-hermes/s6-rc.d/wayvnc/dependencies.d/base",
+          "reason": "Retain only the scoped behavior; apply section 1 rewrites below"
+        },
+        {
+          "source": "infra/agent-box/s6-rc.d/wayvnc/dependencies.d/sway",
+          "blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+          "mode": "adapt",
+          "destination": "apps/agent-box-hermes/s6-rc.d/wayvnc/dependencies.d/sway",
+          "reason": "Retain only the scoped behavior; apply section 1 rewrites below"
+        },
+        {
+          "source": "infra/agent-box/s6-rc.d/wayvnc/run",
+          "blob": "8c0b930881bd3daf0ec8688940266d2eeac2436e",
+          "mode": "adapt",
+          "destination": "apps/agent-box-hermes/s6-rc.d/wayvnc/run",
+          "reason": "Retain only the scoped behavior; apply section 1 rewrites below"
+        },
+        {
+          "source": "infra/agent-box/s6-rc.d/wayvnc/type",
+          "blob": "5883cff0cd1514b2836f4ffa39fdac769a5213cb",
+          "mode": "adapt",
+          "destination": "apps/agent-box-hermes/s6-rc.d/wayvnc/type",
+          "reason": "Retain only the scoped behavior; apply section 1 rewrites below"
+        },
+        {
+          "source": "infra/agent-box/start-atspi.sh",
+          "blob": "0ab8981a1690daf641a065db335f294897db69a9",
+          "mode": "adapt",
+          "destination": "apps/agent-box-hermes/start-atspi.sh",
+          "reason": "Retain only the scoped behavior; apply section 1 rewrites below"
+        },
+        {
+          "source": "infra/agent-box/start-dashboard.sh",
+          "blob": "5e4d9a7e91d9addf5c80f125adae9e6316383e35",
+          "mode": "adapt",
+          "destination": "apps/agent-box-hermes/start-dashboard.sh",
+          "reason": "Retain only the scoped behavior; apply section 1 rewrites below"
+        },
+        {
+          "source": "infra/agent-box/start-gateway.sh",
+          "blob": "67232538085b8c05375e176b9ddd6847b1f624dc",
+          "mode": "exclude",
+          "destination": "\u2014",
+          "reason": "Outside the selected runtime; write new standalone wiring if needed"
+        },
+        {
+          "source": "infra/agent-box/start-herdr.sh",
+          "blob": "94972eaa22f239779c039bbcb9cc228734f5f589",
+          "mode": "exclude",
+          "destination": "\u2014",
+          "reason": "Excluded Buzz/Command/herdr/account UI/default SSH integration"
+        },
+        {
+          "source": "infra/agent-box/start-hindsight.sh",
+          "blob": "8da0fa086b660c4cd7259556ad43c32d2c6978c8",
+          "mode": "adapt",
+          "destination": "apps/agent-box-hermes/start-hindsight.sh",
+          "reason": "Retain only the scoped behavior; apply section 1 rewrites below"
+        },
+        {
+          "source": "infra/agent-box/start-wayvnc.sh",
+          "blob": "ab214568355d627a803dcfab674f10c2f8fe57b1",
+          "mode": "adapt",
+          "destination": "apps/agent-box-hermes/start-wayvnc.sh",
+          "reason": "Retain only the scoped behavior; apply section 1 rewrites below"
+        },
+        {
+          "source": "infra/agent-box/sway/config",
+          "blob": "072ab45a3e9a424ad3cc4b4e033e7a9670bdb017",
+          "mode": "adapt",
+          "destination": "apps/agent-box-hermes/sway/config",
+          "reason": "Retain only the scoped behavior; apply section 1 rewrites below"
+        },
+        {
+          "source": "infra/agent-box/tsconfig.hermes-config.json",
+          "blob": "dac14b5235dc480ff7a152ce9d446b6312637011",
+          "mode": "exclude",
+          "destination": "\u2014",
+          "reason": "Outside the selected runtime; write new standalone wiring if needed"
+        },
+        {
+          "source": "infra/agent-box/waybar/config",
+          "blob": "e675c835feeb7646c9a6922fe73f55e2513e818e",
+          "mode": "adapt",
+          "destination": "apps/agent-box-hermes/waybar/config",
+          "reason": "Retain only the scoped behavior; apply section 1 rewrites below"
+        },
+        {
+          "source": "infra/agent-box/waybar/style.css",
+          "blob": "abac0d40563699881b970a23a2b1ef1b1f3aa156",
+          "mode": "adapt",
+          "destination": "apps/agent-box-hermes/waybar/style.css",
+          "reason": "Retain only the scoped behavior; apply section 1 rewrites below"
+        },
+        {
+          "source": "stacks/agent-box/compose.yaml",
+          "blob": "3b93039c0f68a2f0e5dee1c9a20cd8e4ba99ee0c",
+          "mode": "reference",
+          "destination": "stacks/agent-box-hermes/compose.yaml",
+          "reason": "Rewrite standalone services and isolated volumes"
+        }
+      ]
+    },
+    {
+      "role": "tailscale",
+      "commit": "3ae5dec66c4c5610b45f81e6f09e20273b2c4748",
+      "tree": "6bed1235df2143c9e600cc6e0258e037bed71f53",
+      "files": [
+        {
+          "source": "infra/agent-box/Dockerfile",
+          "blob": "7b328d8c5180b4612ed9f159c40a60cfc772de7c",
+          "mode": "reference",
+          "destination": "apps/agent-box-hermes/ (P6)",
+          "reason": "Tailscale lifecycle/wiring only; never copy the later Dockerfile or full tree"
+        },
+        {
+          "source": "infra/agent-box/s6-rc.d/tailscale/dependencies.d/base",
+          "blob": "8b137891791fe96927ad78e64b0aad7bded08bdc",
+          "mode": "reference",
+          "destination": "apps/agent-box-hermes/ (P6)",
+          "reason": "Tailscale lifecycle/wiring only; never copy the later Dockerfile or full tree"
+        },
+        {
+          "source": "infra/agent-box/s6-rc.d/tailscale/run",
+          "blob": "751e963afdbf0e1bbc6fd63963d5d918ade08b00",
+          "mode": "reference",
+          "destination": "apps/agent-box-hermes/ (P6)",
+          "reason": "Tailscale lifecycle/wiring only; never copy the later Dockerfile or full tree"
+        },
+        {
+          "source": "infra/agent-box/s6-rc.d/tailscale/type",
+          "blob": "5883cff0cd1514b2836f4ffa39fdac769a5213cb",
+          "mode": "reference",
+          "destination": "apps/agent-box-hermes/ (P6)",
+          "reason": "Tailscale lifecycle/wiring only; never copy the later Dockerfile or full tree"
+        },
+        {
+          "source": "infra/agent-box/s6-rc.d/user/contents.d/tailscale",
+          "blob": "8b137891791fe96927ad78e64b0aad7bded08bdc",
+          "mode": "reference",
+          "destination": "apps/agent-box-hermes/ (P6)",
+          "reason": "Tailscale lifecycle/wiring only; never copy the later Dockerfile or full tree"
+        },
+        {
+          "source": "infra/agent-box/start-tailscale.sh",
+          "blob": "0d3a9939cd86300c09b3cac5d75b63669e4fb794",
+          "mode": "reference",
+          "destination": "apps/agent-box-hermes/ (P6)",
+          "reason": "Tailscale lifecycle/wiring only; never copy the later Dockerfile or full tree"
+        },
+        {
+          "source": "tests/start-tailscale.test.ts",
+          "blob": "a81323ac5cf996c5d15018756cf4288890850b16",
+          "mode": "reference",
+          "destination": "apps/agent-box-hermes/ (P6)",
+          "reason": "Tailscale lifecycle/wiring only; never copy the later Dockerfile or full tree"
+        }
+      ]
+    }
+  ]
+}
