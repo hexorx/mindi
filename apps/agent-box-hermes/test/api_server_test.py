@@ -58,6 +58,9 @@ class APIServiceTest(unittest.TestCase):
         compose = yaml.safe_load((APP.parents[1] / 'stacks/agent-box-hermes/compose.p7.yaml').read_text())
         service = compose['services']['hermes']
         self.assertNotIn('ports', service)
+        self.assertEqual(service['cpus'], 4)
+        self.assertEqual(service['mem_limit'], '8g')
+        self.assertEqual(service['shm_size'], '2gb')
         self.assertEqual(service['expose'], ['8443'])
         self.assertEqual(set(service['environment']), set(FIXTURE))
         self.assertEqual(service['volumes'], ['box-home:/home/agent', 'box-memory:/var/lib/agent-box/hindsight'])

@@ -19,7 +19,15 @@ services:
       - desktop_password
       - desktop_tls_cert
       - desktop_tls_key
-    shm_size: 256mb
+    cpus: 4
+    mem_limit: 8g
+    shm_size: 2gb
+    restart: unless-stopped
+    logging:
+      driver: json-file
+      options:
+        max-size: 10m
+        max-file: "3"
     stop_grace_period: 20s
     security_opt:
       - no-new-privileges:true
