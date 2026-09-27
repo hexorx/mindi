@@ -38,11 +38,9 @@ def main():
     if home.is_symlink():
         raise ValueError("Home must not be a symlink")
     os.chown(home, 1000, 1000)
-    subprocess.run(["/command/s6-setuidgid", "hermes", "python3", "/opt/agent-box/configure.py"], check=True)
+    subprocess.run(["/command/s6-setuidgid", "hermes", "python3", "/opt/agent-box/config_sources.py"], check=True)
     subprocess.run(["/command/s6-setuidgid", "hermes", "python3", "/opt/agent-box/memory.py", "configure"], check=True)
-    persona = home / ".hermes/AGENTS.md"
-    if not persona.exists() and not persona.is_symlink():
-        subprocess.run(["/command/s6-setuidgid", "hermes", "cp", "/opt/agent-box/AGENTS.md", str(persona)], check=True)
+
 
 
 if __name__ == "__main__":

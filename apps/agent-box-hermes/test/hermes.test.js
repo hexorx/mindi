@@ -24,3 +24,10 @@ test('accepts plan model configuration and rejects incorrect flavors or secret s
   assert.throws(() => parseHermesConfig({ ...defaults, hermes: { model: '' } }),
     { message: 'Invalid agent-box contract' });
 });
+
+test('source settings contract matches runtime fixtures and excludes security settings', async () => {
+  const { ConfigSourceSettingsSchema } = await import('../dist/index.js');
+  const fixtures = JSON.parse(readFileSync(new URL('./fixtures/source-settings.json', import.meta.url), 'utf8'));
+  for (const input of fixtures.valid) assert.equal(ConfigSourceSettingsSchema.safeParse(input).success, true);
+  for (const input of fixtures.invalid) assert.equal(ConfigSourceSettingsSchema.safeParse(input).success, false);
+});

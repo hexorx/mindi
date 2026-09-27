@@ -1,6 +1,6 @@
-# Hermes desktop (P3)
+# Hermes desktop
 
-One linux/amd64 container, one persistent root/default Hermes profile, and an s6-supervised headless Sway desktop. The official Hermes installation remains sealed at `/opt/hermes`; run it as uid 1000 via `docker exec --user 1000:1000 <container> /opt/hermes/.venv/bin/hermes ...`. Model calls need separately provisioned model credentials; boot and the computer-use smoke need none. There is no autonomous inference loop in this phase. Gateway integration, embedded memory, remote config and optional networking are separate P4–P7 work.
+One linux/amd64 container, one persistent root/default Hermes profile, and an s6-supervised headless Sway desktop. The official Hermes installation remains sealed at `/opt/hermes`; run it as uid 1000 via `docker exec --user 1000:1000 <container> /opt/hermes/.venv/bin/hermes ...`. Model calls need separately provisioned model credentials; boot and the computer-use smoke need none. There is no autonomous inference loop in this phase. Gateway integration, embedded memory and optional networking are separate work. Optional settings/personality sources are described in [CONFIG-SOURCES.md](CONFIG-SOURCES.md).
 
 ## Run
 
@@ -12,13 +12,14 @@ docker compose -f stacks/agent-box-hermes/compose.yaml up --build
 
 Open `https://localhost:8443/vnc.html` with a certificate trusted by your browser. The username is `desktop`; use the supplied password. Connect to the same origin and `/websockify` path. HTTPS, static assets and WebSocket upgrades all require authentication. The Compose port is bound only to host loopback. A reverse proxy must preserve the original Host/Origin and WebSocket headers. Do not publish raw ports 5900 or 6080. No GitHub account, Infisical, Buzz, SSH daemon, sudo, Docker socket, privileged mode or Tailscale is needed.
 
-The supervisor starts as root solely to prepare ephemeral secret files and volume ownership. All desktop services run as uid/gid 1000. One named `/home/agent` volume holds configuration and sessions. Do not mount an existing multi-profile home: startup rejects extra profiles and symlinked configuration. This phase owns `~/.hermes/config.yaml` as structured JSON (valid YAML), preserving existing JSON keys and enabling `computer_use.grant_existing_profile` for this dedicated desktop. Arbitrary YAML and remote personalization are deferred to P5. The image removes upstream automatic per-profile reconciliation and dashboard services; human viewing uses authenticated noVNC.
+The supervisor starts as root solely to prepare ephemeral secret files and volume ownership. All desktop services run as uid/gid 1000. One named `/home/agent` volume holds configuration and sessions. Do not mount an existing multi-profile home: startup rejects extra profiles and unmanaged symlinked configuration. This phase owns `~/.hermes/config.yaml` as structured JSON (valid YAML), preserving existing JSON keys and enabling `computer_use.grant_existing_profile` for this dedicated desktop. The optional config resolver owns atomic profile snapshots; use its local mount or explicit remote refresh to change settings. The image removes upstream automatic per-profile reconciliation and dashboard services; human viewing uses authenticated noVNC.
 
 Desktop access authorizes control of the box's dedicated session. Inject only box-specific credentials. Password hashes and TLS keys are copied into private `/run/user/1000` storage at boot and never baked into image layers. Restart to rotate files. Avoid overriding the fixed runtime home, profile, UID or Wayland environment. Wayland uses pixman with no GPU or host display access. Press Super+Enter for a terminal.
 
 ## Verification
 
 ```sh
+python3 -m pip install PyYAML==6.0.3
 pnpm build && pnpm lint && pnpm typecheck && pnpm test
 docker buildx build --platform linux/amd64 --load -t hermes-desktop:smoke -f apps/agent-box-hermes/Dockerfile .
 apps/agent-box-hermes/test/container-smoke.sh hermes-desktop:smoke

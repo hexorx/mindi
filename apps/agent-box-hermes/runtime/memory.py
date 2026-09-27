@@ -73,12 +73,6 @@ def configure(home, data=DATA):
     write_private(root / 'config.json', json.dumps({
         'mode': 'local_external', 'api_url': 'http://127.0.0.1:8888', 'bank_id': 'box-' + box_id,
     }, indent=2) + '\n')
-    config_path = Path(home) / 'config.yaml'
-    if config_path.is_symlink():
-        raise ValueError('memory: config must not be a symlink')
-    config = json.loads(config_path.read_text())
-    config['memory'] = {**config.get('memory', {}), 'provider': 'hindsight'}
-    write_private(config_path, json.dumps(config, indent=2) + '\n')
 
 
 def environment(source, runtime=RUNTIME):

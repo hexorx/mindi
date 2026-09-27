@@ -7,6 +7,7 @@ import unittest
 from unittest.mock import patch
 sys.path.insert(0, str(Path(__file__).parents[1] / 'runtime'))
 import memory
+import config_sources
 
 
 class MemoryTest(unittest.TestCase):
@@ -34,6 +35,20 @@ class MemoryTest(unittest.TestCase):
         (other / 'config.yaml').write_text('{}')
         with self.assertRaisesRegex(ValueError, 'different box'):
             memory.configure(other, self.data)
+
+    def test_managed_configuration_survives_memory_boot_and_refresh(self):
+        defaults = Path(__file__).parents[1] / 'defaults'
+        config_sources.apply(self.home, defaults=defaults)
+        config_path = self.home / 'config.yaml'
+        target = os.readlink(config_path)
+        memory.configure(self.home, self.data)
+        bank = (self.home / 'hindsight/config.json').read_bytes()
+        config_sources.apply(self.home, defaults=defaults, refresh=True)
+        memory.configure(self.home, self.data)
+        self.assertEqual(os.readlink(config_path), target)
+        self.assertEqual(json.loads(config_path.read_text())['memory']['provider'], 'hindsight')
+        self.assertEqual(json.loads(config_path.read_text())['model'], 'preserve')
+        self.assertEqual((self.home / 'hindsight/config.json').read_bytes(), bank)
 
     def test_missing_or_invalid_key_has_redacted_diagnostic(self):
         for name in memory.SECRET_NAMES:

@@ -93,6 +93,28 @@ with ctx.wrap_socket(socket.create_connection(('127.0.0.1', port)), server_hostn
     while b'\r\n\r\n' not in response: response += s.recv(4096)
     assert response.split(b'\r\n', 1)[0].endswith(b'101 Switching Protocols'), 'WebSocket authentication/upgrade failed'
 PYTHON
+# Real boot consumes packaged defaults without GitHub. Refresh and rollback swap
+# the model and persona together without modifying desktop security settings.
+docker exec -i --user 1000:1000 "$container" python3 - <<'PYTHON'
+import json, sys, tempfile
+from pathlib import Path
+sys.path.insert(0, '/opt/agent-box')
+from config_sources import apply
+home = Path('/home/agent/.hermes')
+assert json.loads((home / '.agent-box/status.json').read_text())['source'] == 'defaults'
+original = (home / 'AGENTS.md').read_text()
+with tempfile.TemporaryDirectory() as local:
+    root = Path(local)
+    (root / 'agent-box.yaml').write_text('schemaVersion: 1\nflavor: hermes\nhermes: {model: fixture-model}\npersona: {instructionsFile: AGENTS.md}\n')
+    (root / 'AGENTS.md').write_text('Fixture persona')
+    apply(home, local=local, refresh=True)
+    config = json.loads((home / 'config.yaml').read_text())
+    assert config['model'] == 'fixture-model'
+    assert config['computer_use']['grant_existing_profile'] is True
+    assert (home / 'AGENTS.md').read_text() == 'Fixture persona'
+    apply(home, rollback=True)
+    assert (home / 'AGENTS.md').read_text() == original
+PYTHON
 docker exec --user 1000:1000 "$container" /opt/hermes/.venv/bin/python /opt/agent-box/smoke.py
 docker exec --user 1000:1000 "$container" python3 /test/memory-probe.py retain
 # A process/container restart must preserve data and the box-derived bank.
