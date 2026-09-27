@@ -1,0 +1,5 @@
+[
+  { "schemaVersion": 2, "flavor": "hermes", "identity": { "name": "helper" }, "memory": { "mode": "embedded" }, "network": { "tailscale": false } },
+  { "schemaVersion": 1, "flavor": "hermes", "identity": { "name": "helper" }, "memory": { "mode": "embedded", "apiKey": "fixture-only" }, "network": { "tailscale": false } },
+  { "schemaVersion": 1, "flavor": "hermes", "identity": { "name": "helper" }, "persona": { "instructionsFile": "../AGENTS.md" }, "memory": { "mode": "embedded" }, "network": { "tailscale": false } }
+]

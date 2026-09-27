@@ -170,6 +170,28 @@ importers:
         specifier: 2.11.4
         version: 2.11.4
 
+  apps/agent-box-hermes:
+    dependencies:
+      '@mindi/agent-box-core':
+        specifier: workspace:*
+        version: link:../../packages/agent-box-core
+      zod:
+        specifier: 4.6.5
+        version: 4.6.5
+    devDependencies:
+      '@mindi/eslint-config':
+        specifier: workspace:*
+        version: link:../../packages/eslint-config
+      '@mindi/typescript-config':
+        specifier: workspace:*
+        version: link:../../packages/typescript-config
+      eslint:
+        specifier: 10.11.0
+        version: 10.11.0(supports-color@7.2.0)
+      typescript:
+        specifier: 5.9.3
+        version: 5.9.3
+
   apps/hello:
     dependencies:
       '@mindi/core':
@@ -182,6 +204,25 @@ importers:
       '@mindi/typescript-config':
         specifier: workspace:*
         version: link:../../packages/typescript-config
+      eslint:
+        specifier: 10.11.0
+        version: 10.11.0(supports-color@7.2.0)
+      typescript:
+        specifier: 5.9.3
+        version: 5.9.3
+
+  packages/agent-box-core:
+    dependencies:
+      zod:
+        specifier: 4.6.5
+        version: 4.6.5
+    devDependencies:
+      '@mindi/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config
+      '@mindi/typescript-config':
+        specifier: workspace:*
+        version: link:../typescript-config
       eslint:
         specifier: 10.11.0
         version: 10.11.0(supports-color@7.2.0)
@@ -679,6 +720,9 @@ packages:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
 
+  zod@4.6.5:
+    resolution: {integrity: sha512-v5l/aFXZQeai4awLbOpSoHecE9UiMrnfx75tEXLjNonXVARxQ5mOeipTjROUchszUNCqnE+hqAMujRsRHsut2Q==}
+
 snapshots:
 
   '@cacheable/memory@2.2.0':
@@ -1144,3 +1188,5 @@ snapshots:
   word-wrap@1.2.5: {}
 
   yocto-queue@0.1.0: {}
+
+  zod@4.6.5: {}
