@@ -2,7 +2,17 @@
   "schemaVersion": 1,
   "repository": "mindi-dev/mindi-stack",
   "defaultTreatment": "exclude",
-  "publicRedistribution": "unresolved",
+  "publicRedistribution": "withheld",
+  "redistributionDecision": {
+    "decisionMaker": "Josh (board)",
+    "recordedDate": "2026-09-27",
+    "decision": "Withhold redistribution authorization",
+    "issue": "HEX-89",
+    "interactionId": "f704bd0a-6b4a-460d-9ddc-12de70d18a6d",
+    "evidence": "/HEX/issues/HEX-89",
+    "scope": "Enumerated inputs at both pinned snapshots",
+    "licenseGrant": null
+  },
   "snapshots": [
     {
       "role": "baseline",

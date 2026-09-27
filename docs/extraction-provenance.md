@@ -2,7 +2,7 @@
 
 Tracking: [HEX-89](/HEX/issues/HEX-89). Authority: [approved HEX-85 plan, sections 1, 8 and 10](/HEX/issues/HEX-85#document-plan), revision `15796e3c-0e69-4e8b-8921-fe4d4bc1fdde`.
 
-**Source inventory verified 2026-09-27. Source-rights decision unresolved; public image publishing remains gated.** This PR adds records only: no source code, compiled assets, or later multi-agent code is imported. The allowlist defines a technical boundary, not a license grant. P1 is not complete until the rights decision is recorded.
+**Source inventory verified 2026-09-27. Josh withheld redistribution authorization on 2026-09-27; public image publishing remains gated.** This PR adds records only: no source code, compiled assets, or later multi-agent code is imported. The allowlist defines a technical boundary, not a license grant. P1 records the decision; completing this provenance task does not authorize redistribution or unblock P9.
 
 ## Immutable sources
 
@@ -36,13 +36,15 @@ Strip Buzz helpers/presence/relay/Redis/MinIO/database-init, Command/Control/web
 
 ## Source authorization decision
 
-**Recorded state: unresolved — public redistribution is not authorized by this record.** Josh approved the extraction plan and provenance work. That approval is not recorded as a source license grant. The destination MIT `LICENSE` does not establish rights for imported source or third-party components.
+**Recorded state: withheld — redistribution authorization has been explicitly withheld.** Josh approved the extraction plan and provenance work. That approval is not recorded as a source license grant. The destination MIT `LICENSE` does not establish rights for imported source or third-party components.
 
 Both pinned snapshots were inspected using complete recursive Git trees (`truncated: false`). Neither contains a tracked filename matching LICENSE, COPYING or NOTICE, case-insensitively. This is a filename-search result, not proof of ownership or the absence of every possible embedded term. No source license is inferred or assigned here.
 
-Josh must provide the rights-holder decision covering the enumerated inputs at both commits: owner/authority, permitted extraction and redistribution, exact license terms, required attribution, decision date and evidence link. A decision to withhold redistribution is also recordable; P9 then remains blocked. Private distribution is not an automatic workaround.
+On 2026-09-27, Josh (board) answered the source-rights question in [HEX-89](/HEX/issues/HEX-89), interaction `f704bd0a-6b4a-460d-9ddc-12de70d18a6d`: **“Withhold redistribution authorization.”** The question covered the enumerated inputs at both pinned commits above. This records the board decision, not a claim that Josh owns those inputs. No rights-holder authority, license terms or attribution grant was supplied. The technical allowlist remains an inventory, not permission to extract or redistribute source. Private distribution is not an automatic workaround.
 
-P9 must fail closed while this decision is unresolved and must separately reconcile final image dependency licenses/notices before public publishing. This documentation PR adds no release workflow or automated publishing gate; the enforcement belongs to P9. No deployment is authorized by this record.
+P9 remains blocked on redistribution authorization. Any later change requires a new explicit decision with owner/authority, covered inputs, permitted extraction and redistribution, exact license terms, required attribution, date and evidence; it must supersede this record explicitly.
+
+P9 must fail closed while authorization is withheld and must separately reconcile final image dependency licenses/notices before public publishing. This documentation PR adds no release workflow or automated publishing gate; the enforcement belongs to P9. No deployment is authorized by this record.
 
 ## Third-party provenance and notice ledger
 
@@ -66,4 +68,4 @@ P9 must reconcile this ledger with the final SBOM and ship actual required notic
 
 GitHub commit and recursive-tree APIs verified full commit/tree IDs. The manifest records blob IDs from those trees; downloaded selected source bodies were checked against their Git blob IDs. Missing/new files must not be silently added by a future importer. Source inspection is not a runtime test.
 
-This is documentation/data only. No behavioral tests were added. Scaffold build, lint, typecheck and test results and the PR check status are recorded in HEX-89. Before P1 completion, append the rights-holder decision and evidence here. Before P9 publishing, close every release-evidence item above and implement the fail-closed publishing gate.
+This is documentation/data only. No behavioral tests were added. Scaffold build, lint, typecheck and test results and the PR check status are recorded in HEX-89. The withholding decision and its evidence are recorded above. Before P9 publishing, obtain a superseding authorization decision, close every release-evidence item above and implement the fail-closed publishing gate.
