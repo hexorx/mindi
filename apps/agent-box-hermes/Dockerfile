@@ -9,8 +9,12 @@ RUN curl -fsSL --retry 3 https://github.com/vectorize-io/pg0/archive/refs/tags/v
  && echo '729b27cdc35e652c18761b874996cdda3a657aa16c9e2915c78214372725ab8d  /tmp/pg0.tar.gz' | sha256sum -c - \
  && tar -xzf /tmp/pg0.tar.gz --strip-components=1 \
  && echo 'f088b8a7469dcdbd1ba3ddec633d1ddae66fd6db26d1c93cc03c02774ed92688  src/main.rs' | sha256sum -c -
+# The rolling Ubuntu mirror removed these packages. The snapshot retains the
+# exact upstream-pinned bytes; pg0 still verifies both SHA256 checksums.
+COPY apps/agent-box-hermes/build/pg0-runtime-libs.patch /tmp/pg0-runtime-libs.patch
 COPY apps/agent-box-hermes/build/pg0-private-loopback.patch /tmp/pg0.patch
-RUN patch --fuzz=0 -p1 < /tmp/pg0.patch \
+RUN patch --fuzz=0 -p1 < /tmp/pg0-runtime-libs.patch \
+ && patch --fuzz=0 -p1 < /tmp/pg0.patch \
  && cargo build --release --locked
 FROM nousresearch/hermes-agent:v2026.8.18@sha256:22e37bb4ed1b0f50cb6bd991dca7ecacd6c9f29df9b4a20fc989d32bc763ccf6
 USER root
