@@ -19,6 +19,11 @@ RUN python3 -m venv /opt/hindsight \
  && /opt/hindsight/bin/pip install --no-cache-dir 'hindsight-api-slim[embedded-db]==0.6.1' 'pg0-embedded==0.14.0' 'psycopg[binary]==3.2.10' \
  && /opt/hindsight/bin/python /opt/build/patch_hindsight.py \
  && /opt/hindsight/bin/python -c "from sqlalchemy import create_engine; create_engine('postgresql+psycopg://localhost/hindsight')"
+# CPU-only local embeddings: no paid embedding API or CUDA runtime needed.
+# Model weights download on first local-mode boot into the persistent memory volume.
+RUN /opt/hindsight/bin/pip install --no-cache-dir --index-url https://download.pytorch.org/whl/cpu 'torch==2.8.0' \
+ && /opt/hindsight/bin/pip install --no-cache-dir 'sentence-transformers==5.1.0' \
+ && /opt/hindsight/bin/python -c "from sentence_transformers import SentenceTransformer; import torch; assert torch.version.cuda is None"
 # No remote installer execution. Release asset SHA256 from GitHub release metadata.
 RUN curl -fsSL --retry 3 https://github.com/trycua/cua/releases/download/cua-driver-rs-v0.30.1/cua-driver-rs-0.30.1-linux-x86_64-binary.tar.gz -o /tmp/cua.tar.gz \
  && echo '82411700ae43fa34f6263eb603866c77d4e25e5556ffa03d92cd79cbab9472a2  /tmp/cua.tar.gz' | sha256sum -c - \

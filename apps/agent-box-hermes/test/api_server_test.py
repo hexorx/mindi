@@ -62,7 +62,11 @@ class APIServiceTest(unittest.TestCase):
         self.assertEqual(service['mem_limit'], '8g')
         self.assertEqual(service['shm_size'], '2gb')
         self.assertEqual(service['expose'], ['8443'])
-        self.assertEqual(set(service['environment']), set(FIXTURE))
+        memory_vars = {'MEMORY_LLM_PROVIDER', 'MEMORY_LLM_MODEL', 'MEMORY_LLM_BASE_URL',
+                       'MEMORY_EMBEDDINGS_PROVIDER', 'MEMORY_EMBEDDINGS_MODEL', 'MEMORY_EMBEDDINGS_BASE_URL'}
+        self.assertEqual(set(service['environment']), set(FIXTURE) | memory_vars)
+        for name in memory_vars:
+            self.assertEqual(service['environment'][name], '${' + name + ':-}')
         self.assertEqual(service['volumes'], ['box-home:/home/agent', 'box-memory:/var/lib/agent-box/hindsight'])
 
 

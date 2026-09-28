@@ -50,6 +50,18 @@ class MemoryTest(unittest.TestCase):
         self.assertEqual(json.loads(config_path.read_text())['model'], 'preserve')
         self.assertEqual((self.home / 'hindsight/config.json').read_bytes(), bank)
 
+    def test_zai_operator_model_and_dotenv_survive_config_activation(self):
+        model = {'provider': 'zai', 'default': 'glm-5.3-flash',
+                 'base_url': 'https://api.z.ai/api/coding/paas/v4'}
+        (self.home / 'config.yaml').write_text(json.dumps({'model': model}))
+        dotenv = 'GLM_API_KEY=fixture-key\nGLM_BASE_URL=https://api.z.ai/api/coding/paas/v4\n'
+        (self.home / '.env').write_text(dotenv)
+        for refresh in (False, True):
+            config_sources.apply(self.home, defaults=Path(__file__).parents[1] / 'defaults', refresh=refresh)
+            memory.configure(self.home, self.data)
+            self.assertEqual(json.loads((self.home / 'config.yaml').read_text())['model'], model)
+            self.assertEqual((self.home / '.env').read_text(), dotenv)
+
     def test_missing_or_invalid_key_has_redacted_diagnostic(self):
         for name in memory.SECRET_NAMES:
             with self.assertRaisesRegex(ValueError, 'missing runtime secret ' + name):
@@ -72,6 +84,40 @@ class MemoryTest(unittest.TestCase):
         self.assertNotEqual(env['HINDSIGHT_API_LLM_API_KEY'], env['HINDSIGHT_API_EMBEDDINGS_OPENAI_API_KEY'])
         with self.assertRaisesRegex(ValueError, 'PROVIDER'):
             memory.environment({'MEMORY_LLM_PROVIDER': 'unknown'}, self.root)
+
+    def test_empty_compose_values_keep_openai_defaults(self):
+        for name in memory.SECRET_NAMES:
+            (self.root / name).write_text('fixture-key')
+        source = dict.fromkeys(('MEMORY_LLM_PROVIDER', 'MEMORY_LLM_MODEL', 'MEMORY_LLM_BASE_URL',
+                                'MEMORY_EMBEDDINGS_PROVIDER', 'MEMORY_EMBEDDINGS_MODEL',
+                                'MEMORY_EMBEDDINGS_BASE_URL'), '')
+        env = memory.environment(source, self.root)
+        self.assertEqual(env['HINDSIGHT_API_LLM_PROVIDER'], 'openai')
+        self.assertEqual(env['HINDSIGHT_API_LLM_MODEL'], 'gpt-4o-mini')
+        self.assertEqual(env['HINDSIGHT_API_EMBEDDINGS_PROVIDER'], 'openai')
+        self.assertNotIn('HINDSIGHT_API_LLM_BASE_URL', env)
+        self.assertNotIn('HINDSIGHT_API_EMBEDDINGS_OPENAI_MODEL', env)
+
+    def test_local_embeddings_use_cpu_cache_without_remote_key_or_url(self):
+        (self.root / 'memory_llm_key').write_text('fixture-zai-key')
+        source = {'MEMORY_LLM_PROVIDER': 'openai', 'MEMORY_LLM_MODEL': 'glm-5.3-flash',
+                  'MEMORY_LLM_BASE_URL': 'https://api.z.ai/api/coding/paas/v4',
+                  'MEMORY_EMBEDDINGS_PROVIDER': 'local',
+                  'MEMORY_EMBEDDINGS_BASE_URL': 'https://unused.example',
+                  'HF_HOME': '/untrusted', 'HINDSIGHT_API_EMBEDDINGS_LOCAL_TRUST_REMOTE_CODE': 'true'}
+        env = memory.environment(source, self.root)
+        self.assertEqual(env['HINDSIGHT_API_LLM_BASE_URL'], source['MEMORY_LLM_BASE_URL'])
+        self.assertEqual(env['HINDSIGHT_API_LLM_MODEL'], 'glm-5.3-flash')
+        self.assertEqual(env['HINDSIGHT_API_EMBEDDINGS_PROVIDER'], 'local')
+        self.assertEqual(env['HINDSIGHT_API_EMBEDDINGS_LOCAL_MODEL'], 'BAAI/bge-small-en-v1.5')
+        self.assertEqual(env['HINDSIGHT_API_EMBEDDINGS_LOCAL_FORCE_CPU'], 'true')
+        self.assertEqual(env['HINDSIGHT_API_EMBEDDINGS_LOCAL_TRUST_REMOTE_CODE'], 'false')
+        self.assertEqual(env['HF_HOME'], str(memory.DATA / 'huggingface'))
+        self.assertFalse(any(k.startswith('HINDSIGHT_API_EMBEDDINGS_OPENAI_') for k in env))
+        env = memory.environment({**source, 'MEMORY_EMBEDDINGS_MODEL': 'custom/model'}, self.root)
+        self.assertEqual(env['HINDSIGHT_API_EMBEDDINGS_LOCAL_MODEL'], 'custom/model')
+        with self.assertRaisesRegex(ValueError, 'MEMORY_EMBEDDINGS_PROVIDER'):
+            memory.environment({**source, 'MEMORY_EMBEDDINGS_PROVIDER': 'unknown'}, self.root)
 
     def test_secret_copy_is_private_and_never_persistent(self):
         source = self.root / 'secrets'
