@@ -9,6 +9,7 @@ tailscale_image=tailscale/tailscale:v1.102.4@sha256:2667499ed87ae29218f292556ba0
 id="ts-smoke-${RANDOM}-${RANDOM}"
 net=$id-net box=$id-box peer=$id-peer hs=$id-headscale volume=$id-state
 scratch=$(mktemp -d)
+tests=$(cd "$(dirname "$0")" && pwd)
 cleanup() {
     docker rm -fv "$box" "$peer" "$hs" >/dev/null 2>&1 || true
     docker volume rm "$volume" >/dev/null 2>&1 || true
@@ -31,6 +32,8 @@ openssl req -x509 -newkey rsa:2048 -nodes -days 1 -subj /CN=headscale \
     -keyout "$scratch/headscale/tls.key" -out "$scratch/headscale/tls.crt" >/dev/null 2>&1
 cp "$scratch/headscale/tls.crt" "$scratch/secrets/headscale_ca.crt"
 openssl rand -hex 24 > "$scratch/secrets/desktop_password"
+printf 'fixture-llm-key' > "$scratch/secrets/memory_llm_key"
+printf 'fixture-embedding-key' > "$scratch/secrets/memory_embeddings_key"
 cat > "$scratch/headscale/config.yaml" <<'YAML'
 server_url: https://headscale:443
 listen_addr: 0.0.0.0:443
@@ -99,7 +102,7 @@ wait_health() {
     fail "network health did not reach [$*] (last: $health)"
 }
 wait_desktop() {
-    for _ in $(seq 1 60); do
+    for _ in $(seq 1 150); do
         [ "$(docker inspect -f '{{.State.Health.Status}}' "$box")" = healthy ] && return 0
         sleep 2
     done
@@ -108,11 +111,17 @@ wait_desktop() {
 
 install_key
 docker run -d --name "$box" --network "$net" --shm-size=256m --security-opt=no-new-privileges \
+    -e MEMORY_LLM_BASE_URL=http://127.0.0.2:9999/v1 \
+    -e MEMORY_EMBEDDINGS_BASE_URL=http://127.0.0.2:9999/v1 \
+    --mount "type=bind,src=$tests,dst=/test,readonly" \
     -e SSL_CERT_FILE=/run/secrets/headscale_ca.crt \
     -e AGENT_BOX_TAILSCALE=1 -e AGENT_BOX_TAILSCALE_HOSTNAME=smoke-box \
     -e AGENT_BOX_TAILSCALE_LOGIN_SERVER=https://headscale:443 \
     --mount "type=bind,src=$scratch/secrets,dst=/run/secrets,readonly" \
     --mount "type=volume,src=$volume,dst=/var/lib/tailscale" "$image" >/dev/null
+
+start_fixture() { docker exec -d --user 1000:1000 "$box" python3 /test/mock-memory-provider.py; }
+start_fixture
 
 # No TUN device or added capabilities; userspace networking only.
 [ "$(docker inspect -f '{{.HostConfig.CapAdd}} {{.HostConfig.Devices}} {{.HostConfig.Privileged}}' "$box")" = "[] [] false" ] \
@@ -156,7 +165,17 @@ for _ in $(seq 1 15); do
     sleep 2
 done
 [ -n "$reached" ] || fail "peer could not reach the authenticated desktop origin"
-for port in 5900 6080 1055 1056; do
+# Discover the actual pg0 port; never assume the allocator chose 5432.
+# Positive local probes ensure an absent memory service cannot pass isolation.
+pg0_port=$(docker exec "$box" python3 -c '
+import json, pathlib, socket
+port = json.loads(pathlib.Path("/var/lib/agent-box/hindsight/.pg0/instances/hindsight/instance.json").read_text())["port"]
+for private_port in (8888, port):
+    with socket.create_connection(("127.0.0.2", private_port), timeout=2):
+        pass
+print(port)
+')
+for port in 5900 6080 1055 1056 8888 9999 "$pg0_port"; do
     result=$(probe "$port")
     case "$result" in
         200\ *) fail "tailnet peer reached loopback port $port" ;;
@@ -171,6 +190,7 @@ printf 'Exposure checks passed; testing persisted identity.\n'
 # Restart without any enrollment key: the persisted node identity is reused.
 rm -f "$scratch/secrets/tailscale_authkey"
 docker restart -t 20 "$box" >/dev/null
+start_fixture
 wait_backend "$box" Running
 [ "$(docker exec "$box" tailscale status --json | jq -r '.Self.ID')" = "$first_id" ] || fail "identity changed on restart"
 

@@ -1,17 +1,40 @@
 # syntax=docker/dockerfile:1.7
 # Adapted from the allowlisted mindi-stack b5ac82d Dockerfile; see docs/extraction-provenance.md.
 FROM tailscale/tailscale:v1.102.4@sha256:2667499ed87ae29218f292556ba062918402dd5e92e93637af14867e4df12dd3 AS tailscale
+# pg0 hardcodes localhost in setup and connection URIs; configure every path
+# before the database first starts. Build from verified source, preserving v0.14.0.
+FROM rust:1.94-bookworm AS pg0
+WORKDIR /build/pg0
+RUN curl -fsSL --retry 3 https://github.com/vectorize-io/pg0/archive/refs/tags/v0.14.0.tar.gz -o /tmp/pg0.tar.gz \
+ && echo '729b27cdc35e652c18761b874996cdda3a657aa16c9e2915c78214372725ab8d  /tmp/pg0.tar.gz' | sha256sum -c - \
+ && tar -xzf /tmp/pg0.tar.gz --strip-components=1 \
+ && echo 'f088b8a7469dcdbd1ba3ddec633d1ddae66fd6db26d1c93cc03c02774ed92688  src/main.rs' | sha256sum -c -
+COPY apps/agent-box-hermes/build/pg0-private-loopback.patch /tmp/pg0.patch
+RUN patch --fuzz=0 -p1 < /tmp/pg0.patch \
+ && cargo build --release --locked
 FROM nousresearch/hermes-agent:v2026.8.18@sha256:22e37bb4ed1b0f50cb6bd991dca7ecacd6c9f29df9b4a20fc989d32bc763ccf6
 USER root
 ARG TARGETARCH
 RUN test "$TARGETARCH" = amd64 \
  && apt-get update && apt-get install -y --no-install-recommends \
     sway grim wtype wl-clipboard foot xwayland dbus at-spi2-core \
-    fonts-dejavu-core fonts-noto-color-emoji wayvnc novnc websockify nginx openssl \
+    fonts-dejavu-core fonts-noto-color-emoji wayvnc novnc websockify nginx openssl python3-yaml \
  && apt-get purge -y sudo openssh-server \
  && rm -rf /var/lib/apt/lists/* /etc/s6-overlay/s6-rc.d /etc/cont-init.d \
  && usermod -u 1000 -d /home/agent hermes && groupmod -g 1000 hermes \
  && install -d -o hermes -g hermes /home/agent
+# Isolated dependency graph; pg0 0.14.0 bundles PostgreSQL and pgvector.
+# Hindsight migrations select psycopg 3, which its slim package does not declare.
+# Construct the migration engine at build time to verify the driver can load.
+COPY apps/agent-box-hermes/build/patch_hindsight.py /opt/build/patch_hindsight.py
+RUN python3 -m venv /opt/hindsight \
+ && /opt/hindsight/bin/pip install --no-cache-dir 'hindsight-api-slim[embedded-db]==0.6.1' 'pg0-embedded==0.14.0' 'psycopg[binary]==3.2.10' \
+ && /opt/hindsight/bin/python /opt/build/patch_hindsight.py \
+ && /opt/hindsight/bin/python -c "from sqlalchemy import create_engine; create_engine('postgresql+psycopg://localhost/hindsight')"
+COPY --from=pg0 /build/pg0/target/release/pg0 /opt/build/pg0
+# The SDK prefers its bundled binary over PATH. Replace that exact executable.
+RUN /opt/hindsight/bin/python -c "import pathlib, pg0, shutil; target = pathlib.Path(pg0.__file__).parent / 'bin/pg0'; assert target.is_file(); shutil.copy2('/opt/build/pg0', target)" \
+ && rm /opt/build/pg0
 # No remote installer execution. Release asset SHA256 from GitHub release metadata.
 RUN curl -fsSL --retry 3 https://github.com/trycua/cua/releases/download/cua-driver-rs-v0.30.1/cua-driver-rs-0.30.1-linux-x86_64-binary.tar.gz -o /tmp/cua.tar.gz \
  && echo '82411700ae43fa34f6263eb603866c77d4e25e5556ffa03d92cd79cbab9472a2  /tmp/cua.tar.gz' | sha256sum -c - \
@@ -30,7 +53,7 @@ ENV HOME=/home/agent USER=hermes HERMES_HOME=/home/agent/.hermes \
     S6_BEHAVIOUR_IF_STAGE2_FAILS=2 S6_KILL_GRACETIME=10000
 COPY apps/agent-box-hermes/runtime/ /opt/agent-box/
 COPY apps/agent-box-hermes/desktop/ /etc/agent-box/
-COPY apps/agent-box-hermes/defaults/persona/AGENTS.md /opt/agent-box/AGENTS.md
+COPY apps/agent-box-hermes/defaults/ /opt/agent-box/defaults/
 COPY apps/agent-box-hermes/s6-rc.d/ /etc/s6-overlay/s6-rc.d/
 COPY --chmod=755 apps/agent-box-hermes/cont-init.d/ /etc/cont-init.d/
 # s6's built-in top bundle requires both user and user2, even when user2 is empty.
@@ -42,7 +65,7 @@ RUN mkdir -p /etc/s6-overlay/s6-rc.d/user2/contents.d \
  && rm -rf /tmp/agent-box-s6-db
 WORKDIR /home/agent
 EXPOSE 8443
-VOLUME ["/home/agent"]
+VOLUME ["/home/agent", "/var/lib/agent-box/hindsight"]
 HEALTHCHECK --interval=10s --timeout=5s --start-period=30s CMD ["/command/s6-setuidgid", "hermes", "python3", "/opt/agent-box/health.py"]
 ENTRYPOINT ["/init"]
 CMD []

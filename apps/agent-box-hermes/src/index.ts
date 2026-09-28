@@ -10,3 +10,8 @@ export type HermesConfig = z.infer<typeof HermesConfigSchema>;
 export function parseHermesConfig(input: unknown): HermesConfig {
   return parseContract(HermesConfigSchema, input);
 }
+
+// Remote sources are data-only patches; security/runtime bindings stay local.
+export const ConfigSourceSettingsSchema = HermesConfigSchema.pick({
+  schemaVersion: true, flavor: true, identity: true, persona: true, hermes: true,
+}).partial({ identity: true });

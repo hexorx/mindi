@@ -71,11 +71,25 @@ class ConfigurationTest(unittest.TestCase):
 
 
 class ReadinessTest(unittest.TestCase):
+    def test_memory_failure_blocks_readiness_even_with_healthy_desktop(self):
+        health = Path(__file__).parents[1] / "runtime/health.py"
+        frame = MagicMock(stdout=b"\x89PNG\r\n\x1a\n" + b"x" * 100)
+        with patch("subprocess.run", return_value=frame), \
+             patch("socket.create_connection"), \
+             patch("urllib.request.urlopen"), \
+             patch("json.load", return_value={"status": "unhealthy"}):
+            with self.assertRaises(SystemExit) as exit_status:
+                runpy.run_path(str(health))
+            self.assertEqual(exit_status.exception.code, 1)
+
+
     def test_requires_sway_ipc_even_when_frame_and_listeners_work(self):
         health = Path(__file__).parents[1] / "runtime/health.py"
         frame = MagicMock(stdout=b"\x89PNG\r\n\x1a\n" + b"x" * 100)
         with patch("subprocess.run", return_value=frame) as run, \
-             patch("socket.create_connection"):
+             patch("socket.create_connection"), \
+             patch("urllib.request.urlopen"), \
+             patch("json.load", return_value={"status": "healthy"}):
             runpy.run_path(str(health))
             def fail_ipc(args, **kwargs):
                 if args[0] == "swaymsg":
