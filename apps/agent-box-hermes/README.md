@@ -19,7 +19,7 @@ Desktop access authorizes control of the box's dedicated session. Inject only bo
 ## Verification
 
 ```sh
-python3 -m pip install PyYAML==6.0.3
+python3 -m pip install -r apps/agent-box-hermes/requirements-test.txt
 pnpm build && pnpm lint && pnpm typecheck && pnpm test
 docker buildx build --platform linux/amd64 --load -t hermes-desktop:smoke -f apps/agent-box-hermes/Dockerfile .
 apps/agent-box-hermes/test/container-smoke.sh hermes-desktop:smoke

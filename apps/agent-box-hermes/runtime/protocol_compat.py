@@ -74,6 +74,7 @@ class Coordinator:
         for (snapshot,) in self.db.execute('SELECT snapshot FROM runs'):
             run = Run(**json.loads(snapshot))
             run.event_gap = True  # Event history is bounded in memory, not restored.
+            run.status['event_gap'] = True
             self.runs[run.id] = run
             self.keys[(run.scope, run.key)] = run
         self.recovery_required = any(r.status['status'] not in TERMINAL for r in self.runs.values())
@@ -86,11 +87,11 @@ class Coordinator:
         self.db.commit()
 
     def _status(self, run, status, **extra):
-        run.status = dict(extra, run_id=run.id, status=status)
+        run.status = dict(extra, run_id=run.id, status=status, event_gap=run.event_gap)
         self._save(run)
         run.changed.set()
 
-    def create(self, scope, key, body, session=''):
+    def create(self, scope, key, body, session='', *, cancelled=False):
         if not scope or not key or len(key) > 256:
             raise ProtocolError(400, 'idempotency_key_required')
         canonical = json.dumps([body, session], sort_keys=True, separators=(',', ':'), allow_nan=False)
@@ -106,9 +107,11 @@ class Coordinator:
             raise ProtocolError(503, 'journal_capacity')
         run = Run('run_' + uuid.uuid4().hex, scope, key, fingerprint,
                   json.loads(json.dumps(body)), session, {})
-        self._status(run, 'queued')  # Commit reservation BEFORE any inference.
+        self._status(run, 'cancelled' if cancelled else 'queued')  # Durable before dispatch.
         self.runs[run.id] = run
         self.keys[(scope, key)] = run
+        if cancelled:
+            return dict(run.status)
         run.timer = asyncio.get_running_loop().call_later(self.queue_timeout, self._expire, run)
         self.queue.put_nowait(run)
         if self.worker is None:
@@ -143,6 +146,18 @@ class Coordinator:
                 await self.backend.stop(run.remote_id)
         return dict(run.status)
 
+    async def stop_reservation(self, scope, key, body, session=''):
+        # An absent reservation becomes a durable cancellation tombstone. A late
+        # create with this same fingerprint can never dispatch inference.
+        status = self.create(scope, key, body, session, cancelled=True)
+        return await self.stop(scope, status['run_id'])
+
+    def _gap(self, run):
+        run.event_gap = True
+        run.status['event_gap'] = True
+        self._save(run)
+        run.changed.set()
+
     def _append(self, run, event):
         event = dict(event, run_id=run.id)
         size = len(json.dumps(event).encode())
@@ -157,11 +172,13 @@ class Coordinator:
     async def events(self, scope, run_id, after=0):
         run = self.lookup(scope, run_id)
         if after < 0 or after >= run.next_event:
+            self._gap(run)
             raise ProtocolError(409, 'event_cursor_invalid')
         while True:
             run.changed.clear()
             oldest = run.events[0][0] if run.events else run.next_event
             if after < oldest - 1:
+                self._gap(run)
                 raise ProtocolError(409, 'event_cursor_expired')
             for sequence, event, _ in list(run.events):
                 if sequence > after:
@@ -180,12 +197,9 @@ class Coordinator:
                 self._append(run, event)
                 terminal_seen |= event.get("event") in ("run.completed", "run.failed", "run.cancelled")
             if not terminal_seen:
-                run.event_gap = True
-                self._save(run)
+                self._gap(run)
         except Exception:
-            run.event_gap = True
-            self._save(run)
-            run.changed.set()
+            self._gap(run)
 
     async def _work(self):
         while True:
@@ -224,7 +238,7 @@ class Coordinator:
                         try:
                             await asyncio.wait_for(asyncio.shield(collector), 2)
                         except asyncio.TimeoutError:
-                            run.event_gap = True
+                            self._gap(run)
                         self._status(run, remote_status, **{k: v for k, v in status.items() if k not in ('run_id', 'status')})
                         break
                     self._status(run, remote_status, **{k: v for k, v in status.items() if k not in ('run_id', 'status')})
