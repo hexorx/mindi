@@ -1,12 +1,15 @@
 services:
   hermes:
     build:
-      context: ../..
+      context: .
       dockerfile: apps/agent-box-hermes/Dockerfile
     environment:
       API_SERVER_KEY: ${API_SERVER_KEY:?Set API_SERVER_KEY}
       PAPERCLIP_CALLBACK_KEY: ${PAPERCLIP_CALLBACK_KEY:?Set PAPERCLIP_CALLBACK_KEY}
       PAPERCLIP_API_URL: ${PAPERCLIP_API_URL:?Set PAPERCLIP_API_URL}
+      HERMES_INFERENCE_PROVIDER: ${HERMES_INFERENCE_PROVIDER:-}
+      HERMES_INFERENCE_MODEL: ${HERMES_INFERENCE_MODEL:-}
+      HERMES_INFERENCE_BASE_URL: ${HERMES_INFERENCE_BASE_URL:-}
       MEMORY_LLM_PROVIDER: ${MEMORY_LLM_PROVIDER:-}
       MEMORY_LLM_MODEL: ${MEMORY_LLM_MODEL:-}
       MEMORY_LLM_BASE_URL: ${MEMORY_LLM_BASE_URL:-}
@@ -20,6 +23,7 @@ services:
       - box-home:/home/agent
       - box-memory:/var/lib/agent-box/hindsight
     secrets:
+      - inference_api_key
       - memory_llm_key
       - memory_embeddings_key
       - desktop_password
@@ -38,6 +42,8 @@ services:
     security_opt:
       - no-new-privileges:true
 secrets:
+  inference_api_key:
+    file: ${INFERENCE_API_KEY_FILE:?Set INFERENCE_API_KEY_FILE}
   memory_llm_key:
     file: ${MEMORY_LLM_KEY_FILE:?Set MEMORY_LLM_KEY_FILE}
   memory_embeddings_key:

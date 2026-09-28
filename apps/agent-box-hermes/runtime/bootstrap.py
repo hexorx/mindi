@@ -1,4 +1,4 @@
-"""Root-only bootstrap; credentials are never written to logs or persistent config."""
+"""Root-only bootstrap; credentials are never written to logs."""
 import os
 from pathlib import Path
 import shutil
@@ -40,6 +40,8 @@ def main():
     if home.is_symlink():
         raise ValueError("Home must not be a symlink")
     os.chown(home, 1000, 1000)
+    from inference import seed
+    seed(home / ".hermes", os.environ)
     subprocess.run(["/command/s6-setuidgid", "hermes", "python3", "/opt/agent-box/config_sources.py"], check=True)
     subprocess.run(["/command/s6-setuidgid", "hermes", "python3", "/opt/agent-box/memory.py", "configure"], check=True)
 

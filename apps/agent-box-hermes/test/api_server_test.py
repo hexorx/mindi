@@ -64,8 +64,13 @@ class APIServiceTest(unittest.TestCase):
         self.assertEqual(service['expose'], ['8443'])
         memory_vars = {'MEMORY_LLM_PROVIDER', 'MEMORY_LLM_MODEL', 'MEMORY_LLM_BASE_URL',
                        'MEMORY_EMBEDDINGS_PROVIDER', 'MEMORY_EMBEDDINGS_MODEL', 'MEMORY_EMBEDDINGS_BASE_URL'}
-        self.assertEqual(set(service['environment']), set(FIXTURE) | memory_vars)
-        for name in memory_vars:
+        inference_vars = {'HERMES_INFERENCE_PROVIDER', 'HERMES_INFERENCE_MODEL', 'HERMES_INFERENCE_BASE_URL'}
+        self.assertEqual(set(service['environment']), set(FIXTURE) | memory_vars | inference_vars)
+        self.assertEqual(service['build'], {'context': '.', 'dockerfile': 'apps/agent-box-hermes/Dockerfile'})
+        self.assertIn('inference_api_key', service['secrets'])
+        self.assertEqual(compose['secrets']['inference_api_key']['file'],
+                         '${INFERENCE_API_KEY_FILE:?Set INFERENCE_API_KEY_FILE}')
+        for name in memory_vars | inference_vars:
             self.assertEqual(service['environment'][name], '${' + name + ':-}')
         self.assertEqual(service['volumes'], ['box-home:/home/agent', 'box-memory:/var/lib/agent-box/hindsight'])
 
