@@ -1,6 +1,8 @@
 """Offline qualification: resource budgets, transport faults and restart."""
 import asyncio
 import json
+import gc
+import weakref
 from pathlib import Path
 import sys
 import tempfile
@@ -51,6 +53,67 @@ class QualificationTests(unittest.IsolatedAsyncioTestCase):
         with self.assertRaises(ProtocolError) as error:
             self.owner.create('c', 'c', {'input': 'c'})
         self.assertEqual(error.exception.code, 'journal_capacity')
+
+    async def test_paused_readers_retain_only_one_charged_payload_each(self):
+        class Payload(str):
+            pass
+
+        self.owner.max_replay_bytes = 10**6
+        self.owner.max_replay_events = 2
+        self.owner.max_subscribers = 4
+        self.owner.max_delivery_bytes = 10**6
+        run_id = self.owner.create('a', 'a', {'input': 'a'})['run_id']
+        run = self.owner.runs[run_id]
+        readers, references = [], []
+        try:
+            for generation in range(20):
+                for offset in range(2):
+                    payload = Payload(str(generation) + str(offset) + 'x' * 32000)
+                    references.append(weakref.ref(payload))
+                    self.owner._append(run, {'data': payload})
+                    del payload
+                reader = self.owner.events('a', run_id, run.next_event - 3)
+                if generation < 4:
+                    delivered = await anext(reader)
+                    del delivered
+                    readers.append(reader)
+                else:
+                    with self.assertRaises(ProtocolError) as error:
+                        await anext(reader)
+                    self.assertEqual(error.exception.code, 'subscriber_capacity')
+                gc.collect()
+                alive = [ref() is not None for ref in references]
+                # Previously each reader pinned BOTH members of its snapshot.
+                self.assertLessEqual(sum(alive), len(readers) + 2)
+                for previous in range(generation):
+                    self.assertFalse(alive[2 * previous + 1])
+            self.assertGreater(self.owner.delivery_bytes, 4 * 32000)
+            with self.assertRaises(ProtocolError) as error:
+                await anext(readers[0])
+            self.assertEqual(error.exception.code, 'event_cursor_expired')
+        finally:
+            for reader in readers:
+                await reader.aclose()
+        gc.collect()
+        self.assertEqual(sum(ref() is not None for ref in references), 2)
+        self.assertEqual(self.owner.delivery_bytes, 0)
+        self.assertEqual(self.owner.subscribers, 0)
+
+    async def test_delivery_byte_budget_rejects_and_releases(self):
+        self.owner.max_replay_bytes = 10000
+        self.owner.max_delivery_bytes = 1000
+        run_id = self.owner.create('a', 'a', {'input': 'a'})['run_id']
+        self.owner._append(self.owner.runs[run_id], {'data': 'x' * 600})
+        first = self.owner.events('a', run_id)
+        await anext(first)
+        with self.assertRaises(ProtocolError) as error:
+            await anext(self.owner.events('a', run_id))
+        self.assertEqual(error.exception.code, 'delivery_capacity')
+        await first.aclose()
+        self.assertEqual(self.owner.delivery_bytes, 0)
+        second = self.owner.events('a', run_id)
+        await anext(second)
+        await second.aclose()
 
     async def test_snapshot_limit_rejects_before_dispatch(self):
         self.owner.max_snapshot_bytes = 512

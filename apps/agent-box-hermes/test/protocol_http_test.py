@@ -64,6 +64,20 @@ class HttpTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(self.backend.readers, 1)
         second.close()
 
+    async def test_subscriber_limit_rejects_before_stream_headers(self):
+        self.coordinator.max_subscribers = 2
+        run_id = await self.create()
+        path = '/v1/runs/' + run_id + '/events'
+        streams = [await self.client.get(path, headers=self.headers) for _ in range(2)]
+        try:
+            response = await self.client.get(path, headers=self.headers)
+            self.assertEqual(response.status, 503)
+            self.assertEqual(await response.json(), {'error': 'subscriber_capacity'})
+            self.assertEqual(self.coordinator.subscribers, 2)
+        finally:
+            for stream in streams:
+                stream.close()
+
     async def test_native_stop_completion_race_is_idempotent(self):
         from unittest.mock import AsyncMock
         from protocol_compat import ProtocolError

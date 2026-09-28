@@ -5,6 +5,7 @@ is admitted for inference; alternate inference APIs must not bypass this slot.
 Do not expose the native gateway port through nginx when enabling this service.
 """
 import asyncio
+from contextlib import aclosing
 import hashlib
 import hmac
 import json
@@ -16,6 +17,8 @@ from protocol_compat import Coordinator, ProtocolError
 
 MAX_RESPONSE = 256 * 1024
 MAX_FRAME = 64 * 1024
+HTTP_SHUTDOWN_TIMEOUT = 3
+WRITE_TIMEOUT = 2
 
 
 class Gateway:
@@ -116,6 +119,7 @@ class Gateway:
 def application(coordinator, key):
     from aiohttp import web
     scope = hashlib.sha256(key.encode()).hexdigest()
+    streams = set()
 
     def redact(value):
         if isinstance(value, str):
@@ -128,6 +132,8 @@ def application(coordinator, key):
 
     @web.middleware
     async def boundary(request, handler):
+        if coordinator.closed:
+            return web.json_response({'error': 'shutting_down'}, status=503)
         supplied = request.headers.get('Authorization', '')
         if not hmac.compare_digest(supplied.encode(), ('Bearer ' + key).encode()):
             return web.json_response({'error': 'unauthorized'}, status=401)
@@ -192,21 +198,40 @@ def application(coordinator, key):
         if after < oldest - 1 or after >= run.next_event:
             coordinator._gap(run)
             raise ProtocolError(409, 'event_cursor_unavailable')
+        if len(streams) >= coordinator.max_subscribers:
+            raise ProtocolError(503, 'subscriber_capacity')
         response = web.StreamResponse(headers={'Content-Type': 'text/event-stream', 'Cache-Control': 'no-cache'})
-        await response.prepare(request)
+        task = asyncio.current_task()
+        streams.add(task)
         try:
-            async for sequence, event in coordinator.events(scope, run_id, after):
-                event = redact(event)
-                name = str(event.get('event', 'message')).replace('\n', '').replace('\r', '')
-                frame = f'id: {sequence}\nevent: {name}\ndata: {json.dumps(event)}\n\n'
-                await response.write(frame.encode())
+            await response.prepare(request)
+            async with aclosing(coordinator.events(scope, run_id, after)) as delivery:
+                async for sequence, event in delivery:
+                    event = redact(event)
+                    name = str(event.get('event', 'message')).replace('\n', '').replace('\r', '')
+                    frame = f'id: {sequence}\nevent: {name}\ndata: {json.dumps(event)}\n\n'
+                    async with asyncio.timeout(WRITE_TIMEOUT):
+                        await response.write(frame.encode())
+                    del event, frame
         except ProtocolError as error:
-            await response.write(('event: compatibility.gap\ndata: ' + json.dumps({'error': error.code}) + '\n\n').encode())
-        except (ConnectionError, asyncio.CancelledError):
-            pass  # Downstream disconnect never cancels the shared collector.
+            async with asyncio.timeout(WRITE_TIMEOUT):
+                await response.write(('event: compatibility.gap\ndata: ' + json.dumps({'error': error.code}) + '\n\n').encode())
+        except (ConnectionError, asyncio.CancelledError, TimeoutError):
+            response.force_close()
+        finally:
+            streams.discard(task)
         return response
 
+    async def shutdown(_app):
+        # on_shutdown runs before aiohttp drains request handlers. Stop native
+        # work now; an open SSE client must not delay this until on_cleanup.
+        for task in tuple(streams):
+            task.cancel()
+        await asyncio.gather(*tuple(streams), return_exceptions=True)
+        await coordinator.close()
+
     app = web.Application(middlewares=[boundary], client_max_size=256 * 1024)
+    app.on_shutdown.append(shutdown)
     for path in ('/health', '/health/detailed', '/v1/health'):
         app.router.add_get(path, health)
     app.router.add_post('/v1/runs/{run_id}/{action:approval|steer}', control)
@@ -218,7 +243,7 @@ def application(coordinator, key):
     return app
 
 
-def main():
+def main(*, port=8642, native_port=8643):
     from aiohttp import ClientSession, web
     key = os.environ.get('API_SERVER_KEY', '')
     if len(key.strip()) < 16 or len(key) > 8192 or any(c in key for c in '\r\n\0'):
@@ -229,7 +254,7 @@ def main():
     async def start():
         client = ClientSession(read_bufsize=8192)
         # Fixed loopback upstream; callers cannot choose a request destination.
-        coordinator = Coordinator(Gateway(client, 'http://127.0.0.1:8643', key), journal)
+        coordinator = Coordinator(Gateway(client, f'http://127.0.0.1:{native_port}', key), journal)
         async def recover():
             while True:
                 if coordinator.recovery_required:
@@ -237,14 +262,16 @@ def main():
                 await asyncio.sleep(1)
         recovery = asyncio.create_task(recover())
         app = application(coordinator, key)
-        async def cleanup(_app):
+        async def stop_recovery(_app):
             recovery.cancel()
             await asyncio.gather(recovery, return_exceptions=True)
-            await coordinator.close()
+        app.on_shutdown.insert(0, stop_recovery)
+        async def cleanup(_app):
             await client.close()
         app.on_cleanup.append(cleanup)
         return app
-    web.run_app(start(), host='127.0.0.1', port=8642, access_log=None, print=None)
+    web.run_app(start(), host='127.0.0.1', port=port, access_log=None, print=None,
+                shutdown_timeout=HTTP_SHUTDOWN_TIMEOUT)
 
 
 if __name__ == '__main__':

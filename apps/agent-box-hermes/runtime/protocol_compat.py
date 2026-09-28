@@ -52,7 +52,8 @@ class Coordinator:
     def __init__(self, backend, journal, *, queue_timeout=300, poll_interval=.25,
                  max_runs=256, max_event_bytes=1024 * 1024,
                  max_replay_bytes=8 * 1024 * 1024, max_replay_events=8192,
-                 max_snapshot_bytes=1024 * 1024):
+                 max_snapshot_bytes=1024 * 1024, max_subscribers=16,
+                 max_delivery_bytes=1024 * 1024):
         import fcntl
         self.backend = backend
         self.queue_timeout = queue_timeout
@@ -62,6 +63,10 @@ class Coordinator:
         self.max_replay_bytes = max_replay_bytes
         self.max_replay_events = max_replay_events
         self.max_snapshot_bytes = max_snapshot_bytes
+        self.max_subscribers = max_subscribers
+        self.max_delivery_bytes = max_delivery_bytes
+        self.subscribers = 0
+        self.delivery_bytes = 0
         self.replay = OrderedDict()
         self.replay_bytes = 0
         self.lock = os.open(str(journal) + '.lock', os.O_CREAT | os.O_RDWR, 0o600)
@@ -232,24 +237,42 @@ class Coordinator:
 
     async def events(self, scope, run_id, after=0):
         run = self.lookup(scope, run_id)
-        if after < 0 or after >= run.next_event:
-            self._gap(run)
-            raise ProtocolError(409, 'event_cursor_invalid')
-        while True:
-            run.changed.clear()
-            oldest = run.events[0][0] if run.events else run.next_event
-            if after < oldest - 1:
+        if self.closed:
+            raise ProtocolError(503, 'shutting_down')
+        if self.subscribers >= self.max_subscribers:
+            raise ProtocolError(503, 'subscriber_capacity')
+        self.subscribers += 1
+        try:
+            if after < 0 or after >= run.next_event:
                 self._gap(run)
-                raise ProtocolError(409, 'event_cursor_expired')
-            for sequence, event, _ in list(run.events):
-                if sequence > after:
+                raise ProtocolError(409, 'event_cursor_invalid')
+            while not self.closed:
+                run.changed.clear()
+                oldest = run.events[0][0] if run.events else run.next_event
+                if after < oldest - 1:
+                    self._gap(run)
+                    raise ProtocolError(409, 'event_cursor_expired')
+                # Never hold an iterator/snapshot of the deque across a yield.
+                # One delivery is charged until the consumer resumes or closes.
+                if after < run.next_event - 1:
+                    sequence, event, size = run.events[after + 1 - oldest]
+                    if self.delivery_bytes + size > self.max_delivery_bytes:
+                        raise ProtocolError(503, 'delivery_capacity')
+                    self.delivery_bytes += size
                     after = sequence
-                    yield sequence, dict(event)
-            if run.status['status'] in TERMINAL:
-                if run.event_gap:
-                    raise ProtocolError(409, 'upstream_event_gap')
-                return
-            await run.changed.wait()
+                    try:
+                        yield sequence, dict(event)
+                    finally:
+                        self.delivery_bytes -= size
+                        del event
+                    continue
+                if run.status['status'] in TERMINAL:
+                    if run.event_gap:
+                        raise ProtocolError(409, 'upstream_event_gap')
+                    return
+                await run.changed.wait()
+        finally:
+            self.subscribers -= 1
 
     async def _collect(self, run):
         try:
@@ -326,13 +349,24 @@ class Coordinator:
         if self.worker:
             self.worker.cancel()
             await asyncio.gather(self.worker, return_exceptions=True)
+        async def stop_orphan(run):
+            try:
+                await self.backend.stop(run.remote_id)
+            except Exception:
+                pass  # Reservation remains held for startup reconciliation.
+
+        orphans = []
         for run in self.runs.values():
+            run.changed.set()
             if run.remote_id and run.status['status'] not in TERMINAL:
                 self._gap(run)
-                try:
-                    async with asyncio.timeout(2):
-                        await self.backend.stop(run.remote_id)
-                except Exception:
-                    pass  # Persisted reservation remains held for startup reconciliation.
-        self.db.close()
-        os.close(self.lock)
+                orphans.append(run)
+        try:
+            # One budget for all restored orphans, not two seconds per run.
+            async with asyncio.timeout(2):
+                await asyncio.gather(*(stop_orphan(run) for run in orphans))
+        except TimeoutError:
+            pass
+        finally:
+            self.db.close()
+            os.close(self.lock)

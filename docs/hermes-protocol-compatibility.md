@@ -41,6 +41,9 @@ Defaults are deliberately finite:
 | Reservations | 256; capacity backpressure, no automatic key eviction |
 | Replay per run | 1 MiB |
 | Replay process-wide | 8 MiB serialized bytes and 8,192 events |
+| SSE subscribers | 16 process-wide; excess clients rejected |
+| In-flight delivery | 1 MiB serialized bytes process-wide; one payload per reader |
+| SSE write | 2 seconds, then disconnect; charged delivery released |
 | Native JSON response | 256 KiB wire and reserialized JSON |
 | Native SSE frame | 64 KiB, including multi-line and incomplete frames |
 | Inbound request / canonical reservation | 256 KiB |
@@ -52,7 +55,10 @@ event counts to constrain Python-object overhead. The byte budget describes
 serialized replay, not total Python RSS. At most 256 bounded request/status
 snapshots remain resident; journal capacity needs an explicitly approved
 retention design before long-lived production use. No reservation deletion is
-part of recovery.
+part of recovery. Subscribers never snapshot the replay deque across yields.
+Each paused reader holds at most one charged event; global eviction cannot hide
+that delivery from its separate byte budget. Redaction/serialization copies and
+transport buffers are bounded by the subscriber count and native frame limit.
 
 Native reads stream in 4 KiB chunks with an 8 KiB client read buffer. Oversized
 content-length and chunked bodies fail; automatic decompression and redirects
@@ -77,7 +83,11 @@ the HEX-122 gap register; normal-operation native gaps invalidate the exception.
 ## G7: shutdown and restart
 
 Shutdown cancels local collection, marks gaps, and makes bounded stop requests
-for known nonterminal native runs. The journal is retained. On restart,
+for known nonterminal native runs. The application shutdown hook cancels SSE
+handlers before aiohttp drains requests, then attempts all known orphan stops
+concurrently within one 2-second budget. The production runner uses a 3-second
+HTTP shutdown timeout (aiohttp may use it for each of two drain phases), below
+s6's 15-second kill deadline. The journal is retained. On restart,
 nonterminal reservations become unknown with event_gap and block new dispatch.
 A background reconciler requests stop and polls known native IDs until native
 termination is confirmed, then marks the local run failed with output retained.
@@ -116,3 +126,9 @@ routing before separately approved live tests. Rollback requires confirmed
 termination of all native work and preservation of reservations; restoring an
 older direct-native ingress while uncertain work remains is unsafe. No deploy,
 migration, journal deletion or live model call is performed by this PR.
+
+Review regressions: shutdown_test.py sends SIGTERM to the production entrypoint
+with open SSE and a stalled native stop response, asserts stop before exit, and
+reopens the preserved reservation. qualification_test.py uses weak references
+to check actual evicted-payload retention across generations of paused readers,
+plus subscriber/byte admission and delivery release.
