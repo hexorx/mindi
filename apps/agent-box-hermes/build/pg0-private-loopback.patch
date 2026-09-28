@@ -1,0 +1,80 @@
+--- a/src/main.rs
++++ b/src/main.rs
+@@ -318,7 +318,7 @@
+
+ /// Check if a port is available for binding
+ fn is_port_available(port: u16) -> bool {
+-    std::net::TcpListener::bind(("127.0.0.1", port)).is_ok()
++    std::net::TcpListener::bind(("127.0.0.2", port)).is_ok()
+ }
+
+ /// Find an available port, starting from the given port
+@@ -834,10 +834,14 @@
+         }
+     }
+
++    // Never expose embedded memory through userspace Tailscale's 127.0.0.1 forwarding.
++    configuration.insert("listen_addresses".to_string(), "127.0.0.2".to_string());
++
+     // Extract bundled PostgreSQL
+     let version_install_dir = extract_bundled_postgresql(&installation_dir, &version)?;
+
+     let settings = Settings {
++        host: "127.0.0.2".to_string(),
+         version: version_req,
+         port,
+         username: username.clone(),
+@@ -882,7 +886,7 @@
+             username, username, password.replace('\'', "''")
+         );
+         let status = std::process::Command::new(&psql_path)
+-            .arg(&format!("postgresql://postgres:{}@127.0.0.1:{}/postgres", password, port))
++            .arg(&format!("postgresql://postgres:{}@127.0.0.2:{}/postgres", password, port))
+             .arg("-c")
+             .arg(&create_user_sql)
+             .status()?;
+@@ -906,7 +910,7 @@
+             let psql_path = find_psql_binary(&installation_dir)?;
+             let grant_sql = format!("GRANT ALL PRIVILEGES ON DATABASE \"{}\" TO \"{}\";", database, username);
+             let _ = std::process::Command::new(&psql_path)
+-                .arg(&format!("postgresql://postgres:{}@127.0.0.1:{}/postgres", password, port))
++                .arg(&format!("postgresql://postgres:{}@127.0.0.2:{}/postgres", password, port))
+                 .arg("-c")
+                 .arg(&grant_sql)
+                 .status();
+@@ -940,7 +944,7 @@
+     println!("  Data dir: {}", data_dir.display());
+     println!();
+     println!(
+-        "Connection URI: postgresql://{}:{}@127.0.0.1:{}/{}",
++        "Connection URI: postgresql://{}:{}@127.0.0.2:{}/{}",
+         username, password, port, database
+     );
+     println!();
+@@ -1096,7 +1100,7 @@
+             let running = is_process_running(info.pid);
+             if running {
+                 let uri = format!(
+-                    "postgresql://{}:{}@127.0.0.1:{}/{}",
++                    "postgresql://{}:{}@127.0.0.2:{}/{}",
+                     info.username, info.password, info.port, info.database
+                 );
+                 InfoOutput {
+@@ -1219,7 +1223,7 @@
+
+     // Build connection URI
+     let uri = format!(
+-        "postgresql://{}:{}@127.0.0.1:{}/{}",
++        "postgresql://{}:{}@127.0.0.2:{}/{}",
+         info.username, info.password, info.port, info.database
+     );
+
+@@ -1410,7 +1414,7 @@
+             let running = is_process_running(info.pid);
+             let output = if running {
+                 let uri = format!(
+-                    "postgresql://{}:{}@127.0.0.1:{}/{}",
++                    "postgresql://{}:{}@127.0.0.2:{}/{}",
+                     info.username, info.password, info.port, info.database
+                 );
+                 InfoOutput {

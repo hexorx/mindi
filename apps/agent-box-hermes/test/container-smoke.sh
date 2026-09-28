@@ -30,8 +30,8 @@ docker volume create "$home_volume" >/dev/null
 docker volume create "$memory_volume" >/dev/null
 start_container() {
     docker run -d --name "$container" --shm-size=256m --security-opt=no-new-privileges \
-        -e MEMORY_LLM_BASE_URL=http://127.0.0.1:9999/v1 \
-        -e MEMORY_EMBEDDINGS_BASE_URL=http://127.0.0.1:9999/v1 \
+        -e MEMORY_LLM_BASE_URL=http://127.0.0.2:9999/v1 \
+        -e MEMORY_EMBEDDINGS_BASE_URL=http://127.0.0.2:9999/v1 \
         --mount "type=volume,src=$home_volume,dst=/home/agent" \
         --mount "type=volume,src=$1,dst=/var/lib/agent-box/hindsight" \
         --mount "type=bind,src=$tests,dst=/test,readonly" \
@@ -67,6 +67,20 @@ from pathlib import Path
 for name in ("client", "proxy", "fastcgi", "uwsgi", "scgi"):
     path = Path("/run/user/1000") / name
     assert path.is_dir() and os.access(path, os.W_OK), str(path)
+'
+# Tailscale is off by default: no daemon, disabled network health, desktop and memory off forwarded loopback.
+docker exec --user 1000:1000 "$container" python3 -c '
+import json, pathlib, socket
+assert json.loads(pathlib.Path("/run/agent-box/network.json").read_text()) == {"status": "disabled", "code": "disabled"}
+assert not any(p.read_text().strip() == "tailscaled" for p in pathlib.Path("/proc").glob("[0-9]*/comm"))
+pg0 = json.loads(pathlib.Path("/var/lib/agent-box/hindsight/.pg0/instances/hindsight/instance.json").read_text())
+for port in (5900, 6080, 8888, pg0["port"]):
+    with socket.create_connection(("127.0.0.2", port), timeout=1):
+        pass
+for port in (5900, 6080, 1055, 1056, 8888, pg0["port"]):
+    with socket.socket() as s:
+        s.settimeout(1)
+        assert s.connect_ex(("127.0.0.1", port)) != 0, port
 '
 port=$(docker port "$container" 8443/tcp | sed 's/.*://')
 base="https://127.0.0.1:$port"

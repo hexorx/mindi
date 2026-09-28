@@ -29,12 +29,22 @@ class MemoryTest(unittest.TestCase):
         cfg = json.loads(first)
         self.assertTrue(cfg['bank_id'].startswith('box-'))
         self.assertEqual(cfg['mode'], 'local_external')
+        self.assertEqual(cfg['api_url'], 'http://127.0.0.2:8888')
         self.assertEqual(json.loads((self.home / 'config.yaml').read_text())['model'], 'preserve')
         other = self.root / 'other/.hermes'
         other.mkdir(parents=True)
         (other / 'config.yaml').write_text('{}')
         with self.assertRaisesRegex(ValueError, 'different box'):
             memory.configure(other, self.data)
+
+    def test_existing_loopback_configuration_is_updated(self):
+        memory.configure(self.home, self.data)
+        config = self.home / 'hindsight/config.json'
+        old = json.loads(config.read_text())
+        config.write_text(json.dumps({**old, 'api_url': 'http://127.0.0.1:8888'}))
+        memory.configure(self.home, self.data)
+        self.assertEqual(json.loads(config.read_text()),
+                         {**old, 'api_url': 'http://127.0.0.2:8888'})
 
     def test_managed_configuration_survives_memory_boot_and_refresh(self):
         defaults = Path(__file__).parents[1] / 'defaults'
@@ -65,7 +75,7 @@ class MemoryTest(unittest.TestCase):
         env = memory.environment({'HINDSIGHT_API_HOST': '0.0.0.0', 'HINDSIGHT_API_DATABASE_URL': 'remote',
                                   'UNRELATED_SECRET': 'never', 'MEMORY_LLM_PROVIDER': 'anthropic',
                                   'MEMORY_EMBEDDINGS_BASE_URL': 'http://127.0.0.1:9999/v1'}, self.root)
-        self.assertEqual(env['HINDSIGHT_API_HOST'], '127.0.0.1')
+        self.assertEqual(env['HINDSIGHT_API_HOST'], '127.0.0.2')
         self.assertEqual(env['HINDSIGHT_API_DATABASE_URL'], 'pg0://hindsight')
         self.assertEqual(env['HOME'], str(memory.DATA))
         self.assertNotIn('UNRELATED_SECRET', env)
