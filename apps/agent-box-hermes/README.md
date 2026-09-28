@@ -104,3 +104,12 @@ patch to five upstream migrations, replacing raw SQL COMMIT around concurrent in
 operations with Alembic autocommit blocks for psycopg 3. Dependency upgrades must
 review/remove this patch; changed source fails the build. Normal migration statements
 remain transactional. Container CI validates startup against a fresh pg0 database.
+
+## P7 qualification ingress
+
+The P7 launcher supervises the compatibility API on loopback 8642 and the native
+gateway on private loopback 8643. HTTPS ingress admits authenticated run,
+health, approval and steer routes; alternate chat/job/profile inference routes
+are denied. All admitted callers share one durable reservation journal and
+desktop slot. See [protocol qualification](../../docs/hermes-protocol-compatibility.md)
+for resource caps, restart behavior, offline tests and gated rollout notes.

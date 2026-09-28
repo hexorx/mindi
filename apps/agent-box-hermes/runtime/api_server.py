@@ -18,7 +18,7 @@ def environment(source):
     if not valid:
         raise ValueError('api-server: missing or invalid PAPERCLIP_API_URL (value redacted)')
     # Prevent the CLI from asking upstream s6 profile reconciliation to spawn another service.
-    env.update(API_SERVER_ENABLED='true', API_SERVER_HOST='127.0.0.1', API_SERVER_PORT='8642',
+    env.update(API_SERVER_ENABLED='true', API_SERVER_HOST='127.0.0.1', API_SERVER_PORT='8643',
                HERMES_S6_SUPERVISED_CHILD='1')
     return env
 

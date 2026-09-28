@@ -1,101 +1,118 @@
-# Hermes run protocol compatibility — review candidate
+# P7 protocol qualification candidate
 
-This is an **opt-in, offline-tested implementation**, not P7 acceptance or an enabled runtime. Based on `main` at `e12b076`; the P7 native API launcher is still on the separate `hex-95-hermes-gateway` branch. No container service, port, nginx configuration, deployment, or model invocation is changed here.
+This branch integrates the protocol shim onto the maintained P7 launcher
+(`hex-95-hermes-gateway`). It changes image source/configuration only. It has not
+been deployed and does not authorize live inference, upstream publication, or P7
+acceptance. Independent exact-head review and green CI are required before merge.
 
-## Source contract
+## Ownership and ingress
 
-NousResearch/hermes-agent tag `v2026.8.18` resolves to `e624e9fde561e1add9388384012b295fde669ade`; `hermes_cli/__init__.py` declares **0.20.4**. The tag and Opi's runtime version are consistent. Native `_handle_runs` does not read Idempotency-Key. `_handle_run_events` consumes one queue and removes it when a reader disconnects. `_handle_stop_run` returns 404 after the active task disappears. Native concurrency has a configurable admission cap, but it does not supply this queued reservation contract.
+s6 runs one foreground native gateway on loopback 8643 and one shim on loopback
+8642. The shim runs under the Hermes virtualenv as the hermes user. An exclusive
+journal lock prevents a second owner. nginx's only API upstream is the shim;
+8443 remains the only exposed container port.
 
-## Proposed boundary
+nginx admits run creation/status/events/stop, cancellation by reservation,
+health, approval and steer. Every other /v1, /api, /health and /p route is denied,
+including chat/completions, responses, session chat/stream, jobs, platform
+callbacks, cron and profile mirrors. The desktop fallback still targets the
+static noVNC service, not the native API. Box-wide serialization applies to
+callers using this configured ingress; direct execution inside the container
+is outside this HTTP boundary.
 
-`runtime/protocol_http.py` listens on loopback 8642, authenticates API_SERVER_KEY, and delegates native requests to loopback 8643. It runs using the pinned Hermes virtualenv, whose messaging dependencies include aiohttp 3.14.3. `protocol_compat.py` is transport-independent and uses only Python's standard library.
+Every admitted route authenticates API_SERVER_KEY. Approval and steer resolve a
+local, owned run ID to its native ID and require an active run; they cannot
+create work or select an arbitrary native URL. Health forwards to native health
+and reports 503 while reconciliation holds ownership. Invalid authorization
+never reaches native control routes.
 
-The API accepts POST /v1/runs, GET /v1/runs/{id}, GET /v1/runs/{id}/events and POST /v1/runs/{id}/stop. Unimplemented paths return 404. **This is not a drop-in replacement for all native API routes**: approval/steer, health, desktop chat and other inference entrypoints need integration review before enabling it. Bypassing the shim to call native inference invalidates the box-wide guarantee. All desktop callers must share the same coordinator and journal; no per-agent concurrency setting substitutes for that boundary.
+## Reservations and bounded memory
 
-Reservations are keyed by authenticated credential scope plus Idempotency-Key; the canonical request body and session header determine a conflict. Reservation commits precede inference. Concurrent retries return one stable local run ID, even before the native ID exists. Conflicting requests return 409. A single worker owns the desktop slot across caller/session boundaries. Queued stops and 300-second queued expiry invoke no model. Active stop only requests interruption; terminal polling releases the slot and retains final output/usage. Native completed/failed/cancelled status is assumed to follow execution completion in the ordinary run/stop path; forced gateway shutdown needs separate qualification.
+A durable reservation precedes dispatch. Idempotency uses credential scope,
+key, body and session; conflicting repeats fail. All sessions share one worker.
+Stop acknowledgement never releases the slot: observed terminal status does.
+Queued cancellation and timeout invoke no inference. Cancellation by reservation
+creates a tombstone if necessary, preventing delayed create from redispatching.
 
-A lost create response is ambiguous: the reservation and slot remain held, and new work receives recovery_required. The shim never retries an uncertain native create. Client create retries remain supported and do not invoke again. An exclusive journal lock prevents two shim processes from acting as the owner. Journal capacity is 10,000 reservations; capacity exhaustion fails closed, with no automatic key eviction. The runtime SQLite journal contains private request content and uses mode 0600 in a private directory; it must not enter source control or public artifacts.
+Defaults are deliberately finite:
 
-## Event reconnect and explicit gaps
+| Resource | Limit / behavior |
+| --- | --- |
+| Reservations | 256; capacity backpressure, no automatic key eviction |
+| Replay per run | 1 MiB |
+| Replay process-wide | 8 MiB serialized bytes and 8,192 events |
+| Native JSON response | 256 KiB wire and reserialized JSON |
+| Native SSE frame | 64 KiB, including multi-line and incomplete frames |
+| Inbound request / canonical reservation | 256 KiB |
+| Persisted snapshot | 1 MiB; checked before write and before loading old rows |
+| Native error response | Body not read or forwarded; constant error code |
 
-One independent native SSE collector survives downstream disconnects. Every event receives a monotonically increasing cursor. Reconnecting clients send Last-Event-ID; multiple clients see the same sequence without consuming each other's events. The accompanying Paperclip adapter patch sends the last processed cursor and still final-polls.
+Replay uses global oldest-event eviction, with per-run accounting and bounded
+event counts to constrain Python-object overhead. The byte budget describes
+serialized replay, not total Python RSS. At most 256 bounded request/status
+snapshots remain resident; journal capacity needs an explicitly approved
+retention design before long-lived production use. No reservation deletion is
+part of recovery.
 
-Replay memory is bounded to 4 MiB per run. An expired cursor returns 409; loss discovered midstream emits `compatibility.gap`. An upstream SSE failure or premature EOF is recorded as a gap, not represented as successful resumed delivery. **Native connection loss cannot be repaired from the native queue after its handler deletes that queue.** Events are not persisted across shim restarts. Both limitations require explicit Codi/Mindi acceptance review or upstream repair; polling-only is not accepted by this PR.
+Native reads stream in 4 KiB chunks with an 8 KiB client read buffer. Oversized
+content-length and chunked bodies fail; automatic decompression and redirects
+are disabled. SSE limits apply even without newlines or frame separators.
+Transport errors never forward native error bodies. HTTP payload redaction
+covers credential occurrences in values and keys. Oversized native status fails
+closed with an explicit gap and retains ownership.
 
-A restart with nonterminal journal entries fails closed. It preserves duplicate-key identity but requires operator reconciliation of old work before new dispatch. Do not delete the journal to clear the condition: that would destroy reservations and could duplicate inference. No automatic recovery or data-deletion procedure is authorized here.
+## G6: native connection loss
 
-## Verification
+A collector survives downstream disconnects, and downstream cursors replay
+retained events. Expired/invalid cursors return 409, or compatibility.gap after
+stream headers. Native EOF/loss without a terminal event sets sticky event_gap
+in status and results. Polling cannot clear it.
 
-Install test dependencies with `python3 -m pip install -r apps/agent-box-hermes/requirements-test.txt`; then run `pnpm build`, `pnpm lint`, `pnpm typecheck`, `pnpm test`. Transport tests use an ephemeral loopback aiohttp test server and an in-memory fake backend; no native/model endpoint is contacted.
+The offline native-loss fixture closes an actual chunked TCP response after a
+delta. The real adapter-to-shim test requires nonzero exit and preserves final
+output with event_gap. This qualifies the bounded exception, not restoration of
+lost native events. The upstream collector/replay repair remains tracked in
+the HEX-122 gap register; normal-operation native gaps invalidate the exception.
 
-Regression tests count actual fake inference invocations and cover concurrent duplicate creates, conflicting payloads, terminal retries, cross-caller slot serialization, queued cancellation/expiry, cancellation during create, failed stop, failure release, ambiguous create, exclusive journal ownership/restart, downstream reconnect and multiple readers, cursor expiry, HTTP authentication/path restrictions, and final-result secret redaction.
+## G7: shutdown and restart
 
-## Integration and rollout review
+Shutdown cancels local collection, marks gaps, and makes bounded stop requests
+for known nonterminal native runs. The journal is retained. On restart,
+nonterminal reservations become unknown with event_gap and block new dispatch.
+A background reconciler requests stop and polls known native IDs until native
+termination is confirmed, then marks the local run failed with output retained.
+A stop acknowledgement alone never frees ownership.
 
-After the P7 launcher work lands, Codi must wire a single shim owner into supervision, move the native API to 8643, route every admitted inference entrypoint through the shared slot, preserve health/control endpoints, and add supervision/configuration regressions. The current change is deliberately not activated until that integration is implemented and reviewed.
+Unknown create outcomes without a native ID remain blocked for operator/native
+reconciliation; no retry or guessed ID is used. Duplicate keys always retain
+their reservation and never dispatch a second time. Restored terminal history
+also reports event_gap because replay itself is not durable. Never delete the
+journal to bypass this condition.
 
-A different agent must review the exact branch head and CI before any eligible merge. Production rollout belongs to Opi and requires Josh's deployment approval, operational prerequisites, and the retest budget. Rollback must first quiesce work and confirm no inference remains, preserve the reservation journal, then restore the previous image/configuration. Do not mix old direct callers with shim callers or reset reservations. No production migration, rollout, rollback or live retest is executed by this change.
+## Offline verification
 
-## Review remediation contract
+Install requirements-test.txt and nginx, then run repository build, lint,
+typecheck and tests. NGINX_BINARY can select a scratch-extracted nginx binary.
+The ingress test starts the shipped nginx configuration with only ephemeral
+loopback ports and test TLS paths substituted. It proves alternate-path denial,
+authentication and shared-slot ownership across two distinct sessions/callers.
 
-`POST /v1/run-reservations/stop` uses the same authenticated scope, Idempotency-Key,
-body and session header as create. If the key is absent, it commits a cancelled
-reservation without queueing inference. If present, it records stop intent for
-that same run. A delayed create therefore either observes the cancelled tombstone
-or resolves to the already-stopping run. Conflicting bodies still return 409.
-`reservation_cancelled: true` acknowledges the durable intent, **not** termination;
-the adapter must observe terminal status before reporting `stop_confirmed: true`.
+qualification_test.py covers aggregate bytes/count, concurrent eviction,
+cursor loss, snapshot limits, chunked/native errors, oversized frames,
+authenticated controls, native loss, exclusive restart ownership, retained
+reservations and orphan reconciliation.
 
-The adapter begins cancellation and deadline observation before create, bounds
-response headers and body reads, and never redispatches an ambiguous create. It
-recovers through the reservation endpoint after a 100 ms late-ID grace period;
-without that endpoint it reports an unknown outcome and attaches a late-ID stop
-handler (transport lifetime capped at 60 seconds). Such native-only unknown
-outcomes require reconciliation, not automated retry.
+The unpublished Paperclip test branch adds a native TCP-loss contract test.
+Run its gateway tests with HERMES_COMPAT_SOURCE pointing to this app directory.
+Publishing that patch remains gated by approval e569532c; no upstream PR or
+remote CI is claimed for it.
 
-Shim status, duplicate-create and stop responses carry sticky `event_gap` state,
-including native stream loss, replay cursor loss and restart history loss. The
-adapter preserves this field in results even when polling wins. Polling-only
-successful completion is rejected with `hermes_gateway_event_gap`, while retaining
-output and usage. A terminal SSE frame is reconciled with a final status read
-bounded to one second; unavailable/nonterminal final status yields
-`hermes_gateway_final_status_unconfirmed`, not success. Local stop cleanup uses
-separate bounded stop/final-poll windows and reports unconfirmed termination
-explicitly. Queue `timeout` maps to a terminal timeout even with `timeoutSec=0`.
+## Rollout and rollback
 
-For the cross-repository offline contract test, from the Paperclip checkout's
-`packages/adapters/hermes` directory run:
-
-```sh
-HERMES_COMPAT_SOURCE=/absolute/path/to/mindi/apps/agent-box-hermes pnpm test
-```
-
-Install the requirements above in the selected Python environment first. The
-three contract scenarios execute the real adapter and shim against a fake native
-backend: queue expiry (zero invocations for the expired run), stalled create
-headers, and stalled create body (one invocation each, confirmed termination).
-The fixture binds an ephemeral loopback port only and is killed by test cleanup.
-Without `HERMES_COMPAT_SOURCE` those three cross-repository tests are skipped;
-the standalone adapter unit tests and shim HTTP tests still run independently.
-
-## Unqualified items — no waivers
-
-The issue's `gap-register` is the decision record. Codi recommends keeping all
-of these open until repaired and tested; Mindi's explicit decision is pending:
-
-- Aggregate replay memory has no small process-wide budget (10,000 × 4 MiB permits
-  about 39 GiB, plus request/status/Python object overhead). Per-run trimming is
-  not operational memory qualification.
-- Native response/SSE record sizes are not explicitly capped. The inbound 1 MiB
-  request limit does not bound native responses or persistent status snapshots.
-- Launcher/supervision wiring is absent; there is no active single shim owner.
-- Health, approval and steer routes need authenticated forwarding integration.
-- Alternate desktop/chat inference paths must be routed through the same slot
-  or denied at the deployed boundary; shim-local 404 tests do not prove this.
-- Native stream loss cannot restore deleted queues; downstream replay only covers
-  an intact independently owned native collector.
-- Event replay does not survive process restart. Restart marks status as a gap and
-  fails closed for nonterminal work, but this is not restored delivery.
-
-No polling waiver, one-agent restriction, no-create-retry restriction, runtime
-activation, live retest or production rollout follows from these offline tests.
+Opi owns any approved rollout after merge, with Josh's deployment approval and
+the HEX-121 operational/budget gates. Quiesce callers before changing the image,
+retain the home-volume journal, and verify health, authentication and ingress
+routing before separately approved live tests. Rollback requires confirmed
+termination of all native work and preservation of reservations; restoring an
+older direct-native ingress while uncertain work remains is unsafe. No deploy,
+migration, journal deletion or live model call is performed by this PR.
