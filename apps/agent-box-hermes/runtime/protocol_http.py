@@ -112,6 +112,15 @@ def application(coordinator, key):
                                     request.headers.get('X-Hermes-Session-Key', ''))
         return web.json_response(redact(status), status=202)
 
+    async def stop_reservation(request):
+        body = await request.json()
+        if not isinstance(body, dict) or not body.get('input'):
+            raise ProtocolError(400, 'input_required')
+        status = await coordinator.stop_reservation(
+            scope, request.headers.get('Idempotency-Key', ''), body,
+            request.headers.get('X-Hermes-Session-Key', ''))
+        return web.json_response(redact(dict(status, reservation_cancelled=True)))
+
     async def status(request):
         return web.json_response(redact(coordinator.status(scope, request.match_info['run_id'])))
 
@@ -124,6 +133,7 @@ def application(coordinator, key):
         run = coordinator.lookup(scope, run_id)
         oldest = run.events[0][0] if run.events else run.next_event
         if after < oldest - 1 or after >= run.next_event:
+            coordinator._gap(run)
             raise ProtocolError(409, 'event_cursor_unavailable')
         response = web.StreamResponse(headers={'Content-Type': 'text/event-stream', 'Cache-Control': 'no-cache'})
         await response.prepare(request)
@@ -141,6 +151,7 @@ def application(coordinator, key):
 
     app = web.Application(middlewares=[boundary], client_max_size=1024 * 1024)
     app.router.add_post('/v1/runs', create)
+    app.router.add_post('/v1/run-reservations/stop', stop_reservation)
     app.router.add_get('/v1/runs/{run_id}', status)
     app.router.add_post('/v1/runs/{run_id}/stop', stop)
     app.router.add_get('/v1/runs/{run_id}/events', events)

@@ -71,3 +71,38 @@ class HttpTests(unittest.IsolatedAsyncioTestCase):
         gateway = Gateway(None, 'http://unused', self.key)
         gateway.request = AsyncMock(side_effect=[{'status': 'running'}, ProtocolError(502, 'gateway_request_failed'), {'status': 'completed'}])
         self.assertEqual(await gateway.stop('run_fake'), {'status': 'completed'})
+
+    async def test_cancel_reservation_before_create_is_durable_and_never_dispatches(self):
+        response = await self.client.post('/v1/run-reservations/stop', headers=self.headers, json={'input': 'offline'})
+        cancelled = await response.json()
+        self.assertTrue(cancelled['reservation_cancelled'])
+        self.assertEqual(cancelled['status'], 'cancelled')
+        self.assertEqual(await self.create(), cancelled['run_id'])
+        await asyncio.sleep(.01)
+        self.assertEqual(self.backend.invocations, [])
+        denied = await self.client.post('/v1/run-reservations/stop', json={'input': 'offline'})
+        self.assertEqual(denied.status, 401)
+        conflict = await self.client.post('/v1/run-reservations/stop', headers=self.headers, json={'input': 'changed'})
+        self.assertEqual(conflict.status, 409)
+        journal = self.coordinator.db.execute('SELECT snapshot FROM runs').fetchone()[0]
+        self.assertIn('cancelled', journal)
+
+    async def test_cancel_reservation_after_create_stops_same_invocation(self):
+        run_id = await self.create()
+        await until(lambda: self.coordinator.runs[run_id].remote_id is not None)
+        response = await self.client.post('/v1/run-reservations/stop', headers=self.headers, json={'input': 'offline'})
+        self.assertEqual((await response.json())['run_id'], run_id)
+        self.assertEqual(self.backend.stops, ['native0'])
+        self.assertEqual(await self.create(), run_id)
+        self.assertEqual(len(self.backend.invocations), 1)
+
+    async def test_polling_sees_gap_without_consuming_sse(self):
+        run_id = await self.create()
+        await self.backend.creating.wait()
+        self.backend.streams['native0'].put_nowait(None)
+        self.backend.states['native0'] = {'status': 'completed', 'output': 'saved', 'usage': {'input_tokens': 2}}
+        await until(lambda: self.coordinator.runs[run_id].status['status'] == 'completed')
+        response = await self.client.get('/v1/runs/' + run_id, headers=self.headers)
+        self.assertEqual(await response.json(), dict(run_id=run_id, status='completed', output='saved', usage={'input_tokens': 2}, event_gap=True))
+        repeat = await self.client.post('/v1/runs', headers=self.headers, json={'input': 'offline'})
+        self.assertTrue((await repeat.json())['event_gap'])

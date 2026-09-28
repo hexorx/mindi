@@ -26,7 +26,7 @@ A restart with nonterminal journal entries fails closed. It preserves duplicate-
 
 ## Verification
 
-Install test dependencies `PyYAML==6.0.2 aiohttp==3.14.3`; then run `pnpm build`, `pnpm lint`, `pnpm typecheck`, `pnpm test`. Transport tests use an ephemeral loopback aiohttp test server and an in-memory fake backend; no native/model endpoint is contacted.
+Install test dependencies with `python3 -m pip install -r apps/agent-box-hermes/requirements-test.txt`; then run `pnpm build`, `pnpm lint`, `pnpm typecheck`, `pnpm test`. Transport tests use an ephemeral loopback aiohttp test server and an in-memory fake backend; no native/model endpoint is contacted.
 
 Regression tests count actual fake inference invocations and cover concurrent duplicate creates, conflicting payloads, terminal retries, cross-caller slot serialization, queued cancellation/expiry, cancellation during create, failed stop, failure release, ambiguous create, exclusive journal ownership/restart, downstream reconnect and multiple readers, cursor expiry, HTTP authentication/path restrictions, and final-result secret redaction.
 
@@ -35,3 +35,67 @@ Regression tests count actual fake inference invocations and cover concurrent du
 After the P7 launcher work lands, Codi must wire a single shim owner into supervision, move the native API to 8643, route every admitted inference entrypoint through the shared slot, preserve health/control endpoints, and add supervision/configuration regressions. The current change is deliberately not activated until that integration is implemented and reviewed.
 
 A different agent must review the exact branch head and CI before any eligible merge. Production rollout belongs to Opi and requires Josh's deployment approval, operational prerequisites, and the retest budget. Rollback must first quiesce work and confirm no inference remains, preserve the reservation journal, then restore the previous image/configuration. Do not mix old direct callers with shim callers or reset reservations. No production migration, rollout, rollback or live retest is executed by this change.
+
+## Review remediation contract
+
+`POST /v1/run-reservations/stop` uses the same authenticated scope, Idempotency-Key,
+body and session header as create. If the key is absent, it commits a cancelled
+reservation without queueing inference. If present, it records stop intent for
+that same run. A delayed create therefore either observes the cancelled tombstone
+or resolves to the already-stopping run. Conflicting bodies still return 409.
+`reservation_cancelled: true` acknowledges the durable intent, **not** termination;
+the adapter must observe terminal status before reporting `stop_confirmed: true`.
+
+The adapter begins cancellation and deadline observation before create, bounds
+response headers and body reads, and never redispatches an ambiguous create. It
+recovers through the reservation endpoint after a 100 ms late-ID grace period;
+without that endpoint it reports an unknown outcome and attaches a late-ID stop
+handler (transport lifetime capped at 60 seconds). Such native-only unknown
+outcomes require reconciliation, not automated retry.
+
+Shim status, duplicate-create and stop responses carry sticky `event_gap` state,
+including native stream loss, replay cursor loss and restart history loss. The
+adapter preserves this field in results even when polling wins. Polling-only
+successful completion is rejected with `hermes_gateway_event_gap`, while retaining
+output and usage. A terminal SSE frame is reconciled with a final status read
+bounded to one second; unavailable/nonterminal final status yields
+`hermes_gateway_final_status_unconfirmed`, not success. Local stop cleanup uses
+separate bounded stop/final-poll windows and reports unconfirmed termination
+explicitly. Queue `timeout` maps to a terminal timeout even with `timeoutSec=0`.
+
+For the cross-repository offline contract test, from the Paperclip checkout's
+`packages/adapters/hermes` directory run:
+
+```sh
+HERMES_COMPAT_SOURCE=/absolute/path/to/mindi/apps/agent-box-hermes pnpm test
+```
+
+Install the requirements above in the selected Python environment first. The
+three contract scenarios execute the real adapter and shim against a fake native
+backend: queue expiry (zero invocations for the expired run), stalled create
+headers, and stalled create body (one invocation each, confirmed termination).
+The fixture binds an ephemeral loopback port only and is killed by test cleanup.
+Without `HERMES_COMPAT_SOURCE` those three cross-repository tests are skipped;
+the standalone adapter unit tests and shim HTTP tests still run independently.
+
+## Unqualified items — no waivers
+
+The issue's `gap-register` is the decision record. Codi recommends keeping all
+of these open until repaired and tested; Mindi's explicit decision is pending:
+
+- Aggregate replay memory has no small process-wide budget (10,000 × 4 MiB permits
+  about 39 GiB, plus request/status/Python object overhead). Per-run trimming is
+  not operational memory qualification.
+- Native response/SSE record sizes are not explicitly capped. The inbound 1 MiB
+  request limit does not bound native responses or persistent status snapshots.
+- Launcher/supervision wiring is absent; there is no active single shim owner.
+- Health, approval and steer routes need authenticated forwarding integration.
+- Alternate desktop/chat inference paths must be routed through the same slot
+  or denied at the deployed boundary; shim-local 404 tests do not prove this.
+- Native stream loss cannot restore deleted queues; downstream replay only covers
+  an intact independently owned native collector.
+- Event replay does not survive process restart. Restart marks status as a gap and
+  fails closed for nonterminal work, but this is not restored delivery.
+
+No polling waiver, one-agent restriction, no-create-retry restriction, runtime
+activation, live retest or production rollout follows from these offline tests.

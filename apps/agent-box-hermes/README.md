@@ -42,7 +42,7 @@ Mapping `network.tailscale` from a config source to `AGENT_BOX_TAILSCALE` is P5 
 ## Verification
 
 ```sh
-python3 -m pip install PyYAML==6.0.3
+python3 -m pip install -r apps/agent-box-hermes/requirements-test.txt
 pnpm build && pnpm lint && pnpm typecheck && pnpm test
 docker buildx build --platform linux/amd64 --load -t hermes-desktop:smoke -f apps/agent-box-hermes/Dockerfile .
 apps/agent-box-hermes/test/container-smoke.sh hermes-desktop:smoke
