@@ -113,7 +113,8 @@ class Coordinator:
         self.db.commit()
 
     def _status(self, run, status, **extra):
-        extra.pop('event_gap', None)  # Native data cannot clear a sticky local gap.
+        # Native loss is durable too; later false/missing snapshots cannot clear it.
+        run.event_gap |= extra.pop('event_gap', None) is True
         run.status = dict(extra, run_id=run.id, status=status, event_gap=run.event_gap)
         self._save(run)
         run.changed.set()
@@ -278,6 +279,8 @@ class Coordinator:
         try:
             terminal_seen = False
             async for event in self.backend.events(run.remote_id):
+                if event.get('event') == 'compatibility.gap' or event.get('event_gap') is True:
+                    self._gap(run)  # Persist before publishing, even with terminal SSE.
                 self._append(run, event)
                 terminal_seen |= event.get("event") in ("run.completed", "run.failed", "run.cancelled")
             if not terminal_seen:

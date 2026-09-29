@@ -132,3 +132,34 @@ with open SSE and a stalled native stop response, asserts stop before exit, and
 reopens the preserved reservation. qualification_test.py uses weak references
 to check actual evicted-payload retention across generations of paused readers,
 plus subscriber/byte admission and delivery release.
+
+## Native gap regression (HEX-144)
+
+Native status `event_gap: true`, SSE `compatibility.gap`, and SSE payload
+`event_gap: true` all persist the run's sticky gap before publication. Later
+false/missing flags and terminal SSE cannot clear it. HTTP tests cover status,
+duplicate create, stop and journal snapshots while preserving output/usage.
+
+For a real adapter polling-wins proof, use the existing Paperclip adapter checkout
+with a TypeScript loader (or a freshly built adapter with resolvable dependencies):
+
+```sh
+HERMES_ADAPTER_EXECUTE=/path/to/paperclip/packages/adapters/hermes/src/gateway/server/execute.ts \
+  node --import /path/to/tsx/dist/loader.mjs --test \
+  apps/agent-box-hermes/test/native_gap_contract.test.js
+```
+
+The fixture uses native HTTP/SSE, the production Gateway and coordinator, and the
+real adapter. It holds downstream SSE pending, asserts zero delivered adapter
+events, and independently checks authoritative HTTP and journal gap truth.
+All three cases fail on the pre-fix shim and pass with the repair. Ordinary CI
+skips this cross-repository test when the adapter path is unset; HTTP coverage
+always runs. No adapter source modification or publication is needed.
+
+For this repair, Opi owns the LAN-only rollout after Devi's exact-head review,
+green CI and Mindi's merge. Preserve the journal and quiesce/confirm native work
+has stopped before replacing the image. Roll back to the previous image while
+retaining the home volume and reservations; the previous image has the known
+native-gap defect, so keep callers quiesced pending a corrected image. Keep
+consent/approval semantics and the live test window unchanged. Production and
+GHCR publishing remain outside this repair.

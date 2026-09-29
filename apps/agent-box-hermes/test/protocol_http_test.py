@@ -1,4 +1,5 @@
 import asyncio
+import json
 from pathlib import Path
 import sys
 import tempfile
@@ -120,3 +121,61 @@ class HttpTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(await response.json(), dict(run_id=run_id, status='completed', output='saved', usage={'input_tokens': 2}, event_gap=True))
         repeat = await self.client.post('/v1/runs', headers=self.headers, json={'input': 'offline'})
         self.assertTrue((await repeat.json())['event_gap'])
+
+    async def assert_native_gap_is_sticky(self, source):
+        run_id = await self.create()
+        await until(lambda: self.coordinator.runs[run_id].remote_id is not None)
+        run = self.coordinator.runs[run_id]
+        path = '/v1/runs/' + run_id
+
+        async def assert_responses(status, output):
+            expected = dict(run_id=run_id, status=status, output=output,
+                            usage={'input_tokens': 2}, event_gap=True)
+            for method, route, body, code in (
+                    ('get', path, None, 200),
+                    ('post', '/v1/runs', {'input': 'offline'}, 202),
+                    ('post', path + '/stop', None, 200)):
+                response = await getattr(self.client, method)(route, headers=self.headers, json=body)
+                self.assertEqual(response.status, code)
+                self.assertEqual(await response.json(), expected)
+            snapshot = json.loads(self.coordinator.db.execute(
+                'SELECT snapshot FROM runs WHERE id = ?', (run_id,)).fetchone()[0])
+            self.assertTrue(snapshot['event_gap'])
+            self.assertEqual(snapshot['status'], expected)
+
+        self.backend.states['native0'].update(output='initial', usage={'input_tokens': 2})
+        await until(lambda: run.status.get('output') == 'initial')
+        if source == 'status':
+            self.backend.states['native0'].update(event_gap=True, output='native gap')
+            await until(lambda: run.status.get('output') == 'native gap')
+            await assert_responses('running', 'native gap')
+        else:
+            event = ({'event': 'compatibility.gap'} if source == 'event'
+                     else {'event': 'message.delta', 'event_gap': True, 'delta': 'kept'})
+            self.backend.streams['native0'].put_nowait(event)
+            await until(lambda: run.next_event == 2)
+            await assert_responses('running', 'initial')
+
+        # Neither an explicit false nor an omitted flag may erase known loss.
+        for flag in (False, None):
+            output = 'snapshot ' + str(flag)
+            self.backend.states['native0'] = dict(status='running', output=output, usage={'input_tokens': 2})
+            if flag is not None:
+                self.backend.states['native0']['event_gap'] = flag
+            await until(lambda: run.status.get('output') == output)
+            await assert_responses('running', output)
+        self.backend.finish('native0')  # Terminal SSE prevents the EOF fallback.
+        self.backend.states['native0']['event_gap'] = False
+        await until(lambda: run.status['status'] == 'completed')
+        await assert_responses('completed', 'final output')
+        self.assertEqual(len(self.backend.invocations), 1)
+        self.assertEqual(self.coordinator.subscribers, 0)  # HTTP polling only.
+
+    async def test_native_status_gap_is_sticky_over_http(self):
+        await self.assert_native_gap_is_sticky('status')
+
+    async def test_native_gap_event_is_sticky_over_http(self):
+        await self.assert_native_gap_is_sticky('event')
+
+    async def test_native_event_payload_gap_is_sticky_over_http(self):
+        await self.assert_native_gap_is_sticky('payload')
