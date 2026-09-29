@@ -8,6 +8,7 @@ import subprocess
 import sys
 import tempfile
 import unittest
+from unittest.mock import AsyncMock
 from aiohttp import ClientSession
 from aiohttp.test_utils import TestServer
 sys.path.insert(0, str(Path(__file__).parents[1] / 'runtime'))
@@ -25,6 +26,7 @@ class IngressTests(unittest.IsolatedAsyncioTestCase):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             backend = Backend()
+            backend.request = AsyncMock(return_value={"status": "ok"})
             owner = Coordinator(backend, root / 'runs.sqlite', poll_interval=.001)
             server = TestServer(application(owner, 'offline-ingress-key'))
             await server.start_server()
@@ -32,7 +34,8 @@ class IngressTests(unittest.IsolatedAsyncioTestCase):
             try:
                 subprocess.run(['openssl', 'req', '-x509', '-newkey', 'rsa:2048', '-nodes',
                                 '-keyout', str(root / 'tls.key'), '-out', str(root / 'tls.crt'),
-                                '-days', '1', '-subj', '/CN=localhost'], check=True, capture_output=True)
+                                '-days', '1', '-subj', '/CN=localhost',
+                                '-addext', 'subjectAltName=DNS:localhost,IP:127.0.0.1'], check=True, capture_output=True)
                 with socket.socket() as sock:
                     sock.bind(('127.0.0.1', 0))
                     port = sock.getsockname()[1]
@@ -58,6 +61,16 @@ class IngressTests(unittest.IsolatedAsyncioTestCase):
                                 await asyncio.sleep(.01)
                         raise AssertionError('nginx startup timed out')
                     await ready()
+                    # Run the exact container probe against real TLS/nginx and the
+                    # compatibility API. No native inference may be dispatched.
+                    probe = await asyncio.create_subprocess_exec(
+                        'bash', str(APP / 'test/api-ingress-smoke.sh'), base,
+                        str(root / 'tls.crt'), 'offline-ingress-key',
+                        stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE)
+                    stdout, stderr = await asyncio.wait_for(probe.communicate(), 15)
+                    self.assertEqual(probe.returncode, 0, (stdout + stderr).decode())
+                    self.assertEqual(backend.invocations, [])
+                    self.assertEqual(backend.request.await_count, 3)
                     headers = {'Authorization': 'Bearer offline-ingress-key'}
                     # Every alternate native inference family, including profile mirrors.
                     paths = ['/v1/chat/completions', '/v1/responses',
