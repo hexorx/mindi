@@ -42,7 +42,7 @@ Mapping `network.tailscale` from a config source to `AGENT_BOX_TAILSCALE` is P5 
 ## Verification
 
 ```sh
-python3 -m pip install PyYAML==6.0.3
+python3 -m pip install -r apps/agent-box-hermes/requirements-test.txt
 pnpm build && pnpm lint && pnpm typecheck && pnpm test
 docker buildx build --platform linux/amd64 --load -t hermes-desktop:smoke -f apps/agent-box-hermes/Dockerfile .
 apps/agent-box-hermes/test/container-smoke.sh hermes-desktop:smoke
@@ -139,3 +139,12 @@ instance, dynamic port and memory-volume layout; no schema migration is added.
 The build fails if upstream source changes. Both disabled-mode and peer smoke
 checks discover the actual pg0 port and verify that healthy memory services
 cannot be reached through `127.0.0.1` or the tailnet.
+
+## P7 qualification ingress
+
+The P7 launcher supervises the compatibility API on loopback 8642 and the native
+gateway on private loopback 8643. HTTPS ingress admits authenticated run,
+health, approval and steer routes; alternate chat/job/profile inference routes
+are denied. All admitted callers share one durable reservation journal and
+desktop slot. See [protocol qualification](../../docs/hermes-protocol-compatibility.md)
+for resource caps, restart behavior, offline tests and gated rollout notes.

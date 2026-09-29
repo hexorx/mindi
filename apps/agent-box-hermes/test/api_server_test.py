@@ -41,7 +41,7 @@ class APIServiceTest(unittest.TestCase):
                 api.environment({**FIXTURE, 'PAPERCLIP_API_URL': url})
         env = api.environment({**FIXTURE, 'API_SERVER_HOST': '0.0.0.0', 'API_SERVER_PORT': '1234'})
         self.assertEqual(env['API_SERVER_HOST'], '127.0.0.1')
-        self.assertEqual(env['API_SERVER_PORT'], '8642')
+        self.assertEqual(env['API_SERVER_PORT'], '8643')
         self.assertEqual(env['HERMES_S6_SUPERVISED_CHILD'], '1')
 
     def test_api_failure_blocks_container_readiness(self):

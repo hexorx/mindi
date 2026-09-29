@@ -1,0 +1,3 @@
+#!/command/with-contenv sh
+exec 2>&1
+exec /command/s6-setuidgid hermes /opt/hermes/.venv/bin/python /opt/agent-box/protocol_http.py

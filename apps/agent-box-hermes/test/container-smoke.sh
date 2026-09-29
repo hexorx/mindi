@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -euo pipefail
+set -Eeuo pipefail
 image=${1:?Supply the locally built image tag}
 scratch=$(mktemp -d)
 tests=$(cd "$(dirname "$0")" && pwd)
@@ -13,6 +13,8 @@ cleanup() {
     rm -rf "$scratch"
 }
 trap cleanup EXIT
+# Report the failing location without tracing commands or credential values.
+trap 'printf "Container smoke failed at line %s (exit %s)\n" "$LINENO" "$?" >&2' ERR
 openssl req -x509 -newkey rsa:2048 -nodes -days 1 -subj /CN=localhost \
     -addext subjectAltName=DNS:localhost,IP:127.0.0.1 \
     -keyout "$scratch/desktop_tls_key" -out "$scratch/desktop_tls_cert" >/dev/null 2>&1
@@ -87,15 +89,8 @@ for port in (5900, 6080, 1055, 1056, 8888, pg0["port"]):
 '
 port=$(docker port "$container" 8443/tcp | sed 's/.*://')
 base="https://127.0.0.1:$port"
-# Real upstream API auth through the single TLS entrypoint; no model call.
-for path in /v1/models /v1/capabilities; do
-    code=$(curl --cacert "$scratch/desktop_tls_cert" -s -o /dev/null -w '%{http_code}' "$base$path")
-    [ "$code" = 401 ]
-    code=$(curl --cacert "$scratch/desktop_tls_cert" -H 'Authorization: Bearer wrong-fixture-key' -s -o /dev/null -w '%{http_code}' "$base$path")
-    [ "$code" = 401 ]
-    curl --cacert "$scratch/desktop_tls_cert" -H 'Authorization: Bearer fixture-only-api-key-for-smoke' -fsS "$base$path" -o /dev/null
-done
-curl --cacert "$scratch/desktop_tls_cert" -H 'Authorization: Bearer fixture-only-api-key-for-smoke' -fsS "$base/health" -o /dev/null
+# Real supervised API auth through the single TLS entrypoint; no model call.
+bash "$tests/api-ingress-smoke.sh" "$base" "$scratch/desktop_tls_cert" fixture-only-api-key-for-smoke
 for path in /vnc.html /websockify; do
     code=$(curl --cacert "$scratch/desktop_tls_cert" -s -o /dev/null -w '%{http_code}' "$base$path")
     [ "$code" = 401 ]
