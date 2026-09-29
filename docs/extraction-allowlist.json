@@ -2,16 +2,36 @@
   "schemaVersion": 1,
   "repository": "mindi-dev/mindi-stack",
   "defaultTreatment": "exclude",
-  "publicRedistribution": "withheld",
+  "publicRedistribution": "authorized_under_mit",
   "redistributionDecision": {
-    "decisionMaker": "Josh (board)",
+    "decisionMaker": "Josh Robinson (hexorx), rights holder",
     "recordedDate": "2026-09-27",
-    "decision": "Withhold redistribution authorization",
-    "issue": "HEX-89",
-    "interactionId": "f704bd0a-6b4a-460d-9ddc-12de70d18a6d",
-    "evidence": "/HEX/issues/HEX-89",
-    "scope": "Enumerated inputs at both pinned snapshots",
-    "licenseGrant": null
+    "decision": "MIT grant supersedes the HEX-89 withholding decision",
+    "issue": "HEX-85",
+    "interactionId": "143e9180-0579-4458-a03b-7f70cc83b890",
+    "evidence": "/HEX/issues/HEX-85#interaction-143e9180-0579-4458-a03b-7f70cc83b890",
+    "scope": "Allowlisted adapt/reference inputs only, at baseline b5ac82d8e6352cbb9716430f4dea560ad7d4266f and isolated Tailscale reference 3ae5dec66c4c5610b45f81e6f09e20273b2c4748, for use in hexorx/mindi; excluded paths and other revisions remain excluded",
+    "licenseGrant": "MIT",
+    "licenseFile": "../LICENSE",
+    "copyrightHolder": "Josh Robinson",
+    "rightsHolderResponse": {
+      "option": "I own mindi-stack and grant rights; I will give license terms in a note",
+      "freeText": "MIT"
+    },
+    "interpretation": "Mindi (CEO) records this response as a rights-holder MIT grant for the covered inputs",
+    "supersedes": {
+      "decisionMaker": "Josh (board)",
+      "recordedDate": "2026-09-27",
+      "decision": "Withhold redistribution authorization",
+      "issue": "HEX-89",
+      "interactionId": "f704bd0a-6b4a-460d-9ddc-12de70d18a6d",
+      "evidence": "/HEX/issues/HEX-89",
+      "scope": "Enumerated inputs at both pinned snapshots",
+      "licenseGrant": null
+    },
+    "attributionRequirement": "Retain the copyright and permission notices in all copies or substantial portions of the Software",
+    "publishingGate": "P9 must still reconcile third-party licenses, notices and applicable source obligations; this grant is not deployment approval",
+    "thirdPartyLicenses": "Hermes, Hindsight, Tailscale and other dependencies retain their own licenses; the MIT grant does not relicense them"
   },
   "snapshots": [
     {

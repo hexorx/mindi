@@ -6,3 +6,16 @@
 !apps/agent-box-hermes/defaults/persona/AGENTS.md
 !apps/agent-box-hermes/s6-rc.d/**
 !apps/agent-box-hermes/cont-init.d/**
+!apps/agent-box-hermes/defaults/agent-box.json
+!apps/agent-box-hermes/build/pg0-private-loopback.patch
+!apps/agent-box-hermes/build/pg0-runtime-libs.patch
+!apps/agent-box-hermes/build/patch_hindsight.py
+!LICENSE
+# Reject credentials and local interpreter state even under allowed directories.
+**/.env
+**/.env.*
+**/*.key
+**/*.pem
+**/__pycache__/**
+**/*.pyc
+**/.git/**
