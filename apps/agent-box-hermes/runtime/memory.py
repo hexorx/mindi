@@ -71,7 +71,7 @@ def configure(home, data=DATA):
     root = Path(home) / 'hindsight'
     private_dir(root)
     write_private(root / 'config.json', json.dumps({
-        'mode': 'local_external', 'api_url': 'http://127.0.0.1:8888', 'bank_id': 'box-' + box_id,
+        'mode': 'local_external', 'api_url': 'http://127.0.0.2:8888', 'bank_id': 'box-' + box_id,
     }, indent=2) + '\n')
 
 
@@ -79,7 +79,7 @@ def environment(source, runtime=RUNTIME):
     # Deliberately do not inherit HINDSIGHT_API_* overrides, credentials or dotenv.
     env = {'PATH': '/opt/hindsight/bin:/usr/local/bin:/usr/bin:/bin',
            'HOME': str(DATA), 'USER': 'hermes', 'LANG': 'C.UTF-8',
-           'HINDSIGHT_API_HOST': '127.0.0.1', 'HINDSIGHT_API_PORT': '8888',
+           'HINDSIGHT_API_HOST': '127.0.0.2', 'HINDSIGHT_API_PORT': '8888',
            'HINDSIGHT_API_DATABASE_URL': 'pg0://hindsight',
            'HINDSIGHT_API_RERANKER_PROVIDER': 'rrf',
            'HINDSIGHT_API_LOG_LEVEL': 'warning'}
