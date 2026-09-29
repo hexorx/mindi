@@ -111,6 +111,9 @@ wait_desktop() {
 
 install_key
 docker run -d --name "$box" --network "$net" --shm-size=256m --security-opt=no-new-privileges \
+    -e API_SERVER_KEY=fixture-only-api-key-for-smoke \
+    -e PAPERCLIP_CALLBACK_KEY=fixture-only-callback-key-for-smoke \
+    -e PAPERCLIP_API_URL=http://paperclip.invalid/api \
     -e MEMORY_LLM_BASE_URL=http://127.0.0.2:9999/v1 \
     -e MEMORY_EMBEDDINGS_BASE_URL=http://127.0.0.2:9999/v1 \
     --mount "type=bind,src=$tests,dst=/test,readonly" \

@@ -30,6 +30,9 @@ docker volume create "$home_volume" >/dev/null
 docker volume create "$memory_volume" >/dev/null
 start_container() {
     docker run -d --name "$container" --shm-size=256m --security-opt=no-new-privileges \
+        -e API_SERVER_KEY=fixture-only-api-key-for-smoke \
+        -e PAPERCLIP_CALLBACK_KEY=fixture-only-callback-key-for-smoke \
+        -e PAPERCLIP_API_URL=http://paperclip.invalid/api \
         -e MEMORY_LLM_BASE_URL=http://127.0.0.2:9999/v1 \
         -e MEMORY_EMBEDDINGS_BASE_URL=http://127.0.0.2:9999/v1 \
         --mount "type=volume,src=$home_volume,dst=/home/agent" \
@@ -84,6 +87,15 @@ for port in (5900, 6080, 1055, 1056, 8888, pg0["port"]):
 '
 port=$(docker port "$container" 8443/tcp | sed 's/.*://')
 base="https://127.0.0.1:$port"
+# Real upstream API auth through the single TLS entrypoint; no model call.
+for path in /v1/models /v1/capabilities; do
+    code=$(curl --cacert "$scratch/desktop_tls_cert" -s -o /dev/null -w '%{http_code}' "$base$path")
+    [ "$code" = 401 ]
+    code=$(curl --cacert "$scratch/desktop_tls_cert" -H 'Authorization: Bearer wrong-fixture-key' -s -o /dev/null -w '%{http_code}' "$base$path")
+    [ "$code" = 401 ]
+    curl --cacert "$scratch/desktop_tls_cert" -H 'Authorization: Bearer fixture-only-api-key-for-smoke' -fsS "$base$path" -o /dev/null
+done
+curl --cacert "$scratch/desktop_tls_cert" -H 'Authorization: Bearer fixture-only-api-key-for-smoke' -fsS "$base/health" -o /dev/null
 for path in /vnc.html /websockify; do
     code=$(curl --cacert "$scratch/desktop_tls_cert" -s -o /dev/null -w '%{http_code}' "$base$path")
     [ "$code" = 401 ]
@@ -160,7 +172,11 @@ docker rm "$container" >/dev/null
 # Missing inference credentials must fail clearly, without echoing values.
 mkdir "$scratch/missing"
 cp "$scratch"/desktop_* "$scratch/missing/"
-docker run -d --name "$container" --mount "type=bind,src=$scratch/missing,dst=/run/secrets,readonly" "$image" >/dev/null
+docker run -d --name "$container" \
+    -e API_SERVER_KEY=fixture-only-api-key-for-smoke \
+    -e PAPERCLIP_CALLBACK_KEY=fixture-only-callback-key-for-smoke \
+    -e PAPERCLIP_API_URL=http://paperclip.invalid/api \
+    --mount "type=bind,src=$scratch/missing,dst=/run/secrets,readonly" "$image" >/dev/null
 for _ in $(seq 1 30); do
     [ "$(docker inspect -f '{{.State.Status}}' "$container")" != exited ] || break
     sleep 1

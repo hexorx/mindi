@@ -1,4 +1,4 @@
-"""Root-only bootstrap; credentials never enter environment variables or logs."""
+"""Root-only bootstrap; credentials are never written to logs."""
 import os
 from pathlib import Path
 import shutil
@@ -14,6 +14,8 @@ def password_hash(secret):
 
 
 def main():
+    from api_server import environment as api_environment
+    api_environment(os.environ)  # Fail closed before starting any service.
     if os.environ.get("HERMES_PROFILE") != "default" or os.environ.get("HERMES_HOME") != "/home/agent/.hermes":
         raise ValueError("Only the default profile and fixed home are supported")
     runtime = Path("/run/user/1000")
@@ -38,6 +40,8 @@ def main():
     if home.is_symlink():
         raise ValueError("Home must not be a symlink")
     os.chown(home, 1000, 1000)
+    from inference import seed
+    seed(home / ".hermes", os.environ)
     subprocess.run(["/command/s6-setuidgid", "hermes", "python3", "/opt/agent-box/config_sources.py"], check=True)
     subprocess.run(["/command/s6-setuidgid", "hermes", "python3", "/opt/agent-box/memory.py", "configure"], check=True)
 

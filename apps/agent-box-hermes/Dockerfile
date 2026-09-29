@@ -35,6 +35,11 @@ RUN python3 -m venv /opt/hindsight \
  && /opt/hindsight/bin/pip install --no-cache-dir 'hindsight-api-slim[embedded-db]==0.6.1' 'pg0-embedded==0.14.0' 'psycopg[binary]==3.2.10' \
  && /opt/hindsight/bin/python /opt/build/patch_hindsight.py \
  && /opt/hindsight/bin/python -c "from sqlalchemy import create_engine; create_engine('postgresql+psycopg://localhost/hindsight')"
+# CPU-only local embeddings: no paid embedding API or CUDA runtime needed.
+# Model weights download on first local-mode boot into the persistent memory volume.
+RUN /opt/hindsight/bin/pip install --no-cache-dir --index-url https://download.pytorch.org/whl/cpu 'torch==2.8.0' \
+ && /opt/hindsight/bin/pip install --no-cache-dir 'sentence-transformers==5.1.0' \
+ && /opt/hindsight/bin/python -c "from sentence_transformers import SentenceTransformer; import torch; assert torch.version.cuda is None"
 COPY --from=pg0 /build/pg0/target/release/pg0 /opt/build/pg0
 # The SDK prefers its bundled binary over PATH. Replace that exact executable.
 RUN /opt/hindsight/bin/python -c "import pathlib, pg0, shutil; target = pathlib.Path(pg0.__file__).parent / 'bin/pg0'; assert target.is_file(); shutil.copy2('/opt/build/pg0', target)" \
