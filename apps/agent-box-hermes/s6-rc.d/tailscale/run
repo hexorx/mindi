@@ -1,0 +1,4 @@
+#!/command/with-contenv sh
+set -eu
+# Root only for the separate state volume; userspace mode needs no TUN or NET_ADMIN.
+exec python3 /opt/agent-box/tailscale.py

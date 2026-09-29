@@ -1,3 +1,4 @@
 #!/command/with-contenv sh
 set -eu
-exec s6-setuidgid hermes /opt/agent-box/wait-wayland.sh wayvnc --disable-resizing 127.0.0.1 5900
+# Raw VNC stays off 127.0.0.1: userspace Tailscale forwards tailnet TCP to 127.0.0.1:<port>.
+exec s6-setuidgid hermes /opt/agent-box/wait-wayland.sh wayvnc --disable-resizing 127.0.0.2 5900
