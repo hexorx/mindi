@@ -1,0 +1,13 @@
+# Merge into the EXISTING Hive/buzz compose only after review + Josh approval.
+# Confirm the service key is buzz-relay; preserve all existing secrets/volumes.
+services:
+  buzz-relay:
+    image: ${BUZZ_SUPERVISED_IMAGE:?set the reviewed immutable image digest}
+    init: true
+    restart: unless-stopped
+    stop_grace_period: 15s
+    environment:
+      BUZZ_STARTUP_TIMEOUT_SECONDS: "300"
+      BUZZ_STARTUP_ATTEMPTS: "3"
+      BUZZ_STARTUP_BACKOFF_SECONDS: "5"
+      BUZZ_STARTUP_STOP_GRACE_SECONDS: "10"
