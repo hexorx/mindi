@@ -1,0 +1,37 @@
+[
+  {
+    "attachment_id": "96db3014-d486-4d66-8102-db5a51e9ce54",
+    "sha256": "16c997fcaa6649668f5cccf711e5cf2259721c2b5cc328626690c264910b4281",
+    "bytes": 2221394,
+    "issue": "HEX-184",
+    "local_input_name": "part1.tar.gz"
+  },
+  {
+    "attachment_id": "72bc56f9-b39f-4ab5-a553-3adb6b605fb5",
+    "sha256": "6625a907586ef0945272e21bc0ffd3d28d6e62b89bb4cf179f49014faddd9535",
+    "bytes": 3603309,
+    "issue": "HEX-184",
+    "local_input_name": "part2.tar.gz"
+  },
+  {
+    "attachment_id": "6d45e87d-fed0-48ef-a2b7-14d410424df1",
+    "sha256": "7e6e423a783573d838837db291417ce97fc4179614241bb3fd1b2afc9330ee5b",
+    "bytes": 6623900,
+    "issue": "HEX-184",
+    "local_input_name": "part3b.tar.gz"
+  },
+  {
+    "attachment_id": "9905bb75-7ba4-4379-a48d-8ceb7c19e54a",
+    "sha256": "6a8e5910eae77767177b4a5c122b21ec089ae2f80691abda8d4194553d89c92f",
+    "bytes": 920398,
+    "issue": "HEX-184",
+    "local_input_name": "part4.tar.gz"
+  },
+  {
+    "attachment_id": "5df57957-f9c9-4f45-a5f9-60fcbf31973c",
+    "sha256": "9e8420ced0db1c2334349e038fd36ee6dcd4f8c50379acf519c768ac972d91ae",
+    "bytes": 9568,
+    "issue": "HEX-184",
+    "role": "evidence-summary"
+  }
+]
