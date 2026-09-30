@@ -33,6 +33,16 @@ DISABLED_SLACK = DISABLED_PROVIDER.replace(
     SLACK_ERROR).replace('whatsappBusiness', 'slack')
 
 
+# The pinned base's setuptools editable finder inventories node_modules as
+# Python namespace search paths. Its six Slack strings are inert path metadata,
+# not imports. Accept only the inspected bytes at the exact installed path;
+# any upstream/code change must be reviewed again (see fixture provenance).
+EDITABLE_FINDER = (
+    'opt/hermes/.venv/lib/python3.13/site-packages/'
+    '__editable___hermes_agent_0_20_4_finder.py')
+EDITABLE_FINDER_SHA256 = 'd742cfb3c9791162c7bf9a8a4f359f321da8efb5e2ab3aad5ee17d59815423d3'
+
+
 def exclude_slack(root):
     """Validate the import boundary before changing the disposable filesystem."""
     hermes = root / 'opt/hermes'
@@ -49,10 +59,16 @@ def exclude_slack(root):
     if (source.count(expected) != 1 or source.count('@photon-ai/slack') != 1):
         raise ValueError('unexpected Spectrum Slack import layout')
     importers = []
+    validated_metadata = []
     for path in files(hermes):
         if excluded in path.parents or path.suffix not in ('.js', '.mjs', '.cjs', '.ts', '.mts', '.cts', '.py'):
             continue
         if '@photon-ai/slack' not in read_payload_text(path):
+            continue
+        if (path.relative_to(root).as_posix() == EDITABLE_FINDER
+                and hashlib.sha256(path.read_bytes()).hexdigest() == EDITABLE_FINDER_SHA256):
+            validated_metadata.append({'path': '/' + EDITABLE_FINDER,
+                                       'sha256': EDITABLE_FINDER_SHA256})
             continue
         # Type declarations are non-executable upstream metadata.
         if wrapper in path.parents and path.name.endswith(('.d.ts', '.d.mts', '.d.cts')):
@@ -66,7 +82,7 @@ def exclude_slack(root):
     return {'name': '@photon-ai/slack', 'version': '0.2.0',
             'membership': 'excluded', 'reason': 'no license grant',
             'wrapper': '@spectrum-ts/slack', 'wrapper_version': '8.0.0',
-            'validated_importers': importers}
+            'validated_importers': importers, 'validated_metadata': validated_metadata}
 
 
 def system_font_css(text):

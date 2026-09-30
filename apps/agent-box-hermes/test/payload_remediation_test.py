@@ -1,4 +1,5 @@
 """Behavioral policy checks; fixtures contain no upstream proprietary bytes."""
+import ast
 import bz2
 import gzip
 import hashlib
@@ -399,6 +400,62 @@ for (const use of [() => slack(), () => slack.config({{}}), () => new slack()]) 
                 if path.suffix == '.mjs':
                     script += f"await import({json.dumps(path.as_uri())});\n"
             subprocess.run(['node', '--input-type=module', '-e', script], check=True)
+
+    def test_slack_actual_editable_finder_is_only_namespace_metadata(self):
+        # Byte-exact pinned-image fixture; never execute upstream fixture code.
+        finder = gzip.decompress((APP / 'test/fixtures/hermes-editable-finder.py.gz').read_bytes())
+        namespaces = next(node for node in ast.parse(finder).body
+                          if isinstance(node, ast.AnnAssign)
+                          and isinstance(node.target, ast.Name)
+                          and node.target.id == 'NAMESPACES')
+        values = ast.literal_eval(namespaces.value)
+        paths = [p for paths in values.values() for p in paths if '@photon-ai/slack' in p]
+        self.assertEqual(len(paths), 6)
+        self.assertEqual(finder.count(b'@photon-ai/slack'), 6)
+        with tempfile.TemporaryDirectory() as d:
+            root = Path(d)
+            modules = self.slack_fixture(root)
+            rel = ('opt/hermes/.venv/lib/python3.13/site-packages/'
+                   '__editable___hermes_agent_0_20_4_finder.py')
+            path = root / rel
+            path.parent.mkdir(parents=True)
+            path.write_bytes(finder)
+            report = exclude_slack(root)
+            self.assertEqual(path.read_bytes(), finder)
+            self.assertFalse((modules / '@photon-ai/slack').exists())
+            self.assertEqual(report['validated_metadata'], [
+                {'path': '/' + rel, 'sha256': hashlib.sha256(finder).hexdigest()}])
+            self.assertEqual(report['validated_importers'], [
+                '/' + str((modules / '@spectrum-ts/slack/dist/index.js').relative_to(root))])
+
+    def test_slack_finder_exception_is_bound_to_path_and_complete_bytes(self):
+        finder = gzip.decompress((APP / 'test/fixtures/hermes-editable-finder.py.gz').read_bytes())
+        rel = ('opt/hermes/.venv/lib/python3.13/site-packages/'
+               '__editable___hermes_agent_0_20_4_finder.py')
+        cases = [
+            (rel, finder + b'\n__import__("@photon-ai/slack")\n'),
+            (rel, finder + b'\nimport subprocess; subprocess.run(["node", "-e", '
+             b'"require(\\\"@photon-ai/slack\\\")"])\n'),
+            (rel, finder.replace(b'return None', b'return __import__(fullname)', 1)),
+            (rel, finder.replace(b'/slack/dist', b'/slack/unknown', 1)),
+            ('opt/hermes/other_finder.py', finder),
+            (rel, b'__import__("@photon-ai/slack")'),
+            ('opt/hermes/unexpected.py', b'__import__("@photon-ai/slack")'),
+        ]
+        for name, content in cases:
+            with self.subTest(path=name, digest=hashlib.sha256(content).hexdigest()), tempfile.TemporaryDirectory() as d:
+                root = Path(d)
+                modules = self.slack_fixture(root)
+                entry = modules / '@spectrum-ts/slack/dist/index.js'
+                original = entry.read_bytes()
+                path = root / name
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_bytes(content)
+                with self.assertRaisesRegex(ValueError, 'unexpected Photon Slack dependency'):
+                    exclude_slack(root)
+                self.assertEqual(entry.read_bytes(), original)
+                self.assertTrue((modules / '@photon-ai/slack').exists())
+                self.assertTrue((modules / '@spectrum-ts/slack/dist/index.js.map').exists())
 
     def test_slack_drift_and_external_importers_fail_before_mutation(self):
         cases = {

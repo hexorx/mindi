@@ -116,3 +116,17 @@ comparison FAIL and its intentional PATH-difference explanation. Those completed
 checks do not cover the subsequent Slack exclusion. HEX-207 supplies the next
 exact-head LAN evidence. The final notice/source overlay and full acceptance
 remain outstanding; see `final-inventory-reconciliation.md`.
+
+## Editable finder CI repair (HEX-206)
+
+Desktop CI run 36699649263 / job 109835832230 at `418803c` rejected the
+base-image setuptools editable finder because six namespace search-path strings
+contain `@photon-ai/slack`. Inspection of the digest-verified source layer found
+no Photon Slack import in that finder. The sanitizer now recognizes only its
+exact installed path and full SHA-256, reports it as validated metadata, and
+continues to reject all other unexpected references before changing files.
+See [the actual-finder fixture and extraction provenance](../apps/agent-box-hermes/test/fixtures/README.md).
+Changed finder bytes require fresh inspection; there is no general exemption
+for editable finders or Python files. The stale namespace paths remain harmless
+references to the excluded directories. Final-image absence and real supported
+imports still require coordinator validation on the resulting PR head.
