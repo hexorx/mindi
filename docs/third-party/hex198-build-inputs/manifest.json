@@ -1,0 +1,17 @@
+{
+  "origin": "HEX-198 prerequisite evidence; not a remediated-image certification",
+  "raw_archive_sha256": "1d9cdf072705ac5f66bf1dd26043fc8707bc6776008900f2c38e28392a735853",
+  "corrected_supplement_sha256": "1824e45d63fec7fe26177faea9f878be5b9f6c09bd9d5f2d8af388b9b603c986",
+  "raw_manifest_entries": 113,
+  "supplement_manifest_entries": 122,
+  "files": {
+    "base-config.json": "92fe7b39ea68faeec2a566c9322e67fc4f09c4792f84ede3578214a5f3d0d2d7",
+    "photon-chain.json": "9db7ca20f5d3747c749fc2217f53f78aefb68c05438fac50f52fea2942174019",
+    "chromium-new-lock-rows.tsv": "4aa85fc0d049db15295adfb090608bfbd6456d58e2fab714f49dfe5433280bc3",
+    "chromium-package-stanzas.txt": "9b0cd895e93711d0bdf87c4e8e6563a093b38609742c3355d7c79f94975f28ff",
+    "chromium-added-sources.tsv": "2e9401475b36c4c2f8a0677c1127325ae97f1b790c1bda437e427601a8430e3a",
+    "downloaded-debs.tsv": "19ee050031e1488558187fef06f4c662814a34364ea032dacd9c6262b60293ac",
+    "apt-final-inventory.actual.tsv": "11bc765e3849d5f9b24155153127a74a168f8d14bb127757cad47a27ba230c24",
+    "inrelease-check.txt": "8d2a963d49e17000dc543d9950a8f507645659ef2f5e45b2090328a2a0d652c0"
+  }
+}

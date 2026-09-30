@@ -1,0 +1,734 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+
+Files: *
+Copyright: 2023, 2024, The c-ares project and its contributors.
+License: Expat
+
+Files: CMakeLists.txt
+ Makefile.Watcom
+ Makefile.m32
+ buildconf
+ buildconf.bat
+ c-ares-config.cmake.in
+ configure.ac
+ libcares.pc.cmake
+ libcares.pc.in
+Copyright: 2024, The c-ares project and its contributors
+License: Expat
+
+Files: Makefile.am
+Copyright: 2004-2010, Daniel Stenberg
+ 1998, the Massachusetts Institute of Technology.
+License: Expat
+
+Files: Makefile.dj
+Copyright: Gisle Vanem <gvanem@yahoo.no>
+License: Expat
+
+Files: Makefile.in
+Copyright: 1994-2021, Free Software Foundation, Inc.
+License: Expat
+
+Files: Makefile.msvc
+Copyright: 1998, 2004-2013, 2016, Daniel Stenberg
+License: Expat
+
+Files: Makefile.netware
+Copyright: Guenter Knauf
+License: Expat
+
+Files: aclocal.m4
+Copyright: 1994-2021, Free Software Foundation, Inc.
+License: FSFULLR
+
+Files: cmake/*
+Copyright: Monetra Technologies LLC
+License: Expat
+
+Files: config/*
+Copyright: 1996-2021, Free Software Foundation, Inc.
+License: GPL-2+ with Autoconf-data exception
+
+Files: config/config.guess
+ config/config.sub
+Copyright: 1992-2022, Free Software Foundation, Inc.
+License: GPL-3+ with Autoconf-data exception
+
+Files: config/install-sh
+Copyright: 1994, X Consortium
+License: X11
+
+Files: config/ltmain.sh
+Copyright: 1996-2019, 2021, 2022, Free Software Foundation, Inc.
+License: GPL-2+ with Libtool exception
+
+Files: configure
+Copyright: 1992-1996, 1998-2017, 2020, 2021, Free Software Foundation
+License: FSFUL
+
+Files: docs/CMakeLists.txt
+ docs/Makefile.am
+ docs/Makefile.inc
+Copyright: 2024, The c-ares project and its contributors
+License: Expat
+
+Files: docs/Makefile.in
+Copyright: 1994-2021, Free Software Foundation, Inc.
+License: Expat
+
+Files: docs/adig.1
+ docs/ahost.1
+ docs/ares_free_data.3
+ docs/ares_get_servers.3
+ docs/ares_init_options.3
+ docs/ares_library_cleanup.3
+ docs/ares_library_init.3
+Copyright: 2004-2010, Daniel Stenberg
+ 1998, the Massachusetts Institute of Technology.
+License: Expat
+
+Files: docs/ares_cancel.3
+ docs/ares_create_query.3
+ docs/ares_destroy.3
+ docs/ares_destroy_options.3
+ docs/ares_expand_name.3
+ docs/ares_expand_string.3
+ docs/ares_fds.3
+ docs/ares_free_hostent.3
+ docs/ares_free_string.3
+ docs/ares_freeaddrinfo.3
+ docs/ares_getaddrinfo.3
+ docs/ares_gethostbyaddr.3
+ docs/ares_gethostbyname.3
+ docs/ares_gethostbyname_file.3
+ docs/ares_mkquery.3
+ docs/ares_parse_a_reply.3
+ docs/ares_parse_mx_reply.3
+ docs/ares_parse_naptr_reply.3
+ docs/ares_parse_ns_reply.3
+ docs/ares_parse_ptr_reply.3
+ docs/ares_parse_soa_reply.3
+ docs/ares_parse_srv_reply.3
+ docs/ares_parse_txt_reply.3
+ docs/ares_parse_uri_reply.3
+ docs/ares_process.3
+ docs/ares_query.3
+ docs/ares_save_options.3
+ docs/ares_search.3
+ docs/ares_send.3
+ docs/ares_strerror.3
+ docs/ares_timeout.3
+Copyright: 1998, 2000, the Massachusetts Institute of Technology.
+License: Expat
+
+Files: docs/ares_dns_class_fromstr.3
+ docs/ares_dns_class_tostr.3
+ docs/ares_dns_datatype_t.3
+ docs/ares_dns_opcode_tostr.3
+ docs/ares_dns_opt_datatype_t.3
+ docs/ares_dns_opt_get_datatype.3
+ docs/ares_dns_opt_get_name.3
+ docs/ares_dns_rcode_tostr.3
+ docs/ares_dns_rec_type_fromstr.3
+ docs/ares_dns_rec_type_tostr.3
+ docs/ares_dns_rr_key_datatype.3
+ docs/ares_dns_rr_key_to_rec_type.3
+ docs/ares_dns_rr_key_tostr.3
+ docs/ares_dns_section_tostr.3
+ docs/ares_dup.3
+ docs/ares_get_servers_csv.3
+ docs/ares_get_servers_ports.3
+ docs/ares_getsock.3
+ docs/ares_inet_ntop.3
+ docs/ares_inet_pton.3
+ docs/ares_library_initialized.3
+ docs/ares_opt_param_t.3
+ docs/ares_set_servers_ports.3
+ docs/ares_set_servers_ports_csv.3
+ docs/ares_set_socket_callback.3
+ docs/ares_set_socket_configure_callback.3
+ docs/ares_set_socket_functions.3
+ docs/ares_set_sortlist.3
+ docs/ares_svcb_param_t.3
+ docs/ares_version.3
+Copyright: 1998, 2004-2013, 2016, Daniel Stenberg
+License: Expat
+
+Files: docs/ares_getnameinfo.3
+ docs/ares_parse_aaaa_reply.3
+Copyright: 2005, Dominick Meglio.
+License: Expat
+
+Files: docs/ares_library_init_android.3
+Copyright: 2017, 2018, John Schember
+License: Expat
+
+Files: docs/ares_parse_caa_reply.3
+Copyright: 2020, Danny Sonnenschein <my.card.god@web.de>
+License: Expat
+
+Files: docs/ares_queue.3
+ docs/ares_reinit.3
+ docs/ares_set_pending_write_cb.3
+ docs/ares_set_server_state_callback.3
+ docs/ares_threadsafety.3
+Copyright: 2023, 2024, the c-ares project and its contributors
+License: Expat
+
+Files: docs/ares_set_local_dev.3
+ docs/ares_set_local_ip4.3
+ docs/ares_set_local_ip6.3
+ docs/ares_set_servers.3
+ docs/ares_set_servers_csv.3
+Copyright: 2010, Ben Greear <greearb@candelatech.com>
+License: Expat
+
+Files: include/*
+Copyright: 2024, The c-ares project and its contributors
+License: Expat
+
+Files: include/Makefile.am
+ include/ares_build.h
+ include/ares_version.h
+Copyright: 1998, 2004-2013, 2016, Daniel Stenberg
+License: Expat
+
+Files: include/Makefile.in
+Copyright: 1994-2021, Free Software Foundation, Inc.
+License: FSFULLR
+
+Files: include/ares.h
+ include/ares_nameser.h
+Copyright: 2004, 2007, 2008, 2010, Daniel Stenberg
+ 1998, Massachusetts Institute of Technology
+License: Expat
+
+Files: include/ares_dns.h
+Copyright: The c-ares project and its contributors
+ 1998, 2000, 2011, 2013, Massachusetts Institute of Technology
+License: Expat
+
+Files: include/ares_dns_record.h
+Copyright: 2023, 2024, Brad House
+License: Expat
+
+Files: m4/*
+Copyright: 2011, Maarten Bosmans <mkbosmans@gmail.com>
+ 2008, Guido U. Draheim <guidod@gmx.de>
+License: FSFAP
+
+Files: m4/ares_check_user_namespace.m4
+ m4/ares_check_uts_namespace.m4
+Copyright: The c-ares team
+License: Expat
+
+Files: m4/ax_ac_append_to_file.m4
+ m4/ax_ac_print_to_file.m4
+Copyright: 2009, Allan Caffee <allan.caffee@gmail.com>
+License: FSFAP
+
+Files: m4/ax_add_am_macro_static.m4
+ m4/ax_am_macros_static.m4
+Copyright: 2009, Tom Howard <tomhoward@users.sf.net>
+ 2009, Allan Caffee <allan.caffee@gmail.com>
+License: FSFAP
+
+Files: m4/ax_check_gnu_make.m4
+Copyright: 2015, Enrico M. Crisostomo <enrico.m.crisostomo@gmail.com>
+ 2008, John Darrington <j.darrington@elvis.murdoch.edu.au>
+License: FSFAP
+
+Files: m4/ax_code_coverage.m4
+Copyright: 2015, 2018, Bastien ROUCARIES
+ 2012, Xan Lopez
+ 2012, Paolo Borelli
+ 2012, Dan Winship
+ 2012, Christian Persch
+ 2012, 2016, Philip Withnall
+License: LGPL-2.1+
+
+Files: m4/ax_compiler_vendor.m4
+Copyright: 2018, 2019, John Zaitseff <J.Zaitseff@zap.org.au>
+ 2008, Steven G. Johnson <stevenj@alum.mit.edu>
+ 2008, Matteo Frigo
+License: GPL-3+ with Autoconf-2.0~Archive exception
+
+Files: m4/ax_cxx_compile_stdcxx.m4
+Copyright: 2021, 2024, Jörn Heusipp <osmanx@problemloesungsmaschine.de>
+ 2020, Jason Merrill <jason@redhat.com>
+ 2019, Enji Cooper <yaneurabeya@gmail.com>
+ 2016, 2018, Krzesimir Nowak <qdlacz@gmail.com>
+ 2015, Paul Norman <penorman@mac.com>
+ 2015, Moritz Klammler <moritz@klammler.eu>
+ 2015, 2022-2024, Olly Betts
+ 2014, 2015, Google Inc.; contributedAlexey Sokolov <sokolov@google.com>
+ 2013, Roy Stogner <roystgnr@ices.utexas.edu>
+ 2012, Zack Weinberg <zackw@panix.com>
+ 2008, Benjamin Kosnik <bkoz@redhat.com>
+License: FSFAP
+
+Files: m4/ax_cxx_compile_stdcxx_14.m4
+Copyright: 2015, Moritz Klammler <moritz@klammler.eu>
+License: FSFAP
+
+Files: m4/ax_file_escapes.m4
+Copyright: 2008, Tom Howard <tomhoward@users.sf.net>
+License: FSFAP
+
+Files: m4/ax_pthread.m4
+Copyright: 2019, Marc Stevens <marc.stevens@cwi.nl>
+ 2011, Daniel Richard G. <skunk@iSKUNK.ORG>
+ 2008, Steven G. Johnson <stevenj@alum.mit.edu>
+License: GPL-3+ with Autoconf-2.0~Archive exception
+
+Files: m4/ax_require_defined.m4
+Copyright: 2014, Mike Frysinger <vapier@gentoo.org>
+License: FSFAP
+
+Files: m4/libtool.m4
+ m4/ltsugar.m4
+Copyright: 1996-2001, 2003-2019, 2021, 2022, Free Software
+License: FSFULLR
+
+Files: m4/ltoptions.m4
+ m4/lt~obsolete.m4
+Copyright: 2004, 2005, 2007-2009, 2011-2019, 2021, 2022, Free
+License: FSFULLR
+
+Files: m4/ltversion.m4
+Copyright: 2004, 2011-2019, 2021, 2022, Free Software Foundation
+License: FSFULLR
+
+Files: m4/pkg.m4
+Copyright: 2012-2015, Dan Nicholson <dbn.lists@gmail.com>
+ 2004, Scott James Remnant <scott@netsplit.com>.
+License: GPL-2+ with Autoconf-data exception
+
+Files: src/*
+Copyright: 2023, 2024, Brad House
+License: Expat
+
+Files: src/CMakeLists.txt
+ src/Makefile.am
+Copyright: 2024, The c-ares project and its contributors
+License: Expat
+
+Files: src/Makefile.in
+Copyright: 1994-2021, Free Software Foundation, Inc.
+License: FSFULLR
+
+Files: src/lib/CMakeLists.txt
+ src/lib/Makefile.am
+ src/lib/Makefile.inc
+ src/lib/ares_config.h.cmake
+ src/lib/ares_sysconfig_mac.c
+ src/lib/config-dos.h
+Copyright: 2024, The c-ares project and its contributors
+License: Expat
+
+Files: src/lib/Makefile.in
+Copyright: 1994-2021, Free Software Foundation, Inc.
+License: Expat
+
+Files: src/lib/ares_addrinfo2hostent.c
+Copyright: 2021, Brad House
+ 2019, Andrew Selivanov
+ 2005, Dominick Meglio
+ 1998, Massachusetts Institute of Technology
+License: Expat
+
+Files: src/lib/ares_addrinfo_localhost.c
+ src/lib/ares_destroy.c
+ src/lib/ares_init.c
+ src/lib/ares_library_init.c
+ src/lib/ares_options.c
+ src/lib/ares_private.h
+ src/lib/ares_process.c
+ src/lib/ares_sysconfig.c
+ src/lib/ares_sysconfig_files.c
+ src/lib/ares_sysconfig_win.c
+ src/lib/windows_port.c
+Copyright: 2004, 2007, 2008, 2010, Daniel Stenberg
+ 1998, Massachusetts Institute of Technology
+License: Expat
+
+Files: src/lib/ares_android.c
+ src/lib/ares_android.h
+Copyright: 2017, 2018, John Schember
+License: Expat
+
+Files: src/lib/ares_cancel.c
+ src/lib/ares_data.c
+ src/lib/ares_data.h
+ src/lib/ares_inet_net_pton.h
+ src/lib/ares_setup.h
+ src/lib/cares.rc
+ src/lib/config-win32.h
+Copyright: 1998, 2004-2013, 2016, Daniel Stenberg
+License: Expat
+
+Files: src/lib/ares_close_sockets.c
+ src/lib/ares_conn.c
+ src/lib/ares_free_hostent.c
+ src/lib/ares_free_string.c
+ src/lib/ares_getenv.c
+ src/lib/ares_getenv.h
+ src/lib/ares_gethostbyaddr.c
+ src/lib/ares_gethostbyname.c
+ src/lib/ares_query.c
+ src/lib/ares_search.c
+ src/lib/ares_send.c
+ src/lib/ares_socket.c
+ src/lib/ares_strerror.c
+ src/lib/ares_timeout.c
+ src/lib/ares_version.c
+Copyright: The c-ares project and its contributors
+ 1998, 2000, 2011, 2013, Massachusetts Institute of Technology
+License: Expat
+
+Files: src/lib/ares_freeaddrinfo.c
+Copyright: 2019, Andrew Selivanov
+ 1998, Massachusetts Institute of Technology
+License: Expat
+
+Files: src/lib/ares_getaddrinfo.c
+Copyright: 2019, Andrew Selivanov
+ 2017, Christian Ammer
+ 1998, 2011, 2013, Massachusetts Institute of Technology
+License: Expat
+
+Files: src/lib/ares_getnameinfo.c
+ src/lib/ares_ipv6.h
+Copyright: 2005, 2013, Dominick Meglio
+License: Expat
+
+Files: src/lib/ares_parse_into_addrinfo.c
+Copyright: 2023, Brad House
+ 2019, Andrew Selivanov
+License: Expat
+
+Files: src/lib/ares_sortaddrinfo.c
+Copyright: 2019, Andrew Selivanov
+ 2018, The Android Open Source Project
+ 1995-1997, and 1998, WIDE Project.
+License: BSD-3-clause
+
+Files: src/lib/ares_update_servers.c
+Copyright: 2023, Brad House
+ 2008, Daniel Stenberg
+ 1998, Massachusetts Institute of Technology
+License: Expat
+
+Files: src/lib/include/ares_mem.h
+Copyright: 2024, The c-ares project and its contributors
+License: Expat
+
+Files: src/lib/include/ares_str.h
+Copyright: The c-ares project and its contributors
+ 1998, 2000, 2011, 2013, Massachusetts Institute of Technology
+License: Expat
+
+Files: src/lib/inet_net_pton.c
+Copyright: 2012, Gilles Chehade <gilles@openbsd.org>
+ 1996, 1999, Internet Software Consortium.
+License: Expat or ISC
+
+Files: src/lib/inet_ntop.c
+Copyright: 2004, Internet Systems Consortium, Inc. ("ISC")
+ 1996-1999, Internet Software Consortium.
+License: Expat or ISC
+
+Files: src/lib/legacy/ares_expand_name.c
+ src/lib/legacy/ares_expand_string.c
+ src/lib/legacy/ares_fds.c
+Copyright: The c-ares project and its contributors
+ 1998, 2000, 2011, 2013, Massachusetts Institute of Technology
+License: Expat
+
+Files: src/lib/legacy/ares_getsock.c
+Copyright: 1998, 2004-2013, 2016, Daniel Stenberg
+License: Expat
+
+Files: src/lib/legacy/ares_parse_a_reply.c
+Copyright: 2019, Andrew Selivanov
+ 1998, Massachusetts Institute of Technology
+License: Expat
+
+Files: src/lib/legacy/ares_parse_aaaa_reply.c
+Copyright: 2019, Andrew Selivanov
+ 2005, Dominick Meglio
+ 1998, Massachusetts Institute of Technology
+License: Expat
+
+Files: src/lib/str/*
+Copyright: 2017, 2018, John Schember
+License: Expat
+
+Files: src/lib/str/ares_buf.c
+Copyright: 2023, 2024, Brad House
+License: Expat
+
+Files: src/lib/str/ares_str.c
+Copyright: The c-ares project and its contributors
+ 1998, 2000, 2011, 2013, Massachusetts Institute of Technology
+License: Expat
+
+Files: src/lib/thirdparty/*
+Copyright: 2004-2006, 2008, 2009, 2011, Apple Inc.
+License: APSL-2.0
+
+Files: src/lib/util/ares_timeval.c
+Copyright: 1998, 2004-2013, 2016, Daniel Stenberg
+License: Expat
+
+Files: src/lib/util/ares_uri.c
+Copyright: 2024, Brad house
+License: Expat
+
+Files: src/tools/*
+Copyright: 2024, The c-ares project and its contributors
+License: Expat
+
+Files: src/tools/Makefile.in
+Copyright: 1994-2021, Free Software Foundation, Inc.
+License: FSFULLR
+
+Files: src/tools/adig.c
+ src/tools/ahost.c
+Copyright: The c-ares project and its contributors
+ 1998, 2000, 2011, 2013, Massachusetts Institute of Technology
+License: Expat
+
+Files: src/tools/ares_getopt.c
+ src/tools/ares_getopt.h
+Copyright: 1987-2001, The Regents of the University of California.
+License: BSD-3-clause
+
+Files: test/*
+Copyright: 2024, The c-ares project and its contributors
+License: Expat
+
+Files: test/Makefile.in
+Copyright: 1994-2021, Free Software Foundation, Inc.
+License: FSFULLR
+
+License: APSL-2.0
+ This file contains Original Code and/or Modifications of Original Code
+ as defined in and that are subject to the Apple Public Source License
+ Version 2.0 (the 'License'). You may not use this file except in
+ compliance with the License. Please obtain a copy of the License at
+ http://www.opensource.apple.com/apsl/ and read it before using this
+ file.
+ .
+ The Original Code and all software distributed under the License are
+ distributed on an 'AS IS' basis, WITHOUT WARRANTY OF ANY KIND, EITHER
+ EXPRESS OR IMPLIED, AND APPLE HEREBY DISCLAIMS ALL SUCH WARRANTIES,
+ INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE, QUIET ENJOYMENT OR NON-INFRINGEMENT.
+ Please see the License for the specific language governing rights and
+ limitations under the License.
+
+License: BSD-3-clause
+ The BSD License
+ .
+ Redistribution and use in source and binary forms, with or without
+ modification, are permitted provided that the following conditions are
+ met:
+ .
+   * Redistributions of source code must retain the above copyright
+     notice, this list of conditions and the following disclaimer.
+ .
+   * Redistributions in binary form must reproduce the above copyright
+     notice, this list of conditions and the following disclaimer in the
+     documentation and/or other materials provided with the distribution. 
+ .
+   * Neither the name of the copyright holder nor the names of its
+     contributors may be used to endorse or promote products derived from
+     this software without specific prior written permission. 
+ .
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+ IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
+ TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+ PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR
+ CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+License: Expat
+ Permission is hereby granted, free of charge, to any person obtaining a copy
+ of this software and associated documentation files (the "Software"), to deal
+ in the Software without restriction, including without limitation the rights
+ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions:
+ .
+ The above copyright notice and this permission notice (including the next
+ paragraph) shall be included in all copies or substantial portions of the
+ Software.
+ .
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ SOFTWARE.
+
+License: FSFAP
+ Copying and distribution of this file, with or without modification, are
+ permitted in any medium without royalty provided the copyright notice
+ and this notice are preserved. This file is offered as-is, without any
+ warranty.
+
+License: FSFUL
+ This configure script is free software; the Free Software Foundation
+ gives unlimited permission to copy, distribute and modify it.
+
+License: FSFULLR
+ This file is free software; the Free Software Foundation gives unlimited
+ permission to copy and/or distribute it, with or without modifications,
+ as long as this notice is preserved.
+
+License: GPL-2+ with Autoconf-data exception
+ This program is free software; you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation; either version 2 of the License, or
+ (at your option) any later version.
+ .
+ This program is distributed in the hope that it will be useful, but
+ WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ General Public License for more details.
+ .
+ You should have received a copy of the GNU General Public License
+ along with this program; if not, write to the Free Software
+ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+ 02110-1301, USA.
+ .
+ As a special exception to the GNU General Public License, if you
+ distribute this file as part of a program that contains a
+ configuration script generated by Autoconf, you may include it under
+ the same distribution terms that you use for the rest of that
+ program.
+
+License: GPL-2+ with Libtool exception
+ This is free software; see the source for copying conditions.  There is NO
+ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ .
+ GNU Libtool is free software; you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation; either version 2 of the License, or
+ (at your option) any later version.
+ .
+ As a special exception to the GNU General Public License,
+ if you distribute this file as part of a program or library that
+ is built using GNU Libtool, you may include this file under the
+ same distribution terms that you use for the rest of that program.
+ .
+ GNU Libtool is distributed in the hope that it will be useful, but
+ WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ General Public License for more details.
+ .
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+License: GPL-3+ with Autoconf-2.0~Archive exception
+ This program is free software: you can redistribute it and/or modify it
+ under the terms of the GNU General Public License as published by the
+ Free Software Foundation, either version 3 of the License, or (at your
+ option) any later version.
+ .
+ This program is distributed in the hope that it will be useful, but
+ WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
+ Public License for more details.
+ .
+ You should have received a copy of the GNU General Public License along
+ with this program. If not, see <http://www.gnu.org/licenses/>.
+ .
+ As a special exception, the respective Autoconf Macro's copyright owner
+ gives unlimited permission to copy, distribute and modify the configure
+ scripts that are the output of Autoconf when processing the Macro. You
+ need not follow the terms of the GNU General Public License when using
+ or distributing such scripts, even though portions of the text of the
+ Macro appear in them. The GNU General Public License (GPL) does govern
+ all other use of the material that constitutes the Autoconf Macro.
+ .
+ This special exception to the GPL applies to versions of the Autoconf
+ Macro released by the Autoconf Archive. When you make and distribute a
+ modified version of the Autoconf Macro, you may extend this special
+ exception to the GPL to apply to your modified version as well.
+
+License: GPL-3+ with Autoconf-data exception
+ This file is free software; you can redistribute it and/or modify it
+ under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+ .
+ This program is distributed in the hope that it will be useful, but
+ WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ General Public License for more details.
+ .
+ You should have received a copy of the GNU General Public License
+ along with this program; if not, see <https://www.gnu.org/licenses/>.
+ .
+ As a special exception to the GNU General Public License, if you
+ distribute this file as part of a program that contains a
+ configuration script generated by Autoconf, you may include it under
+ the same distribution terms that you use for the rest of that
+ program.  This Exception is an additional permission under section 7
+ of the GNU General Public License, version 3 ("GPLv3").
+
+License: ISC
+ The ISC License
+ .
+ Copyright (c) 2024 by the copyright holder
+ .
+ Permission to use, copy, modify, and/or distribute this software for any
+ purpose with or without fee is hereby granted, provided that the above
+ copyright notice and this permission notice appear in all copies.
+ .
+ THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+ WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+ MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+ ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+ WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+ ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+
+License: LGPL-2.1+
+ This program is free software; you can redistribute it and/or modify it
+ under the terms of the GNU Lesser General Public License as published by the
+ Free Software Foundation; version 2.1 of the License, or (at
+ your option) any later version.
+ On Debian systems, the complete text of version 2.1 of the GNU Lesser
+ General Public License can be found in '/usr/share/common-licenses/LGPL-2.1'.
+
+License: X11
+ Permission is hereby granted, free of charge, to any person obtaining a copy
+ of this software and associated documentation files (the "Software"), to
+ deal in the Software without restriction, including without limitation the
+ rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+ sell copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions:
+ .
+ The above copyright notice and this permission notice shall be included in
+ all copies or substantial portions of the Software.
+ .
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL THE
+ X CONSORTIUM BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN
+ AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNEC-
+ TION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ .
+ Except as contained in this notice, the name of the X Consortium shall not
+ be used in advertising or otherwise to promote the sale, use or other deal-
+ ings in this Software without prior written authorization from the X Consor-
+ tium.

@@ -1,0 +1,17 @@
+sway
+grim
+wtype
+wl-clipboard
+foot
+xwayland
+dbus
+at-spi2-core
+fonts-dejavu-core
+fonts-noto-color-emoji
+wayvnc
+novnc
+websockify
+nginx
+openssl
+python3-yaml
+chromium

@@ -1,0 +1,8 @@
+00bae64552d5b571a8910acdd1986cc2  usr/bin/docker
+e9bca02d49e26a9349512a658b6421f3  usr/share/bash-completion/completions/docker
+d71f9cf7d411300992ba01ba07be63e7  usr/share/doc/docker-cli/changelog.Debian.amd64.gz
+7e5f4c0f57d8406084c49621875fd796  usr/share/doc/docker-cli/changelog.Debian.gz
+cc91d7875d1369289c1237ca01b652f4  usr/share/doc/docker-cli/copyright
+28b29c7a3547c6227d95330ecfa8537b  usr/share/fish/vendor_completions.d/docker.fish
+5ef8d7faba909d791f3337e0dcba9a74  usr/share/lintian/overrides/docker-cli
+5d09fce28d9f33d05da9278a9c7bf51d  usr/share/zsh/vendor-completions/_docker

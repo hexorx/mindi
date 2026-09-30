@@ -1,0 +1,9 @@
+#!/bin/sh
+# The proprietary SDK executable is intentionally absent from this image.
+# An operator may install the official CLI in the persistent agent home.
+cli=${AGENT_BOX_CLAUDE_CLI:-/home/agent/.local/bin/claude}
+if [ ! -x "$cli" ] || [ "$cli" = /usr/local/bin/claude ]; then
+    echo 'Claude Code is not bundled. Install it from Anthropic’s official channel into /home/agent/.local/bin/claude, or set AGENT_BOX_CLAUDE_CLI to your installed executable. See docs/payload-remediation.md.' >&2
+    exit 127
+fi
+exec "$cli" "$@"

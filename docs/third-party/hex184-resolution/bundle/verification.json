@@ -1,0 +1,157 @@
+{
+  "by_kind": {
+    "cua-driver": {
+      "missing_text": 0,
+      "rows": 1
+    },
+    "cua-rust-lock-candidate": {
+      "missing_text": 553,
+      "rows": 635
+    },
+    "debian": {
+      "missing_text": 0,
+      "rows": 533
+    },
+    "inherited-hermes": {
+      "missing_text": 0,
+      "rows": 1
+    },
+    "inherited-s6": {
+      "missing_text": 8,
+      "rows": 8
+    },
+    "pg0-embedded": {
+      "missing_text": 3,
+      "rows": 4
+    },
+    "pg0-rust": {
+      "missing_text": 6,
+      "rows": 239
+    },
+    "python": {
+      "missing_text": 18,
+      "rows": 368
+    },
+    "retained-cache": {
+      "missing_text": 1,
+      "rows": 2
+    },
+    "sbom-binary": {
+      "missing_text": 21,
+      "rows": 21
+    },
+    "sbom-go-module": {
+      "missing_text": 139,
+      "rows": 139
+    },
+    "sbom-npm": {
+      "missing_text": 65,
+      "rows": 802
+    },
+    "sbom-python": {
+      "missing_text": 46,
+      "rows": 401
+    },
+    "sbom-rust-crate": {
+      "missing_text": 788,
+      "rows": 1010
+    }
+  },
+  "inventory_rows": 4164,
+  "malformed_capture": "run/rust/pg0-source-notices.tar contains a directory listing followed by other output, not a valid tar; not treated as notice bytes",
+  "notice_records": 2238,
+  "rows_without_text": 1648,
+  "unique_texts": 1161,
+  "verified_evidence_files": [
+    "run/apt/apt-artifacts.txt",
+    "run/apt/dpkg-base-hermes.tsv",
+    "run/apt/dpkg-installed.tsv",
+    "run/apt/os-release.txt",
+    "run/apt/sources.txt",
+    "run/build/base-hermes-inspect.json",
+    "run/build/binaries.sha256",
+    "run/build/build-end.txt",
+    "run/build/build-exit-code.txt",
+    "run/build/build-metadata.json",
+    "run/build/build-start.txt",
+    "run/build/build.log",
+    "run/build/commit-log.txt",
+    "run/build/commit.txt",
+    "run/build/image-history.txt",
+    "run/build/image-id.txt",
+    "run/build/image-inspect.json",
+    "run/build/image-summary.txt",
+    "run/build/source-hashes.txt",
+    "run/go/cua-driver-not-go.txt",
+    "run/go/go-image.txt",
+    "run/go/tailscale-buildinfo.txt",
+    "run/go/tailscale-image-inspect.json",
+    "run/go/tailscaled-buildinfo.txt",
+    "run/host/docker-root-df.txt",
+    "run/host/docker-system-df.txt",
+    "run/host/versions.txt",
+    "run/inventory/opt_hermes_.venv_bin_python.json",
+    "run/inventory/opt_hermes_.venv_bin_python.stderr",
+    "run/inventory/opt_hindsight_bin_python.json",
+    "run/inventory/opt_hindsight_bin_python.stderr",
+    "run/inventory/runs.txt",
+    "run/inventory/usr_bin_python3.json",
+    "run/inventory/usr_bin_python3.stderr",
+    "run/notices/hermes-facts.txt",
+    "run/notices/other-notice-paths.txt",
+    "run/notices/other-notices.tar",
+    "run/notices/s6-facts.txt",
+    "run/python/interpreters.txt",
+    "run/python/lockfiles-in-image.tar",
+    "run/python/lockfiles-in-image.txt",
+    "run/python/opt_hermes_.venv_bin_python.pip-inspect.json",
+    "run/python/opt_hermes_.venv_bin_python.pip-inspect.stderr",
+    "run/python/opt_hermes_.venv_bin_python.version.txt",
+    "run/python/opt_hindsight_bin_python.pip-inspect.json",
+    "run/python/opt_hindsight_bin_python.pip-inspect.stderr",
+    "run/python/opt_hindsight_bin_python.version.txt",
+    "run/python/pyvenv-cfgs.txt",
+    "run/python/resolver-replay.log",
+    "run/python/resolver-replay.tar",
+    "run/python/usr_bin_python3.pip-inspect.json",
+    "run/python/usr_bin_python3.pip-inspect.stderr",
+    "run/python/usr_bin_python3.version.txt",
+    "run/rust/cua-driver-crate-paths-from-strings.txt",
+    "run/rust/cua-driver-tarball-contents.txt",
+    "run/rust/cua-driver-tarball-notices.tar",
+    "run/rust/cua-driver-tarball-verify.txt",
+    "run/rust/pg0-Cargo.lock",
+    "run/rust/pg0-binary-strings.txt",
+    "run/rust/pg0-cargo-metadata.json",
+    "run/rust/pg0-cargo-metadata.stderr",
+    "run/rust/pg0-cargo-tree.txt",
+    "run/rust/pg0-crate-notices.tar",
+    "run/rust/pg0-embedded-package-tree.txt",
+    "run/rust/pg0-embedded-source-refs.txt",
+    "run/rust/pg0-installed-path.txt",
+    "run/rust/pg0-registry-crates.txt",
+    "run/rust/pg0-source-notices.tar",
+    "run/rust/pg0-stage-build-exit.txt",
+    "run/rust/pg0-stage-build.log",
+    "run/rust/pg0-versions.env",
+    "run/rust/toolchain.txt",
+    "run/sbom/sbom.syft.json",
+    "run/sbom/syft-image.txt",
+    "run/sbom/syft-json.stderr",
+    "run/sbom/syft-spdx.stderr",
+    "run/sbom/syft-version.txt",
+    "run/started.txt",
+    "followup/base-hermes-inspect.json",
+    "followup/base-hermes-labels.json",
+    "followup/hermes-build-facts.txt",
+    "followup/pg0-build-script-output.txt",
+    "followup/pg0-cargo-metadata.linux-x86_64.json",
+    "followup/pg0-cargo-metadata.stderr",
+    "followup/pg0-embedded-bundle-notices.stderr",
+    "followup/pg0-embedded-bundle-notices.tar",
+    "followup/pg0-embedded-bundles-contents.txt",
+    "followup/pg0-embedded-bundles.sha256",
+    "followup/retained-build-caches.txt",
+    "followup/started.txt"
+  ]
+}

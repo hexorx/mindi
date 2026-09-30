@@ -1,0 +1,12 @@
+{
+ "content_bad": [],
+ "content_blobs": 0,
+ "content_ok": 0,
+ "index_entries": [],
+ "top_level": [
+  "_logs",
+  "_npx",
+  "_prebuilds",
+  "_update-notifier-last-checked"
+ ]
+}

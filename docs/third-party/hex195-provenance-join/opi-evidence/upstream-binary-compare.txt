@@ -1,0 +1,14 @@
+# Fetched from this runner 2026-09-30; sha256 of member extracted from the upstream zip vs file in final image (facts/*.json).
+chrome-headless-shell: upstream https://storage.googleapis.com/chrome-for-testing-public/151.0.7922.34/linux64/chrome-headless-shell-linux64.zip
+  zip_sha256=3cfc2bd00d1bafcf8a68dc74c9c92bb7150ddc8d26ade948a776316e1cec4f14  (listed for 151.0.7922.34 / revision 1654411 in googlechromelabs known-good-versions-with-downloads.json)
+  member chrome-headless-shell sha256=e11fc9ce65c96313476f7ee9844b6fb6a9220fb048693cfe9eee00acf4170a9f  image=e11fc9ce65c96313476f7ee9844b6fb6a9220fb048693cfe9eee00acf4170a9f  IDENTICAL
+  member ABOUT sha256=34d078ce3003087a8374e7c6156fda374769b8047d6ddaf419d66414aa48edfb image=same IDENTICAL
+  member LICENSE.headless_shell sha256=334f3e2d8a58954bc7152a8150bdd3e7f35e0d9bcf30dd323d4edcb7df5f36d5 image=same IDENTICAL
+  playwright-core 1.62.1 (npm integrity verified: sha512-wPYSwEBJ...nYZVw==) coreBundle.js cftUrl(): path builds/cft/${browserVersion}/linux64/chrome-headless-shell-linux64.zip, mirror https://cdn.playwright.dev
+ffmpeg-linux: upstream https://cdn.playwright.dev/dbazure/download/playwright/builds/ffmpeg/1011/ffmpeg-linux.zip
+  zip_sha256=ebc74fc5b94830176a3c2914ae96bd8bc7f6a91f4f33890230f84a172ee61ccc
+  member ffmpeg-linux sha256=460d44f3416005662f528d4b92e7b94ace924e8a0288106d3803b73c56eaadc8  image=460d44f3416005662f528d4b92e7b94ace924e8a0288106d3803b73c56eaadc8  IDENTICAL
+  member COPYING.LGPLv2.1 sha256=b634ab5640e258563c536e658cad87080553df6f34f62269a21d554844e58bfe
+hindsight-api-slim 0.6.1 wheel sha256=5559ec72f683df8eeef082c7ecd4bb3da4ea3f5c5c661cdee378fef51e8e099a (matches hindsight-linux-amd64.lock): config.py:130 ENV_LLM_PROVIDER=HINDSIGHT_API_LLM_PROVIDER, :463 default "openai"; engine/llm_wrapper.py:206 "claude-code" -> ClaudeCodeLLM; engine/providers/claude_code_llm.py:182,:470 ClaudeAgentOptions(...) without cli_path.
+mindi 2a74043 apps/agent-box-hermes/runtime/memory.py:79-89: env built from scratch ("Deliberately do not inherit HINDSIGHT_API_* overrides"); MEMORY_LLM_PROVIDER must be openai|anthropic, else ValueError.
+Hermes base e624e9fde561 Dockerfile (sha256 a11fc9fc..., identical to /opt/hermes/Dockerfile in image): :62 ENV PLAYWRIGHT_BROWSERS_PATH=/opt/hermes/.playwright; :201 npx playwright install --with-deps chromium --only-shell

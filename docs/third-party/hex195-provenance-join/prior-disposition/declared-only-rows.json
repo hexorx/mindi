@@ -1,0 +1,380 @@
+{
+  "complete_source_closure": false,
+  "rows": [
+    {
+      "baseline_row_index": 163,
+      "kind": "python",
+      "name": "cobble",
+      "version": "0.1.4",
+      "declared_license": "BSD-2-Clause",
+      "disclosure": "declared license only; upstream notice text not found",
+      "upstream_root_notice_found": false,
+      "source_status": "not_reconciled",
+      "membership": null,
+      "locations": [],
+      "environment": "/opt/hindsight/bin/python",
+      "authority": "HEX-194 / Mindi final dispositions",
+      "source_url": "https://files.pythonhosted.org/packages/54/7a/a507c709be2c96e1bb6102eb7b7f4026c5e5e223ef7d745a17d239e9d844/cobble-0.1.4.tar.gz ; https://github.com/mwilliamson/python-cobble tag 0.1.4 -> a4f92a3462303c1402c8c55e3b5a45fa3bc2fa37",
+      "source_identity": "sdist sha256 de38be1539992c8a06e569630717c485a5f91be2192c461ea2b220607dfa78aa ; wheel sha256 36c91b1655e599fd428e2b95fdd5f0da1ca2e9f1abb0bc871dec21a0e78a2b44",
+      "evidence_gap": "Checked full git history of mwilliamson/python-cobble (HEAD == tag 0.1.4, 2024-06-01): no LICENSE/COPYING ever committed. Declarations only: README.rst '2-Clause BSD' link, setup.py classifier 'License :: OSI Approved :: BSD License', author 'Michael Williamson'. No copyright line anywhere.",
+      "upstream_texts": []
+    },
+    {
+      "baseline_row_index": 269,
+      "kind": "python",
+      "name": "pg0-embedded",
+      "version": "0.14.0",
+      "declared_license": "MIT",
+      "disclosure": "declared license only; upstream notice text not found",
+      "upstream_root_notice_found": false,
+      "source_status": "not_reconciled",
+      "membership": null,
+      "locations": [],
+      "environment": "/opt/hindsight/bin/python",
+      "authority": "HEX-194 / Mindi final dispositions",
+      "source_url": "https://files.pythonhosted.org/packages/f6/3d/715ede5249fb2dfcf2f44bc7f13a8206ecc9434269f7ecebf2eb24ba4f43/pg0_embedded-0.14.0.tar.gz ; wheel https://files.pythonhosted.org/packages/30/16/5dc8fc49e171df0967396a5986804c025142ce85fdfa8cb241537e105669/pg0_embedded-0.14.0-py3-none-manylinux_2_35_x86_64.whl",
+      "source_identity": "sdist sha256 afcb94825f716351034d7d2eb9cc9edb6da46e3103b647a31a28e2975df47594 ; wheel sha256 bd7f59f64e12aa364ab8a8e89a47d093fdd296ea2fb5a3c95987db60d091f905 (PyPI JSON sha256 455c7132…)",
+      "evidence_gap": "Same upstream as pg0 (sdk/python in vectorize-io/pg0 v0.14.0). sdist and wheel contain no license member; only MIT metadata/classifier.",
+      "upstream_texts": []
+    },
+    {
+      "baseline_row_index": 1019,
+      "kind": "pg0-rust",
+      "name": "pg0",
+      "version": "0.14.0",
+      "declared_license": "MIT",
+      "disclosure": "declared license only; upstream notice text not found",
+      "upstream_root_notice_found": false,
+      "source_status": "not_reconciled",
+      "membership": "linux-filtered cargo metadata; build/runtime and optional membership require review",
+      "locations": [],
+      "environment": null,
+      "authority": "HEX-194 / Mindi final dispositions",
+      "source_url": "https://codeload.github.com/vectorize-io/pg0/tar.gz/refs/tags/v0.14.0",
+      "source_identity": "source tarball sha256 729b27cdc35e652c18761b874996cdda3a657aa16c9e2915c78214372725ab8d (tag v0.14.0 -> commit 0426f8ce2f59797275e41e0c2c6d7087f04fbc4d); not a crates.io package",
+      "evidence_gap": "Checked: full git history of github.com/vectorize-io/pg0 (all refs, incl. main 29191fb 2026-09-14): no LICENSE/COPYING file ever committed. raw main/LICENSE -> 404. Only declarations: Cargo.toml `license = \"MIT\"` (no `authors`), sdk/python/pyproject.toml `license = \"MIT\"` + MIT classifier, sdk/node/package.json `\"license\": \"MIT\"`, README.md `## License` / `MIT`. Nested sdk/node/node_modules licenses are third-party and not pg0 attribution.",
+      "upstream_texts": []
+    },
+    {
+      "baseline_row_index": 1822,
+      "kind": "sbom-npm",
+      "name": "@humanfs/types",
+      "version": "0.15.0",
+      "declared_license": "Apache-2.0",
+      "disclosure": "declared license only; upstream notice text not found",
+      "upstream_root_notice_found": false,
+      "source_status": "not_reconciled",
+      "membership": "all-layer scan; text association is a candidate, final filesystem/layer membership unverified",
+      "locations": [
+        {
+          "accessPath": "/opt/hermes/node_modules/@humanfs/types/package.json",
+          "annotations": {
+            "evidence": "primary"
+          },
+          "layerID": "sha256:962d167fe4a8899127c89b228b29600ebe4b0fab258212515ce88e97d7d99939",
+          "path": "/opt/hermes/node_modules/@humanfs/types/package.json"
+        }
+      ],
+      "environment": null,
+      "authority": "HEX-194 / Mindi final dispositions",
+      "source_url": "https://registry.npmjs.org/@humanfs/types/-/types-0.15.0.tgz ; gitHead 85069f193cbacc371c3beb649ce746f8c5a493be (humanwhocodes/humanfs)",
+      "source_identity": "tarball sha256 3c2942da7ba321f6ba27255a5faceee76eae502403129d8aa50d2dc8400a94d5",
+      "evidence_gap": "packages/types has never had a LICENSE (checked all history); repo root has none. Sibling packages (box, core, deno, memory, node, web) at the same gitHead each carry Apache-2.0 text sha256 c71d239d… — sibling, not package-scoped, so not a grant for types. README '## License / Apache 2.0'.",
+      "upstream_texts": []
+    },
+    {
+      "baseline_row_index": 1834,
+      "kind": "sbom-npm",
+      "name": "@nous-research/ui",
+      "version": "0.18.2",
+      "declared_license": "MIT",
+      "disclosure": "declared license only; upstream notice text not found",
+      "upstream_root_notice_found": false,
+      "source_status": "not_reconciled",
+      "membership": "all-layer scan; text association is a candidate, final filesystem/layer membership unverified",
+      "locations": [
+        {
+          "accessPath": "/opt/hermes/node_modules/@nous-research/ui/package.json",
+          "annotations": {
+            "evidence": "primary"
+          },
+          "layerID": "sha256:962d167fe4a8899127c89b228b29600ebe4b0fab258212515ce88e97d7d99939",
+          "path": "/opt/hermes/node_modules/@nous-research/ui/package.json"
+        }
+      ],
+      "environment": null,
+      "authority": "HEX-194 / Mindi final dispositions",
+      "source_url": "https://registry.npmjs.org/@nous-research/ui/-/ui-0.18.2.tgz ; gitHead 36959a67ceb862f5ee635a21ff141e5f70f0db14 (no public repository; not in Hermes-Agent; GitHub commit search: 0 hits)",
+      "source_identity": "tarball sha256 7a6eae6b82281bb6dc39b0665ca3d8af21cf54d4282f093aaa179532e7ee1434",
+      "evidence_gap": "No license member; no repository metadata; source not public. Declaration MIT only. Tarball also bundles 'Collapse-*.woff2' font files whose font licence is undocumented.",
+      "upstream_texts": []
+    },
+    {
+      "baseline_row_index": 1836,
+      "kind": "sbom-npm",
+      "name": "@npmcli/agent",
+      "version": "4.0.2",
+      "declared_license": "ISC",
+      "disclosure": "declared license only; upstream notice text not found",
+      "upstream_root_notice_found": false,
+      "source_status": "not_reconciled",
+      "membership": "all-layer scan; text association is a candidate, final filesystem/layer membership unverified",
+      "locations": [
+        {
+          "accessPath": "/usr/local/lib/node_modules/npm/node_modules/@npmcli/agent/package.json",
+          "annotations": {
+            "evidence": "primary"
+          },
+          "layerID": "sha256:f9a4ccb4d8989bb8d4175a99b27d19f84e3d88752697c566f9ffd2782c0fec1e",
+          "path": "/usr/local/lib/node_modules/npm/node_modules/@npmcli/agent/package.json"
+        }
+      ],
+      "environment": null,
+      "authority": "HEX-194 / Mindi final dispositions",
+      "source_url": "https://registry.npmjs.org/@npmcli/agent/-/agent-4.0.2.tgz ; gitHead db7852869c74ceb8985d7c36b291a2e7a866741c (npm/agent, == tag v4.0.2)",
+      "source_identity": "tarball sha256 88dcd3e47fbb0ab7b9160014531c0e99a7ab478656d465a7985c25c759701b9a",
+      "evidence_gap": "No license file in tarball (package.json files: bin/, lib/), at the exact gitHead, or anywhere in npm/agent history (HEAD checked). Only test/fixtures/socksv5/LICENSE (unrelated). Declaration: license ISC, author 'GitHub Inc.'.",
+      "upstream_texts": []
+    },
+    {
+      "baseline_row_index": 1872,
+      "kind": "sbom-npm",
+      "name": "@parseaple/bplist",
+      "version": "1.0.1",
+      "declared_license": "MIT",
+      "disclosure": "declared license only; upstream notice text not found",
+      "upstream_root_notice_found": false,
+      "source_status": "not_reconciled",
+      "membership": "all-layer scan; text association is a candidate, final filesystem/layer membership unverified",
+      "locations": [
+        {
+          "accessPath": "/opt/hermes/plugins/platforms/photon/sidecar/node_modules/@parseaple/bplist/package.json",
+          "annotations": {
+            "evidence": "primary"
+          },
+          "layerID": "sha256:b43cbac4d494ffd7401ad9bdbbd9554025bbd91930ed6e6c288e7064e942b5c5",
+          "path": "/opt/hermes/plugins/platforms/photon/sidecar/node_modules/@parseaple/bplist/package.json"
+        }
+      ],
+      "environment": null,
+      "authority": "HEX-194 / Mindi final dispositions",
+      "source_url": "https://registry.npmjs.org/@parseaple/bplist/-/bplist-1.0.1.tgz ; gitHead 90e758eaf52ec1058ca3f04243d75dbd4f580260 in github.com/photon-ai/parseaple (repository private or deleted: git asks for credentials)",
+      "source_identity": "tarball sha256 1ad76c73d1ab0434e2c25c1cb22302af9b9ad1761233fcf993e521bd559c7aef",
+      "evidence_gap": "Photon platform plugin dependency (under /opt/hermes/plugins/platforms/photon/sidecar). README links './LICENSE' but no LICENSE is in the tarball; repo not publicly reachable. Declaration MIT, author 'qwerzl <me@qwerzl.me>'.",
+      "upstream_texts": []
+    },
+    {
+      "baseline_row_index": 1873,
+      "kind": "sbom-npm",
+      "name": "@parseaple/typedstream",
+      "version": "2.0.2",
+      "declared_license": "MIT",
+      "disclosure": "declared license only; upstream notice text not found",
+      "upstream_root_notice_found": false,
+      "source_status": "not_reconciled",
+      "membership": "all-layer scan; text association is a candidate, final filesystem/layer membership unverified",
+      "locations": [
+        {
+          "accessPath": "/opt/hermes/plugins/platforms/photon/sidecar/node_modules/@parseaple/typedstream/package.json",
+          "annotations": {
+            "evidence": "primary"
+          },
+          "layerID": "sha256:b43cbac4d494ffd7401ad9bdbbd9554025bbd91930ed6e6c288e7064e942b5c5",
+          "path": "/opt/hermes/plugins/platforms/photon/sidecar/node_modules/@parseaple/typedstream/package.json"
+        }
+      ],
+      "environment": null,
+      "authority": "HEX-194 / Mindi final dispositions",
+      "source_url": "https://registry.npmjs.org/@parseaple/typedstream/-/typedstream-2.0.2.tgz ; same private photon-ai/parseaple repo",
+      "source_identity": "tarball sha256 42fe9252301c3329d41345cc5e6f41e8f1f6d6d65f7aa123f2a868945cd0059d",
+      "evidence_gap": "Photon platform plugin dependency (under /opt/hermes/plugins/platforms/photon/sidecar). README links './LICENSE' but no LICENSE in tarball; no gitHead; repo not public. Declaration MIT.",
+      "upstream_texts": []
+    },
+    {
+      "baseline_row_index": 1876,
+      "kind": "sbom-npm",
+      "name": "@photon-ai/otel",
+      "version": "1.1.0",
+      "declared_license": "MIT",
+      "disclosure": "declared license only; upstream notice text not found",
+      "upstream_root_notice_found": false,
+      "source_status": "not_reconciled",
+      "membership": "all-layer scan; text association is a candidate, final filesystem/layer membership unverified",
+      "locations": [
+        {
+          "accessPath": "/opt/hermes/plugins/platforms/photon/sidecar/node_modules/@photon-ai/otel/package.json",
+          "annotations": {
+            "evidence": "primary"
+          },
+          "layerID": "sha256:b43cbac4d494ffd7401ad9bdbbd9554025bbd91930ed6e6c288e7064e942b5c5",
+          "path": "/opt/hermes/plugins/platforms/photon/sidecar/node_modules/@photon-ai/otel/package.json"
+        }
+      ],
+      "environment": null,
+      "authority": "HEX-194 / Mindi final dispositions",
+      "source_url": "https://registry.npmjs.org/@photon-ai/otel/-/otel-1.1.0.tgz",
+      "source_identity": "tarball sha256 4f25acf4cb3844021c60d0d604a8461b8c9c8474a75e5d98f1841b29a94460a7",
+      "evidence_gap": "Photon platform plugin dependency (under /opt/hermes/plugins/platforms/photon/sidecar). No repository/gitHead published; no license member. README '## License / MIT'.",
+      "upstream_texts": []
+    },
+    {
+      "baseline_row_index": 1879,
+      "kind": "sbom-npm",
+      "name": "@photon-ai/telegram-ts",
+      "version": "10.0.0",
+      "declared_license": "MIT",
+      "disclosure": "declared license only; upstream notice text not found",
+      "upstream_root_notice_found": false,
+      "source_status": "not_reconciled",
+      "membership": "all-layer scan; text association is a candidate, final filesystem/layer membership unverified",
+      "locations": [
+        {
+          "accessPath": "/opt/hermes/plugins/platforms/photon/sidecar/node_modules/@photon-ai/telegram-ts/package.json",
+          "annotations": {
+            "evidence": "primary"
+          },
+          "layerID": "sha256:b43cbac4d494ffd7401ad9bdbbd9554025bbd91930ed6e6c288e7064e942b5c5",
+          "path": "/opt/hermes/plugins/platforms/photon/sidecar/node_modules/@photon-ai/telegram-ts/package.json"
+        }
+      ],
+      "environment": null,
+      "authority": "HEX-194 / Mindi final dispositions",
+      "source_url": "https://registry.npmjs.org/@photon-ai/telegram-ts/-/telegram-ts-10.0.0.tgz ; gitHead 56a291e2d62605fa44f23795e239cb8a67f5b48a (photon-hq/telegram-api, dir packages/telegram-ts)",
+      "source_identity": "tarball sha256 e19ea31b7be3acbeac75604c9eed09459ed1402c956e3299ab9d455de455d0c9",
+      "evidence_gap": "Photon platform plugin dependency (under /opt/hermes/plugins/platforms/photon/sidecar). No LICENSE anywhere in photon-hq/telegram-api history (all refs). README '## License / MIT'.",
+      "upstream_texts": []
+    },
+    {
+      "baseline_row_index": 2273,
+      "kind": "sbom-python",
+      "name": "cobble",
+      "version": "0.1.4",
+      "declared_license": "BSD-2-Clause",
+      "disclosure": "declared license only; upstream notice text not found",
+      "upstream_root_notice_found": false,
+      "source_status": "not_reconciled",
+      "membership": "all-layer scan; text association is a candidate, final filesystem/layer membership unverified",
+      "locations": [
+        {
+          "accessPath": "/opt/hindsight/lib/python3.13/site-packages/cobble-0.1.4.dist-info/METADATA",
+          "annotations": {
+            "evidence": "primary"
+          },
+          "layerID": "sha256:7c90acb18a0fbe4644c3ee1776c1b254ea88ecd61bed58d7f3d230456aca07bc",
+          "path": "/opt/hindsight/lib/python3.13/site-packages/cobble-0.1.4.dist-info/METADATA"
+        },
+        {
+          "accessPath": "/opt/hindsight/lib/python3.13/site-packages/cobble-0.1.4.dist-info/RECORD",
+          "annotations": {
+            "evidence": "supporting"
+          },
+          "layerID": "sha256:7c90acb18a0fbe4644c3ee1776c1b254ea88ecd61bed58d7f3d230456aca07bc",
+          "path": "/opt/hindsight/lib/python3.13/site-packages/cobble-0.1.4.dist-info/RECORD"
+        },
+        {
+          "accessPath": "/opt/hindsight/lib/python3.13/site-packages/cobble-0.1.4.dist-info/top_level.txt",
+          "annotations": {
+            "evidence": "supporting"
+          },
+          "layerID": "sha256:7c90acb18a0fbe4644c3ee1776c1b254ea88ecd61bed58d7f3d230456aca07bc",
+          "path": "/opt/hindsight/lib/python3.13/site-packages/cobble-0.1.4.dist-info/top_level.txt"
+        }
+      ],
+      "environment": null,
+      "authority": "HEX-194 / Mindi final dispositions",
+      "source_url": "https://files.pythonhosted.org/packages/54/7a/a507c709be2c96e1bb6102eb7b7f4026c5e5e223ef7d745a17d239e9d844/cobble-0.1.4.tar.gz ; https://github.com/mwilliamson/python-cobble tag 0.1.4 -> a4f92a3462303c1402c8c55e3b5a45fa3bc2fa37",
+      "source_identity": "sdist sha256 de38be1539992c8a06e569630717c485a5f91be2192c461ea2b220607dfa78aa ; wheel sha256 36c91b1655e599fd428e2b95fdd5f0da1ca2e9f1abb0bc871dec21a0e78a2b44",
+      "evidence_gap": "Checked full git history of mwilliamson/python-cobble (HEAD == tag 0.1.4, 2024-06-01): no LICENSE/COPYING ever committed. Declarations only: README.rst '2-Clause BSD' link, setup.py classifier 'License :: OSI Approved :: BSD License', author 'Michael Williamson'. No copyright line anywhere.",
+      "upstream_texts": []
+    },
+    {
+      "baseline_row_index": 3267,
+      "kind": "sbom-python",
+      "name": "pg0-embedded",
+      "version": "0.14.0",
+      "declared_license": "MIT",
+      "disclosure": "declared license only; upstream notice text not found",
+      "upstream_root_notice_found": false,
+      "source_status": "not_reconciled",
+      "membership": "all-layer scan; text association is a candidate, final filesystem/layer membership unverified",
+      "locations": [
+        {
+          "accessPath": "/opt/hindsight/lib/python3.13/site-packages/pg0_embedded-0.14.0.dist-info/METADATA",
+          "annotations": {
+            "evidence": "primary"
+          },
+          "layerID": "sha256:7c90acb18a0fbe4644c3ee1776c1b254ea88ecd61bed58d7f3d230456aca07bc",
+          "path": "/opt/hindsight/lib/python3.13/site-packages/pg0_embedded-0.14.0.dist-info/METADATA"
+        },
+        {
+          "accessPath": "/opt/hindsight/lib/python3.13/site-packages/pg0_embedded-0.14.0.dist-info/RECORD",
+          "annotations": {
+            "evidence": "supporting"
+          },
+          "layerID": "sha256:7c90acb18a0fbe4644c3ee1776c1b254ea88ecd61bed58d7f3d230456aca07bc",
+          "path": "/opt/hindsight/lib/python3.13/site-packages/pg0_embedded-0.14.0.dist-info/RECORD"
+        }
+      ],
+      "environment": null,
+      "authority": "HEX-194 / Mindi final dispositions",
+      "source_url": "https://files.pythonhosted.org/packages/f6/3d/715ede5249fb2dfcf2f44bc7f13a8206ecc9434269f7ecebf2eb24ba4f43/pg0_embedded-0.14.0.tar.gz ; wheel https://files.pythonhosted.org/packages/30/16/5dc8fc49e171df0967396a5986804c025142ce85fdfa8cb241537e105669/pg0_embedded-0.14.0-py3-none-manylinux_2_35_x86_64.whl",
+      "source_identity": "sdist sha256 afcb94825f716351034d7d2eb9cc9edb6da46e3103b647a31a28e2975df47594 ; wheel sha256 bd7f59f64e12aa364ab8a8e89a47d093fdd296ea2fb5a3c95987db60d091f905 (PyPI JSON sha256 455c7132…)",
+      "evidence_gap": "Same upstream as pg0 (sdk/python in vectorize-io/pg0 v0.14.0). sdist and wheel contain no license member; only MIT metadata/classifier.",
+      "upstream_texts": []
+    },
+    {
+      "baseline_row_index": 3643,
+      "kind": "sbom-npm",
+      "name": "spdx-license-ids",
+      "version": "3.0.23",
+      "declared_license": "CC0-1.0",
+      "disclosure": "declared license only; upstream notice text not found",
+      "upstream_root_notice_found": false,
+      "source_status": "not_reconciled",
+      "membership": "all-layer scan; text association is a candidate, final filesystem/layer membership unverified",
+      "locations": [
+        {
+          "accessPath": "/usr/local/lib/node_modules/npm/node_modules/spdx-license-ids/package.json",
+          "annotations": {
+            "evidence": "primary"
+          },
+          "layerID": "sha256:f9a4ccb4d8989bb8d4175a99b27d19f84e3d88752697c566f9ffd2782c0fec1e",
+          "path": "/usr/local/lib/node_modules/npm/node_modules/spdx-license-ids/package.json"
+        }
+      ],
+      "environment": null,
+      "authority": "HEX-194 / Mindi final dispositions",
+      "source_url": "https://registry.npmjs.org/spdx-license-ids/-/spdx-license-ids-3.0.23.tgz ; gitHead-equivalent a2a975daf48bbc2afdc8e7c304405b44c656fd53 (jslicense/spdx-license-ids)",
+      "source_identity": "tarball sha256 fea7d95340e83a403c73463ea683cdde960029d956a86a023af6e283fd1e82fe",
+      "evidence_gap": "Repo had an Unlicense LICENSE (added 2014) that was deleted 2016-12-24 in 99503b7 'switch the project license from Unlicense to CC0-1.0'; no license file exists at the release commit. No named affirmer.",
+      "upstream_texts": []
+    },
+    {
+      "baseline_row_index": 3851,
+      "kind": "sbom-npm",
+      "name": "unicode-animations",
+      "version": "1.0.3",
+      "declared_license": "MIT",
+      "disclosure": "declared license only; upstream notice text not found",
+      "upstream_root_notice_found": false,
+      "source_status": "not_reconciled",
+      "membership": "all-layer scan; text association is a candidate, final filesystem/layer membership unverified",
+      "locations": [
+        {
+          "accessPath": "/opt/hermes/node_modules/unicode-animations/package.json",
+          "annotations": {
+            "evidence": "primary"
+          },
+          "layerID": "sha256:962d167fe4a8899127c89b228b29600ebe4b0fab258212515ce88e97d7d99939",
+          "path": "/opt/hermes/node_modules/unicode-animations/package.json"
+        }
+      ],
+      "environment": null,
+      "authority": "HEX-194 / Mindi final dispositions",
+      "source_url": "https://registry.npmjs.org/unicode-animations/-/unicode-animations-1.0.3.tgz ; gitHead 8d2c988f7986c88e7ce8d8086b2444202a868617 (== current HEAD of gunnargray-dev/unicode-animations)",
+      "source_identity": "tarball sha256 c3288aa989d22fe5aeb8d9c52be21d94c49282af6fc04b3d72cda3fb99578f6a",
+      "evidence_gap": "Repo HEAD == release commit; no LICENSE ever. README '## License / MIT'; package.json MIT; no author/holder.",
+      "upstream_texts": []
+    }
+  ]
+}

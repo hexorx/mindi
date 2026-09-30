@@ -1,0 +1,11 @@
+{
+  "version": "3.15.0",
+  "classification": "proprietary-permissive (not open source)",
+  "decision": "keep per Mindi HEX-194; preserve headers and notices",
+  "tarball_url": "https://registry.npmjs.org/gsap/-/gsap-3.15.0.tgz",
+  "tarball_sha256": "d2e33ad202d4811e9084883f7ff9a27967ac4095caef51ca4c9d20697a253b1c",
+  "npm_integrity": "sha512-dMW4CWBTUK1AEEDeZc1g4xpPGIrSf9fJF960qbTZmN/QwZIWY5wgliS6JWl9/25fpTGJrMRtSjGtOmPnfjZB+A==",
+  "npm_integrity_verified": true,
+  "package_license_members": [],
+  "note": "Exact package has no standalone LICENSE or full terms. Its README license statement and package.json are copied byte-for-byte. Linked terms retained separately from prior HEX-191 evidence; not falsely described as 3.15.0 package bytes."
+}

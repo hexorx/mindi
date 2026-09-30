@@ -1,0 +1,6 @@
+Package: docker-cli
+Source: docker.io (26.1.5+dfsg1-9)
+Version: 26.1.5+dfsg1-9+b13
+Filename: pool/main/d/docker.io/docker-cli_26.1.5+dfsg1-9+b13_amd64.deb
+Size: 7337584
+SHA256: 842ab48440373eb31a66aef8f5579dfcb2e0b5cfda4a8e5bd3a4b9ab76b8a08b

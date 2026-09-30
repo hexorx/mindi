@@ -144,3 +144,9 @@ vite.config.ts.timestamp-*
 
 # Turborepo
 .turbo/
+
+# Exact historical HEX-195 evidence required by preserved checksum manifests
+!/docs/third-party/hex195-provenance-join/opi-evidence/volume/deb/apt-download.log
+!/docs/third-party/hex195-provenance-join/opi-evidence/volume/facts/probe.log
+!/docs/third-party/hex195-provenance-join/opi-evidence/volume/run/debfetch.log
+!/docs/third-party/hex195-provenance-join/opi-evidence/volume/run/status.log

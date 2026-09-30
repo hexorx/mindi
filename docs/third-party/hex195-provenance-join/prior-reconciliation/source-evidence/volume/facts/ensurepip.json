@@ -1,0 +1,72 @@
+{
+ "interpreters": {
+  "/opt/hermes/.venv/bin/python": {
+   "_get_packages_error": "AttributeError(\"module 'ensurepip' has no attribute '_get_packages'\")",
+   "base_prefix": "/usr",
+   "bundled_dir_listing": null,
+   "ensurepip_dir": "/usr/lib/python3.13/ensurepip",
+   "ensurepip_version": "25.1.1",
+   "executable": "/opt/hermes/.venv/bin/python",
+   "prefix": "/opt/hermes/.venv",
+   "pyvenv.cfg": "home = /usr/bin\nimplementation = CPython\nuv = 0.11.6\nversion_info = 3.13.5\ninclude-system-site-packages = false\nprompt = hermes-agent\n",
+   "realpath": "/usr/bin/python3.13",
+   "sys_version": "3.13.5 (main, Jul 15 2026, 20:25:40) [GCC 14.2.0]"
+  },
+  "/opt/hindsight/bin/python": {
+   "_get_packages_error": "AttributeError(\"module 'ensurepip' has no attribute '_get_packages'\")",
+   "base_prefix": "/usr",
+   "bundled_dir_listing": null,
+   "ensurepip_dir": "/usr/lib/python3.13/ensurepip",
+   "ensurepip_version": "25.1.1",
+   "executable": "/opt/hindsight/bin/python",
+   "prefix": "/opt/hindsight",
+   "pyvenv.cfg": "home = /usr/bin\ninclude-system-site-packages = false\nversion = 3.13.5\nexecutable = /usr/bin/python3.13\ncommand = /opt/hermes/.venv/bin/python3 -m venv /opt/hindsight\n",
+   "realpath": "/usr/bin/python3.13",
+   "sys_version": "3.13.5 (main, Jul 15 2026, 20:25:40) [GCC 14.2.0]"
+  },
+  "/usr/bin/python3": {
+   "_get_packages_error": "AttributeError(\"module 'ensurepip' has no attribute '_get_packages'\")",
+   "base_prefix": "/usr",
+   "bundled_dir_listing": null,
+   "ensurepip_dir": "/usr/lib/python3.13/ensurepip",
+   "ensurepip_version": "25.1.1",
+   "executable": "/usr/bin/python3",
+   "prefix": "/usr",
+   "realpath": "/usr/bin/python3.13",
+   "sys_version": "3.13.5 (main, Jul 15 2026, 20:25:40) [GCC 14.2.0]"
+  }
+ },
+ "pip_dists": [
+  {
+   "direct_url": null,
+   "dist_info": "/opt/hindsight/lib/python3.13/site-packages/pip-25.1.1.dist-info",
+   "env": "hindsight",
+   "installer": "pip",
+   "record_files": 850,
+   "record_mismatch": [],
+   "record_missing": [],
+   "record_ok": 438,
+   "version": "25.1.1"
+  }
+ ],
+ "pip_wheels_on_disk": [
+  {
+   "dpkg_md5_match": true,
+   "dpkg_md5sums": "5f928d4924f78ed645b2106f0575cb09",
+   "dpkg_owner": "python3-pip-whl",
+   "md5": "5f928d4924f78ed645b2106f0575cb09",
+   "path": "/usr/share/python-wheels/pip-25.1.1-py3-none-any.whl",
+   "sha256": "20568e5d750393b2a331d6b261886cbe5d62aca3f54d49a39815b7474d34cd9c",
+   "size": 1468105
+  },
+  {
+   "dpkg_md5_match": true,
+   "dpkg_md5sums": "37961409d8b612d2487caf5f83692a2e",
+   "dpkg_owner": "python3-setuptools-whl",
+   "md5": "37961409d8b612d2487caf5f83692a2e",
+   "path": "/usr/share/python-wheels/setuptools-78.1.1-py3-none-any.whl",
+   "sha256": "a75fa14b8b1d2f2705a9b761e9113010b535aadfd8c5ac12f6f41615b40c87a2",
+   "size": 1257652
+  }
+ ]
+}

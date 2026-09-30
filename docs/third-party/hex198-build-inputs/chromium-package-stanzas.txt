@@ -1,0 +1,410 @@
+# suite=trixie
+Package: adwaita-icon-theme
+Version: 48.1-1
+Installed-Size: 13448
+Maintainer: Debian GNOME Maintainers <pkg-gnome-maintainers@lists.alioth.debian.org>
+Architecture: all
+Replaces: adwaita-icon-theme-full (<< 45.1), gnome-themes-standard-data (<< 3.18.0-2~)
+Provides: adwaita-icon-theme-full (= 48.1-1), gnome-icon-theme-symbolic
+Depends: gtk-update-icon-cache, hicolor-icon-theme
+Recommends: librsvg2-common
+Suggests: adwaita-icon-theme-legacy
+Breaks: adwaita-icon-theme-full (<< 45.1), gnome-themes-standard-data (<< 3.18.0-2~), libmutter-12-0 (<< 44.8-3~), libmutter-13-0 (<< 45.3-3~)
+Description: default icon theme of GNOME
+Multi-Arch: foreign
+Homepage: https://gitlab.gnome.org/GNOME/adwaita-icon-theme
+Description-md5: 1e7ddab69a53a6e2e2f8d8b4538bb88f
+Tag: role::data
+Section: gnome
+Priority: optional
+Filename: pool/main/a/adwaita-icon-theme/adwaita-icon-theme_48.1-1_all.deb
+Size: 504356
+MD5sum: 99fcb1231415cfdf96d17856bfa600a9
+SHA256: f60b0577aee314d43d6908ca7f0b8f07dc48e2bb766e7e25035330817e0e827c
+
+# suite=trixie-security
+Package: chromium
+Version: 154.0.8037.57-1~deb13u1
+Installed-Size: 319700
+Maintainer: Debian Chromium Team <chromium@packages.debian.org>
+Architecture: amd64
+Provides: gnome-www-browser, www-browser
+Depends: libasound2t64 (>= 1.0.17), libatk-bridge2.0-0t64 (>= 2.5.3), libatk1.0-0t64 (>= 2.32.0), libatspi2.0-0t64 (>= 2.9.90), libc6 (>= 2.38), libcairo2 (>= 1.14.0), libcups2t64 (>= 1.7.0), libdav1d7 (>= 0.1.0), libdbus-1-3 (>= 1.10), libdouble-conversion3 (>= 2.0.0), libexpat1 (>= 2.1~beta3), libflac14 (>= 1.5.0), libfontconfig1 (>= 2.12.6), libfreetype6 (>= 2.11.1), libgbm1 (>= 21.1.0), libgcc-s1 (>= 4.2), libglib2.0-0t64 (>= 2.40.0), libharfbuzz-subset0 (>= 6.0.0), libharfbuzz0b (>= 10.0.1), libjpeg62-turbo (>= 1:1.5.0), liblcms2-2 (>= 2.2+git20110628), libminizip1t64, libnspr4 (>= 2:4.9-2~), libnss3 (>= 2:3.30), libopenh264-8 (>= 2.6.0+dfsg), libopenjp2-7 (>= 2.5.0), libopus0 (>= 1.1), libpango-1.0-0 (>= 1.14.0), libpulse0 (>= 0.99.1), libudev1 (>= 183), libx11-6, libxcb1 (>= 1.9.2), libxcomposite1 (>= 1:0.4.6), libxdamage1 (>= 1:1.1), libxext6, libxfixes3, libxkbcommon0 (>= 0.5.0), libxnvctrl0, libxrandr2, libzstd1 (>= 1.5.5), zlib1g (>= 1:1.2.11.dfsg), libgtk-3-0t64 | xdg-desktop-portal-backend, chromium-common (= 154.0.8037.57-1~deb13u1)
+Suggests: chromium-l10n, chromium-shell, chromium-driver
+Conflicts: libgl1-mesa-swx11, libnettle4, libsecret-1-0 (<< 0.18)
+Breaks: chromium-lwn4chrome (<= 1.0-2), chromium-tt-rss-notifier (<= 0.5.2-2)
+Description: web browser
+Homepage: http://www.chromium.org/Home
+Description-md5: 3a7ed4512cf49e4fe53b4490bcc1060b
+Section: web
+Priority: optional
+Filename: pool/updates/main/c/chromium/chromium_154.0.8037.57-1~deb13u1_amd64.deb
+Size: 90587876
+SHA256: d70bab9fbcb7bfbb7227b9510fb5cf1f7290bd6d6af3dd168b19ba4cc9b8035d
+
+# suite=trixie-security
+Package: chromium-common
+Source: chromium
+Version: 154.0.8037.57-1~deb13u1
+Installed-Size: 65876
+Maintainer: Debian Chromium Team <chromium@packages.debian.org>
+Architecture: amd64
+Replaces: chromium (<< 154.0.8037.57-1~deb13u1)
+Depends: libc6 (>= 2.39), libgcc-s1 (>= 4.2), zlib1g (>= 1:1.2.11.dfsg), x11-utils, xdg-utils
+Breaks: chromium (<< 154.0.8037.57-1~deb13u1)
+Description: web browser - common resources used by the chromium packages
+Homepage: http://www.chromium.org/Home
+Description-md5: 6f8b66c61b0d01bc4c6ea3fa84a5ff38
+Recommends: upower, udev, libgl1-mesa-dri, fonts-liberation, notification-daemon, system-config-printer
+Section: web
+Priority: optional
+Filename: pool/updates/main/c/chromium/chromium-common_154.0.8037.57-1~deb13u1_amd64.deb
+Size: 30613260
+SHA256: 8adc7a808ab393bd9f38855c8ad15757be8896eae36afc86728776a02c0794a7
+
+# suite=trixie
+Package: gtk-update-icon-cache
+Source: gtk4
+Version: 4.18.6+ds-2
+Installed-Size: 113
+Maintainer: Debian GNOME Maintainers <pkg-gnome-maintainers@lists.alioth.debian.org>
+Architecture: amd64
+Replaces: libgtk-4-bin (<< 4.15)
+Depends: libc6 (>= 2.38), libgdk-pixbuf-2.0-0 (>= 2.22.0), libglib2.0-0t64 (>= 2.80.0)
+Breaks: libgtk-4-bin (<< 4.15)
+Description: icon theme caching utility
+Multi-Arch: foreign
+Homepage: https://www.gtk.org/
+Description-md5: 7085c6bbe9a81adcc1cf27c74f6df2b2
+Tag: made-of::icons, role::program, uitoolkit::gtk
+Section: misc
+Priority: optional
+Filename: pool/main/g/gtk4/gtk-update-icon-cache_4.18.6+ds-2_amd64.deb
+Size: 52700
+MD5sum: 147325c756f07dbfa904d3740831b4b1
+SHA256: 88378a48ac07d253fb9bf0503dfbfbee2037ed9cd83eeff1df398801ab183125
+
+# suite=trixie
+Package: hicolor-icon-theme
+Version: 0.18-2
+Installed-Size: 780
+Maintainer: Debian GNOME Maintainers <pkg-gnome-maintainers@lists.alioth.debian.org>
+Architecture: all
+Description: default fallback theme for FreeDesktop.org icon themes
+Multi-Arch: foreign
+Description-md5: 653c5f5ecfe0f797f5a047b73a60b6d5
+Tag: made-of::icons, made-of::svg, role::app-data, suite::gnome, suite::kde,
+ suite::xfce, uitoolkit::gtk, x11::theme
+Section: misc
+Priority: optional
+Filename: pool/main/h/hicolor-icon-theme/hicolor-icon-theme_0.18-2_all.deb
+Size: 11832
+MD5sum: adb122bb1773e45d49edf052e71edae9
+SHA256: d91fef83a186d3fc9fff293bfd7da4f684f736d15459d258a5a0d251168c1a35
+
+# suite=trixie
+Package: libcloudproviders0
+Source: libcloudproviders
+Version: 0.3.6-2
+Installed-Size: 116
+Maintainer: Debian GNOME Maintainers <pkg-gnome-maintainers@lists.alioth.debian.org>
+Architecture: amd64
+Depends: libc6 (>= 2.4), libglib2.0-0t64 (>= 2.56.0)
+Description: cloud provider library
+Multi-Arch: same
+Homepage: https://gnome.pages.gitlab.gnome.org/libcloudproviders/
+Description-md5: 8674d99a95f8aa7995dee8e8ce395ee8
+Tag: role::shared-lib
+Section: libs
+Priority: optional
+Filename: pool/main/libc/libcloudproviders/libcloudproviders0_0.3.6-2_amd64.deb
+Size: 29232
+MD5sum: 1abed0e1ab458f470b2e40baaa9a3b01
+SHA256: a626bb23ed9ebc4bc3ce446b552048de63d76768bf0fb492754965c5ee28a7e4
+
+# suite=trixie
+Package: libcolord2
+Source: colord
+Version: 1.4.7-3
+Installed-Size: 625
+Maintainer: Debian freedesktop.org maintainers <pkg-freedesktop-maintainers@lists.alioth.debian.org>
+Architecture: amd64
+Depends: libc6 (>= 2.29), libglib2.0-0t64 (>= 2.80.0), liblcms2-2 (>= 2.6), libudev1 (>= 196)
+Suggests: colord
+Description: system service to manage device colour profiles -- runtime
+Multi-Arch: same
+Homepage: https://www.freedesktop.org/software/colord/
+Description-md5: 4d55f8607f36d5762f983bc2d927fd71
+Tag: role::shared-lib
+Section: libs
+Priority: optional
+Filename: pool/main/c/colord/libcolord2_1.4.7-3_amd64.deb
+Size: 139204
+MD5sum: 1e5c067030cb943e4c03fc52156f0294
+SHA256: f11fd3b492781122edf0790f1e1fe24c51a41c67d4bb76cff84a9426c5654fa7
+
+# suite=trixie
+Package: libdouble-conversion3
+Source: double-conversion
+Version: 3.3.1-1
+Installed-Size: 113
+Maintainer: Debian Science Team <debian-science-maintainers@lists.alioth.debian.org>
+Architecture: amd64
+Depends: libc6 (>= 2.4), libgcc-s1 (>= 3.0), libstdc++6 (>= 4.1.1)
+Description: routines to convert IEEE floats to and from strings
+Multi-Arch: same
+Homepage: https://github.com/google/double-conversion
+Description-md5: d76bc610d27922197310df91f331561e
+Tag: role::shared-lib
+Section: libs
+Priority: optional
+Filename: pool/main/d/double-conversion/libdouble-conversion3_3.3.1-1_amd64.deb
+Size: 41816
+MD5sum: 808d59f29468ecdfc8a6804b3c94cb11
+SHA256: bd43b8c185a78d108548b30da6a695aabb6644ce0dd266892da2d10cfe471067
+
+# suite=trixie
+Package: libgtk-3-0t64
+Source: gtk+3.0
+Version: 3.24.49-3
+Installed-Size: 10029
+Maintainer: Debian GNOME Maintainers <pkg-gnome-maintainers@lists.alioth.debian.org>
+Architecture: amd64
+Replaces: libgtk-3-0 (<< 3.24.41-1.1)
+Provides: gtk3-binver-3.0.0, libgtk-3-0 (= 3.24.49-3)
+Depends: adwaita-icon-theme, hicolor-icon-theme, shared-mime-info, libatk-bridge2.0-0t64 (>= 2.15.1), libatk1.0-0t64 (>= 2.35.1), libc6 (>= 2.38), libcairo-gobject2 (>= 1.14.0), libcairo2 (>= 1.14.0), libcloudproviders0 (>= 0.3.2), libcolord2 (>= 0.1.10), libcups2t64 (>= 1.7.0), libepoxy0 (>= 1.4.3), libfontconfig1 (>= 2.12.6), libfribidi0 (>= 0.19.7), libgdk-pixbuf-2.0-0 (>= 2.40.0), libglib2.0-0t64 (>= 2.78.0), libharfbuzz0b (>= 2.2.0), libpango-1.0-0 (>= 1.45.5), libpangocairo-1.0-0 (>= 1.44.0), libpangoft2-1.0-0 (>= 1.44.0), libwayland-client0 (>= 1.23), libwayland-cursor0 (>= 1.23), libwayland-egl1 (>= 1.23), libx11-6 (>= 2:1.4.99.1), libxcomposite1 (>= 1:0.4.6), libxcursor1 (>> 1.1.2), libxdamage1 (>= 1:1.1), libxext6, libxfixes3, libxi6 (>= 2:1.2.99.4), libxinerama1 (>= 2:1.1.4), libxkbcommon0 (>= 0.5.0), libxrandr2 (>= 2:1.5.0), libgtk-3-common (>= 3.24.49-3)
+Recommends: libgtk-3-bin, librsvg2-common
+Suggests: gvfs
+Breaks: libgtk-3-0 (<< 3.24.41-1.1), libgtk-layer-shell0 (<< 0.9.0)
+Description: GTK graphical user interface library
+Multi-Arch: same
+Homepage: https://www.gtk.org/
+Description-md5: 02e4be37fe9843eb98242e33800e4fb6
+Section: libs
+Priority: optional
+Filename: pool/main/g/gtk+3.0/libgtk-3-0t64_3.24.49-3_amd64.deb
+Size: 2768812
+MD5sum: ea972409bcccf86dd81f887142429068
+SHA256: 4aa8828f01365f937f3bf69f812c8107ee4c8a2b208ffdd7656e8de5de81d98f
+
+# suite=trixie
+Package: libgtk-3-common
+Source: gtk+3.0
+Version: 3.24.49-3
+Installed-Size: 30916
+Maintainer: Debian GNOME Maintainers <pkg-gnome-maintainers@lists.alioth.debian.org>
+Architecture: all
+Replaces: libgtk-3-dev (<< 3.24.30-3~)
+Depends: dconf-gsettings-backend | gsettings-backend
+Recommends: libgtk-3-0t64
+Breaks: libgtk-3-dev (<< 3.24.30-3~)
+Description: common files for the GTK graphical user interface library
+Multi-Arch: foreign
+Homepage: https://www.gtk.org/
+Description-md5: 80ace64c76aad30366eb036871cfaf48
+Tag: role::app-data, uitoolkit::gtk, x11::theme
+Section: misc
+Priority: optional
+Filename: pool/main/g/gtk+3.0/libgtk-3-common_3.24.49-3_all.deb
+Size: 4908188
+MD5sum: d137148698999b9be3864e1301ee9e0c
+SHA256: 9161bd6b9933384073ac5bacd6a3bb1e2998877a605411d73041fb0b7fadd605
+
+# suite=trixie
+Package: libharfbuzz-subset0
+Source: harfbuzz
+Version: 10.2.0-1+deb13u1
+Installed-Size: 1511
+Maintainer: أحمد المحمودي (Ahmed El-Mahmoudy) <aelmahmoudy@users.sourceforge.net>
+Architecture: amd64
+Depends: libc6 (>= 2.38), libharfbuzz0b (>= 2.2.0)
+Description: OpenType text shaping engine (subset library)
+Multi-Arch: same
+Homepage: https://harfbuzz.github.io/
+Description-md5: 906074fc68a899e18b6e25ef76cf5985
+Tag: role::shared-lib
+Section: libs
+Priority: optional
+Filename: pool/main/h/harfbuzz/libharfbuzz-subset0_10.2.0-1+deb13u1_amd64.deb
+Size: 559548
+MD5sum: 3ac54bf81e26ade237e5a841630016a2
+SHA256: 2d0de8588408af221927b372c3c8d439d638a0a8abb549660ed5813ab529e6bc
+
+# suite=trixie
+Package: libminizip1t64
+Source: zlib (1:1.3.dfsg+really1.3.1-1)
+Version: 1:1.3.dfsg+really1.3.1-1+b1
+Installed-Size: 106
+Maintainer: Mark Brown <broonie@debian.org>
+Architecture: amd64
+Replaces: libminizip1
+Provides: libminizip1 (= 1:1.3.dfsg+really1.3.1-1+b1)
+Depends: libc6 (>= 2.14), zlib1g (>= 1:1.1.4)
+Breaks: libminizip1 (<< 1:1.3.dfsg+really1.3.1-1)
+Description: compression library - minizip library
+Multi-Arch: same
+Homepage: http://zlib.net/
+Description-md5: a12204dcd77c9ce884283c34fabfb8e6
+Section: libs
+Priority: optional
+Filename: pool/main/z/zlib/libminizip1t64_1.3.dfsg+really1.3.1-1+b1_amd64.deb
+Size: 53324
+MD5sum: 4fd908eee3d3daac83c9746532996757
+SHA256: 9682faa260b02c865790f02089a755cb19b4b9100d91d3adb11da090709ad5d2
+
+# suite=trixie
+Package: libopenh264-8
+Source: openh264
+Version: 2.6.0+dfsg-2
+Installed-Size: 1143
+Maintainer: Debian Multimedia Maintainers <debian-multimedia@lists.debian.org>
+Architecture: amd64
+Depends: libc6 (>= 2.34), libgcc-s1 (>= 3.0), libstdc++6 (>= 5)
+Description: OpenH264 Video Codec
+Multi-Arch: same
+Homepage: https://www.openh264.org
+Description-md5: 70331bc5b44eb553955aa702809efccb
+Section: libs
+Priority: optional
+Filename: pool/main/o/openh264/libopenh264-8_2.6.0+dfsg-2_amd64.deb
+Size: 395464
+MD5sum: 83a942eb34873614de17308127faeabb
+SHA256: d1ced361cc6053f8b1eaf1cb3095085a1645491819131919d900ad1e1922643b
+
+# suite=trixie
+Package: libxft2
+Source: xft (2.3.6-1)
+Version: 2.3.6-1+b4
+Installed-Size: 131
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Architecture: amd64
+Depends: libc6 (>= 2.14), libfontconfig1 (>= 2.12.6), libfreetype6 (>= 2.3.5), libx11-6, libxrender1
+Description: FreeType-based font drawing library for X
+Multi-Arch: same
+Description-md5: 9f19660eee6522753a05ff6cf228ec1d
+Tag: role::shared-lib
+Section: libs
+Priority: optional
+Filename: pool/main/x/xft/libxft2_2.3.6-1+b4_amd64.deb
+Size: 54516
+MD5sum: 0d2b0791569a04208cfa48e1147f7b23
+SHA256: 0226da7b9186ab7a9f78efcbbefa7ce3b3b398745e1909e124a3d58471fa0edc
+
+# suite=trixie
+Package: libxinerama1
+Source: libxinerama (2:1.1.4-3)
+Version: 2:1.1.4-3+b4
+Installed-Size: 42
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Architecture: amd64
+Depends: libc6 (>= 2.4), libx11-6 (>= 2:1.6.0), libxext6
+Description: X11 Xinerama extension library
+Multi-Arch: same
+Description-md5: 8af4527c5c1d4c9cfadc619f456cc56d
+Tag: role::shared-lib
+Section: libs
+Priority: optional
+Filename: pool/main/libx/libxinerama/libxinerama1_1.1.4-3+b4_amd64.deb
+Size: 15992
+MD5sum: d4db0cfb78b339e0e43fff74b16d67f1
+SHA256: 49d4e1628960407b8be2880a42428e7629801715a8a5697d42c0b0ca0a479911
+
+# suite=trixie
+Package: libxmuu1
+Source: libxmu (2:1.1.3-3)
+Version: 2:1.1.3-3+b4
+Installed-Size: 53
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Architecture: amd64
+Depends: libc6 (>= 2.4), libx11-6
+Description: X11 miscellaneous micro-utility library
+Multi-Arch: same
+Description-md5: 9bbd97bf046baafb7d73b980536d719d
+Tag: role::shared-lib
+Section: libs
+Priority: optional
+Filename: pool/main/libx/libxmu/libxmuu1_1.1.3-3+b4_amd64.deb
+Size: 21896
+MD5sum: 5d539e8697e8805894b30247b592cb62
+SHA256: 6b5f537905421599e962a8cec68c84f06d506e143fc70b0b570380b3c4901678
+
+# suite=trixie
+Package: libxnvctrl0
+Source: libxnvctrl (535.171.04-1)
+Version: 535.171.04-1+b2
+Installed-Size: 54
+Maintainer: Debian NVIDIA Maintainers <pkg-nvidia-devel@lists.alioth.debian.org>
+Architecture: amd64
+Depends: libc6 (>= 2.14), libx11-6 (>= 2:1.4.99.1), libxext6
+Description: NV-CONTROL X extension (runtime library)
+Multi-Arch: same
+Homepage: https://download.nvidia.com/XFree86/nvidia-settings/
+Description-md5: 6d4f8aebac836277193a58e922a49603
+Tag: role::shared-lib
+Section: libs
+Priority: optional
+Filename: pool/main/libx/libxnvctrl/libxnvctrl0_535.171.04-1+b2_amd64.deb
+Size: 14172
+MD5sum: 1b91ddc31d0e77acb11a09fc8fc67b80
+SHA256: 0f53cff5c3d0395635bcabd626ac85f6a74d2dac21963c4955396f24bfc73db8
+
+# suite=trixie
+Package: libxxf86dga1
+Source: libxxf86dga (2:1.1.5-1)
+Version: 2:1.1.5-1+b3
+Installed-Size: 52
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Architecture: amd64
+Depends: libc6 (>= 2.34), libx11-6 (>= 2:1.6.0), libxext6
+Description: X11 Direct Graphics Access extension library
+Multi-Arch: same
+Description-md5: 0caa77b06c8994031f60aaa95cbb8b41
+Tag: role::shared-lib
+Section: libs
+Priority: optional
+Filename: pool/main/libx/libxxf86dga/libxxf86dga1_1.1.5-1+b3_amd64.deb
+Size: 20780
+MD5sum: c08ae3bc1042ee7664685acc55d32fcc
+SHA256: 5585791fed815875b6d9cfbcd48a4df454472696c5b1b6d4240b6c53d80d75b2
+
+# suite=trixie
+Package: x11-utils
+Version: 7.7+7
+Installed-Size: 651
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Architecture: amd64
+Depends: libc6 (>= 2.38), libfontconfig1 (>= 2.12.6), libgl1, libx11-6, libx11-xcb1 (>= 2:1.8.7), libxaw7 (>= 2:1.0.14), libxcb-shape0, libxcb1 (>= 1.6), libxcomposite1 (>= 1:0.4.5), libxext6, libxft2 (>> 2.1.1), libxi6, libxinerama1 (>= 2:1.1.4), libxkbfile1 (>= 1:1.1.0), libxmu6 (>= 2:1.1.3), libxmuu1 (>= 2:1.1.3), libxrandr2 (>= 2:1.2.0), libxrender1, libxt6t64 (>= 1:1.1.0), libxtst6, libxv1, libxxf86dga1 (>= 2:1.1.5), libxxf86vm1
+Recommends: luit
+Suggests: mesa-utils
+Description: X11 utilities
+Multi-Arch: foreign
+Description-md5: 878e7d21071b583f3155fb89d08a44b2
+Tag: implemented-in::c, interface::commandline, interface::graphical,
+ interface::x11, role::program, scope::utility, uitoolkit::athena,
+ uitoolkit::xlib, use::configuring, works-with::font, x11::application
+Section: x11
+Priority: optional
+Filename: pool/main/x/x11-utils/x11-utils_7.7+7_amd64.deb
+Size: 181524
+MD5sum: 3ca045f37fce534e30d9c84b32c97989
+SHA256: 239d8a87b464cbe370d63029820218a52c5bfa1f0dfeb74f7cfe7d0df017046b
+
+# suite=trixie
+Package: xdg-utils
+Version: 1.2.1-2
+Installed-Size: 348
+Maintainer: Debian freedesktop.org maintainers <pkg-freedesktop-maintainers@lists.alioth.debian.org>
+Architecture: all
+Recommends: libfile-mimeinfo-perl, libnet-dbus-perl, libx11-protocol-perl, x11-utils, x11-xserver-utils
+Description: desktop integration utilities from freedesktop.org
+Multi-Arch: foreign
+Homepage: https://www.freedesktop.org/wiki/Software/xdg-utils/
+Description-md5: 10d9a624c77afc2a42aad2c3dae95f8b
+Tag: devel::runtime, implemented-in::shell, interface::commandline,
+ role::program, scope::utility
+Section: utils
+Priority: optional
+Filename: pool/main/x/xdg-utils/xdg-utils_1.2.1-2_all.deb
+Size: 75840
+MD5sum: 51b64462b5404fa80cb55ebbd434dfa4
+SHA256: 01dd31db093f1e810824519200112ec3fd447ba0341f7213244525eaa289355e

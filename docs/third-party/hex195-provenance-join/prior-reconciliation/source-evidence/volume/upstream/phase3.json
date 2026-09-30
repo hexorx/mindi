@@ -1,0 +1,166 @@
+{
+ "binary_vs_release": {
+  "tailscale-release:tailscale": {
+   "identical": false,
+   "image": "0f78645a2a234cdb7591729c61bc2c84413d9a3e06d19ee87c848affb8b3768f",
+   "release": "f10a8875d7d673501bc73b0aee686c8bdf4b0dd7dcc381f5790c94b8991c7385"
+  },
+  "tailscale-release:tailscaled": {
+   "identical": false,
+   "image": "730f1114e600d442912091f6da78321843cc2d1159809e7a0bc538c898347c77",
+   "release": "14a65e655d27a28c60020de742105169541f56f91a704b4e1ac43e3aa8323299"
+  },
+  "uv-release:uv": {
+   "identical": false,
+   "image": "dc407e8ebb7903e94580217e564e544b231f16ce2a697c247b71632bffe35b35",
+   "release": "61c5aaf37153f7b2b4c8d11ff5174fa30e930dc3dc2825f54593a2dd319eb8af"
+  },
+  "uv-release:uvx": {
+   "identical": false,
+   "image": "70ca41801cd7b02f4a416457018a366180705fccfe7e0072aa82af7d0d69aa38",
+   "release": "95ea72d9b171cd372a6bc87643b32c09cbc21ff198686c2c6de5c438d5adb9d8"
+  }
+ },
+ "fetches": [
+  {
+   "component": "skarnet:skalibs",
+   "expected_sha256": null,
+   "expected_sha256_source": null,
+   "path": "sources/upstream/s6/skalibs-v2.15.0.0.tar.gz",
+   "sha256": "89fa886c829b13669c400f9e38154572ed86775afdbf3ce13b06fc697bb318c3",
+   "size": 244788,
+   "trust": "TOFU: no upstream-published digest used; sha256 recorded at retrieval",
+   "url": "https://github.com/skarnet/skalibs/archive/refs/tags/v2.15.0.0.tar.gz",
+   "verified": null
+  },
+  {
+   "component": "skarnet:execline",
+   "expected_sha256": null,
+   "expected_sha256_source": null,
+   "path": "sources/upstream/s6/execline-v2.9.9.0.tar.gz",
+   "sha256": "6fbd08038e69f1fb8925e09b97147b4b44e55ebd13b7b4bd3719dd8fbb0d3d10",
+   "size": 120000,
+   "trust": "TOFU: no upstream-published digest used; sha256 recorded at retrieval",
+   "url": "https://github.com/skarnet/execline/archive/refs/tags/v2.9.9.0.tar.gz",
+   "verified": null
+  },
+  {
+   "component": "skarnet:s6",
+   "expected_sha256": null,
+   "expected_sha256_source": null,
+   "path": "sources/upstream/s6/s6-v2.15.0.0.tar.gz",
+   "sha256": "d088ace7f4190ceb755814a7936f4cfa73a6b9ff55912e8b65b21a562a6954e3",
+   "size": 272711,
+   "trust": "TOFU: no upstream-published digest used; sha256 recorded at retrieval",
+   "url": "https://github.com/skarnet/s6/archive/refs/tags/v2.15.0.0.tar.gz",
+   "verified": null
+  },
+  {
+   "component": "skarnet:s6-rc",
+   "expected_sha256": null,
+   "expected_sha256_source": null,
+   "path": "sources/upstream/s6/s6-rc-v0.6.1.0.tar.gz",
+   "sha256": "f7c26de8ad0b7bbbd745ea536ef687632613b0c8f5d55d0b51e5d9fe2293a5a6",
+   "size": 155473,
+   "trust": "TOFU: no upstream-published digest used; sha256 recorded at retrieval",
+   "url": "https://github.com/skarnet/s6-rc/archive/refs/tags/v0.6.1.0.tar.gz",
+   "verified": null
+  },
+  {
+   "component": "skarnet:s6-linux-init",
+   "expected_sha256": null,
+   "expected_sha256_source": null,
+   "path": "sources/upstream/s6/s6-linux-init-v1.2.0.1.tar.gz",
+   "sha256": "aad2481ac225793b6fb561f9762548081f3dd99a2463b665abf5d536bd9a2901",
+   "size": 71419,
+   "trust": "TOFU: no upstream-published digest used; sha256 recorded at retrieval",
+   "url": "https://github.com/skarnet/s6-linux-init/archive/refs/tags/v1.2.0.1.tar.gz",
+   "verified": null
+  },
+  {
+   "component": "skarnet:s6-portable-utils",
+   "expected_sha256": null,
+   "expected_sha256_source": null,
+   "path": "sources/upstream/s6/s6-portable-utils-v2.3.1.2.tar.gz",
+   "sha256": "2e8e9244632a0a2a408f3223597738f47500aa75ddec35552dcbb6373f5f19a6",
+   "size": 58663,
+   "trust": "TOFU: no upstream-published digest used; sha256 recorded at retrieval",
+   "url": "https://github.com/skarnet/s6-portable-utils/archive/refs/tags/v2.3.1.2.tar.gz",
+   "verified": null
+  },
+  {
+   "component": "skarnet:s6-linux-utils",
+   "expected_sha256": null,
+   "expected_sha256_source": null,
+   "path": "sources/upstream/s6/s6-linux-utils-v2.6.4.1.tar.gz",
+   "sha256": "8f5c28d7197440e248fc852ca900483f216dad9310f08ba6ba15600b95c24ae1",
+   "size": 58181,
+   "trust": "TOFU: no upstream-published digest used; sha256 recorded at retrieval",
+   "url": "https://github.com/skarnet/s6-linux-utils/archive/refs/tags/v2.6.4.1.tar.gz",
+   "verified": null
+  },
+  {
+   "component": "s6-overlay-helpers",
+   "expected_sha256": null,
+   "expected_sha256_source": null,
+   "path": "sources/upstream/s6/s6-overlay-helpers-v0.1.2.2.tar.gz",
+   "sha256": "8e6324a68563274de65a7537f283b592ffde365cccd341958c5496a5189cd04b",
+   "size": 22854,
+   "trust": "TOFU: no upstream-published digest used; sha256 recorded at retrieval",
+   "url": "https://github.com/just-containers/s6-overlay-helpers/archive/refs/tags/v0.1.2.2.tar.gz",
+   "verified": null
+  },
+  {
+   "component": "ffmpeg (playwright ffmpeg-1011 = n7.0.1)",
+   "expected_sha256": null,
+   "expected_sha256_source": null,
+   "path": "sources/upstream/playwright/FFmpeg-n7.0.1.tar.gz",
+   "sha256": "8dab1da0c7ebccb2dce99265901f22ac40f8e0fbbe4a89a368d7645f2e79caa0",
+   "size": 15563329,
+   "trust": "TOFU: no upstream-published digest used; sha256 recorded at retrieval",
+   "url": "https://github.com/FFmpeg/FFmpeg/archive/refs/tags/n7.0.1.tar.gz",
+   "verified": null
+  },
+  {
+   "component": "libvpx (static in playwright ffmpeg, v1.14.1 from binary strings)",
+   "expected_sha256": null,
+   "expected_sha256_source": null,
+   "path": "sources/upstream/playwright/libvpx-v1.14.1.tar.gz",
+   "sha256": "901747254d80a7937c933d03bd7c5d41e8e6c883e0665fadcb172542167c7977",
+   "size": 5614104,
+   "trust": "TOFU: no upstream-published digest used; sha256 recorded at retrieval",
+   "url": "https://github.com/webmproject/libvpx/archive/refs/tags/v1.14.1.tar.gz",
+   "verified": null
+  },
+  {
+   "component": "chromium (Chrome for Testing headless shell 151.0.7922.34)",
+   "expected_sha256": "57330d6fa3d27daee5580247602dba2849a6208404f46eebccc2d282c0e1a78a",
+   "expected_sha256_source": "chromium-browser-official .hashes",
+   "path": "sources/upstream/playwright/chromium-151.0.7922.34.tar.xz",
+   "sha256": "57330d6fa3d27daee5580247602dba2849a6208404f46eebccc2d282c0e1a78a",
+   "size": 5859305596,
+   "url": "https://commondatastorage.googleapis.com/chromium-browser-official/chromium-151.0.7922.34.tar.xz",
+   "verified": true
+  },
+  {
+   "component": "uv release asset",
+   "expected_sha256": "aa342a53abe42364093506d7704214d2cdca30b916843e520bc67759a5d20132",
+   "expected_sha256_source": "GitHub release .sha256",
+   "path": "sources/upstream/uv/uv-x86_64-unknown-linux-musl-0.11.6.tar.gz",
+   "sha256": "aa342a53abe42364093506d7704214d2cdca30b916843e520bc67759a5d20132",
+   "size": 24460747,
+   "url": "https://github.com/astral-sh/uv/releases/download/0.11.6/uv-x86_64-unknown-linux-musl.tar.gz",
+   "verified": true
+  },
+  {
+   "component": "tailscale release asset",
+   "expected_sha256": "50748df1045e60b5b695f19f4c56b0da36c019948b440fb456b6584a50f0d8b9",
+   "expected_sha256_source": "pkgs.tailscale.com .sha256",
+   "path": "sources/upstream/go/tailscale_1.102.4_amd64.tgz",
+   "sha256": "50748df1045e60b5b695f19f4c56b0da36c019948b440fb456b6584a50f0d8b9",
+   "size": 38694744,
+   "url": "https://pkgs.tailscale.com/stable/tailscale_1.102.4_amd64.tgz",
+   "verified": true
+  }
+ ]
+}

@@ -1,0 +1,14 @@
+== signed snapshot index check 20260520T000000Z trixie
+gpgv rc=0
+Origin: Debian
+Suite: stable
+Codename: trixie
+Date: Sat, 16 May 2026 09:42:04 UTC
+Packages.xz expected=3a66223535ccb4af69b6bd323a8d8cd46a665a00622ef1a63321ca71ddb2b092 actual=3a66223535ccb4af69b6bd323a8d8cd46a665a00622ef1a63321ca71ddb2b092
+Package: docker-cli
+Source: docker.io (26.1.5+dfsg1-9)
+Version: 26.1.5+dfsg1-9+b13
+Filename: pool/main/d/docker.io/docker-cli_26.1.5+dfsg1-9+b13_amd64.deb
+Size: 7337584
+SHA256: 842ab48440373eb31a66aef8f5579dfcb2e0b5cfda4a8e5bd3a4b9ab76b8a08b
+RESULT deb sha256 listed in signed index
