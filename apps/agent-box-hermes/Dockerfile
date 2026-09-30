@@ -3,7 +3,7 @@
 FROM tailscale/tailscale:v1.102.4@sha256:2667499ed87ae29218f292556ba062918402dd5e92e93637af14867e4df12dd3 AS tailscale
 # pg0 hardcodes localhost in setup and connection URIs; configure every path
 # before the database first starts. Build from verified source, preserving v0.14.0.
-FROM rust:1.94-bookworm AS pg0
+FROM rust:1.94-bookworm@sha256:4ec71e955e6c08aeb238885083222ddff79d82eb87654a96c76e38e94da1a53b AS pg0
 WORKDIR /build/pg0
 RUN curl -fsSL --retry 3 https://github.com/vectorize-io/pg0/archive/refs/tags/v0.14.0.tar.gz -o /tmp/pg0.tar.gz \
  && echo '729b27cdc35e652c18761b874996cdda3a657aa16c9e2915c78214372725ab8d  /tmp/pg0.tar.gz' | sha256sum -c - \
