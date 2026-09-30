@@ -1,0 +1,72 @@
+name: Hermes exact-artifact promotion
+on:
+  workflow_dispatch:
+    inputs:
+      record:
+        description: Reviewed release record version (vX.Y.Z), committed on main
+        required: true
+        type: string
+      record_sha256:
+        description: SHA256 of the pre-push release record recorded on HEX-97
+        required: true
+        type: string
+      promote:
+        description: Explicitly publish the qualified artifact to GHCR (no rebuild)
+        default: false
+        type: boolean
+permissions:
+  contents: read
+concurrency:
+  group: hermes-ghcr-publication
+  cancel-in-progress: false
+jobs:
+  qualify:
+    if: github.repository == 'hexorx/mindi' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    permissions:
+      contents: read
+      checks: read
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Verify reviewed record, transport, exact OCI blobs and every release gate
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RECORD_ID: ${{ inputs.record }}
+          RECORD_SHA256: ${{ inputs.record_sha256 }}
+        run: python3 -B scripts/hermes-release/promote.py qualify
+  promote:
+    needs: qualify
+    if: inputs.promote && github.repository == 'hexorx/mindi' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    permissions:
+      contents: read
+      checks: read
+      packages: write
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Install distribution transport utility
+        run: sudo apt-get update && sudo apt-get install --no-install-recommends -y skopeo
+      - name: Reverify and promote exact archive with immutable tag refusal
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GHCR_TOKEN: ${{ github.token }}
+          RECORD_ID: ${{ inputs.record }}
+          RECORD_SHA256: ${{ inputs.record_sha256 }}
+          PROMOTE: ${{ inputs.promote }}
+        run: python3 -B scripts/hermes-release/promote.py promote
+      - name: Report partial or complete publication receipt
+        if: always()
+        run: |
+          if test -f "$RUNNER_TEMP/hermes-promote/receipt.json"; then
+            cat "$RUNNER_TEMP/hermes-promote/receipt.json" >> "$GITHUB_STEP_SUMMARY"
+          fi

@@ -1,0 +1,311 @@
+{
+  "warning": "SYNTHETIC EXPIRED EXAMPLE. Not release evidence. Hashes/IDs are placeholders, not uploadable assets.",
+  "record": {
+    "schema_version": 1,
+    "destination": "ghcr.io/hexorx/agent-box-hermes",
+    "source_commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "accepted_commit": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "version": "v1.2.3",
+    "manifest_digest": "sha256:f720b25d29130b4bdbdb2d3a57ea22b0064445b06827047db8c3941eb21cef6b",
+    "platform_manifest_digest": "sha256:98ed119ac727a19282ecd28432d8893fa8f13e38e388322adab95980f641a332",
+    "index_digest": "sha256:f720b25d29130b4bdbdb2d3a57ea22b0064445b06827047db8c3941eb21cef6b",
+    "archive_sha256": "ccd8af5809a165aa68f324e07a096971b7f03eeec689c1bda0ba31305fd858af",
+    "created_at": "2000-01-01T00:00:00Z",
+    "expires_at": "2000-01-02T00:00:00Z",
+    "ticket_record": "https://paperclip.mindi.stayho.me/HEX/issues/HEX-97#document-release-evidence",
+    "assets": [
+      {
+        "id": 42,
+        "size": 1,
+        "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+      }
+    ],
+    "bundle_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+    "reports": {
+      "source": {
+        "file": "source.json",
+        "sha256": "668e2ac3aecd34c3efdcad3e1d3735c5b81eff611b8c6f0fb018e921936cd3b5"
+      },
+      "provenance": {
+        "file": "provenance.json",
+        "sha256": "45714eed55b580da5f4b056a02dd7a51a928ede46aab72bed82aac7ff5a4c8fe"
+      },
+      "secrets": {
+        "file": "secrets.json",
+        "sha256": "40988be5738193b69c7415ae967cc0a85bc1eb867e04524a7b55a2b186673739"
+      },
+      "notices": {
+        "file": "notices.json",
+        "sha256": "5c0b3d1282f526591eb24117359de3f2c98f87778898fd3bb9973f2d77621ffb"
+      },
+      "review": {
+        "file": "review.json",
+        "sha256": "400108be80709e151a35b066e79cdbf31ffd203d4b0de442e5b894afb93d0709"
+      },
+      "smoke": {
+        "file": "smoke.json",
+        "sha256": "9093839d8d8dfb1d16de106de61600418eee74a3e7ffe50bb2de2849b093bb93"
+      },
+      "vulnerabilities": {
+        "file": "vulnerabilities.json",
+        "sha256": "e06eb036a7a66b375fdf980d24d98a46836d4a5492fd318489153a881959863b"
+      },
+      "sbom": {
+        "file": "sbom.json",
+        "sha256": "296ad73b24ae4fd0dd0e63383146d8538f5919595cd59f18cff6f74695c2b107"
+      }
+    },
+    "attachments": {
+      "raw-evidence.json": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "raw-attestation.json": "efeae2f68879eecd341b0c26b62e4b62f0d0c8ddbcdd257e297376e3c325cb42"
+    }
+  },
+  "reports": {
+    "source": {
+      "schema_version": 1,
+      "kind": "source",
+      "source_commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "manifest_digest": "sha256:f720b25d29130b4bdbdb2d3a57ea22b0064445b06827047db8c3941eb21cef6b",
+      "status": "pass",
+      "observed_at": "2000-01-01T00:00:00Z",
+      "raw": [
+        "raw-evidence.json"
+      ],
+      "accepted_commit": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "built_inputs_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "accepted_inputs_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+    },
+    "provenance": {
+      "schema_version": 1,
+      "kind": "provenance",
+      "source_commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "manifest_digest": "sha256:f720b25d29130b4bdbdb2d3a57ea22b0064445b06827047db8c3941eb21cef6b",
+      "status": "pass",
+      "observed_at": "2000-01-01T00:00:00Z",
+      "raw": [
+        "raw-evidence.json",
+        "raw-attestation.json"
+      ],
+      "builder": "fixture",
+      "build_without_package_write": true,
+      "archive_sha256": "ccd8af5809a165aa68f324e07a096971b7f03eeec689c1bda0ba31305fd858af",
+      "config_digest": "sha256:1de9b8775e5aa55a20d896c4e5d2b4599a04d79fbea39cb89a2e94295c2e0126",
+      "upstream_revision": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+    },
+    "secrets": {
+      "schema_version": 1,
+      "kind": "secrets",
+      "source_commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "manifest_digest": "sha256:f720b25d29130b4bdbdb2d3a57ea22b0064445b06827047db8c3941eb21cef6b",
+      "status": "pass",
+      "observed_at": "2000-01-01T00:00:00Z",
+      "raw": [
+        "raw-evidence.json"
+      ],
+      "scanner": {
+        "name": "fixture",
+        "version": "1",
+        "ruleset": "fixture"
+      },
+      "content_scan": true,
+      "filesystem": "pass",
+      "config_history": "pass",
+      "deleted_contents": true,
+      "findings": 0,
+      "errors": [],
+      "layers": {
+        "sha256:9a2baf85f4b6df4663d49cd1c42ff4f358ae0c1633ebc44a0485859b804c1767": "pass",
+        "sha256:efeae2f68879eecd341b0c26b62e4b62f0d0c8ddbcdd257e297376e3c325cb42": "pass"
+      }
+    },
+    "notices": {
+      "schema_version": 1,
+      "kind": "notices",
+      "source_commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "manifest_digest": "sha256:f720b25d29130b4bdbdb2d3a57ea22b0064445b06827047db8c3941eb21cef6b",
+      "status": "pass",
+      "observed_at": "2000-01-01T00:00:00Z",
+      "raw": [
+        "raw-evidence.json"
+      ],
+      "corresponding_source": {
+        "status": "fulfilled",
+        "raw": [
+          "raw-evidence.json"
+        ],
+        "components": [
+          {
+            "component": "fixture",
+            "status": "delivered",
+            "evidence": "raw-evidence.json"
+          }
+        ]
+      },
+      "disclosures": {
+        "agent_browser_absent": "Fixture disclosure; not release evidence",
+        "font_aliases": "Fixture disclosure; not release evidence",
+        "path_parity": "Fixture disclosure; not release evidence",
+        "declared_only": "Fixture disclosure; not release evidence",
+        "native_static_build_source": "Fixture disclosure; not release evidence",
+        "archive_scan_error": "Fixture disclosure; not release evidence",
+        "historical_bin_docker_missing": "Fixture disclosure; not release evidence",
+        "args_escaped": "Fixture disclosure; not release evidence",
+        "generic_smoke_skipped": "Fixture disclosure; not release evidence",
+        "tofu": "Fixture disclosure; not release evidence",
+        "shared_notice_hashes": "Fixture disclosure; not release evidence",
+        "source_lock_superset": "Fixture disclosure; not release evidence"
+      }
+    },
+    "review": {
+      "schema_version": 1,
+      "kind": "review",
+      "source_commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "manifest_digest": "sha256:f720b25d29130b4bdbdb2d3a57ea22b0064445b06827047db8c3941eb21cef6b",
+      "status": "pass",
+      "observed_at": "2000-01-01T00:00:00Z",
+      "raw": [
+        "raw-evidence.json"
+      ],
+      "commit": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "author": "codi",
+      "reviewer": "devi",
+      "decision": "approved",
+      "ci": "success"
+    },
+    "smoke": {
+      "schema_version": 1,
+      "kind": "smoke",
+      "source_commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "manifest_digest": "sha256:f720b25d29130b4bdbdb2d3a57ea22b0064445b06827047db8c3941eb21cef6b",
+      "status": "pass",
+      "observed_at": "2000-01-01T00:00:00Z",
+      "raw": [
+        "raw-evidence.json"
+      ],
+      "checks": {
+        "second_box_isolation": {
+          "status": "pass",
+          "mode": "real",
+          "evidence": "raw-evidence.json",
+          "image_digest_tested": "sha256:f720b25d29130b4bdbdb2d3a57ea22b0064445b06827047db8c3941eb21cef6b",
+          "inference_spend": "none"
+        },
+        "memory_recreation": {
+          "status": "pass",
+          "mode": "real",
+          "evidence": "raw-evidence.json",
+          "image_digest_tested": "sha256:f720b25d29130b4bdbdb2d3a57ea22b0064445b06827047db8c3941eb21cef6b",
+          "inference_spend": "none"
+        },
+        "screenshot": {
+          "status": "pass",
+          "mode": "real",
+          "evidence": "raw-evidence.json",
+          "image_digest_tested": "sha256:f720b25d29130b4bdbdb2d3a57ea22b0064445b06827047db8c3941eb21cef6b",
+          "inference_spend": "none"
+        },
+        "shutdown": {
+          "status": "pass",
+          "mode": "real",
+          "evidence": "raw-evidence.json",
+          "image_digest_tested": "sha256:f720b25d29130b4bdbdb2d3a57ea22b0064445b06827047db8c3941eb21cef6b",
+          "inference_spend": "none"
+        },
+        "api_retry": {
+          "status": "pass",
+          "mode": "real",
+          "evidence": "raw-evidence.json",
+          "image_digest_tested": "sha256:f720b25d29130b4bdbdb2d3a57ea22b0064445b06827047db8c3941eb21cef6b",
+          "inference_spend": "none"
+        },
+        "type": {
+          "status": "pass",
+          "mode": "real",
+          "evidence": "raw-evidence.json",
+          "image_digest_tested": "sha256:f720b25d29130b4bdbdb2d3a57ea22b0064445b06827047db8c3941eb21cef6b",
+          "inference_spend": "none"
+        },
+        "secret_redaction": {
+          "status": "pass",
+          "mode": "real",
+          "evidence": "raw-evidence.json",
+          "image_digest_tested": "sha256:f720b25d29130b4bdbdb2d3a57ea22b0064445b06827047db8c3941eb21cef6b",
+          "inference_spend": "none"
+        },
+        "api_cancel": {
+          "status": "pass",
+          "mode": "real",
+          "evidence": "raw-evidence.json",
+          "image_digest_tested": "sha256:f720b25d29130b4bdbdb2d3a57ea22b0064445b06827047db8c3941eb21cef6b",
+          "inference_spend": "none"
+        },
+        "desktop_auth": {
+          "status": "pass",
+          "mode": "real",
+          "evidence": "raw-evidence.json",
+          "image_digest_tested": "sha256:f720b25d29130b4bdbdb2d3a57ea22b0064445b06827047db8c3941eb21cef6b",
+          "inference_spend": "none"
+        },
+        "click": {
+          "status": "pass",
+          "mode": "real",
+          "evidence": "raw-evidence.json",
+          "image_digest_tested": "sha256:f720b25d29130b4bdbdb2d3a57ea22b0064445b06827047db8c3941eb21cef6b",
+          "inference_spend": "none"
+        },
+        "no_github_no_tailscale_boot": {
+          "status": "pass",
+          "mode": "real",
+          "evidence": "raw-evidence.json",
+          "image_digest_tested": "sha256:f720b25d29130b4bdbdb2d3a57ea22b0064445b06827047db8c3941eb21cef6b",
+          "inference_spend": "none"
+        },
+        "api_stream": {
+          "status": "pass",
+          "mode": "real",
+          "evidence": "raw-evidence.json",
+          "image_digest_tested": "sha256:f720b25d29130b4bdbdb2d3a57ea22b0064445b06827047db8c3941eb21cef6b",
+          "inference_spend": "none"
+        }
+      }
+    },
+    "vulnerabilities": {
+      "schema_version": 1,
+      "kind": "vulnerabilities",
+      "source_commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "manifest_digest": "sha256:f720b25d29130b4bdbdb2d3a57ea22b0064445b06827047db8c3941eb21cef6b",
+      "status": "pass",
+      "observed_at": "2000-01-01T00:00:00Z",
+      "raw": [
+        "raw-evidence.json"
+      ],
+      "scanner": {
+        "name": "fixture",
+        "version": "1"
+      },
+      "database": {
+        "digest": "fixture",
+        "schema": "fixture",
+        "updated_at": "2026-09-30T12:01:04Z"
+      },
+      "input": "oci-archive",
+      "archive_sha256": "ccd8af5809a165aa68f324e07a096971b7f03eeec689c1bda0ba31305fd858af",
+      "errors": [],
+      "unresolved": 0,
+      "disposition": "clean"
+    },
+    "sbom": {
+      "schema_version": 1,
+      "kind": "sbom",
+      "source_commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "manifest_digest": "sha256:f720b25d29130b4bdbdb2d3a57ea22b0064445b06827047db8c3941eb21cef6b",
+      "status": "pass",
+      "observed_at": "2000-01-01T00:00:00Z",
+      "raw": [
+        "raw-evidence.json"
+      ],
+      "format": "spdx-json",
+      "components": 1
+    }
+  }
+}

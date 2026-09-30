@@ -80,3 +80,11 @@ the pinned base digest. Retain existing notice evidence and accepted residuals.
 No statement body or rebuilt candidate has been captured by this source change;
 [HEX-214](/HEX/issues/HEX-214) still requires the dependency updates, new image,
 Syft/Grype evidence and independent exact-head review before completion.
+
+## Exact-artifact promotion machinery
+
+See [the promotion contract and operator sequence](hermes-promotion.md) for the
+manual workflow, reviewed pre-push record, OCI index/platform/config identities,
+report requirements and immutable-tag behavior. The machinery does not close any
+candidate gate or supersede the accepted limitations above. No real release
+record or registry push is included with its implementation.
