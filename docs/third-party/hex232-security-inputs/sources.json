@@ -1,0 +1,87 @@
+[
+  {
+    "file": "tar-7.5.22--package__LICENSE.md",
+    "url": "https://registry.npmjs.org/tar/-/tar-7.5.22.tgz",
+    "sha256": "8a1af140fdfbf5afd3df27f7e662f989c5b963a300020dfafce42033cae9e004"
+  },
+  {
+    "file": "brace-expansion-5.0.11--package__LICENSE",
+    "url": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-5.0.11.tgz",
+    "sha256": "9c63a23124d68cd30cd316a94a1a0bca34f032786df6df69fc4b5f136bac8d2e"
+  },
+  {
+    "file": "ip-address-10.5.0--package__LICENSE",
+    "url": "https://registry.npmjs.org/ip-address/-/ip-address-10.5.0.tgz",
+    "sha256": "f8d791359a50cbcac82c29cb7b0b1b889b28be76fdd35b8ee33f0f7c8704702a"
+  },
+  {
+    "file": "undici-6.28.1--package__lib__web__fetch__LICENSE",
+    "url": "https://registry.npmjs.org/undici/-/undici-6.28.1.tgz",
+    "sha256": "a21d6c8d3fc631198b97e57584697f7f9c37805c71c6cf9a12e4442b40394b88"
+  },
+  {
+    "file": "undici-6.28.1--package__LICENSE",
+    "url": "https://registry.npmjs.org/undici/-/undici-6.28.1.tgz",
+    "sha256": "a6db8096b2707bc0102d256917d4d33f298ba36d8c3f25de067a2b5bb379db27"
+  },
+  {
+    "file": "undici-7.29.1--package__lib__web__fetch__LICENSE",
+    "url": "https://registry.npmjs.org/undici/-/undici-7.29.1.tgz",
+    "sha256": "a21d6c8d3fc631198b97e57584697f7f9c37805c71c6cf9a12e4442b40394b88"
+  },
+  {
+    "file": "undici-7.29.1--package__LICENSE",
+    "url": "https://registry.npmjs.org/undici/-/undici-7.29.1.tgz",
+    "sha256": "a6db8096b2707bc0102d256917d4d33f298ba36d8c3f25de067a2b5bb379db27"
+  },
+  {
+    "file": "nanoid-3.3.18--package__LICENSE",
+    "url": "https://registry.npmjs.org/nanoid/-/nanoid-3.3.18.tgz",
+    "sha256": "da4db1480d9beea3483a2eda5c53b22238d0827d57da162b48f122e04d2d9987"
+  },
+  {
+    "file": "browserslist-4.28.7--package__LICENSE",
+    "url": "https://registry.npmjs.org/browserslist/-/browserslist-4.28.7.tgz",
+    "sha256": "21c2679a63d7699c0e644409e2f17d0adbc7a965003feb06b3ff4b833d21f722"
+  },
+  {
+    "file": "baseline-browser-mapping-2.10.44--package__LICENSE.txt",
+    "url": "https://registry.npmjs.org/baseline-browser-mapping/-/baseline-browser-mapping-2.10.44.tgz",
+    "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+  },
+  {
+    "file": "httpx2-2.12.0--httpx2-2.12.0.dist-info__licenses__LICENSE.md",
+    "url": "https://files.pythonhosted.org/packages/c8/95/411ba65569158e862368917aaf56597f3e5fa3b91b0502919638465a08f3/httpx2-2.12.0-py3-none-any.whl",
+    "sha256": "7e7d6dbaf7fe160d39fd6e84fd02c33cab96bcbea34d36998d545bceb4a19c30"
+  },
+  {
+    "file": "httpcore2-2.12.0--httpcore2-2.12.0.dist-info__licenses__LICENSE.md",
+    "url": "https://files.pythonhosted.org/packages/d2/74/d370e55600d9bcfa0d9794b0166126d49291a3d2b20c268fc98c453a4948/httpcore2-2.12.0-py3-none-any.whl",
+    "sha256": "c4df125c807b0613501e943a5c92496dd11d2c16604ce396097a8dde396304d9"
+  },
+  {
+    "file": "tornado-6.5.8--tornado-6.5.8.dist-info__licenses__",
+    "url": "https://files.pythonhosted.org/packages/6e/de/f2e733f386b85962d1b1dc82cd63d169b5b4580062b35397eac9244a41fe/tornado-6.5.8-cp39-abi3-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "file": "tornado-6.5.8--tornado-6.5.8.dist-info__licenses__LICENSE",
+    "url": "https://files.pythonhosted.org/packages/6e/de/f2e733f386b85962d1b1dc82cd63d169b5b4580062b35397eac9244a41fe/tornado-6.5.8-cp39-abi3-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl",
+    "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+  },
+  {
+    "file": "uv-0.12.21-LICENSE-APACHE",
+    "url": "https://raw.githubusercontent.com/astral-sh/uv/0.12.21/LICENSE-APACHE",
+    "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+  },
+  {
+    "file": "uv-0.12.21-LICENSE-MIT",
+    "url": "https://raw.githubusercontent.com/astral-sh/uv/0.12.21/LICENSE-MIT",
+    "sha256": "860e3d7a86b84e6a7012c7a635fc64df475cebc6cce34dfeb73a5982ec58176c"
+  },
+  {
+    "file": "uv-0.12.21-Cargo.lock",
+    "url": "https://raw.githubusercontent.com/astral-sh/uv/0.12.21/Cargo.lock",
+    "sha256": "1ac1d060e8c9b6459dd5e4a4ccf2589d8f9e82d4b5358394d7f51b4df451ec19"
+  }
+]

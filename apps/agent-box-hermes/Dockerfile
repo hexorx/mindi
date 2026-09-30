@@ -31,6 +31,15 @@ RUN test "$TARGETARCH" = amd64 \
 # Replace the vulnerable Debian-built CLI at its actual installed path.
 COPY --from=dockercli /usr/local/bin/docker /usr/bin/docker
 RUN echo '9c46230f41e4263b3a9d93ae9284722709923c50d138bc64eed2bb6c02af0581  /usr/bin/docker' | sha256sum -c -
+# Retain runtime uv/uvx (MCP tools can invoke them), with fixed Rust crates.
+RUN curl -fsSL --retry 3 https://github.com/astral-sh/uv/releases/download/0.12.21/uv-x86_64-unknown-linux-gnu.tar.gz -o /tmp/uv.tar.gz \
+ && echo '23f02075b652bb1df64178cfae41b5caf160822e720e2663568f3f5d63bc52c0  /tmp/uv.tar.gz' | sha256sum -c - \
+ && tar -xzf /tmp/uv.tar.gz -C /usr/local/bin --strip-components=1 uv-x86_64-unknown-linux-gnu/uv uv-x86_64-unknown-linux-gnu/uvx \
+ && rm /tmp/uv.tar.gz
+# Fixed installed-tree lock; no lifecycle scripts or floating npm resolution.
+COPY apps/agent-box-hermes/build/hermes-node-security.json apps/agent-box-hermes/build/apply_node_security.py apps/agent-box-hermes/build/verify_node_security.mjs /opt/build/
+RUN python3 /opt/build/apply_node_security.py --lock /opt/build/hermes-node-security.json \
+ && node /opt/build/verify_node_security.mjs /opt/build/hermes-node-security.json
 # Keep the inherited project and installed metadata consistent with its relock.
 COPY apps/agent-box-hermes/build/hermes-pyproject.toml /opt/hermes/pyproject.toml
 COPY apps/agent-box-hermes/build/hermes-uv.lock /opt/hermes/uv.lock
@@ -42,7 +51,9 @@ RUN uv pip install --no-config --python /opt/hermes/.venv/bin/python --no-deps -
  && (cd /opt/hermes && PYTHONPATH=/opt/build/hermes-build-tools .venv/bin/python -c "from setuptools.build_meta import build_editable; build_editable('/opt/build/hermes-wheel')") \
  && uv pip install --no-config --python /opt/hermes/.venv/bin/python --no-deps --no-index /opt/build/hermes-wheel/*.whl \
  && rm -rf /opt/build/hermes-build-tools /opt/build/hermes-wheel \
- && /opt/hermes/.venv/bin/python -c "import importlib.metadata as m; assert m.version('pyjwt') == '2.14.0'; assert m.version('anyio') == '4.14.2'"
+ && /opt/hermes/.venv/bin/python -c "import importlib.metadata as m; assert m.version('pyjwt') == '2.14.0'; assert m.version('anyio') == '4.14.2'; assert m.version('httpx2') == '2.12.0'; assert m.version('httpcore2') == '2.12.0'; assert m.version('tornado') == '6.5.8'"
+COPY apps/agent-box-hermes/build/verify_python_security.py /opt/build/
+RUN /opt/hermes/.venv/bin/python /opt/build/verify_python_security.py
 # Isolated dependency graph; pg0 0.15.2 bundles PostgreSQL and pgvector.
 # Hindsight migrations select psycopg 3, which its slim package does not declare.
 # Construct the migration engine at build time to verify the driver can load.
@@ -74,6 +85,7 @@ COPY docs/third-party/hex184-resolution/bundle/ /usr/share/doc/agent-box-hermes/
 COPY docs/third-party/hex198-build-inputs/ /usr/share/doc/agent-box-hermes/third-party/hex198-build-inputs/
 COPY docs/third-party/hex195-provenance-join/ /usr/share/doc/agent-box-hermes/third-party/hex195-provenance-join/
 COPY docs/third-party/hex214-security-inputs/ /usr/share/doc/agent-box-hermes/third-party/hex214-security-inputs/
+COPY docs/third-party/hex232-security-inputs/ /usr/share/doc/agent-box-hermes/third-party/hex232-security-inputs/
 COPY docs/third-party/NOTICE-STATUS.md /usr/share/doc/agent-box-hermes/third-party/NOTICE-STATUS.md
 COPY apps/agent-box-hermes/runtime/ /opt/agent-box/
 COPY --chmod=755 apps/agent-box-hermes/runtime/claude /usr/local/bin/claude

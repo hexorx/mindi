@@ -1,0 +1,135 @@
+{
+  "schemaVersion": 1,
+  "packages": [
+    {
+      "name": "tar",
+      "version": "7.5.22",
+      "url": "https://registry.npmjs.org/tar/-/tar-7.5.22.tgz",
+      "sha256": "b792c2d1c7fc770910522ca1ffc29eee02ee38de4fa3a01e7832eb705879c6c6",
+      "dependencies": {
+        "@isaacs/fs-minipass": "^4.0.0",
+        "chownr": "^3.0.0",
+        "minipass": "^7.1.2",
+        "minizlib": "^3.1.0",
+        "yallist": "^5.0.0"
+      },
+      "targets": [
+        {
+          "path": "/usr/local/lib/node_modules/npm/node_modules/tar",
+          "expectedVersion": "7.5.16"
+        }
+      ]
+    },
+    {
+      "name": "brace-expansion",
+      "version": "5.0.11",
+      "url": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-5.0.11.tgz",
+      "sha256": "67bb5a1b4d4a8ff497d845a0b891ffe6b7233aea2202641315cec88d0fff15eb",
+      "dependencies": {
+        "balanced-match": "^4.0.2"
+      },
+      "targets": [
+        {
+          "path": "/usr/local/lib/node_modules/npm/node_modules/brace-expansion",
+          "expectedVersion": "5.0.6"
+        },
+        {
+          "path": "/opt/hermes/node_modules/brace-expansion",
+          "expectedVersion": "5.0.9"
+        }
+      ]
+    },
+    {
+      "name": "ip-address",
+      "version": "10.5.0",
+      "url": "https://registry.npmjs.org/ip-address/-/ip-address-10.5.0.tgz",
+      "sha256": "35e23227dfeca9179f03f899a9e3a21faf542a8079821bce95d5620642d75873",
+      "dependencies": {},
+      "targets": [
+        {
+          "path": "/usr/local/lib/node_modules/npm/node_modules/ip-address",
+          "expectedVersion": "10.2.0"
+        }
+      ]
+    },
+    {
+      "name": "undici",
+      "version": "6.28.1",
+      "url": "https://registry.npmjs.org/undici/-/undici-6.28.1.tgz",
+      "sha256": "e18191aac9c0ff43dac7fe9b10b7041a22d07addb7b66a6e8ac14a52a5b69b74",
+      "dependencies": {},
+      "targets": [
+        {
+          "path": "/usr/local/lib/node_modules/npm/node_modules/undici",
+          "expectedVersion": "6.26.0"
+        },
+        {
+          "path": "/opt/hermes/ui-tui/node_modules/undici",
+          "expectedVersion": "6.28.0"
+        }
+      ]
+    },
+    {
+      "name": "undici",
+      "version": "7.29.1",
+      "url": "https://registry.npmjs.org/undici/-/undici-7.29.1.tgz",
+      "sha256": "93b3abe22a9d2858938b5f3829a9fd8952392348ffed9057662ae846e2e46d54",
+      "dependencies": {},
+      "targets": [
+        {
+          "path": "/opt/hermes/plugins/platforms/photon/sidecar/node_modules/undici",
+          "expectedVersion": "7.29.0"
+        }
+      ]
+    },
+    {
+      "name": "nanoid",
+      "version": "3.3.18",
+      "url": "https://registry.npmjs.org/nanoid/-/nanoid-3.3.18.tgz",
+      "sha256": "b9dc81cb403ea2510314dd2d1ad8d71934f325db90c1b43805e781b87e3fb009",
+      "dependencies": {},
+      "targets": [
+        {
+          "path": "/opt/hermes/node_modules/sanitize-html/node_modules/nanoid",
+          "expectedVersion": "3.3.17"
+        },
+        {
+          "path": "/opt/hermes/node_modules/vite/node_modules/nanoid",
+          "expectedVersion": "3.3.17"
+        }
+      ]
+    },
+    {
+      "name": "browserslist",
+      "version": "4.28.7",
+      "url": "https://registry.npmjs.org/browserslist/-/browserslist-4.28.7.tgz",
+      "sha256": "66daf576e768fd818214b29a82eb6f8f81e2737c612c320e9afa328871ab0997",
+      "dependencies": {
+        "baseline-browser-mapping": "^2.10.44",
+        "caniuse-lite": "^1.0.30001806",
+        "electron-to-chromium": "^1.5.393",
+        "node-releases": "^2.0.51",
+        "update-browserslist-db": "^1.2.3"
+      },
+      "targets": [
+        {
+          "path": "/opt/hermes/node_modules/browserslist",
+          "expectedVersion": "4.28.6"
+        }
+      ]
+    },
+    {
+      "name": "baseline-browser-mapping",
+      "version": "2.10.44",
+      "url": "https://registry.npmjs.org/baseline-browser-mapping/-/baseline-browser-mapping-2.10.44.tgz",
+      "sha256": "ef38ad1c01d650d2d91e2f199526c155e5b8adcab0669c506deb75571de07bd5",
+      "dependencies": {},
+      "targets": [
+        {
+          "path": "/opt/hermes/node_modules/baseline-browser-mapping",
+          "expectedVersion": "2.10.43"
+        }
+      ]
+    }
+  ]
+}

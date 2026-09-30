@@ -13,13 +13,15 @@ class SecurityPinsTest(unittest.TestCase):
         lock = tomllib.loads((BUILD / 'hermes-uv.lock').read_text())
         packages = {p['name']: p for p in lock['package']}
         overlay = (BUILD / 'hermes-security.lock').read_text()
-        for name, version in [('pyjwt', '2.14.0'), ('anyio', '4.14.2')]:
+        for name, version in [('pyjwt', '2.14.0'), ('anyio', '4.14.2'),
+                              ('httpx2', '2.12.0'), ('httpcore2', '2.12.0'),
+                              ('tornado', '6.5.8')]:
             self.assertEqual(packages[name]['version'], version)
-            chunk = overlay.split(name + '==' + version)[1].split('\n\n')[0]
+            chunk = re.split(r'\n(?=[a-z])', overlay.split(name + '==' + version)[1])[0]
             hashes = re.findall(r'--hash=sha256:([a-f0-9]{64})', chunk)
             artifacts = packages[name]['wheels'] + [packages[name]['sdist']]
             self.assertTrue(hashes)
-            for digest in hashes[:2]:
+            for digest in hashes:
                 self.assertIn('sha256:' + digest, {a['hash'] for a in artifacts})
         project = tomllib.loads((BUILD / 'hermes-pyproject.toml').read_text())
         self.assertIn('PyJWT[crypto]==2.14.0', project['project']['dependencies'])
