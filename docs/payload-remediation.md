@@ -27,7 +27,11 @@ membership or closed source obligations.
   Playwright's FFmpeg executable slot links to `/usr/bin/ffmpeg`; Debian's
   dynamic GPL-enabled FFmpeg replaces the private-recipe static binary.
   Debian copyright/source-package disclosures remain applicable. Browser
-  screenshots and video capture must be smoke-tested on the built image.
+  screenshots and video capture must be smoke-tested on the built image. The
+  base's sole `playwright-core` 1.62.1 library is preserved from its npx cache
+  at `/opt/agent-box/playwright-core` before cache cleanup. No `agent-browser`
+  package exists in the pinned base; this change does not add one or claim
+  that Hermes' separate browser-tool integration was previously available.
 - **Photon:** the no-grant package is absent. The MIT Spectrum wrapper exports
   an explicit disabled provider so aggregator imports still load, while using
   WhatsApp Business throws a clear error. The supported Photon iMessage path

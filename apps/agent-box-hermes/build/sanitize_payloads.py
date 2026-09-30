@@ -80,6 +80,20 @@ def sanitize(root, policy):
     remove(excluded)
 
     report = {'removed': [], 'patched_css': [], 'policy': 'HEX-193'}
+    # The pinned base keeps its only playwright-core inside an npx cache.
+    # Preserve the self-contained MIT package at a readable runtime path before
+    # clearing compressed install caches (also usable by uid 1000 smoke tests).
+    playwright = list((root / 'root/.npm/_npx').glob('*/node_modules/playwright-core'))
+    if len(playwright) != 1:
+        raise ValueError('expected exactly one pinned npx playwright-core package')
+    if json.loads((playwright[0] / 'package.json').read_text())['version'] != '1.62.1':
+        raise ValueError('unexpected playwright-core version')
+    target = root / 'opt/agent-box/playwright-core'
+    target.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copytree(playwright[0], target)
+    report['preserved_playwright'] = {
+        'source': '/' + str(playwright[0].relative_to(root)),
+        'destination': '/opt/agent-box/playwright-core', 'version': '1.62.1'}
     # Caches can retain compressed wheels/npm archives whose hashes differ
     # from their members. Remove build caches before scanning regular files.
     for base in ('root', 'home/hermes', 'home/agent', 'opt/hermes'):

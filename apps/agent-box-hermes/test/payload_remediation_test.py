@@ -158,12 +158,18 @@ for (const use of [() => whatsappBusiness(), () => whatsappBusiness.config({{}})
             css = put('opt/hermes/hermes_cli/web_dist/assets/app.css',
                       b'@font-face {font-family:Collapse;src:url(renamed.woff2)} :root{--font-sans:Collapse,sans-serif}')
             cache = put('root/.cache/wheels/cached.whl', b'opaque cached bytes')
+            put('root/.npm/_npx/test/node_modules/playwright-core/package.json',
+                b'{"name":"playwright-core","version":"1.62.1"}')
+            put('root/.npm/_npx/test/node_modules/playwright-core/index.js', b'allowed runtime library')
             claude = put('opt/hindsight/lib/site-packages/claude_agent_sdk/_bundled/claude', b'excluded executable')
             notice = put('usr/share/doc/agent-box-hermes/third-party/notice.txt', b'unchanged notice')
             policy = {'sha256': {hashlib.sha256(self.payload).hexdigest(): 'font:Collapse-Regular.woff2'}}
             report = sanitize(root, policy)
             self.assertEqual(len(report['removed']), 3)
             self.assertFalse(cache.exists())
+            self.assertFalse((root / 'root/.npm').exists())
+            self.assertEqual((root / 'opt/agent-box/playwright-core/index.js').read_bytes(),
+                             b'allowed runtime library')
             self.assertFalse(claude.exists())
             self.assertFalse((root / sidecar / '@photon-ai/whatsapp-business').exists())
             self.assertIn('system-ui', css.read_text())

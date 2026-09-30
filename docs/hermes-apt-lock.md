@@ -11,8 +11,8 @@ that layer changes and records what the base already contains.
 |---|---|---|
 | Inherited and unchanged | 422 | Hermes base image digest |
 | Inherited, upgraded by our layer | 10 | `apt-packages.lock` (snapshot URL + SHA256 + size) |
-| Added by our layer | 101 | `apt-packages.lock` (snapshot URL + SHA256 + size) |
-| Final image | 533 | `apt-final-inventory.tsv`, enforced after install |
+| Added by our layer | 121 | `apt-packages.lock` (snapshot URL + SHA256 + size) |
+| Final image | 553 | `apt-final-inventory.tsv`, enforced after install |
 
 `apt-inherited.tsv` lists all 432 base packages with their source package and
 source version. Its `bytes` column is `base-digest` or `replaced-by-lock:<version>`.
@@ -69,7 +69,7 @@ COPY apps/agent-box-hermes/build/apt-* /opt/build/apt/
 RUN test "$TARGETARCH" = amd64 \
  && /opt/build/apt/apt-install-locked.sh \
     sway grim wtype wl-clipboard foot xwayland dbus at-spi2-core \
-    fonts-dejavu-core fonts-noto-color-emoji wayvnc novnc websockify nginx openssl python3-yaml \
+    fonts-dejavu-core fonts-noto-color-emoji wayvnc novnc websockify nginx openssl python3-yaml chromium \
  && rm -rf /opt/build/apt /var/lib/apt/lists/* /etc/s6-overlay/s6-rc.d /etc/cont-init.d \
  && usermod -u 1000 -d /home/agent hermes && groupmod -g 1000 hermes \
  && install -d -o hermes -g hermes /home/agent
@@ -78,14 +78,15 @@ RUN test "$TARGETARCH" = amd64 \
 ## LAN validation (HEX-186, 2026-09-30)
 
 The validation ran on drone (linux/amd64, Docker 29.5.2, buildx v0.29.1). It
-built these exact `build/apt-*` files, whose input hashes equal this commit.
+built the historical 111-artifact `build/apt-*` closure before the Chromium
+augmentation. Its input hashes do not certify this changed head.
 The build was `--no-cache --pull --platform linux/amd64` and used the integration
-snippet above, minus the unrelated cleanup, on the pinned Hermes base:
+snippet above without Chromium or the unrelated cleanup, on the pinned Hermes base:
 
 - The helper printed `111 locked packages installed; inventory verified`. The
   image ID was `sha256:c831f6b0…00c3`.
-- The image's dpkg inventory equals `apt-final-inventory.tsv`. It also equals
-  the 533-package inventory of the HEX-184 resolution image `sha256:55422e9b…521c`.
+- That image's dpkg inventory equalled the then-current `apt-final-inventory.tsv`
+  and the 533-package inventory of the HEX-184 resolution image `sha256:55422e9b…521c`.
 - The `/etc/apt` sources are byte-identical to the base's, and `sudo` and
   `openssh-server` are absent.
 - Real apt refused all four negative checks:
@@ -122,3 +123,13 @@ To relock:
 `apps/agent-box-hermes/test/apt_lock_test.py` checks that the lock files are
 consistent with each other. It also runs the installer against stubbed
 apt/dpkg/curl to exercise each refusal path.
+
+## Chromium remediation augmentation (HEX-193)
+
+HEX-198 adds 20 artifacts (121 additions and 10 upgrades total), producing a
+553-package final inventory. The original 111 lock rows remain unchanged.
+`apt_lock.py` verifies the retained Chromium augmentation against the supplied
+snapshot indices and the recorded final inventory when regenerating the lock.
+The retained input scope and checksums are in `third-party/hex198-build-inputs/`.
+Earlier build-validation paragraphs describe the historical 111-artifact head;
+final changed-head LAN/CI build evidence is required for this augmentation.
