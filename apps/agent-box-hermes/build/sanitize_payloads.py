@@ -27,6 +27,47 @@ export const whatsappBusiness = new Proxy(disabled, {
 });
 '''
 
+SLACK_ERROR = "Slack via Photon is disabled in this image: @photon-ai/slack is not distributed (no license grant)."
+DISABLED_SLACK = DISABLED_PROVIDER.replace(
+    'WhatsApp Business is disabled in this image: @photon-ai/whatsapp-business is not distributed (no license grant).',
+    SLACK_ERROR).replace('whatsappBusiness', 'slack')
+
+
+def exclude_slack(root):
+    """Validate the import boundary before changing the disposable filesystem."""
+    hermes = root / 'opt/hermes'
+    modules = hermes / 'plugins/platforms/photon/sidecar/node_modules'
+    wrapper = modules / '@spectrum-ts/slack'
+    excluded = modules / '@photon-ai/slack'
+    if json.loads((wrapper / 'package.json').read_text())['version'] != '8.0.0':
+        raise ValueError('unexpected Spectrum Slack wrapper version')
+    if json.loads((excluded / 'package.json').read_text())['version'] != '0.2.0':
+        raise ValueError('unexpected Photon Slack version')
+    entry = wrapper / 'dist/index.js'
+    expected = 'import { createClient, staticTokens } from "@photon-ai/slack";'
+    source = entry.read_text()
+    if (source.count(expected) != 1 or source.count('@photon-ai/slack') != 1):
+        raise ValueError('unexpected Spectrum Slack import layout')
+    importers = []
+    for path in files(hermes):
+        if excluded in path.parents or path.suffix not in ('.js', '.mjs', '.cjs', '.ts', '.mts', '.cts', '.py'):
+            continue
+        if '@photon-ai/slack' not in read_payload_text(path):
+            continue
+        # Type declarations are non-executable upstream metadata.
+        if wrapper in path.parents and path.name.endswith(('.d.ts', '.d.mts', '.d.cts')):
+            continue
+        if path != entry:
+            raise ValueError(f'unexpected Photon Slack dependency: {path.relative_to(root)}')
+        importers.append('/' + str(path.relative_to(root)))
+    entry.write_text(DISABLED_SLACK)
+    remove(wrapper / 'dist/index.js.map')
+    remove(excluded)
+    return {'name': '@photon-ai/slack', 'version': '0.2.0',
+            'membership': 'excluded', 'reason': 'no license grant',
+            'wrapper': '@spectrum-ts/slack', 'wrapper_version': '8.0.0',
+            'validated_importers': importers}
+
 
 def system_font_css(text):
     """Remove proprietary faces and change declarations in source + built CSS."""
@@ -120,6 +161,7 @@ def remove(path):
 
 
 def sanitize(root, policy):
+    slack = exclude_slack(root)
     hermes = root / 'opt/hermes'
     sidecar = hermes / 'plugins/platforms/photon/sidecar/node_modules'
     wrapper = sidecar / '@spectrum-ts/whatsapp-business'
@@ -137,7 +179,8 @@ def sanitize(root, policy):
         raise ValueError('unexpected Photon WhatsApp version')
     remove(excluded)
 
-    report = {'removed': [], 'patched_css': [], 'patched_html': [], 'policy': 'HEX-193'}
+    report = {'removed': [], 'patched_css': [], 'patched_html': [], 'policy': 'HEX-193 + HEX-206',
+              'excluded_components': [slack]}
     # The pinned base keeps its only playwright-core inside an npx cache.
     # Preserve the self-contained MIT package at a readable runtime path before
     # clearing compressed install caches (also usable by uid 1000 smoke tests).

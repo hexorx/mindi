@@ -26,7 +26,8 @@ def forbidden_path(name, policy):
     name = '/' + name.lstrip('/')
     # Notices may describe forbidden payloads, but their directory must never
     # exempt actual payload filenames or runtime component paths.
-    return ('/@photon-ai/whatsapp-business/' in name
+    return (('/@photon-ai/slack/' in name or name.endswith('/@photon-ai/slack'))
+            or '/@photon-ai/whatsapp-business/' in name
             or '/claude_agent_sdk/_bundled/claude' in name
             or Path(name).name in policy['font_names']
             or '/chrome-headless-shell-linux64/' in name)

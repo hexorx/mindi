@@ -93,7 +93,17 @@ The Chromium replacement adds 20 Debian artifacts, including `libopenh264-8`
 (source `openh264 2.6.0+dfsg-2`). `hex198-build-inputs/` preserves the dependency
 and base-config evidence. `debian-replacements/` contains build-collected Debian
 copyright bytes and source identities for these packages and Debian FFmpeg.
-Opi's additional undeclared-license finding for `@photon-ai/slack 0.2.0` is
-retained in `hex198-build-inputs/photon-chain.json`. Slack remains outside this
-change's accepted exclusions; its disposition is unresolved, not an accepted
-or closed residual. This change does not authorize image publication.
+Mindi's HEX-206 disposition accepts exclusion of `@photon-ai/slack 0.2.0`
+(no license grant); it is no longer an open residual. The sanitizer asserts
+`@spectrum-ts/slack 8.0.0` and the known import layout, rejects other executable
+importers, excludes the Photon package, and exports a disabled Slack provider.
+Using it throws: `Slack via Photon is disabled in this image: @photon-ai/slack is not distributed (no license grant).`
+Photon Slack send/receive is unavailable. iMessage, Telegram and Hermes' Python
+`/api/platforms/slack/events` route remain unchanged.
+
+The build-generated `payload-remediation.json` records Slack as excluded.
+Final inventory/SBOM collection must use the sanitized final image and omit
+Slack from distributed components; historical inventories and
+`hex198-build-inputs/photon-chain.json` remain unchanged evidence. Refreshed
+exact-head LAN build, inventory/SBOM and independent review are still required.
+No publication is authorized.

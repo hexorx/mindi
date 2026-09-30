@@ -18,7 +18,7 @@ import zipfile
 APP = Path(__file__).resolve().parents[1]
 BUILD = APP / 'build'
 sys.path.insert(0, str(BUILD))
-from sanitize_payloads import DISABLED_PROVIDER, sanitize, system_font_css  # noqa: E402
+from sanitize_payloads import DISABLED_PROVIDER, DISABLED_SLACK, SLACK_ERROR, exclude_slack, sanitize, system_font_css  # noqa: E402
 from collect_debian_notices import collect  # noqa: E402
 from verify_payloads import inspect_docker_save, inspect_root, inspect_stream  # noqa: E402
 
@@ -227,6 +227,7 @@ body {font-family:"Rules Expanded",sans-serif}'''
             (suffix, b'harmless synthetic bytes', 'forbidden payload path')
             for suffix in ('Collapse-Regular.woff2',
                            'node_modules/@photon-ai/whatsapp-business/index.js',
+                           'node_modules/@photon-ai/slack/dist/index.mjs',
                            'claude_agent_sdk/_bundled/claude',
                            'chrome-headless-shell-linux64/chrome-headless-shell')
         ] + [('third-party/NOTICE.txt', notice, None),
@@ -321,6 +322,7 @@ for (const use of [() => whatsappBusiness(), () => whatsappBusiness.config({{}})
                 p.parent.mkdir(parents=True, exist_ok=True)
                 p.write_bytes(data)
                 return p
+            self.slack_fixture(root)
             sidecar = 'opt/hermes/plugins/platforms/photon/sidecar/node_modules/'
             wrapper = sidecar + '@spectrum-ts/whatsapp-business/'
             put(wrapper + 'package.json', b'{"version":"8.0.0"}')
@@ -351,7 +353,74 @@ for (const use of [() => whatsappBusiness(), () => whatsappBusiness.config({{}})
             self.assertEqual(os.readlink(link), '/usr/bin/ffmpeg')
             self.assertIn('disabled', (root / wrapper / 'dist/index.js').read_text())
 
+    def slack_fixture(self, root):
+        modules = root / 'opt/hermes/plugins/platforms/photon/sidecar/node_modules'
+        entries = {
+            '@spectrum-ts/slack/package.json': '{"version":"8.0.0","type":"module"}',
+            '@spectrum-ts/slack/dist/index.js':
+                'import { createClient, staticTokens } from "@photon-ai/slack";',
+            '@spectrum-ts/slack/dist/index.js.map': '{}',
+            '@photon-ai/slack/package.json': '{"version":"0.2.0"}',
+        }
+        for name, content in entries.items():
+            path = modules / name
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_text(content)
+        return modules
+
+    def test_slack_exclusion_preserves_other_routes_and_gates_use(self):
+        with tempfile.TemporaryDirectory() as d:
+            root = Path(d)
+            modules = self.slack_fixture(root)
+            preserved = {}
+            for name in ('@spectrum-ts/imessage', '@spectrum-ts/telegram'):
+                path = modules / name / 'index.mjs'
+                path.parent.mkdir(parents=True)
+                path.write_text('export const provider = "supported";')
+                preserved[path] = path.read_bytes()
+            gateway = root / 'opt/hermes/gateway/slack.py'
+            gateway.parent.mkdir(parents=True)
+            gateway.write_text('ROUTE = "/api/platforms/slack/events"')
+            preserved[gateway] = gateway.read_bytes()
+            report = exclude_slack(root)
+            self.assertEqual(report['membership'], 'excluded')
+            self.assertFalse((modules / '@photon-ai/slack').exists())
+            self.assertFalse((modules / '@spectrum-ts/slack/dist/index.js.map').exists())
+            for path, original in preserved.items():
+                self.assertEqual(path.read_bytes(), original)
+            entry = modules / '@spectrum-ts/slack/dist/index.js'
+            script = f"""import assert from 'node:assert/strict';
+import {{ slack }} from {json.dumps(entry.as_uri())};
+for (const use of [() => slack(), () => slack.config({{}}), () => new slack()]) {{
+  assert.throws(use, {{message: {json.dumps(SLACK_ERROR)}}});
+}}
+"""
+            for path in preserved:
+                if path.suffix == '.mjs':
+                    script += f"await import({json.dumps(path.as_uri())});\n"
+            subprocess.run(['node', '--input-type=module', '-e', script], check=True)
+
+    def test_slack_drift_and_external_importers_fail_before_mutation(self):
+        cases = {
+            '@spectrum-ts/slack/package.json': '{"version":"9.0.0"}',
+            '@photon-ai/slack/package.json': '{"version":"0.3.0"}',
+            '@spectrum-ts/slack/dist/index.js': 'import x from "@photon-ai/slack";',
+            'other/index.cjs': 'require("@photon-ai/slack")',
+            'other/index.mjs': 'await import("@photon-ai/slack/subpath")',
+        }
+        for name, content in cases.items():
+            with self.subTest(name=name), tempfile.TemporaryDirectory() as d:
+                root = Path(d)
+                modules = self.slack_fixture(root)
+                path = modules / name
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_text(content)
+                with self.assertRaisesRegex(ValueError, 'unexpected'):
+                    exclude_slack(root)
+                self.assertTrue((modules / '@photon-ai/slack').exists())
+
     def sanitizer_fixture(self, root):
+        self.slack_fixture(root)
         sidecar = root / 'opt/hermes/plugins/platforms/photon/sidecar/node_modules'
         payloads = {
             sidecar / '@spectrum-ts/whatsapp-business/package.json': b'{"version":"8.0.0"}',
