@@ -30,3 +30,8 @@ paths, and other unexpected importers still fail before filesystem mutation.
 A base-image update requires inspecting the new finder, updating this fixture
 and its reviewed digest, and repeating the image/import checks. This is not a
 filename, site-packages, Python-string, or NAMESPACES blanket exemption.
+
+Hindsight 0.8.3 migration fixtures are unmodified files from the SHA256-pinned
+`hindsight-api-slim` wheel in `build/hindsight-linux-amd64.lock`, gzip-compressed
+with mtime 0. Their distribution license is retained in
+`docs/third-party/hex214-security-inputs/`.

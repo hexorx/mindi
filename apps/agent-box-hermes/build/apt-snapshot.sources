@@ -3,7 +3,7 @@
 # Valid-Until check is disabled; signatures are still verified with the keyring
 # and apt-release.sha256 pins the exact InRelease bytes.
 Types: deb
-URIs: https://snapshot.debian.org/archive/debian/20260929T202609Z
+URIs: https://snapshot.debian.org/archive/debian/20260930T082601Z
 Suites: trixie trixie-updates
 Components: main
 Architectures: amd64
@@ -11,7 +11,7 @@ Signed-By: /usr/share/keyrings/debian-archive-keyring.pgp
 Check-Valid-Until: no
 
 Types: deb
-URIs: https://snapshot.debian.org/archive/debian-security/20260929T215738Z
+URIs: https://snapshot.debian.org/archive/debian-security/20260930T060347Z
 Suites: trixie-security
 Components: main
 Architectures: amd64

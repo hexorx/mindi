@@ -11,7 +11,7 @@ import unittest
 APP = Path(__file__).resolve().parents[1]
 BUILD = APP / 'build'
 HELPER = BUILD / 'apt-install-locked.sh'
-STAMPS = {'debian': '20260929T202609Z', 'debian-security': '20260929T215738Z'}
+STAMPS = {'debian': '20260930T082601Z', 'debian-security': '20260930T060347Z'}
 
 
 def rows(path):
@@ -28,7 +28,7 @@ class LockFilesTest(unittest.TestCase):
     def test_closure_counts_match_the_resolved_build(self):
         changes = [row[3] for row in self.lock]
         self.assertEqual(changes.count('added'), 121)
-        self.assertEqual(changes.count('upgraded'), 10)
+        self.assertEqual(changes.count('upgraded'), 37)
         self.assertEqual(len(self.inherited), 432)
         self.assertEqual(len(self.final), 553)
 
@@ -83,7 +83,12 @@ class LockFilesTest(unittest.TestCase):
         self.assertEqual(
             (BUILD / 'apt-requested.list').read_text().split(),
             'sway grim wtype wl-clipboard foot xwayland dbus at-spi2-core fonts-dejavu-core '
-            'fonts-noto-color-emoji wayvnc novnc websockify nginx openssl python3-yaml chromium'.split())
+            'fonts-noto-color-emoji wayvnc novnc websockify nginx openssl python3-yaml chromium '
+            'docker-cli gzip libaom3 libc-bin libc-dev-bin libc6 libc6-dev libglib2.0-0t64 '
+            'libmbedcrypto16 libpcre2-8-0 libperl5.40 libpython3.13 libpython3.13-dev '
+            'libpython3.13-minimal libpython3.13-stdlib libsqlite3-0 libssh-4 libssh2-1t64 '
+            'perl perl-base perl-modules-5.40 python3.13 python3.13-dev python3.13-minimal '
+            'python3.13-venv xserver-common xvfb'.split())
 
     def test_chromium_artifacts_match_retained_build_evidence(self):
         import json
@@ -94,7 +99,9 @@ class LockFilesTest(unittest.TestCase):
         additions = rows(evidence / 'chromium-new-lock-rows.tsv')
         self.assertEqual(len(additions), 20)
         for row in additions:
-            self.assertIn(row, self.lock)
+            # Historical evidence keeps its old snapshot URL; artifact bytes stay pinned.
+            current = next(r for r in self.lock if r[0] == row[0])
+            self.assertEqual(current[:6] + current[7:], row[:6] + row[7:])
         self.assertIn('chromium', {r[0] for r in self.final})
         self.assertIn('ffmpeg', {r[0] for r in self.final})
 
@@ -143,7 +150,7 @@ class HelperTest(unittest.TestCase):
         # Shell startup hooks can replace PATH and bypass the isolated stubs.
         self.env.pop('BASH_ENV', None)
 
-        release = 'snapshot.debian.org_archive_debian_20260929T202609Z_dists_trixie_InRelease'
+        release = 'snapshot.debian.org_archive_debian_20260930T082601Z_dists_trixie_InRelease'
         (self.stub / 'lists' / release).write_bytes(b'signed release\n')
         digest = hashlib.sha256(b'signed release\n').hexdigest()
         (self.locks / 'apt-release.sha256').write_text(f'{digest}  {release}\n')

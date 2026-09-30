@@ -1,4 +1,4 @@
-import contextlib
+import gzip
 from pathlib import Path
 import sys
 import tempfile
@@ -8,46 +8,25 @@ import patch_hindsight
 
 
 class MigrationPatchTest(unittest.TestCase):
-    def test_concurrent_statements_require_autocommit_and_restore_transaction(self):
-        class Operations:
-            active = False
-            statements = []
+    def test_reviewed_upstream_migrations_are_verified_without_mutation(self):
+        fixtures = Path(__file__).parent / 'fixtures/hindsight-0.8.3'
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            originals = {}
+            for name in patch_hindsight.FINGERPRINTS:
+                originals[name] = gzip.decompress((fixtures / (name + '.gz')).read_bytes())
+                (root / name).write_bytes(originals[name])
+            patch_hindsight.patch(root)
+            self.assertEqual({p.name: p.read_bytes() for p in root.iterdir()}, originals)
 
-            def get_context(self):
-                return self
-
-            @contextlib.contextmanager
-            def autocommit_block(self):
-                self.active = True
-                try:
-                    yield
-                finally:
-                    self.active = False
-
-            def execute(self, sql):
-                if 'CONCURRENTLY' in sql:
-                    self_test.assertTrue(self.active)
-                else:
-                    self_test.assertFalse(self.active)
-                self.statements.append(sql)
-
-        self_test = self
-        source = '''def upgrade():
-    schema = 'public'
-    op.execute("CREATE TABLE fixture (id int)")
-    op.execute("COMMIT")
-    op.execute(f"DROP INDEX CONCURRENTLY IF EXISTS {schema}.fixture_idx")
-    op.execute(
-        f"CREATE INDEX CONCURRENTLY fixture_idx ON {schema}.fixture (id)"
-    )
-    op.execute("INSERT INTO fixture VALUES (1)")
-'''
-        op = Operations()
-        namespace = {'op': op}
-        exec(patch_hindsight.transform(source), namespace)
-        namespace['upgrade']()
-        self.assertEqual(len(op.statements), 4)
-        self.assertFalse(op.active)
+    def test_requires_exactly_one_autocommit_block(self):
+        statement = 'op.execute("CREATE INDEX CONCURRENTLY fixture_idx ON fixture (id)")'
+        block = 'with op.get_context().autocommit_block():\n'
+        patch_hindsight.verify_transactions(block + '    ' + statement)
+        for source in [statement, 'op.execute("COMMIT")', 'op.execute("SELECT 1")',
+                       block + '    ' + block + '        ' + statement]:
+            with self.subTest(source=source), self.assertRaises(ValueError):
+                patch_hindsight.verify_transactions(source)
 
     def test_changed_dependency_is_rejected_before_writes(self):
         with tempfile.TemporaryDirectory() as directory:
