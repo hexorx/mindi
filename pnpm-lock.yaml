@@ -211,6 +211,31 @@ importers:
         specifier: 5.9.3
         version: 5.9.3
 
+  packages/agent-box-admin:
+    dependencies:
+      '@mindi/agent-box-core':
+        specifier: workspace:*
+        version: link:../agent-box-core
+      zod:
+        specifier: 4.6.5
+        version: 4.6.5
+    devDependencies:
+      '@mindi/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config
+      '@mindi/typescript-config':
+        specifier: workspace:*
+        version: link:../typescript-config
+      '@types/node':
+        specifier: 24.10.1
+        version: 24.10.1
+      eslint:
+        specifier: 10.11.0
+        version: 10.11.0(supports-color@7.2.0)
+      typescript:
+        specifier: 5.9.3
+        version: 5.9.3
+
   packages/agent-box-core:
     dependencies:
       zod:
@@ -376,6 +401,9 @@ packages:
 
   '@types/json-schema@7.0.15':
     resolution: {integrity: sha512-5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==}
+
+  '@types/node@24.10.1':
+    resolution: {integrity: sha512-GNWcUTRBgIRJD5zj+Tq0fKOJ5XZajIiBroOF0yvj2bSU1WvNdYS/dn9UxwsujGW4JX06dnHyjV2y9rRaybH0iQ==}
 
   '@typescript-eslint/eslint-plugin@8.70.1':
     resolution: {integrity: sha512-nDNrUQ/4ruSNYbu749TRY7cfrzPtoLHEXSNBI8aaNY32LlZCajixqRf3FqcKC4p5Cam4VOHYx/t+i5+nKXvrqA==}
@@ -704,6 +732,9 @@ packages:
     engines: {node: '>=14.17'}
     hasBin: true
 
+  undici-types@7.16.0:
+    resolution: {integrity: sha512-Zz+aZWSj8LE6zoxD+xrjh4VfkIG8Ya6LvYkZqtUQGJPZjYl53ypCaUwWqo7eI0x66KBGeRo+mlBEkMSeSZ38Nw==}
+
   uri-js@4.4.1:
     resolution: {integrity: sha512-7rKUyy33Q1yc98pQ1DAmLtwX109F7TIfWlW1Ydo8Wl1ii1SeHieeh0HHfPeL2fMXK6z0s8ecKs9frCuLJvndBg==}
 
@@ -818,6 +849,10 @@ snapshots:
   '@types/estree@1.0.9': {}
 
   '@types/json-schema@7.0.15': {}
+
+  '@types/node@24.10.1':
+    dependencies:
+      undici-types: 7.16.0
 
   '@typescript-eslint/eslint-plugin@8.70.1(@typescript-eslint/parser@8.70.1(eslint@10.11.0(supports-color@7.2.0))(supports-color@7.2.0)(typescript@5.9.3))(eslint@10.11.0(supports-color@7.2.0))(supports-color@7.2.0)(typescript@5.9.3)':
     dependencies:
@@ -1176,6 +1211,8 @@ snapshots:
       - supports-color
 
   typescript@5.9.3: {}
+
+  undici-types@7.16.0: {}
 
   uri-js@4.4.1:
     dependencies:

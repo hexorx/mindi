@@ -1,0 +1,22 @@
+{
+  "name": "@mindi/agent-box-admin",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "bin": { "agent-box-admin": "dist/cli.js" },
+  "exports": { ".": { "types": "./dist/index.d.ts", "import": "./dist/index.js" } },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "lint": "eslint .",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "node --test test/*.test.js"
+  },
+  "dependencies": { "@mindi/agent-box-core": "workspace:*", "zod": "4.6.5" },
+  "devDependencies": {
+    "@mindi/typescript-config": "workspace:*",
+    "@mindi/eslint-config": "workspace:*",
+    "@types/node": "24.10.1",
+    "typescript": "5.9.3",
+    "eslint": "10.11.0"
+  }
+}
