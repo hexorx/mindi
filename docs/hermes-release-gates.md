@@ -53,3 +53,11 @@ Do not push an image until the evidence below is recorded on the ticket.
    existing volumes; shared data changes need their separate approval.
 
 This document and its source checks do not certify the image for release.
+
+## Exact-artifact promotion machinery
+
+See [the promotion contract and operator sequence](hermes-promotion.md) for the
+manual workflow, reviewed pre-push record, OCI index/platform/config identities,
+report requirements and immutable-tag behavior. The machinery does not close any
+candidate gate or supersede the accepted limitations above. No real release
+record or registry push is included with its implementation.
