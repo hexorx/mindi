@@ -20,6 +20,7 @@ jobs:
           source_revision=$(git rev-parse HEAD)
           docker buildx build --platform linux/amd64 --build-arg SOURCE_REVISION="$source_revision" --load -t hermes-desktop:smoke -f apps/agent-box-hermes/Dockerfile .
           test "$(docker image inspect --format '{{ index .Config.Labels "org.opencontainers.image.revision" }}' hermes-desktop:smoke)" = "$source_revision"
+          test "$(docker image inspect --format '{{ index .Config.Labels "io.hexorx.source-companion.url" }}' hermes-desktop:smoke)" = "https://github.com/hexorx/mindi/releases/tag/hermes-source-$source_revision"
       - name: Authenticate, exercise real computer-use, stop gracefully
         run: apps/agent-box-hermes/test/container-smoke.sh hermes-desktop:smoke
       - name: Userspace Tailscale enrollment, identity, revocation and exposure

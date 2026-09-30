@@ -81,6 +81,42 @@ main remains mandatory. Report repetition or a detached unsigned statement canno
 replace the embedded provenance. Other schema/context forms require a reviewed
 contract change before use.
 
+## Source companion pointer and metadata-only rebuilds
+
+Every image carries `io.hexorx.source-companion.url` with the predetermined URL
+`https://github.com/hexorx/mindi/releases/tag/hermes-source-<source_commit>`.
+`<source_commit>` is the full actual built mindi commit, also used by the OCI
+revision label. Stage the image transport assets and source companion parts in
+that same release. Its tag is `hermes-source-<source_commit>`; the promotion
+record's semantic `version` still selects the GHCR version tag. Reserve this
+release URL before building; do not derive it from the image digest or companion
+checksum, since the companion itself binds the image identity. Do not replace
+assets at an already published pointer. Draft assets are staging only: before
+public image availability, the release and matching source assets must be
+recipient-accessible and their exact bindings verified under the publication gate.
+Adding this label alone does not implement the companion promotion verifier or
+authorize publishing either the release or image.
+
+A label change changes the config digest, platform manifest, provenance subject,
+and index digest. It does not add filesystem content. For a rebuild from otherwise
+identical Docker inputs, compare the ordered layer descriptors and config
+`rootfs.diff_ids` with the prior candidate before asserting filesystem equivalence;
+a cached build or unchanged package list alone is insufficient. Retain the original
+candidate and its evidence unchanged. Inspect the new image's companion and OCI
+revision labels with `docker image inspect` or `crane config` and record all full
+digests, built source, comparison results and provenance binding.
+
+The prior source acquisition run remains useful when these filesystem identities
+match, but is not evidence of the new image's identity. Reuse verified source
+payload bytes only after checking the new inventory. Regenerate the companion's
+README/manifest subject bindings (index, platform, config and built source),
+`source-companion-<digest12>` filenames, internal checksums, packed parts and outer
+checksums/asset record. A filename-only rename is insufficient. Rerun exact-subject
+qualification and promotion verification; do not silently relabel old reports.
+If filesystem layers differ, reassess and rerun source acquisition for changed
+components as well. The ongoing HEX-220 run against the prior candidate can
+continue; rebinding for the new candidate follows verified equivalence.
+
 ## Bundle and JSON contract (version 1)
 
 The bundle contains exactly `image.oci.tar`, eight report JSON files, and the raw

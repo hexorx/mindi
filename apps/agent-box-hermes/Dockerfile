@@ -105,7 +105,8 @@ RUN test "${#SOURCE_REVISION}" -eq 40 \
 FROM scratch AS runtime
 ARG SOURCE_REVISION
 LABEL org.opencontainers.image.revision=$SOURCE_REVISION \
-      org.opencontainers.image.source="https://github.com/hexorx/mindi"
+      org.opencontainers.image.source="https://github.com/hexorx/mindi" \
+      io.hexorx.source-companion.url="https://github.com/hexorx/mindi/releases/tag/hermes-source-${SOURCE_REVISION}"
 COPY --from=assembled / /
 # Explicitly restore inherited runtime settings after the scratch boundary.
 ENV PATH=/opt/hermes/bin:/opt/hermes/.venv/bin:/home/agent/.local/bin:/opt/data/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin \
