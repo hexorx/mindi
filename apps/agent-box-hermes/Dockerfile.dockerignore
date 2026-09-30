@@ -175,6 +175,17 @@
 !docs/third-party/hex195-provenance-join/prior-reconciliation/workspace_scope.py
 !docs/third-party/hex195-provenance-join/verification.json
 !docs/third-party/hex195-provenance-join/verify_join.py
+!apps/agent-box-hermes/build/collect_debian_notices.py
+!apps/agent-box-hermes/build/payload-debian-packages.txt
+!docs/third-party/hex198-build-inputs/inrelease-check.txt
+!docs/third-party/hex198-build-inputs/chromium-package-stanzas.txt
+!docs/third-party/hex198-build-inputs/manifest.json
+!docs/third-party/hex198-build-inputs/downloaded-debs.tsv
+!docs/third-party/hex198-build-inputs/apt-final-inventory.actual.tsv
+!docs/third-party/hex198-build-inputs/chromium-new-lock-rows.tsv
+!docs/third-party/hex198-build-inputs/chromium-added-sources.tsv
+!docs/third-party/hex198-build-inputs/photon-chain.json
+!docs/third-party/hex198-build-inputs/base-config.json
 # Reject credentials and local interpreter state even under allowed directories.
 **/.env
 **/.env.*

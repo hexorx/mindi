@@ -66,3 +66,30 @@ limitations in `docs/third-party/NOTICE-STATUS.md`.
 Rollback is a normal revert of the remediation commits on the feature branch.
 No runtime data migration is involved. Rollback would restore the excluded
 payloads and therefore must not be treated as redistribution clearance.
+
+## Configuration and Debian lock evidence
+
+`docs/third-party/hex198-build-inputs/base-config.json` records the pinned
+Hermes image config. The scratch stage retains its environment values except
+for the already-established agent home/profile overrides and the documented
+browser/Claude path changes. It retains the upstream revision label, root user,
+and `/opt/data` volume. The standalone image continues to set `/home/agent` as
+workdir, `/init` as entrypoint, empty command, port 8443, its own healthcheck and
+two additional data volumes. The base has no custom shell or stop signal;
+its ArgsEscaped flag is Windows-specific and is not copied into this Linux
+scratch image. The upstream revision label identifies Hermes, not this repo's
+head; build evidence must record the standalone Git head separately.
+
+Chromium adds 20 Debian artifacts (131 total locked additions/upgrades,
+553 final packages) without modifying the existing 111 lock rows. The retained
+supplement records the package/source names, signed-index stanza evidence and
+downloaded hashes/sizes. The image additionally copies the installed Debian
+copyright text for all 20 new packages and FFmpeg into `debian-replacements/`
+with a build-generated hash and source-identity manifest. This includes
+`libopenh264-8` from source `openh264 2.6.0+dfsg-2`.
+
+Opi additionally reported no declared license for `@photon-ai/slack 0.2.0`.
+That evidence is retained in `hex198-build-inputs/photon-chain.json`; Slack is
+outside the accepted exclusions and is not silently removed or treated as an
+accepted/closed residual by this change. It remains an unresolved disposition
+finding for later release review. No publication is authorized here.

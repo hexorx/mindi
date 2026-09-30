@@ -27,10 +27,10 @@ class LockFilesTest(unittest.TestCase):
 
     def test_closure_counts_match_the_resolved_build(self):
         changes = [row[3] for row in self.lock]
-        self.assertEqual(changes.count('added'), 101)
+        self.assertEqual(changes.count('added'), 121)
         self.assertEqual(changes.count('upgraded'), 10)
         self.assertEqual(len(self.inherited), 432)
-        self.assertEqual(len(self.final), 533)
+        self.assertEqual(len(self.final), 553)
 
     def test_every_artifact_is_a_pinned_snapshot_url_with_hash(self):
         for name, version, arch, change, base, suite, url, sha256, size in self.lock:
@@ -83,7 +83,20 @@ class LockFilesTest(unittest.TestCase):
         self.assertEqual(
             (BUILD / 'apt-requested.list').read_text().split(),
             'sway grim wtype wl-clipboard foot xwayland dbus at-spi2-core fonts-dejavu-core '
-            'fonts-noto-color-emoji wayvnc novnc websockify nginx openssl python3-yaml'.split())
+            'fonts-noto-color-emoji wayvnc novnc websockify nginx openssl python3-yaml chromium'.split())
+
+    def test_chromium_artifacts_match_retained_build_evidence(self):
+        import json
+        evidence = APP.parents[1] / 'docs/third-party/hex198-build-inputs'
+        manifest = json.loads((evidence / 'manifest.json').read_text())
+        for name, digest in manifest['files'].items():
+            self.assertEqual(hashlib.sha256((evidence / name).read_bytes()).hexdigest(), digest)
+        additions = rows(evidence / 'chromium-new-lock-rows.tsv')
+        self.assertEqual(len(additions), 20)
+        for row in additions:
+            self.assertIn(row, self.lock)
+        self.assertIn('chromium', {r[0] for r in self.final})
+        self.assertIn('ffmpeg', {r[0] for r in self.final})
 
     def test_helper_preserves_extraction_purge(self):
         self.assertIn('purge=(sudo openssh-server)', HELPER.read_text())

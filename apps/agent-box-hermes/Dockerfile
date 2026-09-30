@@ -57,6 +57,7 @@ COPY LICENSE /usr/share/doc/agent-box-hermes/LICENSE
 # Ship the collected attribution bytes with the image, including explicit gaps.
 # Release acceptance still requires the final inventory/source reconciliation.
 COPY docs/third-party/hex184-resolution/bundle/ /usr/share/doc/agent-box-hermes/third-party/
+COPY docs/third-party/hex198-build-inputs/ /usr/share/doc/agent-box-hermes/third-party/hex198-build-inputs/
 COPY docs/third-party/hex195-provenance-join/ /usr/share/doc/agent-box-hermes/third-party/hex195-provenance-join/
 COPY docs/third-party/NOTICE-STATUS.md /usr/share/doc/agent-box-hermes/third-party/NOTICE-STATUS.md
 COPY apps/agent-box-hermes/runtime/ /opt/agent-box/
@@ -73,12 +74,16 @@ RUN mkdir -p /etc/s6-overlay/s6-rc.d/user2/contents.d \
       /etc/s6-overlay/s6-rc.d /package/admin/s6-overlay/etc/s6-rc/sources \
  && rm -rf /tmp/agent-box-s6-db
 # Sanitize before the final stage: inherited layers must never be distributed.
+COPY apps/agent-box-hermes/build/collect_debian_notices.py apps/agent-box-hermes/build/payload-debian-packages.txt /opt/build/
+RUN python3 /opt/build/collect_debian_notices.py
 COPY apps/agent-box-hermes/build/sanitize_payloads.py apps/agent-box-hermes/build/verify_payloads.py apps/agent-box-hermes/build/payload-policy.json /opt/build/
 RUN python3 /opt/build/sanitize_payloads.py --root / \
       --report /usr/share/doc/agent-box-hermes/third-party/payload-remediation.json \
  && python3 /opt/build/verify_payloads.py --root /
 
 FROM scratch AS runtime
+# Preserve the inherited upstream revision label (not the standalone Git head).
+LABEL org.opencontainers.image.revision=e624e9fde561e1add9388384012b295fde669ade
 COPY --from=assembled / /
 # Explicitly restore inherited runtime settings after the scratch boundary.
 ENV PATH=/opt/hermes/bin:/opt/hermes/.venv/bin:/home/agent/.local/bin:/opt/data/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin \

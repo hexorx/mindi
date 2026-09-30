@@ -15,6 +15,7 @@ APP = Path(__file__).resolve().parents[1]
 BUILD = APP / 'build'
 sys.path.insert(0, str(BUILD))
 from sanitize_payloads import DISABLED_PROVIDER, sanitize, system_font_css  # noqa: E402
+from collect_debian_notices import collect  # noqa: E402
 from verify_payloads import inspect_docker_save, inspect_root, inspect_stream  # noqa: E402
 
 
@@ -170,6 +171,22 @@ for (const use of [() => whatsappBusiness(), () => whatsappBusiness.config({{}})
             link = root / 'opt/hermes/.playwright/ffmpeg-1011/ffmpeg-linux'
             self.assertEqual(os.readlink(link), '/usr/bin/ffmpeg')
             self.assertIn('disabled', (root / wrapper / 'dist/index.js').read_text())
+
+    def test_debian_notices_preserve_bytes_and_source_identity(self):
+        with tempfile.TemporaryDirectory() as d:
+            root = Path(d)
+            notice = root / 'usr/share/doc/chromium/copyright'
+            notice.parent.mkdir(parents=True)
+            data = b'Upstream and Debian copyright bytes\n'
+            notice.write_bytes(data)
+            output = root / 'notices'
+            records = collect(['chromium'], root, output,
+                              lambda _: '154.0\tamd64\tchromium\t154.0\n')
+            self.assertEqual((output / 'chromium.copyright').read_bytes(), data)
+            self.assertEqual(records[0]['sha256'], hashlib.sha256(data).hexdigest())
+            self.assertEqual(records[0]['source_package'], 'chromium')
+            with self.assertRaisesRegex(ValueError, 'copyright missing'):
+                collect(['missing'], root, output, lambda _: '')
 
     def test_whiteout_does_not_hide_forbidden_prior_layer(self):
         def layer(name, content):

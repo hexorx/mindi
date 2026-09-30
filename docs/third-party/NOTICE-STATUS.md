@@ -88,3 +88,12 @@ build writes `payload-remediation.json` and runs the filesystem absence check.
 Changed-head LAN/all-layer evidence and independent exact-head approval are
 still required before claiming remediation verified. See
 `docs/payload-remediation.md` in the source repository for operator behavior.
+
+The Chromium replacement adds 20 Debian artifacts, including `libopenh264-8`
+(source `openh264 2.6.0+dfsg-2`). `hex198-build-inputs/` preserves the dependency
+and base-config evidence. `debian-replacements/` contains build-collected Debian
+copyright bytes and source identities for these packages and Debian FFmpeg.
+Opi's additional undeclared-license finding for `@photon-ai/slack 0.2.0` is
+retained in `hex198-build-inputs/photon-chain.json`. Slack remains outside this
+change's accepted exclusions; its disposition is unresolved, not an accepted
+or closed residual. This change does not authorize image publication.

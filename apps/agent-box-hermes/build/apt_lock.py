@@ -4,6 +4,7 @@
 Inputs are the HEX-184 evidence files (dpkg inventories of the pinned Hermes base
 and of the built image, the build log's apt transaction and mirror artifact
 hashes) plus the snapshot InRelease/Packages.xz files for the pinned timestamps.
+Chromium augmentation is retained in docs/third-party/hex198-build-inputs.
 Every changed package must resolve to exactly one snapshot artifact whose
 filename, SHA256 and size equal the recorded mirror artifact; anything else fails.
 """
@@ -72,6 +73,9 @@ def main():
     parser.add_argument('--snapshot', required=True, type=Path,
                         help='directory with <suite>.InRelease and <suite>.Packages.xz')
     parser.add_argument('--out', default=Path(__file__).resolve().parent, type=Path)
+    parser.add_argument('--chromium-evidence', type=Path,
+                        default=Path(__file__).resolve().parents[3] / 'docs/third-party/hex198-build-inputs',
+                        help='verified HEX-198 Chromium augmentation')
     args = parser.parse_args()
     run = args.evidence / 'run'
     base = dpkg_rows(run / 'apt/dpkg-base-hermes.tsv')
@@ -157,14 +161,40 @@ def main():
     inventory = ['# package\tversion\tarchitecture']
     inventory += ['\t'.join(final[n][:3]) for n in sorted(final)]
 
+    # Retain the exact original closure and append the verified Chromium delta.
+    extra = [line for line in (args.chromium_evidence / 'chromium-new-lock-rows.tsv').read_text().splitlines()
+             if line and not line.startswith('#')]
+    if any(line.split('\t')[0] in changed for line in extra):
+        sys.exit('Chromium augmentation overlaps original resolved closure')
+    for line in extra:
+        fields = line.split('\t')
+        if len(fields) != 9 or fields[3:5] != ['added', '-']:
+            sys.exit('Chromium augmentation must contain only added locked artifacts')
+        suite = fields[5]
+        matches = indices[suite].get((fields[0], fields[1]), [])
+        if not any(s['SHA256'] == fields[7] and s['Size'] == fields[8]
+                   and fields[6].endswith('/' + s['Filename']) for s in matches):
+            sys.exit(f'{fields[0]}: Chromium augmentation differs from snapshot index')
+    lock = [lock[0]] + sorted(lock[1:] + extra)
+    recorded = (args.chromium_evidence / 'apt-final-inventory.actual.tsv').read_text().splitlines()
+    expected = {line.split('\t')[0].split(':')[0]: line.split('\t')[1:3]
+                for line in inventory[1:]}
+    for line in extra:
+        fields = line.split('\t')
+        expected[fields[0]] = fields[1:3]
+    actual = {line.split('\t')[0].split(':')[0]: line.split('\t')[1:3] for line in recorded}
+    if actual != expected:
+        sys.exit('Chromium final inventory differs from original plus locked additions')
+    inventory = [inventory[0]] + recorded
+
     out = args.out
     (out / 'apt-release.sha256').write_text('\n'.join(release_lines) + '\n')
     (out / 'apt-packages.lock').write_text('\n'.join(lock) + '\n')
     (out / 'apt-inherited.tsv').write_text('\n'.join(inherited) + '\n')
     (out / 'apt-final-inventory.tsv').write_text('\n'.join(inventory) + '\n')
-    (out / 'apt-requested.list').write_text('\n'.join(REQUESTED) + '\n')
+    (out / 'apt-requested.list').write_text('\n'.join(REQUESTED + ['chromium']) + '\n')
     print(f'{len(added)} added, {len(upgraded)} upgraded, {len(base)} inherited, '
-          f'{len(final)} final')
+          f'{len(extra)} Chromium additions, {len(recorded)} final')
 
 
 if __name__ == '__main__':
