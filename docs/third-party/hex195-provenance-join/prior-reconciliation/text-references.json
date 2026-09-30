@@ -1,0 +1,266 @@
+[
+  {
+    "grant_row": 2,
+    "sha256": "4a3f52ac1012a90db398e4c55f1d1bea501dddafef8a4b3adb7533b1d820e148",
+    "scope": "VENDORED-FILE ONLY: covers cobble/inflection.py, whose header reads ':copyright: (c) 2012-2015 by Janne Vanhala / :license: MIT, see LICENSE'. inflection tags 0.3.0 and 0.3.1 carry the identical header and identical LICENSE bytes. Does NOT cover cobble itself.",
+    "location": "grant-evidence/texts/inflection-0.3.1-LICENSE"
+  },
+  {
+    "grant_row": 2,
+    "sha256": "d6d46202db973b560d2f521dced9110b3e0a46d9a75e1428dade8b7608dd0cca",
+    "scope": "cobble README.rst declaration: 'License: 2-Clause BSD <http://opensource.org/licenses/BSD-2-Clause>'",
+    "location": "../hex189-supplement/texts/d6d46202db973b560d2f521dced9110b3e0a46d9a75e1428dade8b7608dd0cca.txt"
+  },
+  {
+    "grant_row": 3,
+    "sha256": "5b19674a1db628a475850a131956ed49521b744e3dda8f5a94141f9aba681219",
+    "scope": "repository-root grant at the source-matched commit",
+    "location": "grant-evidence/texts/winapi-9497609-LICENSE-MIT"
+  },
+  {
+    "grant_row": 3,
+    "sha256": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1",
+    "scope": "repository-root Apache-2.0 text at the source-matched commit (MIT OR Apache-2.0, at your option)",
+    "location": "grant-evidence/texts/winapi-9497609-LICENSE-APACHE"
+  },
+  {
+    "grant_row": 3,
+    "sha256": "ce7bc3499fee93d5022ef430d5e4201e79a6d9154f3974e42f41349f0569e09b",
+    "scope": "POST-RELEASE reference only: per-crate i686/LICENSE-MIT added 2018-06-07 in fa4e2c5 ('Include licenses in import library crates'); not in the 0.4.0 .crate",
+    "location": "grant-evidence/texts/winapi-fa4e2c5-i686-LICENSE-MIT"
+  },
+  {
+    "grant_row": 4,
+    "sha256": "5b19674a1db628a475850a131956ed49521b744e3dda8f5a94141f9aba681219",
+    "scope": "repository-root grant at the source-matched commit",
+    "location": "grant-evidence/texts/winapi-9497609-LICENSE-MIT"
+  },
+  {
+    "grant_row": 4,
+    "sha256": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1",
+    "scope": "repository-root Apache-2.0 text at the source-matched commit (MIT OR Apache-2.0, at your option)",
+    "location": "grant-evidence/texts/winapi-9497609-LICENSE-APACHE"
+  },
+  {
+    "grant_row": 4,
+    "sha256": "ce7bc3499fee93d5022ef430d5e4201e79a6d9154f3974e42f41349f0569e09b",
+    "scope": "POST-RELEASE reference only: per-crate x86_64/LICENSE-MIT added 2018-06-07 in fa4e2c5 ('Include licenses in import library crates'); not in the 0.4.0 .crate",
+    "location": "grant-evidence/texts/winapi-fa4e2c5-x86_64-LICENSE-MIT"
+  },
+  {
+    "grant_row": 5,
+    "sha256": "6725d1437fc6c77301f2ff0e7d52914cf4f9509213e1078dc77d9356dbe6eac5",
+    "scope": "repository-root LICENSE at the source-matched commit (added 2017-09-09 in 8748d65 'Update version, changed license', replacing UNLICENSE)",
+    "location": "grant-evidence/texts/difflib-f035fb8e656f-LICENSE"
+  },
+  {
+    "grant_row": 6,
+    "sha256": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3",
+    "scope": "POST-RELEASE upstream grant: 'fix: add missing MIT license text' (2023-10-24), direct child of the v4.1.0 commit, diff adds only LICENSE",
+    "location": "grant-evidence/texts/seahash-3088c5c912b7-LICENSE"
+  },
+  {
+    "grant_row": 7,
+    "sha256": "1f7dca26d2d328c3dbb9b6fe3b15ec3cda08ffe2288e47b73d617454b256f959",
+    "scope": "monorepo-root LICENSE at the source-matched commit",
+    "location": "grant-evidence/texts/keyv-e4d608ec-LICENSE"
+  },
+  {
+    "grant_row": 8,
+    "sha256": "23ecfff35a5a2e80d92142f75228912c3b1abc4b5a8337a821ff4397e2f9f734",
+    "scope": "repo-root LICENSE at version tag",
+    "location": "grant-evidence/texts/rolldown-93c535d8875d-LICENSE"
+  },
+  {
+    "grant_row": 8,
+    "sha256": "a877291d800ed43692f3f9ae09d8e01cc6f7293ad39d43896059c188ffbb8b7c",
+    "scope": "repo-root third-party notice at version tag; relevant to the compiled native binding",
+    "location": "grant-evidence/texts/rolldown-93c535d8875d-THIRD-PARTY-LICENSE"
+  },
+  {
+    "grant_row": 9,
+    "sha256": "23ecfff35a5a2e80d92142f75228912c3b1abc4b5a8337a821ff4397e2f9f734",
+    "scope": "repo-root LICENSE at version tag",
+    "location": "grant-evidence/texts/rolldown-93c535d8875d-LICENSE"
+  },
+  {
+    "grant_row": 9,
+    "sha256": "a877291d800ed43692f3f9ae09d8e01cc6f7293ad39d43896059c188ffbb8b7c",
+    "scope": "repo-root third-party notice at version tag; relevant to the compiled native binding",
+    "location": "grant-evidence/texts/rolldown-93c535d8875d-THIRD-PARTY-LICENSE"
+  },
+  {
+    "grant_row": 10,
+    "sha256": "23ecfff35a5a2e80d92142f75228912c3b1abc4b5a8337a821ff4397e2f9f734",
+    "scope": "repo-root LICENSE at version tag",
+    "location": "grant-evidence/texts/rolldown-93c535d8875d-LICENSE"
+  },
+  {
+    "grant_row": 10,
+    "sha256": "a877291d800ed43692f3f9ae09d8e01cc6f7293ad39d43896059c188ffbb8b7c",
+    "scope": "repo-root third-party notice at version tag; relevant to the compiled native binding",
+    "location": "grant-evidence/texts/rolldown-93c535d8875d-THIRD-PARTY-LICENSE"
+  },
+  {
+    "grant_row": 11,
+    "sha256": "52412d7bc7ce4157ea628bbaacb8829e0a9cb3c58f57f99176126bc8cf2bfc85",
+    "scope": "repo-root LICENSE at version tag",
+    "location": "grant-evidence/texts/yoga-042f5013152e-LICENSE"
+  },
+  {
+    "grant_row": 12,
+    "sha256": "85a926eba7e6b0a078dfbcb9ff208c11b5faddff10a762415d0b0394399d62ad",
+    "scope": "POST-RELEASE upstream LICENSE (added 2025-10-20); absent at the exact gitHead",
+    "location": "grant-evidence/texts/ansi-tokenize-900f19ac5e16-LICENSE"
+  },
+  {
+    "grant_row": 13,
+    "sha256": "cdf4d87ae0a6c160227263bf4e39a0a10e30e89ae7256e0f7ac7bde0836552c6",
+    "scope": "POST-RELEASE upstream ISC LICENSE (2015-10-14, merged by owner via PR #1)",
+    "location": "grant-evidence/texts/boolbase-be0bcd8a4e91-LICENSE"
+  },
+  {
+    "grant_row": 14,
+    "sha256": "a79aae0c0f21990d9d963bb3c5a79cdcea9a46f8523ba55c58d7fe776b6ebc84",
+    "scope": "POST-RELEASE upstream LICENSE (2025-05-21)",
+    "location": "grant-evidence/texts/react-remove-scroll-bar-7301c160fda4-LICENSE"
+  },
+  {
+    "grant_row": 15,
+    "sha256": "ced6cb1fe6ee15a32c63ea8c7e0425454e80456a890c6df3909429530566d40a",
+    "scope": "EXACT tarball README: 'Copyright (c) 2012-2015 Lauri Rooden <lauri@rooden.ee> / [The MIT License](http://lauri.rooden.ee/mit-license.txt)'",
+    "location": "../hex189-supplement/texts/ced6cb1fe6ee15a32c63ea8c7e0425454e80456a890c6df3909429530566d40a.txt"
+  },
+  {
+    "grant_row": 15,
+    "sha256": "353fe762ba595bf1ffe786acf0f5984bb164205901d74f258af195fc8228c67d",
+    "scope": "LINKED text fetched 2026-09-30 (content at 2016 release time unproven)",
+    "location": "grant-evidence/texts/natural-compare-mit-license.txt"
+  },
+  {
+    "grant_row": 15,
+    "sha256": "353fe762ba595bf1ffe786acf0f5984bb164205901d74f258af195fc8228c67d",
+    "scope": "POST-RELEASE repo LICENSE (2024-10-11); byte-identical to the linked text",
+    "location": "grant-evidence/texts/natural-compare-6b42bc713dca-LICENSE"
+  },
+  {
+    "grant_row": 16,
+    "sha256": "68d38391fb464a7ffdfd27f6f41c46700dc7c8e3a11bd91bc9d75e9e3706badd",
+    "scope": "POST-RELEASE upstream LICENSE (2023-08-21)",
+    "location": "grant-evidence/texts/acorn-import-assertions-2c7059709cc5-LICENSE"
+  },
+  {
+    "grant_row": 16,
+    "sha256": "66ca0a3cbccf13090cf72427030664a061411428ff2848bd1c5ba8cfbffd1bf6",
+    "scope": "EXACT tarball README: 'This plugin is released under an MIT License.'",
+    "location": "../hex189-supplement/texts/66ca0a3cbccf13090cf72427030664a061411428ff2848bd1c5ba8cfbffd1bf6.txt"
+  },
+  {
+    "grant_row": 17,
+    "sha256": "13bd5b0f5b8e84dbac09a999f1e9ce541be6f18c2c2e17fe60a55edfe95b4586",
+    "scope": "EXACT tarball README: 'To the extent possible by law, The Dark Sky Company, LLC has waived all copyright and related or neighboring rights [CC0] to this library.'",
+    "location": "../hex189-supplement/texts/13bd5b0f5b8e84dbac09a999f1e9ce541be6f18c2c2e17fe60a55edfe95b4586.txt"
+  },
+  {
+    "grant_row": 18,
+    "sha256": "b4807793db6058c819f76c023362b7d522b3d19c9b41563fcc01c2b2c5b1ccd3",
+    "scope": "EXACT tarball README: '## License / [Creative Commons Zero v1.0 Universal](…/publicdomain/zero/1.0/deed)'",
+    "location": "../hex189-supplement/texts/b4807793db6058c819f76c023362b7d522b3d19c9b41563fcc01c2b2c5b1ccd3.txt"
+  },
+  {
+    "grant_row": 19,
+    "sha256": "554b19eee11d2964e9f7b244e47944c08d52ca75539260a04f3227e6c0144513",
+    "scope": "EXACT tarball README 'Copyright and Licensing': 'Copyright © 2010-2015 Linux Foundation and its Contributors. Licensed under the Creative Commons Attribution License 3.0 Unported. All other rights are expressly reserved.'",
+    "location": "../hex189-supplement/texts/554b19eee11d2964e9f7b244e47944c08d52ca75539260a04f3227e6c0144513.txt"
+  },
+  {
+    "grant_row": 20,
+    "sha256": "821556e6336796450ab852d375117b48a4887e71d255794fd6318d99982a5ab6",
+    "scope": "Hermes-Agent repository root LICENSE at current HEAD (2026-07-30); identical bytes to restore commit 9ba5d399e58fa353d7132b0e2e9533d281ff64d1 and to baseline text 821556e6 already captured for hermes-agent 0.20.4 rows",
+    "location": "grant-evidence/texts/hermes-agent-head-ac0cfa7db94c-LICENSE"
+  },
+  {
+    "grant_row": 21,
+    "sha256": "821556e6336796450ab852d375117b48a4887e71d255794fd6318d99982a5ab6",
+    "scope": "Hermes-Agent repository root LICENSE at current HEAD (2026-07-30); identical bytes to restore commit 9ba5d399e58fa353d7132b0e2e9533d281ff64d1 and to baseline text 821556e6 already captured for hermes-agent 0.20.4 rows",
+    "location": "grant-evidence/texts/hermes-agent-head-ac0cfa7db94c-LICENSE"
+  },
+  {
+    "grant_row": 22,
+    "sha256": "821556e6336796450ab852d375117b48a4887e71d255794fd6318d99982a5ab6",
+    "scope": "Hermes-Agent repository root LICENSE at current HEAD (2026-07-30); identical bytes to restore commit 9ba5d399e58fa353d7132b0e2e9533d281ff64d1 and to baseline text 821556e6 already captured for hermes-agent 0.20.4 rows",
+    "location": "grant-evidence/texts/hermes-agent-head-ac0cfa7db94c-LICENSE"
+  },
+  {
+    "grant_row": 23,
+    "sha256": "821556e6336796450ab852d375117b48a4887e71d255794fd6318d99982a5ab6",
+    "scope": "Hermes-Agent repository root LICENSE at current HEAD (2026-07-30); identical bytes to restore commit 9ba5d399e58fa353d7132b0e2e9533d281ff64d1 and to baseline text 821556e6 already captured for hermes-agent 0.20.4 rows",
+    "location": "grant-evidence/texts/hermes-agent-head-ac0cfa7db94c-LICENSE"
+  },
+  {
+    "grant_row": 24,
+    "sha256": "821556e6336796450ab852d375117b48a4887e71d255794fd6318d99982a5ab6",
+    "scope": "Hermes-Agent repository root LICENSE at current HEAD (2026-07-30); identical bytes to restore commit 9ba5d399e58fa353d7132b0e2e9533d281ff64d1 and to baseline text 821556e6 already captured for hermes-agent 0.20.4 rows",
+    "location": "grant-evidence/texts/hermes-agent-head-ac0cfa7db94c-LICENSE"
+  },
+  {
+    "grant_row": 25,
+    "sha256": "821556e6336796450ab852d375117b48a4887e71d255794fd6318d99982a5ab6",
+    "scope": "Hermes-Agent repository root LICENSE at current HEAD (2026-07-30); identical bytes to restore commit 9ba5d399e58fa353d7132b0e2e9533d281ff64d1 and to baseline text 821556e6 already captured for hermes-agent 0.20.4 rows",
+    "location": "grant-evidence/texts/hermes-agent-head-ac0cfa7db94c-LICENSE"
+  },
+  {
+    "grant_row": 26,
+    "sha256": "821556e6336796450ab852d375117b48a4887e71d255794fd6318d99982a5ab6",
+    "scope": "Hermes-Agent repository root LICENSE at current HEAD (2026-07-30); identical bytes to restore commit 9ba5d399e58fa353d7132b0e2e9533d281ff64d1 and to baseline text 821556e6 already captured for hermes-agent 0.20.4 rows",
+    "location": "grant-evidence/texts/hermes-agent-head-ac0cfa7db94c-LICENSE"
+  },
+  {
+    "grant_row": 27,
+    "sha256": "821556e6336796450ab852d375117b48a4887e71d255794fd6318d99982a5ab6",
+    "scope": "Hermes-Agent repository root LICENSE at current HEAD (2026-07-30); identical bytes to restore commit 9ba5d399e58fa353d7132b0e2e9533d281ff64d1 and to baseline text 821556e6 already captured for hermes-agent 0.20.4 rows",
+    "location": "grant-evidence/texts/hermes-agent-head-ac0cfa7db94c-LICENSE"
+  },
+  {
+    "grant_row": 28,
+    "sha256": "435a6722c786b0a56fbe7387028f1d9d3f3a2d0fb615bb8fee118727c3f59b7b",
+    "scope": "github-from-package package-level text already associated in HEX-189 (exact_version_upstream_text_candidates)",
+    "location": "../hex189-supplement/texts/435a6722c786b0a56fbe7387028f1d9d3f3a2d0fb615bb8fee118727c3f59b7b.txt"
+  },
+  {
+    "grant_row": 29,
+    "sha256": "b25352078e01ec5bd236c3e6abd2a4e880b122670967cc0d0941a9a2874b4032",
+    "scope": "Linked licence page as fetched 2026-09-30 (Effective 2025-04-30, last modified 2025-05-30). Web page — mutable by Webflow per its own 'Amendments' clause.",
+    "location": "grant-evidence/texts/gsap-standard-license.html"
+  },
+  {
+    "grant_row": 29,
+    "sha256": "b46020a8ef5e50289e459547fa26d606b715adb0d7c3cca361781edc1a182665",
+    "scope": "plain-text extraction of the licence body for review (derived, not upstream bytes)",
+    "location": "grant-evidence/texts/gsap-standard-license.extracted.txt"
+  },
+  {
+    "grant_row": 29,
+    "sha256": "66a79667b0538b19634b5a000a9a3debe588c98d390424e73e5d4de847270828",
+    "scope": "EXACT tarball README: 'GreenSock's standard \"no charge\" license … Copyright (c) 2008-2026, GreenSock. All rights reserved.'",
+    "location": "../hex189-supplement/texts/66a79667b0538b19634b5a000a9a3debe588c98d390424e73e5d4de847270828.txt"
+  },
+  {
+    "grant_row": 31,
+    "sha256": "7d7f35d56cb3d9870499b2117f2d74d6141f45da28526e7e5efe53781c481de9",
+    "scope": "EXACT tarball README: '## License / MIT'",
+    "location": "../hex189-supplement/texts/7d7f35d56cb3d9870499b2117f2d74d6141f45da28526e7e5efe53781c481de9.txt"
+  },
+  {
+    "grant_row": 32,
+    "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+    "scope": "SIBLING package LICENSE (Apache-2.0) at the exact gitHead — corroboration only",
+    "location": "../hex189-supplement/texts/c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4.txt"
+  },
+  {
+    "grant_row": 39,
+    "sha256": "04023acc083d1f83f526f7f7f73c33f4e863df9fb80b300b758324a9e9244a93",
+    "scope": "POST-RELEASE upstream LICENSE ('Missing license d'oh (#5591)', 2026-09-15; adds only this file + a changeset)",
+    "location": "grant-evidence/texts/launder-f57be4817a92-LICENSE.md"
+  }
+]

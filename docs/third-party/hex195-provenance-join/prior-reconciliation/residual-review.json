@@ -1,0 +1,1253 @@
+{
+  "complete": false,
+  "rows": [
+    {
+      "baseline_row_index": 163,
+      "kind": "python",
+      "name": "cobble",
+      "version": "0.1.4",
+      "source_status": "not_reconciled",
+      "grant_evidence_rows": [
+        2
+      ],
+      "retained_source_evidence_rows": [
+        4
+      ],
+      "npm_final_instances": [],
+      "notice_disposition": "gap_declared_only",
+      "workspace_scope_rows": []
+    },
+    {
+      "baseline_row_index": 269,
+      "kind": "python",
+      "name": "pg0-embedded",
+      "version": "0.14.0",
+      "source_status": "not_reconciled",
+      "grant_evidence_rows": [
+        1
+      ],
+      "retained_source_evidence_rows": [
+        16
+      ],
+      "npm_final_instances": [],
+      "notice_disposition": "gap_declared_only",
+      "workspace_scope_rows": []
+    },
+    {
+      "baseline_row_index": 1019,
+      "kind": "pg0-rust",
+      "name": "pg0",
+      "version": "0.14.0",
+      "source_status": "not_reconciled",
+      "grant_evidence_rows": [
+        0
+      ],
+      "retained_source_evidence_rows": [
+        19
+      ],
+      "npm_final_instances": [],
+      "notice_disposition": "gap_declared_only",
+      "workspace_scope_rows": []
+    },
+    {
+      "baseline_row_index": 1259,
+      "kind": "cua-rust-lock-candidate",
+      "name": "cua-driver",
+      "version": "0.30.1",
+      "source_status": "not_reconciled",
+      "grant_evidence_rows": [],
+      "retained_source_evidence_rows": [
+        124
+      ],
+      "npm_final_instances": [],
+      "workspace_scope_rows": [
+        1
+      ],
+      "notice_disposition": "exact_retained_source_root_notice_association"
+    },
+    {
+      "baseline_row_index": 1260,
+      "kind": "cua-rust-lock-candidate",
+      "name": "cua-driver-bindgen",
+      "version": "0.30.1",
+      "source_status": "not_reconciled",
+      "grant_evidence_rows": [],
+      "retained_source_evidence_rows": [
+        125
+      ],
+      "npm_final_instances": [],
+      "workspace_scope_rows": [
+        2
+      ],
+      "notice_disposition": "exact_retained_source_root_notice_association"
+    },
+    {
+      "baseline_row_index": 1261,
+      "kind": "cua-rust-lock-candidate",
+      "name": "cua-driver-contract",
+      "version": "0.30.1",
+      "source_status": "not_reconciled",
+      "grant_evidence_rows": [],
+      "retained_source_evidence_rows": [
+        126
+      ],
+      "npm_final_instances": [],
+      "workspace_scope_rows": [
+        3
+      ],
+      "notice_disposition": "exact_retained_source_root_notice_association"
+    },
+    {
+      "baseline_row_index": 1262,
+      "kind": "cua-rust-lock-candidate",
+      "name": "cua-driver-core",
+      "version": "0.30.1",
+      "source_status": "not_reconciled",
+      "grant_evidence_rows": [],
+      "retained_source_evidence_rows": [
+        127
+      ],
+      "npm_final_instances": [],
+      "workspace_scope_rows": [
+        4
+      ],
+      "notice_disposition": "exact_retained_source_root_notice_association"
+    },
+    {
+      "baseline_row_index": 1263,
+      "kind": "cua-rust-lock-candidate",
+      "name": "cua-driver-e2e",
+      "version": "0.30.1",
+      "source_status": "not_reconciled",
+      "grant_evidence_rows": [],
+      "retained_source_evidence_rows": [
+        128
+      ],
+      "npm_final_instances": [],
+      "workspace_scope_rows": [
+        5
+      ],
+      "notice_disposition": "exact_retained_source_root_notice_association"
+    },
+    {
+      "baseline_row_index": 1264,
+      "kind": "cua-rust-lock-candidate",
+      "name": "cua-driver-sdk",
+      "version": "0.30.1",
+      "source_status": "not_reconciled",
+      "grant_evidence_rows": [],
+      "retained_source_evidence_rows": [
+        129
+      ],
+      "npm_final_instances": [],
+      "workspace_scope_rows": [
+        6
+      ],
+      "notice_disposition": "exact_retained_source_root_notice_association"
+    },
+    {
+      "baseline_row_index": 1265,
+      "kind": "cua-rust-lock-candidate",
+      "name": "cua-driver-testkit",
+      "version": "0.30.1",
+      "source_status": "not_reconciled",
+      "grant_evidence_rows": [],
+      "retained_source_evidence_rows": [
+        130
+      ],
+      "npm_final_instances": [],
+      "workspace_scope_rows": [
+        7
+      ],
+      "notice_disposition": "exact_retained_source_root_notice_association"
+    },
+    {
+      "baseline_row_index": 1266,
+      "kind": "cua-rust-lock-candidate",
+      "name": "cua-driver-uia",
+      "version": "0.30.1",
+      "source_status": "not_reconciled",
+      "grant_evidence_rows": [],
+      "retained_source_evidence_rows": [
+        131
+      ],
+      "npm_final_instances": [],
+      "workspace_scope_rows": [
+        8
+      ],
+      "notice_disposition": "exact_retained_source_root_notice_association"
+    },
+    {
+      "baseline_row_index": 1267,
+      "kind": "cua-rust-lock-candidate",
+      "name": "cua-perception",
+      "version": "0.2.1",
+      "source_status": "not_reconciled",
+      "grant_evidence_rows": [],
+      "retained_source_evidence_rows": [
+        132
+      ],
+      "npm_final_instances": [],
+      "workspace_scope_rows": [
+        9
+      ],
+      "notice_disposition": "exact_retained_source_root_notice_association"
+    },
+    {
+      "baseline_row_index": 1268,
+      "kind": "cua-rust-lock-candidate",
+      "name": "cursor-overlay",
+      "version": "0.30.1",
+      "source_status": "not_reconciled",
+      "grant_evidence_rows": [],
+      "retained_source_evidence_rows": [
+        133
+      ],
+      "npm_final_instances": [],
+      "workspace_scope_rows": [
+        10
+      ],
+      "notice_disposition": "exact_retained_source_root_notice_association"
+    },
+    {
+      "baseline_row_index": 1269,
+      "kind": "cua-rust-lock-candidate",
+      "name": "cursor-theme-cli",
+      "version": "0.30.1",
+      "source_status": "not_reconciled",
+      "grant_evidence_rows": [],
+      "retained_source_evidence_rows": [
+        134
+      ],
+      "npm_final_instances": [],
+      "workspace_scope_rows": [
+        11
+      ],
+      "notice_disposition": "exact_retained_source_root_notice_association"
+    },
+    {
+      "baseline_row_index": 1475,
+      "kind": "cua-rust-lock-candidate",
+      "name": "pip-preview",
+      "version": "0.30.1",
+      "source_status": "not_reconciled",
+      "grant_evidence_rows": [],
+      "retained_source_evidence_rows": [
+        307
+      ],
+      "npm_final_instances": [],
+      "workspace_scope_rows": [
+        12
+      ],
+      "notice_disposition": "exact_retained_source_root_notice_association"
+    },
+    {
+      "baseline_row_index": 1481,
+      "kind": "cua-rust-lock-candidate",
+      "name": "platform-linux",
+      "version": "0.30.1",
+      "source_status": "not_reconciled",
+      "grant_evidence_rows": [],
+      "retained_source_evidence_rows": [
+        312
+      ],
+      "npm_final_instances": [],
+      "workspace_scope_rows": [
+        13
+      ],
+      "notice_disposition": "exact_retained_source_root_notice_association"
+    },
+    {
+      "baseline_row_index": 1482,
+      "kind": "cua-rust-lock-candidate",
+      "name": "platform-macos",
+      "version": "0.30.1",
+      "source_status": "not_reconciled",
+      "grant_evidence_rows": [],
+      "retained_source_evidence_rows": [
+        313
+      ],
+      "npm_final_instances": [],
+      "workspace_scope_rows": [
+        14
+      ],
+      "notice_disposition": "exact_retained_source_root_notice_association"
+    },
+    {
+      "baseline_row_index": 1483,
+      "kind": "cua-rust-lock-candidate",
+      "name": "platform-windows",
+      "version": "0.30.1",
+      "source_status": "not_reconciled",
+      "grant_evidence_rows": [],
+      "retained_source_evidence_rows": [
+        314
+      ],
+      "npm_final_instances": [],
+      "workspace_scope_rows": [
+        15
+      ],
+      "notice_disposition": "exact_retained_source_root_notice_association"
+    },
+    {
+      "baseline_row_index": 1671,
+      "kind": "cua-rust-lock-candidate",
+      "name": "winapi-i686-pc-windows-gnu",
+      "version": "0.4.0",
+      "source_status": "not_reconciled",
+      "grant_evidence_rows": [
+        3
+      ],
+      "retained_source_evidence_rows": [
+        477
+      ],
+      "npm_final_instances": [],
+      "notice_disposition": "resolved_source_matched_text",
+      "workspace_scope_rows": []
+    },
+    {
+      "baseline_row_index": 1672,
+      "kind": "cua-rust-lock-candidate",
+      "name": "winapi-x86_64-pc-windows-gnu",
+      "version": "0.4.0",
+      "source_status": "not_reconciled",
+      "grant_evidence_rows": [
+        4
+      ],
+      "retained_source_evidence_rows": [
+        478
+      ],
+      "npm_final_instances": [],
+      "notice_disposition": "resolved_source_matched_text",
+      "workspace_scope_rows": []
+    },
+    {
+      "baseline_row_index": 1776,
+      "kind": "sbom-npm",
+      "name": "@alcalzone/ansi-tokenize",
+      "version": "0.1.3",
+      "source_status": "not_reconciled",
+      "grant_evidence_rows": [
+        12
+      ],
+      "retained_source_evidence_rows": [
+        577
+      ],
+      "npm_final_instances": [
+        {
+          "package_row": 143,
+          "path": "/opt/hermes/node_modules/@alcalzone/ansi-tokenize/package.json",
+          "lock_evidence_rows": [
+            8
+          ]
+        }
+      ],
+      "notice_disposition": "resolved_post_release_upstream_text",
+      "final_membership_evidence": "exact_path_name_version_observed",
+      "workspace_scope_rows": []
+    },
+    {
+      "baseline_row_index": 1816,
+      "kind": "sbom-npm",
+      "name": "@hermes-agent/photon-sidecar",
+      "version": "0.4.0",
+      "source_status": "not_reconciled",
+      "grant_evidence_rows": [
+        26
+      ],
+      "retained_source_evidence_rows": [],
+      "npm_final_instances": [],
+      "notice_disposition": "exact_retained_source_root_notice_association",
+      "final_membership_evidence": "not_joined_do_not_infer_absence",
+      "workspace_scope_rows": [
+        16
+      ]
+    },
+    {
+      "baseline_row_index": 1817,
+      "kind": "sbom-npm",
+      "name": "@hermes/ink",
+      "version": "0.0.1",
+      "source_status": "not_reconciled",
+      "grant_evidence_rows": [
+        23
+      ],
+      "retained_source_evidence_rows": [
+        581
+      ],
+      "npm_final_instances": [],
+      "notice_disposition": "exact_retained_source_root_notice_association",
+      "final_membership_evidence": "not_joined_do_not_infer_absence",
+      "workspace_scope_rows": [
+        17
+      ]
+    },
+    {
+      "baseline_row_index": 1818,
+      "kind": "sbom-npm",
+      "name": "@hermes/root-tests",
+      "version": "UNKNOWN",
+      "source_status": "not_reconciled",
+      "grant_evidence_rows": [
+        24
+      ],
+      "retained_source_evidence_rows": [
+        582
+      ],
+      "npm_final_instances": [],
+      "notice_disposition": "exact_retained_source_root_notice_association",
+      "final_membership_evidence": "not_joined_do_not_infer_absence",
+      "workspace_scope_rows": [
+        18
+      ]
+    },
+    {
+      "baseline_row_index": 1819,
+      "kind": "sbom-npm",
+      "name": "@hermes/shared",
+      "version": "0.0.0",
+      "source_status": "not_reconciled",
+      "grant_evidence_rows": [
+        25
+      ],
+      "retained_source_evidence_rows": [
+        583
+      ],
+      "npm_final_instances": [],
+      "notice_disposition": "exact_retained_source_root_notice_association",
+      "final_membership_evidence": "not_joined_do_not_infer_absence",
+      "workspace_scope_rows": [
+        19
+      ]
+    },
+    {
+      "baseline_row_index": 1822,
+      "kind": "sbom-npm",
+      "name": "@humanfs/types",
+      "version": "0.15.0",
+      "source_status": "not_reconciled",
+      "grant_evidence_rows": [
+        32
+      ],
+      "retained_source_evidence_rows": [
+        584
+      ],
+      "npm_final_instances": [
+        {
+          "package_row": 612,
+          "path": "/opt/hermes/node_modules/@humanfs/types/package.json",
+          "lock_evidence_rows": [
+            166
+          ]
+        }
+      ],
+      "notice_disposition": "gap_declared_only",
+      "final_membership_evidence": "exact_path_name_version_observed",
+      "workspace_scope_rows": []
+    },
+    {
+      "baseline_row_index": 1834,
+      "kind": "sbom-npm",
+      "name": "@nous-research/ui",
+      "version": "0.18.2",
+      "source_status": "not_reconciled",
+      "grant_evidence_rows": [
+        33
+      ],
+      "retained_source_evidence_rows": [
+        585
+      ],
+      "npm_final_instances": [
+        {
+          "package_row": 146,
+          "path": "/opt/hermes/node_modules/@nous-research/ui/package.json",
+          "lock_evidence_rows": [
+            217
+          ]
+        }
+      ],
+      "notice_disposition": "gap_declared_only",
+      "final_membership_evidence": "exact_path_name_version_observed",
+      "workspace_scope_rows": []
+    },
+    {
+      "baseline_row_index": 1836,
+      "kind": "sbom-npm",
+      "name": "@npmcli/agent",
+      "version": "4.0.2",
+      "source_status": "not_reconciled",
+      "grant_evidence_rows": [
+        30
+      ],
+      "retained_source_evidence_rows": [
+        587
+      ],
+      "npm_final_instances": [
+        {
+          "package_row": 653,
+          "path": "/usr/local/lib/node_modules/npm/node_modules/@npmcli/agent/package.json",
+          "lock_evidence_rows": []
+        }
+      ],
+      "notice_disposition": "gap_declared_only",
+      "final_membership_evidence": "exact_path_name_version_observed",
+      "workspace_scope_rows": []
+    },
+    {
+      "baseline_row_index": 1872,
+      "kind": "sbom-npm",
+      "name": "@parseaple/bplist",
+      "version": "1.0.1",
+      "source_status": "not_reconciled",
+      "grant_evidence_rows": [
+        37
+      ],
+      "retained_source_evidence_rows": [
+        588
+      ],
+      "npm_final_instances": [
+        {
+          "package_row": 92,
+          "path": "/opt/hermes/plugins/platforms/photon/sidecar/node_modules/@parseaple/bplist/package.json",
+          "lock_evidence_rows": [
+            1558
+          ]
+        }
+      ],
+      "notice_disposition": "gap_declared_only",
+      "final_membership_evidence": "exact_path_name_version_observed",
+      "workspace_scope_rows": []
+    },
+    {
+      "baseline_row_index": 1873,
+      "kind": "sbom-npm",
+      "name": "@parseaple/typedstream",
+      "version": "2.0.2",
+      "source_status": "not_reconciled",
+      "grant_evidence_rows": [
+        38
+      ],
+      "retained_source_evidence_rows": [
+        589
+      ],
+      "npm_final_instances": [
+        {
+          "package_row": 91,
+          "path": "/opt/hermes/plugins/platforms/photon/sidecar/node_modules/@parseaple/typedstream/package.json",
+          "lock_evidence_rows": [
+            1559
+          ]
+        }
+      ],
+      "notice_disposition": "gap_declared_only",
+      "final_membership_evidence": "exact_path_name_version_observed",
+      "workspace_scope_rows": []
+    },
+    {
+      "baseline_row_index": 1876,
+      "kind": "sbom-npm",
+      "name": "@photon-ai/otel",
+      "version": "1.1.0",
+      "source_status": "not_reconciled",
+      "grant_evidence_rows": [
+        35
+      ],
+      "retained_source_evidence_rows": [
+        590
+      ],
+      "npm_final_instances": [
+        {
+          "package_row": 59,
+          "path": "/opt/hermes/plugins/platforms/photon/sidecar/node_modules/@photon-ai/otel/package.json",
+          "lock_evidence_rows": [
+            1562
+          ]
+        }
+      ],
+      "notice_disposition": "gap_declared_only",
+      "final_membership_evidence": "exact_path_name_version_observed",
+      "workspace_scope_rows": []
+    },
+    {
+      "baseline_row_index": 1879,
+      "kind": "sbom-npm",
+      "name": "@photon-ai/telegram-ts",
+      "version": "10.0.0",
+      "source_status": "not_reconciled",
+      "grant_evidence_rows": [
+        34
+      ],
+      "retained_source_evidence_rows": [
+        591
+      ],
+      "npm_final_instances": [
+        {
+          "package_row": 55,
+          "path": "/opt/hermes/plugins/platforms/photon/sidecar/node_modules/@photon-ai/telegram-ts/package.json",
+          "lock_evidence_rows": [
+            1565
+          ]
+        }
+      ],
+      "notice_disposition": "gap_declared_only",
+      "final_membership_evidence": "exact_path_name_version_observed",
+      "workspace_scope_rows": []
+    },
+    {
+      "baseline_row_index": 1880,
+      "kind": "sbom-npm",
+      "name": "@photon-ai/whatsapp-business",
+      "version": "0.1.1",
+      "source_status": "not_reconciled",
+      "grant_evidence_rows": [
+        36
+      ],
+      "retained_source_evidence_rows": [
+        592
+      ],
+      "npm_final_instances": [
+        {
+          "package_row": 57,
+          "path": "/opt/hermes/plugins/platforms/photon/sidecar/node_modules/@photon-ai/whatsapp-business/package.json",
+          "lock_evidence_rows": [
+            1566
+          ]
+        }
+      ],
+      "notice_disposition": "gap_declared_only",
+      "final_membership_evidence": "exact_path_name_version_observed",
+      "workspace_scope_rows": []
+    },
+    {
+      "baseline_row_index": 1943,
+      "kind": "sbom-npm",
+      "name": "@rolldown/binding-linux-x64-gnu",
+      "version": "1.2.1",
+      "source_status": "not_reconciled",
+      "grant_evidence_rows": [
+        8
+      ],
+      "retained_source_evidence_rows": [
+        594
+      ],
+      "npm_final_instances": [
+        {
+          "package_row": 438,
+          "path": "/opt/hermes/node_modules/@rolldown/binding-linux-x64-gnu/package.json",
+          "lock_evidence_rows": [
+            303
+          ]
+        }
+      ],
+      "notice_disposition": "resolved_tag_bound_text",
+      "final_membership_evidence": "exact_path_name_version_observed",
+      "workspace_scope_rows": []
+    },
+    {
+      "baseline_row_index": 1944,
+      "kind": "sbom-npm",
+      "name": "@rolldown/binding-linux-x64-musl",
+      "version": "1.2.1",
+      "source_status": "not_reconciled",
+      "grant_evidence_rows": [
+        9
+      ],
+      "retained_source_evidence_rows": [
+        595
+      ],
+      "npm_final_instances": [
+        {
+          "package_row": 441,
+          "path": "/opt/hermes/node_modules/@rolldown/binding-linux-x64-musl/package.json",
+          "lock_evidence_rows": [
+            304
+          ]
+        }
+      ],
+      "notice_disposition": "resolved_tag_bound_text",
+      "final_membership_evidence": "exact_path_name_version_observed",
+      "workspace_scope_rows": []
+    },
+    {
+      "baseline_row_index": 1945,
+      "kind": "sbom-npm",
+      "name": "@rolldown/binding-wasm32-wasi",
+      "version": "1.2.1",
+      "source_status": "not_reconciled",
+      "grant_evidence_rows": [
+        10
+      ],
+      "retained_source_evidence_rows": [
+        596
+      ],
+      "npm_final_instances": [
+        {
+          "package_row": 440,
+          "path": "/opt/hermes/node_modules/@rolldown/binding-wasm32-wasi/package.json",
+          "lock_evidence_rows": [
+            306
+          ]
+        }
+      ],
+      "notice_disposition": "resolved_tag_bound_text",
+      "final_membership_evidence": "exact_path_name_version_observed",
+      "workspace_scope_rows": []
+    },
+    {
+      "baseline_row_index": 2015,
+      "kind": "sbom-npm",
+      "name": "acorn-import-assertions",
+      "version": "1.8.0",
+      "source_status": "not_reconciled",
+      "grant_evidence_rows": [
+        16
+      ],
+      "retained_source_evidence_rows": [
+        607
+      ],
+      "npm_final_instances": [],
+      "notice_disposition": "resolved_post_release_upstream_text",
+      "final_membership_evidence": "not_joined_do_not_infer_absence",
+      "workspace_scope_rows": []
+    },
+    {
+      "baseline_row_index": 2156,
+      "kind": "sbom-npm",
+      "name": "beep-boop",
+      "version": "1.2.3",
+      "source_status": "not_reconciled",
+      "grant_evidence_rows": [
+        28
+      ],
+      "retained_source_evidence_rows": [
+        678
+      ],
+      "npm_final_instances": [],
+      "notice_disposition": "containing_package_fixture_path_verified",
+      "final_membership_evidence": "not_joined_do_not_infer_absence",
+      "workspace_scope_rows": []
+    },
+    {
+      "baseline_row_index": 2161,
+      "kind": "sbom-npm",
+      "name": "binary-search",
+      "version": "1.3.6",
+      "source_status": "not_reconciled",
+      "grant_evidence_rows": [
+        17
+      ],
+      "retained_source_evidence_rows": [
+        679
+      ],
+      "npm_final_instances": [],
+      "notice_disposition": "resolved_exact_release_dedication_statement",
+      "final_membership_evidence": "not_joined_do_not_infer_absence",
+      "workspace_scope_rows": []
+    },
+    {
+      "baseline_row_index": 2175,
+      "kind": "sbom-npm",
+      "name": "boolbase",
+      "version": "1.0.0",
+      "source_status": "not_reconciled",
+      "grant_evidence_rows": [
+        13
+      ],
+      "retained_source_evidence_rows": [
+        688
+      ],
+      "npm_final_instances": [
+        {
+          "package_row": 39,
+          "path": "/opt/hermes/plugins/platforms/photon/sidecar/node_modules/boolbase/package.json",
+          "lock_evidence_rows": [
+            1581
+          ]
+        }
+      ],
+      "notice_disposition": "resolved_post_release_upstream_text",
+      "final_membership_evidence": "exact_path_name_version_observed",
+      "workspace_scope_rows": []
+    },
+    {
+      "baseline_row_index": 2273,
+      "kind": "sbom-python",
+      "name": "cobble",
+      "version": "0.1.4",
+      "source_status": "not_reconciled",
+      "grant_evidence_rows": [
+        2
+      ],
+      "retained_source_evidence_rows": [
+        735
+      ],
+      "npm_final_instances": [],
+      "notice_disposition": "gap_declared_only",
+      "workspace_scope_rows": []
+    },
+    {
+      "baseline_row_index": 2398,
+      "kind": "sbom-rust-crate",
+      "name": "difflib",
+      "version": "0.4.0",
+      "source_status": "not_reconciled",
+      "grant_evidence_rows": [
+        5
+      ],
+      "retained_source_evidence_rows": [
+        778
+      ],
+      "npm_final_instances": [],
+      "notice_disposition": "resolved_source_matched_text_holder_anomaly",
+      "workspace_scope_rows": []
+    },
+    {
+      "baseline_row_index": 2399,
+      "kind": "sbom-rust-crate",
+      "name": "difflib",
+      "version": "0.4.0",
+      "source_status": "not_reconciled",
+      "grant_evidence_rows": [
+        5
+      ],
+      "retained_source_evidence_rows": [
+        779
+      ],
+      "npm_final_instances": [],
+      "notice_disposition": "resolved_source_matched_text_holder_anomaly",
+      "workspace_scope_rows": []
+    },
+    {
+      "baseline_row_index": 2635,
+      "kind": "sbom-go-module",
+      "name": "github.com/docker/cli/cmd/docker",
+      "version": "UNKNOWN",
+      "source_status": "not_reconciled",
+      "grant_evidence_rows": [],
+      "retained_source_evidence_rows": [
+        896
+      ],
+      "npm_final_instances": [],
+      "workspace_scope_rows": []
+    },
+    {
+      "baseline_row_index": 2744,
+      "kind": "sbom-npm",
+      "name": "gsap",
+      "version": "3.15.0",
+      "source_status": "not_reconciled",
+      "grant_evidence_rows": [
+        29
+      ],
+      "retained_source_evidence_rows": [
+        989
+      ],
+      "npm_final_instances": [
+        {
+          "package_row": 561,
+          "path": "/opt/hermes/node_modules/gsap/package.json",
+          "lock_evidence_rows": [
+            795
+          ]
+        }
+      ],
+      "notice_disposition": "proprietary_linked_license_decision_required",
+      "final_membership_evidence": "exact_path_name_version_observed",
+      "workspace_scope_rows": []
+    },
+    {
+      "baseline_row_index": 2768,
+      "kind": "sbom-npm",
+      "name": "hermes-agent",
+      "version": "1.0.0",
+      "source_status": "not_reconciled",
+      "grant_evidence_rows": [
+        20
+      ],
+      "retained_source_evidence_rows": [],
+      "npm_final_instances": [],
+      "notice_disposition": "exact_retained_source_root_notice_association",
+      "final_membership_evidence": "not_joined_do_not_infer_absence",
+      "workspace_scope_rows": [
+        20
+      ]
+    },
+    {
+      "baseline_row_index": 2771,
+      "kind": "sbom-npm",
+      "name": "hermes-tui",
+      "version": "0.0.1",
+      "source_status": "not_reconciled",
+      "grant_evidence_rows": [
+        21
+      ],
+      "retained_source_evidence_rows": [],
+      "npm_final_instances": [],
+      "notice_disposition": "exact_retained_source_root_notice_association",
+      "final_membership_evidence": "not_joined_do_not_infer_absence",
+      "workspace_scope_rows": [
+        21
+      ]
+    },
+    {
+      "baseline_row_index": 2772,
+      "kind": "sbom-npm",
+      "name": "hermes-whatsapp-bridge",
+      "version": "1.0.0",
+      "source_status": "not_reconciled",
+      "grant_evidence_rows": [
+        22
+      ],
+      "retained_source_evidence_rows": [
+        1003
+      ],
+      "npm_final_instances": [],
+      "notice_disposition": "exact_retained_source_root_notice_association",
+      "final_membership_evidence": "not_joined_do_not_infer_absence",
+      "workspace_scope_rows": [
+        22
+      ]
+    },
+    {
+      "baseline_row_index": 2965,
+      "kind": "sbom-npm",
+      "name": "keyv",
+      "version": "4.5.4",
+      "source_status": "not_reconciled",
+      "grant_evidence_rows": [
+        7
+      ],
+      "retained_source_evidence_rows": [
+        1059
+      ],
+      "npm_final_instances": [
+        {
+          "package_row": 498,
+          "path": "/opt/hermes/node_modules/keyv/package.json",
+          "lock_evidence_rows": [
+            896
+          ]
+        }
+      ],
+      "notice_disposition": "resolved_source_matched_text",
+      "final_membership_evidence": "exact_path_name_version_observed",
+      "workspace_scope_rows": []
+    },
+    {
+      "baseline_row_index": 2970,
+      "kind": "sbom-npm",
+      "name": "launder",
+      "version": "1.7.1",
+      "source_status": "not_reconciled",
+      "grant_evidence_rows": [
+        39
+      ],
+      "retained_source_evidence_rows": [
+        1062
+      ],
+      "npm_final_instances": [
+        {
+          "package_row": 576,
+          "path": "/opt/hermes/node_modules/launder/package.json",
+          "lock_evidence_rows": [
+            898
+          ]
+        }
+      ],
+      "notice_disposition": "resolved_post_release_upstream_text",
+      "final_membership_evidence": "exact_path_name_version_observed",
+      "workspace_scope_rows": []
+    },
+    {
+      "baseline_row_index": 3109,
+      "kind": "sbom-npm",
+      "name": "natural-compare",
+      "version": "1.4.0",
+      "source_status": "not_reconciled",
+      "grant_evidence_rows": [
+        15
+      ],
+      "retained_source_evidence_rows": [
+        1105
+      ],
+      "npm_final_instances": [
+        {
+          "package_row": 619,
+          "path": "/opt/hermes/node_modules/natural-compare/package.json",
+          "lock_evidence_rows": [
+            1015
+          ]
+        }
+      ],
+      "notice_disposition": "resolved_exact_statement_plus_linked_text",
+      "final_membership_evidence": "exact_path_name_version_observed",
+      "workspace_scope_rows": []
+    },
+    {
+      "baseline_row_index": 3267,
+      "kind": "sbom-python",
+      "name": "pg0-embedded",
+      "version": "0.14.0",
+      "source_status": "not_reconciled",
+      "grant_evidence_rows": [
+        1
+      ],
+      "retained_source_evidence_rows": [
+        1174
+      ],
+      "npm_final_instances": [],
+      "notice_disposition": "gap_declared_only",
+      "workspace_scope_rows": []
+    },
+    {
+      "baseline_row_index": 3431,
+      "kind": "sbom-npm",
+      "name": "react-remove-scroll-bar",
+      "version": "2.3.8",
+      "source_status": "not_reconciled",
+      "grant_evidence_rows": [
+        14
+      ],
+      "retained_source_evidence_rows": [
+        1232
+      ],
+      "npm_final_instances": [
+        {
+          "package_row": 570,
+          "path": "/opt/hermes/node_modules/react-remove-scroll-bar/package.json",
+          "lock_evidence_rows": [
+            1127
+          ]
+        }
+      ],
+      "notice_disposition": "resolved_post_release_upstream_text",
+      "final_membership_evidence": "exact_path_name_version_observed",
+      "workspace_scope_rows": []
+    },
+    {
+      "baseline_row_index": 3549,
+      "kind": "sbom-rust-crate",
+      "name": "seahash",
+      "version": "4.1.0",
+      "source_status": "not_reconciled",
+      "grant_evidence_rows": [
+        6
+      ],
+      "retained_source_evidence_rows": [
+        1303
+      ],
+      "npm_final_instances": [],
+      "notice_disposition": "resolved_post_release_upstream_text",
+      "workspace_scope_rows": []
+    },
+    {
+      "baseline_row_index": 3550,
+      "kind": "sbom-rust-crate",
+      "name": "seahash",
+      "version": "4.1.0",
+      "source_status": "not_reconciled",
+      "grant_evidence_rows": [
+        6
+      ],
+      "retained_source_evidence_rows": [
+        1304
+      ],
+      "npm_final_instances": [],
+      "notice_disposition": "resolved_post_release_upstream_text",
+      "workspace_scope_rows": []
+    },
+    {
+      "baseline_row_index": 3641,
+      "kind": "sbom-npm",
+      "name": "spdx-exceptions",
+      "version": "2.5.0",
+      "source_status": "not_reconciled",
+      "grant_evidence_rows": [
+        19
+      ],
+      "retained_source_evidence_rows": [
+        1348
+      ],
+      "npm_final_instances": [
+        {
+          "package_row": 663,
+          "path": "/usr/local/lib/node_modules/npm/node_modules/spdx-exceptions/package.json",
+          "lock_evidence_rows": []
+        }
+      ],
+      "notice_disposition": "resolved_exact_release_attribution_statement",
+      "final_membership_evidence": "exact_path_name_version_observed",
+      "workspace_scope_rows": []
+    },
+    {
+      "baseline_row_index": 3643,
+      "kind": "sbom-npm",
+      "name": "spdx-license-ids",
+      "version": "3.0.23",
+      "source_status": "not_reconciled",
+      "grant_evidence_rows": [
+        18
+      ],
+      "retained_source_evidence_rows": [
+        1349
+      ],
+      "npm_final_instances": [
+        {
+          "package_row": 741,
+          "path": "/usr/local/lib/node_modules/npm/node_modules/spdx-license-ids/package.json",
+          "lock_evidence_rows": []
+        }
+      ],
+      "notice_disposition": "gap_declared_only_low_risk",
+      "final_membership_evidence": "exact_path_name_version_observed",
+      "workspace_scope_rows": []
+    },
+    {
+      "baseline_row_index": 3851,
+      "kind": "sbom-npm",
+      "name": "unicode-animations",
+      "version": "1.0.3",
+      "source_status": "not_reconciled",
+      "grant_evidence_rows": [
+        31
+      ],
+      "retained_source_evidence_rows": [
+        1447
+      ],
+      "npm_final_instances": [
+        {
+          "package_row": 141,
+          "path": "/opt/hermes/node_modules/unicode-animations/package.json",
+          "lock_evidence_rows": [
+            1276
+          ]
+        }
+      ],
+      "notice_disposition": "gap_declared_only",
+      "final_membership_evidence": "exact_path_name_version_observed",
+      "workspace_scope_rows": []
+    },
+    {
+      "baseline_row_index": 4033,
+      "kind": "sbom-npm",
+      "name": "web",
+      "version": "0.0.0",
+      "source_status": "not_reconciled",
+      "grant_evidence_rows": [
+        27
+      ],
+      "retained_source_evidence_rows": [
+        1594
+      ],
+      "npm_final_instances": [],
+      "notice_disposition": "exact_retained_source_root_notice_association",
+      "final_membership_evidence": "not_joined_do_not_infer_absence",
+      "rejected_prior_associations": {
+        "records": [
+          "records/2f13e5678d48d5ade0a7311ef45c2beb812c73ac3a0a6df09b906087d00d5a36.json"
+        ],
+        "reason": "Registry web@0.0.0 is unrelated to /opt/hermes/web. Preserve record only as rejected evidence, never as a grant."
+      },
+      "workspace_scope_rows": [
+        23
+      ]
+    },
+    {
+      "baseline_row_index": 4091,
+      "kind": "sbom-npm",
+      "name": "yoga-layout",
+      "version": "3.2.1",
+      "source_status": "not_reconciled",
+      "grant_evidence_rows": [
+        11
+      ],
+      "retained_source_evidence_rows": [
+        1612
+      ],
+      "npm_final_instances": [
+        {
+          "package_row": 193,
+          "path": "/opt/hermes/node_modules/yoga-layout/package.json",
+          "lock_evidence_rows": [
+            1356
+          ]
+        }
+      ],
+      "notice_disposition": "resolved_tag_bound_text",
+      "final_membership_evidence": "exact_path_name_version_observed",
+      "workspace_scope_rows": []
+    }
+  ],
+  "additional_grant_reviews": [
+    {
+      "row_index": 0,
+      "row": "pg0",
+      "disposition": "gap_declared_only"
+    },
+    {
+      "row_index": 1,
+      "row": "pg0-embedded",
+      "disposition": "gap_declared_only"
+    },
+    {
+      "row_index": 2,
+      "row": "cobble",
+      "disposition": "gap_declared_only"
+    },
+    {
+      "row_index": 18,
+      "row": "spdx-license-ids",
+      "disposition": "gap_declared_only_low_risk"
+    },
+    {
+      "row_index": 29,
+      "row": "gsap",
+      "disposition": "proprietary_linked_license_decision_required"
+    },
+    {
+      "row_index": 30,
+      "row": "@npmcli/agent",
+      "disposition": "gap_declared_only"
+    },
+    {
+      "row_index": 31,
+      "row": "unicode-animations",
+      "disposition": "gap_declared_only"
+    },
+    {
+      "row_index": 32,
+      "row": "@humanfs/types",
+      "disposition": "gap_declared_only"
+    },
+    {
+      "row_index": 33,
+      "row": "@nous-research/ui",
+      "disposition": "gap_declared_only"
+    },
+    {
+      "row_index": 34,
+      "row": "@photon-ai/telegram-ts",
+      "disposition": "gap_declared_only"
+    },
+    {
+      "row_index": 35,
+      "row": "@photon-ai/otel",
+      "disposition": "gap_declared_only"
+    },
+    {
+      "row_index": 36,
+      "row": "@photon-ai/whatsapp-business",
+      "disposition": "gap_declared_only"
+    },
+    {
+      "row_index": 37,
+      "row": "@parseaple/bplist",
+      "disposition": "gap_declared_only"
+    },
+    {
+      "row_index": 38,
+      "row": "@parseaple/typedstream",
+      "disposition": "gap_declared_only"
+    }
+  ]
+}

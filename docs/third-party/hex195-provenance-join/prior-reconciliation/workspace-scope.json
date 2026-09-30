@@ -1,0 +1,797 @@
+[
+  {
+    "archive": "tailscale-go-7275f792d406d3c386cc807937a45a4a7b699d42.tar.gz",
+    "archive_sha256": "78f69df4d091ec316d4cfcb5ec2c1cb32be199b7bc36da9dc1d8dd7dedb98f28",
+    "identity_evidence": "source-evidence/volume-SHA256SUMS",
+    "notice": {
+      "member": "go-7275f792d406d3c386cc807937a45a4a7b699d42/LICENSE",
+      "sha256": "911f8f5782931320f5b8d1160a76365b83aea6447ee6c04fa6d5591467db9dad",
+      "bytes": 1453,
+      "file": "scope-bytes/911f8f5782931320f5b8d1160a76365b83aea6447ee6c04fa6d5591467db9dad.txt"
+    },
+    "status": "exact_retained_source_root_notice_association",
+    "full_closure": false,
+    "name": "tailscale/go",
+    "version": "7275f792d406d3c386cc807937a45a4a7b699d42",
+    "scope": "Exact Tailscale toolchain fork root notice; generic upstream Go 1.26.6 is not sufficient identity for this fork."
+  },
+  {
+    "archive": "cua-039783f9221a08c0daf9cda65a460fc4f346fa6e.tar.gz",
+    "archive_sha256": "c63c7e04b22209469e529c89220bf77f10db9722800e9ff2ab4f71b8ba7057e6",
+    "identity_evidence": "source-evidence/volume-SHA256SUMS",
+    "notice": {
+      "member": "cua-039783f9221a08c0daf9cda65a460fc4f346fa6e/LICENSE.md",
+      "sha256": "c0779290c1d4783169aa3dbfb55feb505e563ef8a004bbf55298ceffcfbda8d9",
+      "bytes": 1069,
+      "file": "scope-bytes/c0779290c1d4783169aa3dbfb55feb505e563ef8a004bbf55298ceffcfbda8d9.txt"
+    },
+    "status": "exact_retained_source_root_notice_association",
+    "full_closure": false,
+    "baseline_row_index": 1259,
+    "name": "cua-driver",
+    "version": "0.30.1",
+    "package": {
+      "declaration": {
+        "member": "cua-039783f9221a08c0daf9cda65a460fc4f346fa6e/libs/cua-driver/rust/crates/cua-driver/Cargo.toml",
+        "sha256": "b3b705c527a149f854ec1b8d07c15ae6a261a226520c71538a3a5e84190df3ca",
+        "bytes": 4650,
+        "file": "scope-bytes/b3b705c527a149f854ec1b8d07c15ae6a261a226520c71538a3a5e84190df3ca.txt"
+      },
+      "declared_license": null,
+      "workspace_license": "MIT",
+      "workspace_declaration": {
+        "member": "cua-039783f9221a08c0daf9cda65a460fc4f346fa6e/libs/cua-driver/rust/Cargo.toml",
+        "sha256": "7a305b636323a8e26ffb56d6a2b43b8abac323eacf6b718df999b9a811b584ab",
+        "bytes": 1790,
+        "file": "scope-bytes/7a305b636323a8e26ffb56d6a2b43b8abac323eacf6b718df999b9a811b584ab.txt"
+      }
+    },
+    "membership": "All-platform source-lock superset; root notice does not prove binary membership."
+  },
+  {
+    "archive": "cua-039783f9221a08c0daf9cda65a460fc4f346fa6e.tar.gz",
+    "archive_sha256": "c63c7e04b22209469e529c89220bf77f10db9722800e9ff2ab4f71b8ba7057e6",
+    "identity_evidence": "source-evidence/volume-SHA256SUMS",
+    "notice": {
+      "member": "cua-039783f9221a08c0daf9cda65a460fc4f346fa6e/LICENSE.md",
+      "sha256": "c0779290c1d4783169aa3dbfb55feb505e563ef8a004bbf55298ceffcfbda8d9",
+      "bytes": 1069,
+      "file": "scope-bytes/c0779290c1d4783169aa3dbfb55feb505e563ef8a004bbf55298ceffcfbda8d9.txt"
+    },
+    "status": "exact_retained_source_root_notice_association",
+    "full_closure": false,
+    "baseline_row_index": 1260,
+    "name": "cua-driver-bindgen",
+    "version": "0.30.1",
+    "package": {
+      "declaration": {
+        "member": "cua-039783f9221a08c0daf9cda65a460fc4f346fa6e/libs/cua-driver/rust/crates/cua-driver-bindgen/Cargo.toml",
+        "sha256": "ee45147d4985c8ad155ac2c08d8045b67bcc0d5caa18ae2457ae43ac23524b72",
+        "bytes": 394,
+        "file": "scope-bytes/ee45147d4985c8ad155ac2c08d8045b67bcc0d5caa18ae2457ae43ac23524b72.txt"
+      },
+      "declared_license": {
+        "workspace": true
+      },
+      "workspace_license": "MIT",
+      "workspace_declaration": {
+        "member": "cua-039783f9221a08c0daf9cda65a460fc4f346fa6e/libs/cua-driver/rust/Cargo.toml",
+        "sha256": "7a305b636323a8e26ffb56d6a2b43b8abac323eacf6b718df999b9a811b584ab",
+        "bytes": 1790,
+        "file": "scope-bytes/7a305b636323a8e26ffb56d6a2b43b8abac323eacf6b718df999b9a811b584ab.txt"
+      }
+    },
+    "membership": "All-platform source-lock superset; root notice does not prove binary membership."
+  },
+  {
+    "archive": "cua-039783f9221a08c0daf9cda65a460fc4f346fa6e.tar.gz",
+    "archive_sha256": "c63c7e04b22209469e529c89220bf77f10db9722800e9ff2ab4f71b8ba7057e6",
+    "identity_evidence": "source-evidence/volume-SHA256SUMS",
+    "notice": {
+      "member": "cua-039783f9221a08c0daf9cda65a460fc4f346fa6e/LICENSE.md",
+      "sha256": "c0779290c1d4783169aa3dbfb55feb505e563ef8a004bbf55298ceffcfbda8d9",
+      "bytes": 1069,
+      "file": "scope-bytes/c0779290c1d4783169aa3dbfb55feb505e563ef8a004bbf55298ceffcfbda8d9.txt"
+    },
+    "status": "exact_retained_source_root_notice_association",
+    "full_closure": false,
+    "baseline_row_index": 1261,
+    "name": "cua-driver-contract",
+    "version": "0.30.1",
+    "package": {
+      "declaration": {
+        "member": "cua-039783f9221a08c0daf9cda65a460fc4f346fa6e/libs/cua-driver/rust/crates/cua-driver-contract/Cargo.toml",
+        "sha256": "5e3cf58708fe093de1f894fa75c067ea1c315d747d10d3a206886e4c0adc0b26",
+        "bytes": 299,
+        "file": "scope-bytes/5e3cf58708fe093de1f894fa75c067ea1c315d747d10d3a206886e4c0adc0b26.txt"
+      },
+      "declared_license": null,
+      "workspace_license": "MIT",
+      "workspace_declaration": {
+        "member": "cua-039783f9221a08c0daf9cda65a460fc4f346fa6e/libs/cua-driver/rust/Cargo.toml",
+        "sha256": "7a305b636323a8e26ffb56d6a2b43b8abac323eacf6b718df999b9a811b584ab",
+        "bytes": 1790,
+        "file": "scope-bytes/7a305b636323a8e26ffb56d6a2b43b8abac323eacf6b718df999b9a811b584ab.txt"
+      }
+    },
+    "membership": "All-platform source-lock superset; root notice does not prove binary membership."
+  },
+  {
+    "archive": "cua-039783f9221a08c0daf9cda65a460fc4f346fa6e.tar.gz",
+    "archive_sha256": "c63c7e04b22209469e529c89220bf77f10db9722800e9ff2ab4f71b8ba7057e6",
+    "identity_evidence": "source-evidence/volume-SHA256SUMS",
+    "notice": {
+      "member": "cua-039783f9221a08c0daf9cda65a460fc4f346fa6e/LICENSE.md",
+      "sha256": "c0779290c1d4783169aa3dbfb55feb505e563ef8a004bbf55298ceffcfbda8d9",
+      "bytes": 1069,
+      "file": "scope-bytes/c0779290c1d4783169aa3dbfb55feb505e563ef8a004bbf55298ceffcfbda8d9.txt"
+    },
+    "status": "exact_retained_source_root_notice_association",
+    "full_closure": false,
+    "baseline_row_index": 1262,
+    "name": "cua-driver-core",
+    "version": "0.30.1",
+    "package": {
+      "declaration": {
+        "member": "cua-039783f9221a08c0daf9cda65a460fc4f346fa6e/libs/cua-driver/rust/crates/cua-driver-core/Cargo.toml",
+        "sha256": "40270c0dc9e0a576c1db33335f07b76affa8baebc73a7b3ce2ee12ca4b78e45d",
+        "bytes": 2498,
+        "file": "scope-bytes/40270c0dc9e0a576c1db33335f07b76affa8baebc73a7b3ce2ee12ca4b78e45d.txt"
+      },
+      "declared_license": null,
+      "workspace_license": "MIT",
+      "workspace_declaration": {
+        "member": "cua-039783f9221a08c0daf9cda65a460fc4f346fa6e/libs/cua-driver/rust/Cargo.toml",
+        "sha256": "7a305b636323a8e26ffb56d6a2b43b8abac323eacf6b718df999b9a811b584ab",
+        "bytes": 1790,
+        "file": "scope-bytes/7a305b636323a8e26ffb56d6a2b43b8abac323eacf6b718df999b9a811b584ab.txt"
+      }
+    },
+    "membership": "All-platform source-lock superset; root notice does not prove binary membership."
+  },
+  {
+    "archive": "cua-039783f9221a08c0daf9cda65a460fc4f346fa6e.tar.gz",
+    "archive_sha256": "c63c7e04b22209469e529c89220bf77f10db9722800e9ff2ab4f71b8ba7057e6",
+    "identity_evidence": "source-evidence/volume-SHA256SUMS",
+    "notice": {
+      "member": "cua-039783f9221a08c0daf9cda65a460fc4f346fa6e/LICENSE.md",
+      "sha256": "c0779290c1d4783169aa3dbfb55feb505e563ef8a004bbf55298ceffcfbda8d9",
+      "bytes": 1069,
+      "file": "scope-bytes/c0779290c1d4783169aa3dbfb55feb505e563ef8a004bbf55298ceffcfbda8d9.txt"
+    },
+    "status": "exact_retained_source_root_notice_association",
+    "full_closure": false,
+    "baseline_row_index": 1263,
+    "name": "cua-driver-e2e",
+    "version": "0.30.1",
+    "package": {
+      "declaration": {
+        "member": "cua-039783f9221a08c0daf9cda65a460fc4f346fa6e/libs/cua-driver/rust/crates/cua-driver-e2e/Cargo.toml",
+        "sha256": "ef69a409d2bdf8e5cd879d1acc02aa8ff1aff36df92410fae3f5a6ad0c6e9a04",
+        "bytes": 2131,
+        "file": "scope-bytes/ef69a409d2bdf8e5cd879d1acc02aa8ff1aff36df92410fae3f5a6ad0c6e9a04.txt"
+      },
+      "declared_license": {
+        "workspace": true
+      },
+      "workspace_license": "MIT",
+      "workspace_declaration": {
+        "member": "cua-039783f9221a08c0daf9cda65a460fc4f346fa6e/libs/cua-driver/rust/Cargo.toml",
+        "sha256": "7a305b636323a8e26ffb56d6a2b43b8abac323eacf6b718df999b9a811b584ab",
+        "bytes": 1790,
+        "file": "scope-bytes/7a305b636323a8e26ffb56d6a2b43b8abac323eacf6b718df999b9a811b584ab.txt"
+      }
+    },
+    "membership": "All-platform source-lock superset; root notice does not prove binary membership."
+  },
+  {
+    "archive": "cua-039783f9221a08c0daf9cda65a460fc4f346fa6e.tar.gz",
+    "archive_sha256": "c63c7e04b22209469e529c89220bf77f10db9722800e9ff2ab4f71b8ba7057e6",
+    "identity_evidence": "source-evidence/volume-SHA256SUMS",
+    "notice": {
+      "member": "cua-039783f9221a08c0daf9cda65a460fc4f346fa6e/LICENSE.md",
+      "sha256": "c0779290c1d4783169aa3dbfb55feb505e563ef8a004bbf55298ceffcfbda8d9",
+      "bytes": 1069,
+      "file": "scope-bytes/c0779290c1d4783169aa3dbfb55feb505e563ef8a004bbf55298ceffcfbda8d9.txt"
+    },
+    "status": "exact_retained_source_root_notice_association",
+    "full_closure": false,
+    "baseline_row_index": 1264,
+    "name": "cua-driver-sdk",
+    "version": "0.30.1",
+    "package": {
+      "declaration": {
+        "member": "cua-039783f9221a08c0daf9cda65a460fc4f346fa6e/libs/cua-driver/rust/crates/cua-driver-sdk/Cargo.toml",
+        "sha256": "ad8c4615505f171db3b30a03aab29ce186cbc2092329702358c307627a4a8854",
+        "bytes": 1481,
+        "file": "scope-bytes/ad8c4615505f171db3b30a03aab29ce186cbc2092329702358c307627a4a8854.txt"
+      },
+      "declared_license": {
+        "workspace": true
+      },
+      "workspace_license": "MIT",
+      "workspace_declaration": {
+        "member": "cua-039783f9221a08c0daf9cda65a460fc4f346fa6e/libs/cua-driver/rust/Cargo.toml",
+        "sha256": "7a305b636323a8e26ffb56d6a2b43b8abac323eacf6b718df999b9a811b584ab",
+        "bytes": 1790,
+        "file": "scope-bytes/7a305b636323a8e26ffb56d6a2b43b8abac323eacf6b718df999b9a811b584ab.txt"
+      }
+    },
+    "membership": "All-platform source-lock superset; root notice does not prove binary membership."
+  },
+  {
+    "archive": "cua-039783f9221a08c0daf9cda65a460fc4f346fa6e.tar.gz",
+    "archive_sha256": "c63c7e04b22209469e529c89220bf77f10db9722800e9ff2ab4f71b8ba7057e6",
+    "identity_evidence": "source-evidence/volume-SHA256SUMS",
+    "notice": {
+      "member": "cua-039783f9221a08c0daf9cda65a460fc4f346fa6e/LICENSE.md",
+      "sha256": "c0779290c1d4783169aa3dbfb55feb505e563ef8a004bbf55298ceffcfbda8d9",
+      "bytes": 1069,
+      "file": "scope-bytes/c0779290c1d4783169aa3dbfb55feb505e563ef8a004bbf55298ceffcfbda8d9.txt"
+    },
+    "status": "exact_retained_source_root_notice_association",
+    "full_closure": false,
+    "baseline_row_index": 1265,
+    "name": "cua-driver-testkit",
+    "version": "0.30.1",
+    "package": {
+      "declaration": {
+        "member": "cua-039783f9221a08c0daf9cda65a460fc4f346fa6e/libs/cua-driver/rust/crates/cua-driver-testkit/Cargo.toml",
+        "sha256": "29eb074d0822f0c7dd289dab91e52088b4f02dc0b25205502e1855cd4ae48be3",
+        "bytes": 1341,
+        "file": "scope-bytes/29eb074d0822f0c7dd289dab91e52088b4f02dc0b25205502e1855cd4ae48be3.txt"
+      },
+      "declared_license": {
+        "workspace": true
+      },
+      "workspace_license": "MIT",
+      "workspace_declaration": {
+        "member": "cua-039783f9221a08c0daf9cda65a460fc4f346fa6e/libs/cua-driver/rust/Cargo.toml",
+        "sha256": "7a305b636323a8e26ffb56d6a2b43b8abac323eacf6b718df999b9a811b584ab",
+        "bytes": 1790,
+        "file": "scope-bytes/7a305b636323a8e26ffb56d6a2b43b8abac323eacf6b718df999b9a811b584ab.txt"
+      }
+    },
+    "membership": "All-platform source-lock superset; root notice does not prove binary membership."
+  },
+  {
+    "archive": "cua-039783f9221a08c0daf9cda65a460fc4f346fa6e.tar.gz",
+    "archive_sha256": "c63c7e04b22209469e529c89220bf77f10db9722800e9ff2ab4f71b8ba7057e6",
+    "identity_evidence": "source-evidence/volume-SHA256SUMS",
+    "notice": {
+      "member": "cua-039783f9221a08c0daf9cda65a460fc4f346fa6e/LICENSE.md",
+      "sha256": "c0779290c1d4783169aa3dbfb55feb505e563ef8a004bbf55298ceffcfbda8d9",
+      "bytes": 1069,
+      "file": "scope-bytes/c0779290c1d4783169aa3dbfb55feb505e563ef8a004bbf55298ceffcfbda8d9.txt"
+    },
+    "status": "exact_retained_source_root_notice_association",
+    "full_closure": false,
+    "baseline_row_index": 1266,
+    "name": "cua-driver-uia",
+    "version": "0.30.1",
+    "package": {
+      "declaration": {
+        "member": "cua-039783f9221a08c0daf9cda65a460fc4f346fa6e/libs/cua-driver/rust/crates/cua-driver-uia/Cargo.toml",
+        "sha256": "60942b8a126fb995816552219e0ca20615f8a12f29f9228f6fa049fc724bafd4",
+        "bytes": 1334,
+        "file": "scope-bytes/60942b8a126fb995816552219e0ca20615f8a12f29f9228f6fa049fc724bafd4.txt"
+      },
+      "declared_license": null,
+      "workspace_license": "MIT",
+      "workspace_declaration": {
+        "member": "cua-039783f9221a08c0daf9cda65a460fc4f346fa6e/libs/cua-driver/rust/Cargo.toml",
+        "sha256": "7a305b636323a8e26ffb56d6a2b43b8abac323eacf6b718df999b9a811b584ab",
+        "bytes": 1790,
+        "file": "scope-bytes/7a305b636323a8e26ffb56d6a2b43b8abac323eacf6b718df999b9a811b584ab.txt"
+      }
+    },
+    "membership": "All-platform source-lock superset; root notice does not prove binary membership."
+  },
+  {
+    "archive": "cua-039783f9221a08c0daf9cda65a460fc4f346fa6e.tar.gz",
+    "archive_sha256": "c63c7e04b22209469e529c89220bf77f10db9722800e9ff2ab4f71b8ba7057e6",
+    "identity_evidence": "source-evidence/volume-SHA256SUMS",
+    "notice": {
+      "member": "cua-039783f9221a08c0daf9cda65a460fc4f346fa6e/LICENSE.md",
+      "sha256": "c0779290c1d4783169aa3dbfb55feb505e563ef8a004bbf55298ceffcfbda8d9",
+      "bytes": 1069,
+      "file": "scope-bytes/c0779290c1d4783169aa3dbfb55feb505e563ef8a004bbf55298ceffcfbda8d9.txt"
+    },
+    "status": "exact_retained_source_root_notice_association",
+    "full_closure": false,
+    "baseline_row_index": 1267,
+    "name": "cua-perception",
+    "version": "0.2.1",
+    "package": {
+      "declaration": {
+        "member": "cua-039783f9221a08c0daf9cda65a460fc4f346fa6e/libs/cua-driver/rust/crates/cua-perception/Cargo.toml",
+        "sha256": "bc43d4f9a3435beb9a14d010d1d65b894a00003175aa237711ad64f12160dcf2",
+        "bytes": 560,
+        "file": "scope-bytes/bc43d4f9a3435beb9a14d010d1d65b894a00003175aa237711ad64f12160dcf2.txt"
+      },
+      "declared_license": {
+        "workspace": true
+      },
+      "workspace_license": "MIT",
+      "workspace_declaration": {
+        "member": "cua-039783f9221a08c0daf9cda65a460fc4f346fa6e/libs/cua-driver/rust/Cargo.toml",
+        "sha256": "7a305b636323a8e26ffb56d6a2b43b8abac323eacf6b718df999b9a811b584ab",
+        "bytes": 1790,
+        "file": "scope-bytes/7a305b636323a8e26ffb56d6a2b43b8abac323eacf6b718df999b9a811b584ab.txt"
+      }
+    },
+    "membership": "All-platform source-lock superset; root notice does not prove binary membership."
+  },
+  {
+    "archive": "cua-039783f9221a08c0daf9cda65a460fc4f346fa6e.tar.gz",
+    "archive_sha256": "c63c7e04b22209469e529c89220bf77f10db9722800e9ff2ab4f71b8ba7057e6",
+    "identity_evidence": "source-evidence/volume-SHA256SUMS",
+    "notice": {
+      "member": "cua-039783f9221a08c0daf9cda65a460fc4f346fa6e/LICENSE.md",
+      "sha256": "c0779290c1d4783169aa3dbfb55feb505e563ef8a004bbf55298ceffcfbda8d9",
+      "bytes": 1069,
+      "file": "scope-bytes/c0779290c1d4783169aa3dbfb55feb505e563ef8a004bbf55298ceffcfbda8d9.txt"
+    },
+    "status": "exact_retained_source_root_notice_association",
+    "full_closure": false,
+    "baseline_row_index": 1268,
+    "name": "cursor-overlay",
+    "version": "0.30.1",
+    "package": {
+      "declaration": {
+        "member": "cua-039783f9221a08c0daf9cda65a460fc4f346fa6e/libs/cua-driver/rust/crates/cursor-overlay/Cargo.toml",
+        "sha256": "1cee354adc91ada842719586fc3064289a97ff25ca05d62097e1a814bf9f1817",
+        "bytes": 632,
+        "file": "scope-bytes/1cee354adc91ada842719586fc3064289a97ff25ca05d62097e1a814bf9f1817.txt"
+      },
+      "declared_license": null,
+      "workspace_license": "MIT",
+      "workspace_declaration": {
+        "member": "cua-039783f9221a08c0daf9cda65a460fc4f346fa6e/libs/cua-driver/rust/Cargo.toml",
+        "sha256": "7a305b636323a8e26ffb56d6a2b43b8abac323eacf6b718df999b9a811b584ab",
+        "bytes": 1790,
+        "file": "scope-bytes/7a305b636323a8e26ffb56d6a2b43b8abac323eacf6b718df999b9a811b584ab.txt"
+      }
+    },
+    "membership": "All-platform source-lock superset; root notice does not prove binary membership."
+  },
+  {
+    "archive": "cua-039783f9221a08c0daf9cda65a460fc4f346fa6e.tar.gz",
+    "archive_sha256": "c63c7e04b22209469e529c89220bf77f10db9722800e9ff2ab4f71b8ba7057e6",
+    "identity_evidence": "source-evidence/volume-SHA256SUMS",
+    "notice": {
+      "member": "cua-039783f9221a08c0daf9cda65a460fc4f346fa6e/LICENSE.md",
+      "sha256": "c0779290c1d4783169aa3dbfb55feb505e563ef8a004bbf55298ceffcfbda8d9",
+      "bytes": 1069,
+      "file": "scope-bytes/c0779290c1d4783169aa3dbfb55feb505e563ef8a004bbf55298ceffcfbda8d9.txt"
+    },
+    "status": "exact_retained_source_root_notice_association",
+    "full_closure": false,
+    "baseline_row_index": 1269,
+    "name": "cursor-theme-cli",
+    "version": "0.30.1",
+    "package": {
+      "declaration": {
+        "member": "cua-039783f9221a08c0daf9cda65a460fc4f346fa6e/libs/cua-driver/rust/crates/cursor-theme-cli/Cargo.toml",
+        "sha256": "67da4b7a9a536262bb0faf78b0448889971babca384f59e12000a3fc75d30f45",
+        "bytes": 617,
+        "file": "scope-bytes/67da4b7a9a536262bb0faf78b0448889971babca384f59e12000a3fc75d30f45.txt"
+      },
+      "declared_license": {
+        "workspace": true
+      },
+      "workspace_license": "MIT",
+      "workspace_declaration": {
+        "member": "cua-039783f9221a08c0daf9cda65a460fc4f346fa6e/libs/cua-driver/rust/Cargo.toml",
+        "sha256": "7a305b636323a8e26ffb56d6a2b43b8abac323eacf6b718df999b9a811b584ab",
+        "bytes": 1790,
+        "file": "scope-bytes/7a305b636323a8e26ffb56d6a2b43b8abac323eacf6b718df999b9a811b584ab.txt"
+      }
+    },
+    "membership": "All-platform source-lock superset; root notice does not prove binary membership."
+  },
+  {
+    "archive": "cua-039783f9221a08c0daf9cda65a460fc4f346fa6e.tar.gz",
+    "archive_sha256": "c63c7e04b22209469e529c89220bf77f10db9722800e9ff2ab4f71b8ba7057e6",
+    "identity_evidence": "source-evidence/volume-SHA256SUMS",
+    "notice": {
+      "member": "cua-039783f9221a08c0daf9cda65a460fc4f346fa6e/LICENSE.md",
+      "sha256": "c0779290c1d4783169aa3dbfb55feb505e563ef8a004bbf55298ceffcfbda8d9",
+      "bytes": 1069,
+      "file": "scope-bytes/c0779290c1d4783169aa3dbfb55feb505e563ef8a004bbf55298ceffcfbda8d9.txt"
+    },
+    "status": "exact_retained_source_root_notice_association",
+    "full_closure": false,
+    "baseline_row_index": 1475,
+    "name": "pip-preview",
+    "version": "0.30.1",
+    "package": {
+      "declaration": {
+        "member": "cua-039783f9221a08c0daf9cda65a460fc4f346fa6e/libs/cua-driver/rust/crates/pip-preview/Cargo.toml",
+        "sha256": "e0ebefd5e65df5f0322fa23caa5b86d5d525583fa9b16b906ccd9e3476596a59",
+        "bytes": 131,
+        "file": "scope-bytes/e0ebefd5e65df5f0322fa23caa5b86d5d525583fa9b16b906ccd9e3476596a59.txt"
+      },
+      "declared_license": null,
+      "workspace_license": "MIT",
+      "workspace_declaration": {
+        "member": "cua-039783f9221a08c0daf9cda65a460fc4f346fa6e/libs/cua-driver/rust/Cargo.toml",
+        "sha256": "7a305b636323a8e26ffb56d6a2b43b8abac323eacf6b718df999b9a811b584ab",
+        "bytes": 1790,
+        "file": "scope-bytes/7a305b636323a8e26ffb56d6a2b43b8abac323eacf6b718df999b9a811b584ab.txt"
+      }
+    },
+    "membership": "All-platform source-lock superset; root notice does not prove binary membership."
+  },
+  {
+    "archive": "cua-039783f9221a08c0daf9cda65a460fc4f346fa6e.tar.gz",
+    "archive_sha256": "c63c7e04b22209469e529c89220bf77f10db9722800e9ff2ab4f71b8ba7057e6",
+    "identity_evidence": "source-evidence/volume-SHA256SUMS",
+    "notice": {
+      "member": "cua-039783f9221a08c0daf9cda65a460fc4f346fa6e/LICENSE.md",
+      "sha256": "c0779290c1d4783169aa3dbfb55feb505e563ef8a004bbf55298ceffcfbda8d9",
+      "bytes": 1069,
+      "file": "scope-bytes/c0779290c1d4783169aa3dbfb55feb505e563ef8a004bbf55298ceffcfbda8d9.txt"
+    },
+    "status": "exact_retained_source_root_notice_association",
+    "full_closure": false,
+    "baseline_row_index": 1481,
+    "name": "platform-linux",
+    "version": "0.30.1",
+    "package": {
+      "declaration": {
+        "member": "cua-039783f9221a08c0daf9cda65a460fc4f346fa6e/libs/cua-driver/rust/crates/platform-linux/Cargo.toml",
+        "sha256": "a2a8b43ceb78b57569829d682d0bc34cd3df36b436f073140ac4ef4f7b893864",
+        "bytes": 8442,
+        "file": "scope-bytes/a2a8b43ceb78b57569829d682d0bc34cd3df36b436f073140ac4ef4f7b893864.txt"
+      },
+      "declared_license": null,
+      "workspace_license": "MIT",
+      "workspace_declaration": {
+        "member": "cua-039783f9221a08c0daf9cda65a460fc4f346fa6e/libs/cua-driver/rust/Cargo.toml",
+        "sha256": "7a305b636323a8e26ffb56d6a2b43b8abac323eacf6b718df999b9a811b584ab",
+        "bytes": 1790,
+        "file": "scope-bytes/7a305b636323a8e26ffb56d6a2b43b8abac323eacf6b718df999b9a811b584ab.txt"
+      }
+    },
+    "membership": "All-platform source-lock superset; root notice does not prove binary membership."
+  },
+  {
+    "archive": "cua-039783f9221a08c0daf9cda65a460fc4f346fa6e.tar.gz",
+    "archive_sha256": "c63c7e04b22209469e529c89220bf77f10db9722800e9ff2ab4f71b8ba7057e6",
+    "identity_evidence": "source-evidence/volume-SHA256SUMS",
+    "notice": {
+      "member": "cua-039783f9221a08c0daf9cda65a460fc4f346fa6e/LICENSE.md",
+      "sha256": "c0779290c1d4783169aa3dbfb55feb505e563ef8a004bbf55298ceffcfbda8d9",
+      "bytes": 1069,
+      "file": "scope-bytes/c0779290c1d4783169aa3dbfb55feb505e563ef8a004bbf55298ceffcfbda8d9.txt"
+    },
+    "status": "exact_retained_source_root_notice_association",
+    "full_closure": false,
+    "baseline_row_index": 1482,
+    "name": "platform-macos",
+    "version": "0.30.1",
+    "package": {
+      "declaration": {
+        "member": "cua-039783f9221a08c0daf9cda65a460fc4f346fa6e/libs/cua-driver/rust/crates/platform-macos/Cargo.toml",
+        "sha256": "cfc869a336e7b33420c26e066477c1109c2831dd517527dc60989e350e13857f",
+        "bytes": 3086,
+        "file": "scope-bytes/cfc869a336e7b33420c26e066477c1109c2831dd517527dc60989e350e13857f.txt"
+      },
+      "declared_license": null,
+      "workspace_license": "MIT",
+      "workspace_declaration": {
+        "member": "cua-039783f9221a08c0daf9cda65a460fc4f346fa6e/libs/cua-driver/rust/Cargo.toml",
+        "sha256": "7a305b636323a8e26ffb56d6a2b43b8abac323eacf6b718df999b9a811b584ab",
+        "bytes": 1790,
+        "file": "scope-bytes/7a305b636323a8e26ffb56d6a2b43b8abac323eacf6b718df999b9a811b584ab.txt"
+      }
+    },
+    "membership": "All-platform source-lock superset; root notice does not prove binary membership."
+  },
+  {
+    "archive": "cua-039783f9221a08c0daf9cda65a460fc4f346fa6e.tar.gz",
+    "archive_sha256": "c63c7e04b22209469e529c89220bf77f10db9722800e9ff2ab4f71b8ba7057e6",
+    "identity_evidence": "source-evidence/volume-SHA256SUMS",
+    "notice": {
+      "member": "cua-039783f9221a08c0daf9cda65a460fc4f346fa6e/LICENSE.md",
+      "sha256": "c0779290c1d4783169aa3dbfb55feb505e563ef8a004bbf55298ceffcfbda8d9",
+      "bytes": 1069,
+      "file": "scope-bytes/c0779290c1d4783169aa3dbfb55feb505e563ef8a004bbf55298ceffcfbda8d9.txt"
+    },
+    "status": "exact_retained_source_root_notice_association",
+    "full_closure": false,
+    "baseline_row_index": 1483,
+    "name": "platform-windows",
+    "version": "0.30.1",
+    "package": {
+      "declaration": {
+        "member": "cua-039783f9221a08c0daf9cda65a460fc4f346fa6e/libs/cua-driver/rust/crates/platform-windows/Cargo.toml",
+        "sha256": "334875f90ef0ad0867728869c6ba99029c45db0c60c7beb131bd7b03f0198409",
+        "bytes": 3604,
+        "file": "scope-bytes/334875f90ef0ad0867728869c6ba99029c45db0c60c7beb131bd7b03f0198409.txt"
+      },
+      "declared_license": null,
+      "workspace_license": "MIT",
+      "workspace_declaration": {
+        "member": "cua-039783f9221a08c0daf9cda65a460fc4f346fa6e/libs/cua-driver/rust/Cargo.toml",
+        "sha256": "7a305b636323a8e26ffb56d6a2b43b8abac323eacf6b718df999b9a811b584ab",
+        "bytes": 1790,
+        "file": "scope-bytes/7a305b636323a8e26ffb56d6a2b43b8abac323eacf6b718df999b9a811b584ab.txt"
+      }
+    },
+    "membership": "All-platform source-lock superset; root notice does not prove binary membership."
+  },
+  {
+    "archive": "hermes-agent-e624e9fde561e1add9388384012b295fde669ade.tar.gz",
+    "archive_sha256": "60abc6fc064449fd596286dae20b1c105ad6aeb0d97d3036d950bef65a59af55",
+    "identity_evidence": "source-evidence/volume-SHA256SUMS",
+    "notice": {
+      "member": "hermes-agent-e624e9fde561e1add9388384012b295fde669ade/LICENSE",
+      "sha256": "821556e6336796450ab852d375117b48a4887e71d255794fd6318d99982a5ab6",
+      "bytes": 1070,
+      "file": "scope-bytes/821556e6336796450ab852d375117b48a4887e71d255794fd6318d99982a5ab6.txt"
+    },
+    "status": "source_and_final_declaration_match_root_notice_association",
+    "full_closure": false,
+    "baseline_row_index": 1816,
+    "name": "@hermes-agent/photon-sidecar",
+    "version": "0.4.0",
+    "declaration": {
+      "member": "hermes-agent-e624e9fde561e1add9388384012b295fde669ade/plugins/platforms/photon/sidecar/package.json",
+      "sha256": "63cc82f3daab81549f20b1049cb5c08c858bc3687c71b9d9a02cac306e9db74d",
+      "bytes": 723,
+      "file": "scope-bytes/63cc82f3daab81549f20b1049cb5c08c858bc3687c71b9d9a02cac306e9db74d.txt"
+    },
+    "final_path": "/opt/hermes/plugins/platforms/photon/sidecar/package.json",
+    "final_file_evidence": {
+      "path": "/opt/hermes/plugins/platforms/photon/sidecar/package.json",
+      "type": "f",
+      "mode": "644",
+      "size": "723",
+      "sha256": "63cc82f3daab81549f20b1049cb5c08c858bc3687c71b9d9a02cac306e9db74d",
+      "link_target": "",
+      "owner_class": "hermes"
+    },
+    "source_package_json_matches_final": true,
+    "scope": "Own workspace source only; nested dependencies/fonts/native payloads retain separate obligations."
+  },
+  {
+    "archive": "hermes-agent-e624e9fde561e1add9388384012b295fde669ade.tar.gz",
+    "archive_sha256": "60abc6fc064449fd596286dae20b1c105ad6aeb0d97d3036d950bef65a59af55",
+    "identity_evidence": "source-evidence/volume-SHA256SUMS",
+    "notice": {
+      "member": "hermes-agent-e624e9fde561e1add9388384012b295fde669ade/LICENSE",
+      "sha256": "821556e6336796450ab852d375117b48a4887e71d255794fd6318d99982a5ab6",
+      "bytes": 1070,
+      "file": "scope-bytes/821556e6336796450ab852d375117b48a4887e71d255794fd6318d99982a5ab6.txt"
+    },
+    "status": "source_and_final_declaration_match_root_notice_association",
+    "full_closure": false,
+    "baseline_row_index": 1817,
+    "name": "@hermes/ink",
+    "version": "0.0.1",
+    "declaration": {
+      "member": "hermes-agent-e624e9fde561e1add9388384012b295fde669ade/ui-tui/packages/hermes-ink/package.json",
+      "sha256": "109258a3f307cf7e687d7e8874edbdd6b51a69022fae0c7c33f82fee7ffd0fd8",
+      "bytes": 1492,
+      "file": "scope-bytes/109258a3f307cf7e687d7e8874edbdd6b51a69022fae0c7c33f82fee7ffd0fd8.txt"
+    },
+    "final_path": "/opt/hermes/ui-tui/packages/hermes-ink/package.json",
+    "final_file_evidence": {
+      "path": "/opt/hermes/ui-tui/packages/hermes-ink/package.json",
+      "type": "f",
+      "mode": "644",
+      "size": "1492",
+      "sha256": "109258a3f307cf7e687d7e8874edbdd6b51a69022fae0c7c33f82fee7ffd0fd8",
+      "link_target": "",
+      "owner_class": "hermes"
+    },
+    "source_package_json_matches_final": true,
+    "scope": "Own workspace source only; nested dependencies/fonts/native payloads retain separate obligations."
+  },
+  {
+    "archive": "hermes-agent-e624e9fde561e1add9388384012b295fde669ade.tar.gz",
+    "archive_sha256": "60abc6fc064449fd596286dae20b1c105ad6aeb0d97d3036d950bef65a59af55",
+    "identity_evidence": "source-evidence/volume-SHA256SUMS",
+    "notice": {
+      "member": "hermes-agent-e624e9fde561e1add9388384012b295fde669ade/LICENSE",
+      "sha256": "821556e6336796450ab852d375117b48a4887e71d255794fd6318d99982a5ab6",
+      "bytes": 1070,
+      "file": "scope-bytes/821556e6336796450ab852d375117b48a4887e71d255794fd6318d99982a5ab6.txt"
+    },
+    "status": "source_and_final_declaration_match_root_notice_association",
+    "full_closure": false,
+    "baseline_row_index": 1818,
+    "name": "@hermes/root-tests",
+    "version": "UNKNOWN",
+    "declaration": {
+      "member": "hermes-agent-e624e9fde561e1add9388384012b295fde669ade/tests-js/package.json",
+      "sha256": "08657cd581bcaacec53c834c703cd6254579db0223c45d2d9a21b629060acec5",
+      "bytes": 453,
+      "file": "scope-bytes/08657cd581bcaacec53c834c703cd6254579db0223c45d2d9a21b629060acec5.txt"
+    },
+    "final_path": "/opt/hermes/tests-js/package.json",
+    "final_file_evidence": {
+      "path": "/opt/hermes/tests-js/package.json",
+      "type": "f",
+      "mode": "644",
+      "size": "453",
+      "sha256": "08657cd581bcaacec53c834c703cd6254579db0223c45d2d9a21b629060acec5",
+      "link_target": "",
+      "owner_class": "hermes"
+    },
+    "source_package_json_matches_final": true,
+    "scope": "Own workspace source only; nested dependencies/fonts/native payloads retain separate obligations."
+  },
+  {
+    "archive": "hermes-agent-e624e9fde561e1add9388384012b295fde669ade.tar.gz",
+    "archive_sha256": "60abc6fc064449fd596286dae20b1c105ad6aeb0d97d3036d950bef65a59af55",
+    "identity_evidence": "source-evidence/volume-SHA256SUMS",
+    "notice": {
+      "member": "hermes-agent-e624e9fde561e1add9388384012b295fde669ade/LICENSE",
+      "sha256": "821556e6336796450ab852d375117b48a4887e71d255794fd6318d99982a5ab6",
+      "bytes": 1070,
+      "file": "scope-bytes/821556e6336796450ab852d375117b48a4887e71d255794fd6318d99982a5ab6.txt"
+    },
+    "status": "source_and_final_declaration_match_root_notice_association",
+    "full_closure": false,
+    "baseline_row_index": 1819,
+    "name": "@hermes/shared",
+    "version": "0.0.0",
+    "declaration": {
+      "member": "hermes-agent-e624e9fde561e1add9388384012b295fde669ade/apps/shared/package.json",
+      "sha256": "61ee3dfa7d2097d9310732a3ab3554b25829c1802ed5120cdeb3d0574055be95",
+      "bytes": 605,
+      "file": "scope-bytes/61ee3dfa7d2097d9310732a3ab3554b25829c1802ed5120cdeb3d0574055be95.txt"
+    },
+    "final_path": "/opt/hermes/apps/shared/package.json",
+    "final_file_evidence": {
+      "path": "/opt/hermes/apps/shared/package.json",
+      "type": "f",
+      "mode": "644",
+      "size": "605",
+      "sha256": "61ee3dfa7d2097d9310732a3ab3554b25829c1802ed5120cdeb3d0574055be95",
+      "link_target": "",
+      "owner_class": "hermes"
+    },
+    "source_package_json_matches_final": true,
+    "scope": "Own workspace source only; nested dependencies/fonts/native payloads retain separate obligations."
+  },
+  {
+    "archive": "hermes-agent-e624e9fde561e1add9388384012b295fde669ade.tar.gz",
+    "archive_sha256": "60abc6fc064449fd596286dae20b1c105ad6aeb0d97d3036d950bef65a59af55",
+    "identity_evidence": "source-evidence/volume-SHA256SUMS",
+    "notice": {
+      "member": "hermes-agent-e624e9fde561e1add9388384012b295fde669ade/LICENSE",
+      "sha256": "821556e6336796450ab852d375117b48a4887e71d255794fd6318d99982a5ab6",
+      "bytes": 1070,
+      "file": "scope-bytes/821556e6336796450ab852d375117b48a4887e71d255794fd6318d99982a5ab6.txt"
+    },
+    "status": "source_and_final_declaration_match_root_notice_association",
+    "full_closure": false,
+    "baseline_row_index": 2768,
+    "name": "hermes-agent",
+    "version": "1.0.0",
+    "declaration": {
+      "member": "hermes-agent-e624e9fde561e1add9388384012b295fde669ade/package.json",
+      "sha256": "94c33965e5ddd0cdb86a32ae330f467776741451217db370010a0dba33bb79d1",
+      "bytes": 2297,
+      "file": "scope-bytes/94c33965e5ddd0cdb86a32ae330f467776741451217db370010a0dba33bb79d1.txt"
+    },
+    "final_path": "/opt/hermes/package.json",
+    "final_file_evidence": {
+      "path": "/opt/hermes/package.json",
+      "type": "f",
+      "mode": "644",
+      "size": "2297",
+      "sha256": "94c33965e5ddd0cdb86a32ae330f467776741451217db370010a0dba33bb79d1",
+      "link_target": "",
+      "owner_class": "hermes"
+    },
+    "source_package_json_matches_final": true,
+    "scope": "Own workspace source only; nested dependencies/fonts/native payloads retain separate obligations."
+  },
+  {
+    "archive": "hermes-agent-e624e9fde561e1add9388384012b295fde669ade.tar.gz",
+    "archive_sha256": "60abc6fc064449fd596286dae20b1c105ad6aeb0d97d3036d950bef65a59af55",
+    "identity_evidence": "source-evidence/volume-SHA256SUMS",
+    "notice": {
+      "member": "hermes-agent-e624e9fde561e1add9388384012b295fde669ade/LICENSE",
+      "sha256": "821556e6336796450ab852d375117b48a4887e71d255794fd6318d99982a5ab6",
+      "bytes": 1070,
+      "file": "scope-bytes/821556e6336796450ab852d375117b48a4887e71d255794fd6318d99982a5ab6.txt"
+    },
+    "status": "source_and_final_declaration_match_root_notice_association",
+    "full_closure": false,
+    "baseline_row_index": 2771,
+    "name": "hermes-tui",
+    "version": "0.0.1",
+    "declaration": {
+      "member": "hermes-agent-e624e9fde561e1add9388384012b295fde669ade/ui-tui/package.json",
+      "sha256": "f46f2ebf0f5d85dd6994cea3c5b612fd68dac526ae09bcca37fda1b060d94d6b",
+      "bytes": 1337,
+      "file": "scope-bytes/f46f2ebf0f5d85dd6994cea3c5b612fd68dac526ae09bcca37fda1b060d94d6b.txt"
+    },
+    "final_path": "/opt/hermes/ui-tui/package.json",
+    "final_file_evidence": {
+      "path": "/opt/hermes/ui-tui/package.json",
+      "type": "f",
+      "mode": "644",
+      "size": "1337",
+      "sha256": "f46f2ebf0f5d85dd6994cea3c5b612fd68dac526ae09bcca37fda1b060d94d6b",
+      "link_target": "",
+      "owner_class": "hermes"
+    },
+    "source_package_json_matches_final": true,
+    "scope": "Own workspace source only; nested dependencies/fonts/native payloads retain separate obligations."
+  },
+  {
+    "archive": "hermes-agent-e624e9fde561e1add9388384012b295fde669ade.tar.gz",
+    "archive_sha256": "60abc6fc064449fd596286dae20b1c105ad6aeb0d97d3036d950bef65a59af55",
+    "identity_evidence": "source-evidence/volume-SHA256SUMS",
+    "notice": {
+      "member": "hermes-agent-e624e9fde561e1add9388384012b295fde669ade/LICENSE",
+      "sha256": "821556e6336796450ab852d375117b48a4887e71d255794fd6318d99982a5ab6",
+      "bytes": 1070,
+      "file": "scope-bytes/821556e6336796450ab852d375117b48a4887e71d255794fd6318d99982a5ab6.txt"
+    },
+    "status": "source_and_final_declaration_match_root_notice_association",
+    "full_closure": false,
+    "baseline_row_index": 2772,
+    "name": "hermes-whatsapp-bridge",
+    "version": "1.0.0",
+    "declaration": {
+      "member": "hermes-agent-e624e9fde561e1add9388384012b295fde669ade/scripts/whatsapp-bridge/package.json",
+      "sha256": "fabad4f584362fa41e963f5bc4444bad69446d2130947e75a0f14597cbb8f0ad",
+      "bytes": 446,
+      "file": "scope-bytes/fabad4f584362fa41e963f5bc4444bad69446d2130947e75a0f14597cbb8f0ad.txt"
+    },
+    "final_path": "/opt/hermes/scripts/whatsapp-bridge/package.json",
+    "final_file_evidence": {
+      "path": "/opt/hermes/scripts/whatsapp-bridge/package.json",
+      "type": "f",
+      "mode": "644",
+      "size": "446",
+      "sha256": "fabad4f584362fa41e963f5bc4444bad69446d2130947e75a0f14597cbb8f0ad",
+      "link_target": "",
+      "owner_class": "hermes"
+    },
+    "source_package_json_matches_final": true,
+    "scope": "Own workspace source only; nested dependencies/fonts/native payloads retain separate obligations."
+  },
+  {
+    "archive": "hermes-agent-e624e9fde561e1add9388384012b295fde669ade.tar.gz",
+    "archive_sha256": "60abc6fc064449fd596286dae20b1c105ad6aeb0d97d3036d950bef65a59af55",
+    "identity_evidence": "source-evidence/volume-SHA256SUMS",
+    "notice": {
+      "member": "hermes-agent-e624e9fde561e1add9388384012b295fde669ade/LICENSE",
+      "sha256": "821556e6336796450ab852d375117b48a4887e71d255794fd6318d99982a5ab6",
+      "bytes": 1070,
+      "file": "scope-bytes/821556e6336796450ab852d375117b48a4887e71d255794fd6318d99982a5ab6.txt"
+    },
+    "status": "source_and_final_declaration_match_root_notice_association",
+    "full_closure": false,
+    "baseline_row_index": 4033,
+    "name": "web",
+    "version": "0.0.0",
+    "declaration": {
+      "member": "hermes-agent-e624e9fde561e1add9388384012b295fde669ade/web/package.json",
+      "sha256": "e43304b4782420a91ed11461940156b19f56570798d3b72ceb54469c6d294d50",
+      "bytes": 1480,
+      "file": "scope-bytes/e43304b4782420a91ed11461940156b19f56570798d3b72ceb54469c6d294d50.txt"
+    },
+    "final_path": "/opt/hermes/web/package.json",
+    "final_file_evidence": {
+      "path": "/opt/hermes/web/package.json",
+      "type": "f",
+      "mode": "644",
+      "size": "1480",
+      "sha256": "e43304b4782420a91ed11461940156b19f56570798d3b72ceb54469c6d294d50",
+      "link_target": "",
+      "owner_class": "hermes"
+    },
+    "source_package_json_matches_final": true,
+    "scope": "Own workspace source only; nested dependencies/fonts/native payloads retain separate obligations."
+  }
+]

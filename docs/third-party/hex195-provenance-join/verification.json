@@ -1,0 +1,18 @@
+{
+  "result": "PASS",
+  "manifest_verified": {
+    "opi-evidence/MANIFEST.sha256": 44,
+    "prior-reconciliation/SHA256SUMS": 80,
+    "prior-disposition/SHA256SUMS": 12,
+    "volume_available": 37
+  },
+  "preserved_baseline_rows": 4164,
+  "npm_rows": 30,
+  "npm_dpkg_rows": 29,
+  "npm_fixture_rows": 1,
+  "source_status_changes": 0,
+  "volume_missing": [
+    "bin/docker"
+  ],
+  "verification_scope": "attachment bytes and recorded evidence consistency; no runtime rerun"
+}

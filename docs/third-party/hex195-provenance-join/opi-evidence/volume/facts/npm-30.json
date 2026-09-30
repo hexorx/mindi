@@ -1,0 +1,1427 @@
+{
+ "owner_dpkg_verify": {
+  "node-acorn": {
+   "cmd": [
+    "dpkg",
+    "--verify",
+    "node-acorn"
+   ],
+   "rc": 0,
+   "stderr": "",
+   "stdout": ""
+  },
+  "node-balanced-match": {
+   "cmd": [
+    "dpkg",
+    "--verify",
+    "node-balanced-match"
+   ],
+   "rc": 0,
+   "stderr": "",
+   "stdout": ""
+  },
+  "node-brace-expansion": {
+   "cmd": [
+    "dpkg",
+    "--verify",
+    "node-brace-expansion"
+   ],
+   "rc": 0,
+   "stderr": "",
+   "stdout": ""
+  },
+  "node-cjs-module-lexer": {
+   "cmd": [
+    "dpkg",
+    "--verify",
+    "node-cjs-module-lexer"
+   ],
+   "rc": 0,
+   "stderr": "",
+   "stdout": ""
+  },
+  "node-corepack": {
+   "cmd": [
+    "dpkg",
+    "--verify",
+    "node-corepack"
+   ],
+   "rc": 0,
+   "stderr": "",
+   "stdout": ""
+  },
+  "node-minimatch": {
+   "cmd": [
+    "dpkg",
+    "--verify",
+    "node-minimatch"
+   ],
+   "rc": 0,
+   "stderr": "",
+   "stdout": ""
+  },
+  "node-undici": {
+   "cmd": [
+    "dpkg",
+    "--verify",
+    "node-undici"
+   ],
+   "rc": 0,
+   "stderr": "",
+   "stdout": ""
+  },
+  "node-xtend": {
+   "cmd": [
+    "dpkg",
+    "--verify",
+    "node-xtend"
+   ],
+   "rc": 0,
+   "stderr": "",
+   "stdout": ""
+  },
+  "nodejs": {
+   "cmd": [
+    "dpkg",
+    "--verify",
+    "nodejs"
+   ],
+   "rc": 0,
+   "stderr": "",
+   "stdout": ""
+  },
+  "novnc": {
+   "cmd": [
+    "dpkg",
+    "--verify",
+    "novnc"
+   ],
+   "rc": 0,
+   "stderr": "",
+   "stdout": ""
+  }
+ },
+ "owner_packages": {
+  "cmd": [
+   "dpkg-query",
+   "-W",
+   "-f",
+   "${Package}\t${Version}\t${Architecture}\t${source:Package}\t${source:Version}\t${db:Status-Abbrev}\n",
+   "node-acorn",
+   "node-balanced-match",
+   "node-brace-expansion",
+   "node-cjs-module-lexer",
+   "node-corepack",
+   "node-minimatch",
+   "node-undici",
+   "node-xtend",
+   "nodejs",
+   "novnc"
+  ],
+  "rc": 0,
+  "stderr": "",
+  "stdout": "node-acorn\t8.8.1+ds+~cs25.17.7-2\tall\tacorn\t8.8.1+ds+~cs25.17.7-2\tii \nnode-balanced-match\t2.0.0-1\tall\tnode-balanced-match\t2.0.0-1\tii \nnode-brace-expansion\t2.0.1+~1.1.0-2\tall\tnode-brace-expansion\t2.0.1+~1.1.0-2\tii \nnode-cjs-module-lexer\t1.2.3+dfsg-1\tall\tnode-cjs-module-lexer\t1.2.3+dfsg-1\tii \nnode-corepack\t0.24.0-5\tall\tnode-corepack\t0.24.0-5\tii \nnode-minimatch\t9.0.3-6\tall\tnode-minimatch\t9.0.3-6\tii \nnode-undici\t7.3.0+dfsg1+~cs24.12.11-1\tall\tnode-undici\t7.3.0+dfsg1+~cs24.12.11-1\tii \nnode-xtend\t4.0.2-3\tall\tnode-xtend\t4.0.2-3\tii \nnodejs\t20.19.2+dfsg-1+deb13u3\tamd64\tnodejs\t20.19.2+dfsg-1+deb13u3\tii \nnovnc\t1:1.6.0-2\tall\tnovnc\t1:1.6.0-2\tii \n"
+ },
+ "package_json_scanned": 928,
+ "rows": [
+  {
+   "baseline_row_index": 1808,
+   "exact_instances": [
+    {
+     "dir_file_count": 16,
+     "dir_is_symlink": false,
+     "dir_manifest_sha256": "fa8e871b11112053ec587949090c77e19544db9265274eb6b943d8209c32799a",
+     "dpkg": {
+      "md5_actual": "8a21a5dc09acef083295bd77a1c982f2",
+      "md5_match": true,
+      "md5sums_expected": "8a21a5dc09acef083295bd77a1c982f2",
+      "md5sums_pkg": "node-undici",
+      "owner_path": [
+       "node-undici"
+      ],
+      "owner_realpath": null
+     },
+     "in_node_modules": false,
+     "license": "MIT",
+     "lock": null,
+     "name": "@fastify/busboy",
+     "package_json": "/usr/share/nodejs/@fastify/busboy/package.json",
+     "package_json_sha256": "119cfc8a39be9b386576e75bd922ede6ee7e1a6a8e95c449732ec7861c818c13",
+     "realpath": "/usr/share/nodejs/@fastify/busboy/package.json",
+     "version": "3.1.1"
+    }
+   ],
+   "name": "@fastify/busboy",
+   "other_version_instances": [],
+   "status": "present_exact",
+   "version": "3.1.1"
+  },
+  {
+   "baseline_row_index": 1835,
+   "exact_instances": [
+    {
+     "dir_file_count": 132,
+     "dir_is_symlink": false,
+     "dir_manifest_sha256": "85c58489ad582dac01e489bb82c180732c90afe751dbe5a4e030c6184dc34366",
+     "dpkg": {
+      "md5_actual": "705bbcab9f051c85634d134e0097c576",
+      "md5_match": true,
+      "md5sums_expected": "705bbcab9f051c85634d134e0097c576",
+      "md5sums_pkg": "novnc",
+      "owner_path": [
+       "novnc"
+      ],
+      "owner_realpath": null
+     },
+     "in_node_modules": false,
+     "license": "MPL-2.0",
+     "lock": null,
+     "name": "@novnc/novnc",
+     "package_json": "/usr/share/novnc/package.json",
+     "package_json_sha256": "cd979f4c1dc4d7c0dd2794b93ca1c89b3c20c01fd4dee5d489330b291e441897",
+     "realpath": "/usr/share/novnc/package.json",
+     "version": "1.6.0"
+    }
+   ],
+   "name": "@novnc/novnc",
+   "other_version_instances": [],
+   "status": "present_exact",
+   "version": "1.6.0"
+  },
+  {
+   "baseline_row_index": 1968,
+   "exact_instances": [
+    {
+     "dir_file_count": 2,
+     "dir_is_symlink": false,
+     "dir_manifest_sha256": "c3a100de0b47f1f79379dfc67700fe8e119dc20cf7be898640d859fb68fa3b39",
+     "dpkg": {
+      "md5_actual": "7d8bbb51bdd0a9192dcc40add36d3d91",
+      "md5_match": true,
+      "md5sums_expected": "7d8bbb51bdd0a9192dcc40add36d3d91",
+      "md5sums_pkg": "node-brace-expansion",
+      "owner_path": [
+       "node-brace-expansion"
+      ],
+      "owner_realpath": null
+     },
+     "in_node_modules": false,
+     "license": "MIT",
+     "lock": null,
+     "name": "@types/brace-expansion",
+     "package_json": "/usr/share/nodejs/@types/brace-expansion/package.json",
+     "package_json_sha256": "b5a8bd07172ad2bb9d116311149f95e1eb671c78eecf01711349f74b7c1836b1",
+     "realpath": "/usr/share/nodejs/@types/brace-expansion/package.json",
+     "version": "1.1.0"
+    }
+   ],
+   "name": "@types/brace-expansion",
+   "other_version_instances": [],
+   "status": "present_exact",
+   "version": "1.1.0"
+  },
+  {
+   "baseline_row_index": 1974,
+   "exact_instances": [
+    {
+     "dir_file_count": 64,
+     "dir_is_symlink": false,
+     "dir_manifest_sha256": "f7e2c9b76ec77e628044bd7ed6a619d29673e80c791bc7b8529bad399b6f0ea9",
+     "dpkg": {
+      "md5_actual": "a3e25efb3daf26020558348570d5f14e",
+      "md5_match": true,
+      "md5sums_expected": "a3e25efb3daf26020558348570d5f14e",
+      "md5sums_pkg": "nodejs",
+      "owner_path": [
+       "nodejs"
+      ],
+      "owner_realpath": null
+     },
+     "in_node_modules": false,
+     "license": "MIT",
+     "lock": null,
+     "name": "@types/node",
+     "package_json": "/usr/share/nodejs/@types/node/package.json",
+     "package_json_sha256": "6cdaa8b92e0b5829bfb60cc701b7b8de4ff7ee3803011ffd4b5e2684e9fa8253",
+     "realpath": "/usr/share/nodejs/@types/node/package.json",
+     "version": "20.17.47"
+    }
+   ],
+   "name": "@types/node",
+   "other_version_instances": [
+    {
+     "dir_file_count": 74,
+     "dir_is_symlink": false,
+     "dir_manifest_sha256": "082d5580cfaed50bc74e9a936fc13e4829a32ae114f397cb08dd188c6d5eb437",
+     "dpkg": {
+      "owner_path": null,
+      "owner_realpath": null
+     },
+     "in_node_modules": true,
+     "license": "MIT",
+     "lock": {
+      "dev": null,
+      "integrity": "sha512-EANqOCF9QFyra+4pfxUcX9STKJpCLjMbObVzljIJomAWSnuSIEAvyzEU53GaajbXJEgdh0iEcPL+DGvpUd4k1Q==",
+      "key": "node_modules/@types/node",
+      "link": null,
+      "lockfile": "/opt/hermes/package-lock.json",
+      "resolved": "https://registry.npmjs.org/@types/node/-/node-22.20.1.tgz",
+      "version": "22.20.1"
+     },
+     "name": "@types/node",
+     "package_json": "/opt/hermes/node_modules/@types/node/package.json",
+     "package_json_sha256": "1e6d3bbbc5082745123d236b38dce0eacdab987d4ac9e57e299e55f780c170de",
+     "realpath": "/opt/hermes/node_modules/@types/node/package.json",
+     "version": "22.20.1"
+    }
+   ],
+   "status": "present_exact",
+   "version": "20.17.47"
+  },
+  {
+   "baseline_row_index": 2009,
+   "exact_instances": [
+    {
+     "dir_file_count": 7,
+     "dir_is_symlink": false,
+     "dir_manifest_sha256": "257c80f53e5e5d17264165dd6d389a6854d981f2f2d51a3f8242949596485901",
+     "dpkg": {
+      "md5_actual": "0dcb8d3b5577c145846c71cbf8fcaf68",
+      "md5_match": true,
+      "md5sums_expected": "0dcb8d3b5577c145846c71cbf8fcaf68",
+      "md5sums_pkg": "node-acorn",
+      "owner_path": [
+       "node-acorn"
+      ],
+      "owner_realpath": null
+     },
+     "in_node_modules": false,
+     "license": "MIT",
+     "lock": null,
+     "name": "acorn",
+     "package_json": "/usr/share/nodejs/acorn/package.json",
+     "package_json_sha256": "72df4bb387281c6b4da06f1cfd5336193f080c065a7fc7fdea48419414223d10",
+     "realpath": "/usr/share/nodejs/acorn/package.json",
+     "version": "8.8.1"
+    }
+   ],
+   "name": "acorn",
+   "other_version_instances": [
+    {
+     "dir_file_count": 10,
+     "dir_is_symlink": false,
+     "dir_manifest_sha256": "18fb2437137ed9c3ad49aa38eaa917126f070e644f62af1864dde3bbf150628b",
+     "dpkg": {
+      "owner_path": null,
+      "owner_realpath": null
+     },
+     "in_node_modules": true,
+     "license": "MIT",
+     "lock": {
+      "dev": true,
+      "integrity": "sha512-xRQbDb9BnwDafYNn6Vwl839DYVjqXYb1XVGtWAZ1kcDc6iwAL4hg3B1dZlRiuENFeO2H53gFG3in621AdERVAg==",
+      "key": "node_modules/acorn",
+      "link": null,
+      "lockfile": "/opt/hermes/package-lock.json",
+      "resolved": "https://registry.npmjs.org/acorn/-/acorn-8.17.0.tgz",
+      "version": "8.17.0"
+     },
+     "name": "acorn",
+     "package_json": "/opt/hermes/node_modules/acorn/package.json",
+     "package_json_sha256": "fa3612cc9493702b7520947eec276d7b4a73001dafd68c4a9dcb58791a4145c6",
+     "realpath": "/opt/hermes/node_modules/acorn/package.json",
+     "version": "8.17.0"
+    }
+   ],
+   "status": "present_exact",
+   "version": "8.8.1"
+  },
+  {
+   "baseline_row_index": 2010,
+   "exact_instances": [
+    {
+     "dir_file_count": 3,
+     "dir_is_symlink": false,
+     "dir_manifest_sha256": "10ef3398c9fd096bbb8b8cef85eef58e7f27d88d3dd1726fb5785d4988848c6a",
+     "dpkg": {
+      "md5_actual": "2ef0c5d5d2f583d72132626f72d49820",
+      "md5_match": true,
+      "md5sums_expected": "2ef0c5d5d2f583d72132626f72d49820",
+      "md5sums_pkg": "node-acorn",
+      "owner_path": [
+       "node-acorn"
+      ],
+      "owner_realpath": null
+     },
+     "in_node_modules": false,
+     "license": "MIT",
+     "lock": null,
+     "name": "acorn-bigint",
+     "package_json": "/usr/share/nodejs/acorn-bigint/package.json",
+     "package_json_sha256": "d6b46d1b3116563ae14716e9002d44a703481e293ec84d75f848a592f9bcb049",
+     "realpath": "/usr/share/nodejs/acorn-bigint/package.json",
+     "version": "1.0.0"
+    }
+   ],
+   "name": "acorn-bigint",
+   "other_version_instances": [],
+   "status": "present_exact",
+   "version": "1.0.0"
+  },
+  {
+   "baseline_row_index": 2011,
+   "exact_instances": [
+    {
+     "dir_file_count": 3,
+     "dir_is_symlink": false,
+     "dir_manifest_sha256": "88d8c9ad01a23b41a655ac06a2948b9443c68a137267a9538748c6d7b8c0a0d2",
+     "dpkg": {
+      "md5_actual": "adc9cc6b232b29077787f234a9302410",
+      "md5_match": true,
+      "md5sums_expected": "adc9cc6b232b29077787f234a9302410",
+      "md5sums_pkg": "node-acorn",
+      "owner_path": [
+       "node-acorn"
+      ],
+      "owner_realpath": null
+     },
+     "in_node_modules": false,
+     "license": "MIT",
+     "lock": null,
+     "name": "acorn-class-fields",
+     "package_json": "/usr/share/nodejs/acorn-class-fields/package.json",
+     "package_json_sha256": "e79669b40ad48002c4bbb9e8062a8733ca17ac87256deab66b7583b5f20bc5f0",
+     "realpath": "/usr/share/nodejs/acorn-class-fields/package.json",
+     "version": "1.0.0"
+    }
+   ],
+   "name": "acorn-class-fields",
+   "other_version_instances": [],
+   "status": "present_exact",
+   "version": "1.0.0"
+  },
+  {
+   "baseline_row_index": 2012,
+   "exact_instances": [
+    {
+     "dir_file_count": 5,
+     "dir_is_symlink": false,
+     "dir_manifest_sha256": "bf95d358c3f0a69475ad2ef7d67bb6fba10ad126f993d7d36ce2e8c0addd3b72",
+     "dpkg": {
+      "md5_actual": "a8c7d974a90ccae4806f327da77cc381",
+      "md5_match": true,
+      "md5sums_expected": "a8c7d974a90ccae4806f327da77cc381",
+      "md5sums_pkg": "node-acorn",
+      "owner_path": [
+       "node-acorn"
+      ],
+      "owner_realpath": null
+     },
+     "in_node_modules": false,
+     "license": "MIT",
+     "lock": null,
+     "name": "acorn-dynamic-import",
+     "package_json": "/usr/share/nodejs/acorn-dynamic-import/package.json",
+     "package_json_sha256": "52359009b86fa4f2f936b68a79aa498908d31ac50bddf39200d004e21e985f92",
+     "realpath": "/usr/share/nodejs/acorn-dynamic-import/package.json",
+     "version": "4.0.0"
+    }
+   ],
+   "name": "acorn-dynamic-import",
+   "other_version_instances": [],
+   "status": "present_exact",
+   "version": "4.0.0"
+  },
+  {
+   "baseline_row_index": 2013,
+   "exact_instances": [
+    {
+     "dir_file_count": 4,
+     "dir_is_symlink": false,
+     "dir_manifest_sha256": "7f4630add75b0e9eaca456fe0ab296ff8ab9a690a458548c335f4e84f856d77d",
+     "dpkg": {
+      "md5_actual": "ff0bd9d8434e802a6a4e03304770ec00",
+      "md5_match": true,
+      "md5sums_expected": "ff0bd9d8434e802a6a4e03304770ec00",
+      "md5sums_pkg": "node-acorn",
+      "owner_path": [
+       "node-acorn"
+      ],
+      "owner_realpath": null
+     },
+     "in_node_modules": false,
+     "license": "MIT",
+     "lock": null,
+     "name": "acorn-export-ns-from",
+     "package_json": "/usr/share/nodejs/acorn-export-ns-from/package.json",
+     "package_json_sha256": "79a208519fd335d691b5e0ba3a7a2311d1950e5626383658e0942b2fe8bf08fa",
+     "realpath": "/usr/share/nodejs/acorn-export-ns-from/package.json",
+     "version": "0.2.0"
+    }
+   ],
+   "name": "acorn-export-ns-from",
+   "other_version_instances": [],
+   "status": "present_exact",
+   "version": "0.2.0"
+  },
+  {
+   "baseline_row_index": 2014,
+   "exact_instances": [
+    {
+     "dir_file_count": 2,
+     "dir_is_symlink": false,
+     "dir_manifest_sha256": "2b9c5c62c510ff9e447de064870e69c582e3c58a1aff6cb8308c2dfbae4d297f",
+     "dpkg": {
+      "md5_actual": "2544c798d5bb6f4422f54fb506697f64",
+      "md5_match": true,
+      "md5sums_expected": "2544c798d5bb6f4422f54fb506697f64",
+      "md5sums_pkg": "node-acorn",
+      "owner_path": [
+       "node-acorn"
+      ],
+      "owner_realpath": null
+     },
+     "in_node_modules": false,
+     "license": "MIT",
+     "lock": null,
+     "name": "acorn-globals",
+     "package_json": "/usr/share/nodejs/acorn-globals/package.json",
+     "package_json_sha256": "ecaed45cf6fd434b98253773497916a8ee95add391dce97a0ad2a5c1c283c93c",
+     "realpath": "/usr/share/nodejs/acorn-globals/package.json",
+     "version": "6.0.0"
+    }
+   ],
+   "name": "acorn-globals",
+   "other_version_instances": [],
+   "status": "present_exact",
+   "version": "6.0.0"
+  },
+  {
+   "baseline_row_index": 2015,
+   "exact_instances": [
+    {
+     "dir_file_count": 4,
+     "dir_is_symlink": false,
+     "dir_manifest_sha256": "7f143193d077a22abc89a064bdd91f4c9e8c5d6e5f74610236d8cd7580e041f3",
+     "dpkg": {
+      "md5_actual": "49b40eb846c83516c3342d3a2cba073c",
+      "md5_match": true,
+      "md5sums_expected": "49b40eb846c83516c3342d3a2cba073c",
+      "md5sums_pkg": "node-acorn",
+      "owner_path": [
+       "node-acorn"
+      ],
+      "owner_realpath": null
+     },
+     "in_node_modules": false,
+     "license": "MIT",
+     "lock": null,
+     "name": "acorn-import-assertions",
+     "package_json": "/usr/share/nodejs/acorn-import-assertions/package.json",
+     "package_json_sha256": "e4a919464c07bfec33f4bfaecd9b50fe3c9786fcd3f10831debf8b5564a87173",
+     "realpath": "/usr/share/nodejs/acorn-import-assertions/package.json",
+     "version": "1.8.0"
+    }
+   ],
+   "name": "acorn-import-assertions",
+   "other_version_instances": [],
+   "status": "present_exact",
+   "version": "1.8.0"
+  },
+  {
+   "baseline_row_index": 2016,
+   "exact_instances": [
+    {
+     "dir_file_count": 3,
+     "dir_is_symlink": false,
+     "dir_manifest_sha256": "e6dcd2444305da381db4bec5ee9e67090b9870708840127c4fe8190785837b7d",
+     "dpkg": {
+      "md5_actual": "e0ed16eb47ad0415aea48f783bcc953a",
+      "md5_match": true,
+      "md5sums_expected": "e0ed16eb47ad0415aea48f783bcc953a",
+      "md5sums_pkg": "node-acorn",
+      "owner_path": [
+       "node-acorn"
+      ],
+      "owner_realpath": null
+     },
+     "in_node_modules": false,
+     "license": "MIT",
+     "lock": null,
+     "name": "acorn-import-meta",
+     "package_json": "/usr/share/nodejs/acorn-import-meta/package.json",
+     "package_json_sha256": "1ff29b32ca05a2b29ee5cf684204de485113d807fd3756fc68467a2ef4ac0d09",
+     "realpath": "/usr/share/nodejs/acorn-import-meta/package.json",
+     "version": "1.1.0"
+    }
+   ],
+   "name": "acorn-import-meta",
+   "other_version_instances": [],
+   "status": "present_exact",
+   "version": "1.1.0"
+  },
+  {
+   "baseline_row_index": 2017,
+   "exact_instances": [
+    {
+     "dir_file_count": 3,
+     "dir_is_symlink": false,
+     "dir_manifest_sha256": "5338c7391539ba963943aa77c84d9dc5d1ec90e66bdb84ce705f138bac03c7c5",
+     "dpkg": {
+      "md5_actual": "d23d422601d2bc755066733fe226da36",
+      "md5_match": true,
+      "md5sums_expected": "d23d422601d2bc755066733fe226da36",
+      "md5sums_pkg": "node-acorn",
+      "owner_path": [
+       "node-acorn"
+      ],
+      "owner_realpath": null
+     },
+     "in_node_modules": false,
+     "license": "MIT",
+     "lock": null,
+     "name": "acorn-jsx",
+     "package_json": "/usr/share/nodejs/acorn-jsx/package.json",
+     "package_json_sha256": "1368df9293b7ba491615e9831a35e055b23f26edaffe0b2bfbfdc2592563b537",
+     "realpath": "/usr/share/nodejs/acorn-jsx/package.json",
+     "version": "5.3.1"
+    }
+   ],
+   "name": "acorn-jsx",
+   "other_version_instances": [
+    {
+     "dir_file_count": 6,
+     "dir_is_symlink": false,
+     "dir_manifest_sha256": "8d537526989d5828ae5b33eba05d058e6a101d53340006ac87743be80ae520a8",
+     "dpkg": {
+      "owner_path": null,
+      "owner_realpath": null
+     },
+     "in_node_modules": true,
+     "license": "MIT",
+     "lock": {
+      "dev": true,
+      "integrity": "sha512-rq9s+JNhf0IChjtDXxllJ7g41oZk5SlXtp0LHwyA5cejwn7vKmKp4pPri6YEePv2PU65sAsegbXtIinmDFDXgQ==",
+      "key": "node_modules/acorn-jsx",
+      "link": null,
+      "lockfile": "/opt/hermes/package-lock.json",
+      "resolved": "https://registry.npmjs.org/acorn-jsx/-/acorn-jsx-5.3.2.tgz",
+      "version": "5.3.2"
+     },
+     "name": "acorn-jsx",
+     "package_json": "/opt/hermes/node_modules/acorn-jsx/package.json",
+     "package_json_sha256": "5e123a5ee3b16fd10fe4b44ef70ff7885f05117fb9ae75f72a0d821f919d423d",
+     "realpath": "/opt/hermes/node_modules/acorn-jsx/package.json",
+     "version": "5.3.2"
+    }
+   ],
+   "status": "present_exact",
+   "version": "5.3.1"
+  },
+  {
+   "baseline_row_index": 2019,
+   "exact_instances": [
+    {
+     "dir_file_count": 3,
+     "dir_is_symlink": false,
+     "dir_manifest_sha256": "ccccde98306f2425b642cedde2fbf9ae1f71f51ca52862bf196379c7a946badb",
+     "dpkg": {
+      "md5_actual": "a772b4e846490c65ac7ed2fc541a3727",
+      "md5_match": true,
+      "md5sums_expected": "a772b4e846490c65ac7ed2fc541a3727",
+      "md5sums_pkg": "node-acorn",
+      "owner_path": [
+       "node-acorn"
+      ],
+      "owner_realpath": null
+     },
+     "in_node_modules": false,
+     "license": "MIT",
+     "lock": null,
+     "name": "acorn-loose",
+     "package_json": "/usr/share/nodejs/acorn-loose/package.json",
+     "package_json_sha256": "4dcce2f52a579448a020ddb107a453e25479a053e9e5328f69363fb9309f221a",
+     "realpath": "/usr/share/nodejs/acorn-loose/package.json",
+     "version": "8.3.0"
+    }
+   ],
+   "name": "acorn-loose",
+   "other_version_instances": [],
+   "status": "present_exact",
+   "version": "8.3.0"
+  },
+  {
+   "baseline_row_index": 2020,
+   "exact_instances": [
+    {
+     "dir_file_count": 11,
+     "dir_is_symlink": false,
+     "dir_manifest_sha256": "64aec8245a4f83e7d75b5249e4b53f94ee8493363cafebf0572e999a33e79d9b",
+     "dpkg": {
+      "md5_actual": "1d0edffd1ac0d70e9d9f466977a080e7",
+      "md5_match": true,
+      "md5sums_expected": "1d0edffd1ac0d70e9d9f466977a080e7",
+      "md5sums_pkg": "node-acorn",
+      "owner_path": [
+       "node-acorn"
+      ],
+      "owner_realpath": null
+     },
+     "in_node_modules": false,
+     "license": "Apache-2.0",
+     "lock": null,
+     "name": "acorn-node",
+     "package_json": "/usr/share/nodejs/acorn-node/package.json",
+     "package_json_sha256": "cb05ad50a45b91e6b2e3318730bee4a372e470eabaf4c13adc3fd620ebfd85a9",
+     "realpath": "/usr/share/nodejs/acorn-node/package.json",
+     "version": "2.0.1"
+    }
+   ],
+   "name": "acorn-node",
+   "other_version_instances": [],
+   "status": "present_exact",
+   "version": "2.0.1"
+  },
+  {
+   "baseline_row_index": 2021,
+   "exact_instances": [
+    {
+     "dir_file_count": 7,
+     "dir_is_symlink": false,
+     "dir_manifest_sha256": "8af155719b712123c65914e1fed584816ce010f180adedbe81c5cb50e58f8d9b",
+     "dpkg": {
+      "md5_actual": "e3725bba084279746494113e50cd1d17",
+      "md5_match": true,
+      "md5sums_expected": "e3725bba084279746494113e50cd1d17",
+      "md5sums_pkg": "node-acorn",
+      "owner_path": [
+       "node-acorn"
+      ],
+      "owner_realpath": null
+     },
+     "in_node_modules": false,
+     "license": "MIT",
+     "lock": null,
+     "name": "acorn-numeric-separator",
+     "package_json": "/usr/share/nodejs/acorn-numeric-separator/package.json",
+     "package_json_sha256": "29fdbb141f6e15e2dfd2fd4418df5bf8bc6ff4b14df452dd3ec1a88c3cedaf7f",
+     "realpath": "/usr/share/nodejs/acorn-numeric-separator/package.json",
+     "version": "0.3.4"
+    }
+   ],
+   "name": "acorn-numeric-separator",
+   "other_version_instances": [],
+   "status": "present_exact",
+   "version": "0.3.4"
+  },
+  {
+   "baseline_row_index": 2022,
+   "exact_instances": [
+    {
+     "dir_file_count": 2,
+     "dir_is_symlink": false,
+     "dir_manifest_sha256": "b6a989eea9430d41450f598a7bed62b5fdafa6a0034132998cd0804affdd37b0",
+     "dpkg": {
+      "md5_actual": "60022c54546721bc82115843db5de395",
+      "md5_match": true,
+      "md5sums_expected": "60022c54546721bc82115843db5de395",
+      "md5sums_pkg": "node-acorn",
+      "owner_path": [
+       "node-acorn"
+      ],
+      "owner_realpath": null
+     },
+     "in_node_modules": false,
+     "license": "MIT",
+     "lock": null,
+     "name": "acorn-private-class-elements",
+     "package_json": "/usr/share/nodejs/acorn-private-class-elements/package.json",
+     "package_json_sha256": "353bbc5f6d3e3cd40cdbce26d9116b94c87efd263496cb4e7d5d8995e68a6f4b",
+     "realpath": "/usr/share/nodejs/acorn-private-class-elements/package.json",
+     "version": "1.0.0"
+    }
+   ],
+   "name": "acorn-private-class-elements",
+   "other_version_instances": [],
+   "status": "present_exact",
+   "version": "1.0.0"
+  },
+  {
+   "baseline_row_index": 2023,
+   "exact_instances": [
+    {
+     "dir_file_count": 7,
+     "dir_is_symlink": false,
+     "dir_manifest_sha256": "aaad5cbfdc9510baf61eafe963bd09fe2ab5d9b57cbc2aa4dafc31df49603aed",
+     "dpkg": {
+      "md5_actual": "cffe71b3bbb6adc3da50ddc709a50df3",
+      "md5_match": true,
+      "md5sums_expected": "cffe71b3bbb6adc3da50ddc709a50df3",
+      "md5sums_pkg": "node-acorn",
+      "owner_path": [
+       "node-acorn"
+      ],
+      "owner_realpath": null
+     },
+     "in_node_modules": false,
+     "license": "MIT",
+     "lock": null,
+     "name": "acorn-private-methods",
+     "package_json": "/usr/share/nodejs/acorn-private-methods/package.json",
+     "package_json_sha256": "06416f1584ead2c1b94d939c1107b474ce3bd45ff230cd0cd64a5541760aa072",
+     "realpath": "/usr/share/nodejs/acorn-private-methods/package.json",
+     "version": "1.0.0"
+    }
+   ],
+   "name": "acorn-private-methods",
+   "other_version_instances": [],
+   "status": "present_exact",
+   "version": "1.0.0"
+  },
+  {
+   "baseline_row_index": 2024,
+   "exact_instances": [
+    {
+     "dir_file_count": 3,
+     "dir_is_symlink": false,
+     "dir_manifest_sha256": "01a3f5e0ff46c9d17d7d162e747a49dd7d57731aee0f4ffa28964d59345b6961",
+     "dpkg": {
+      "md5_actual": "8ec69bb810b6b9144991abe8c1f9f42a",
+      "md5_match": true,
+      "md5sums_expected": "8ec69bb810b6b9144991abe8c1f9f42a",
+      "md5sums_pkg": "node-acorn",
+      "owner_path": [
+       "node-acorn"
+      ],
+      "owner_realpath": null
+     },
+     "in_node_modules": false,
+     "license": "MIT",
+     "lock": null,
+     "name": "acorn-static-class-features",
+     "package_json": "/usr/share/nodejs/acorn-static-class-features/package.json",
+     "package_json_sha256": "6774c82da5098b4044df21fee662a0322abdd0ca9054fc5a54ac0804af301b09",
+     "realpath": "/usr/share/nodejs/acorn-static-class-features/package.json",
+     "version": "1.0.0"
+    }
+   ],
+   "name": "acorn-static-class-features",
+   "other_version_instances": [],
+   "status": "present_exact",
+   "version": "1.0.0"
+  },
+  {
+   "baseline_row_index": 2025,
+   "exact_instances": [
+    {
+     "dir_file_count": 4,
+     "dir_is_symlink": false,
+     "dir_manifest_sha256": "827ef284cb67dc87c3998bdb00cf9bacba524435f8d1a747e23abbb775072cfa",
+     "dpkg": {
+      "md5_actual": "1b670bb028f49ffe7e261ed7e99ae858",
+      "md5_match": true,
+      "md5sums_expected": "1b670bb028f49ffe7e261ed7e99ae858",
+      "md5sums_pkg": "node-acorn",
+      "owner_path": [
+       "node-acorn"
+      ],
+      "owner_realpath": null
+     },
+     "in_node_modules": false,
+     "license": "MIT",
+     "lock": null,
+     "name": "acorn-walk",
+     "package_json": "/usr/share/nodejs/acorn-walk/package.json",
+     "package_json_sha256": "892c5917197d4177e7102e0016a9bef48ec6cb9b8c0069dfa02a6173e97d5241",
+     "realpath": "/usr/share/nodejs/acorn-walk/package.json",
+     "version": "8.2.0"
+    }
+   ],
+   "name": "acorn-walk",
+   "other_version_instances": [],
+   "status": "present_exact",
+   "version": "8.2.0"
+  },
+  {
+   "baseline_row_index": 2140,
+   "exact_instances": [
+    {
+     "dir_file_count": 2,
+     "dir_is_symlink": false,
+     "dir_manifest_sha256": "94d10200e365acd437fba8b1e687aa5b5e1fd3265b31cc929815b71de8e40a28",
+     "dpkg": {
+      "md5_actual": "a6c29a61adf390ec75cc73e097620010",
+      "md5_match": true,
+      "md5sums_expected": "a6c29a61adf390ec75cc73e097620010",
+      "md5sums_pkg": "node-balanced-match",
+      "owner_path": [
+       "node-balanced-match"
+      ],
+      "owner_realpath": null
+     },
+     "in_node_modules": false,
+     "license": "MIT",
+     "lock": null,
+     "name": "balanced-match",
+     "package_json": "/usr/share/nodejs/balanced-match/package.json",
+     "package_json_sha256": "2353382d345b2047324e1a45090fa7c54ef1aa4058e1ca099dbc56d66706c59c",
+     "realpath": "/usr/share/nodejs/balanced-match/package.json",
+     "version": "2.0.0"
+    }
+   ],
+   "name": "balanced-match",
+   "other_version_instances": [
+    {
+     "dir_file_count": 13,
+     "dir_is_symlink": false,
+     "dir_manifest_sha256": "8592aebf75967a7310efe0c9562f782125d5990e51a55b7d4b21fe4ba2e24bd0",
+     "dpkg": {
+      "owner_path": null,
+      "owner_realpath": null
+     },
+     "in_node_modules": true,
+     "license": "MIT",
+     "lock": {
+      "dev": null,
+      "integrity": "sha512-BLrgEcRTwX2o6gGxGOCNyMvGSp35YofuYzw9h1IMTRmKqttAZZVU67bdb9Pr2vUHA8+j3i2tJfjO6C6+4myGTA==",
+      "key": "node_modules/balanced-match",
+      "link": null,
+      "lockfile": "/opt/hermes/package-lock.json",
+      "resolved": "https://registry.npmjs.org/balanced-match/-/balanced-match-4.0.4.tgz",
+      "version": "4.0.4"
+     },
+     "name": "balanced-match",
+     "package_json": "/opt/hermes/node_modules/balanced-match/package.json",
+     "package_json_sha256": "c984e6ae5c41fac085a07a732b665b22e0a26f28b61c692ba18ff458a8ecc95a",
+     "realpath": "/opt/hermes/node_modules/balanced-match/package.json",
+     "version": "4.0.4"
+    },
+    {
+     "containing_package": {
+      "dir": "/usr/local/lib/node_modules/npm",
+      "lock": null,
+      "name": "npm",
+      "package_json_sha256": "a4f04ad50219f82e0e8f262d3e1acbdbd678040198ea36fca10fe7bbb38da726",
+      "version": "11.17.0"
+     },
+     "dir_file_count": 6,
+     "dir_is_symlink": false,
+     "dir_manifest_sha256": "72cd9256e9858f2b60ca39a6c1c0c656dca9b5936b9e155489b14836a88239c2",
+     "dpkg": {
+      "owner_path": null,
+      "owner_realpath": null
+     },
+     "in_node_modules": true,
+     "license": "MIT",
+     "lock": null,
+     "name": "balanced-match",
+     "package_json": "/usr/local/lib/node_modules/npm/node_modules/balanced-match/package.json",
+     "package_json_sha256": "c984e6ae5c41fac085a07a732b665b22e0a26f28b61c692ba18ff458a8ecc95a",
+     "realpath": "/usr/local/lib/node_modules/npm/node_modules/balanced-match/package.json",
+     "version": "4.0.4"
+    }
+   ],
+   "status": "present_exact",
+   "version": "2.0.0"
+  },
+  {
+   "baseline_row_index": 2156,
+   "exact_instances": [
+    {
+     "containing_package": {
+      "dir": "/opt/hermes/plugins/platforms/photon/sidecar/node_modules/github-from-package",
+      "lock": {
+       "dev": null,
+       "integrity": "sha512-SyHy3T1v2NUXn29OsWdxmK6RwHD+vkj3v8en8AOBZ1wBQ/hCAQ5bAQTD02kW4W9tUp/3Qh6J8r9EvntiyCmOOw==",
+       "key": "node_modules/github-from-package",
+       "link": null,
+       "lockfile": "/opt/hermes/plugins/platforms/photon/sidecar/package-lock.json",
+       "resolved": "https://registry.npmjs.org/github-from-package/-/github-from-package-0.0.0.tgz",
+       "version": "0.0.0"
+      },
+      "name": "github-from-package",
+      "package_json_sha256": "67742aa2b856e3523c2f89132e41cc5026c49ffe7df58bd3ea906caaa217bd79",
+      "version": "0.0.0"
+     },
+     "dir_file_count": 2,
+     "dir_is_symlink": false,
+     "dir_manifest_sha256": "5e4c157c0002b3e1cca0f1c24128369ab941d7da2e292acd642db77de4b2fbd3",
+     "dpkg": {
+      "owner_path": null,
+      "owner_realpath": null
+     },
+     "in_node_modules": true,
+     "license": null,
+     "lock": null,
+     "name": "beep-boop",
+     "package_json": "/opt/hermes/plugins/platforms/photon/sidecar/node_modules/github-from-package/example/package.json",
+     "package_json_sha256": "1b0a33ff4aad344b3d09605b854a4b5bcf1b79bef1dc821fc32d206ba7cc0cf8",
+     "realpath": "/opt/hermes/plugins/platforms/photon/sidecar/node_modules/github-from-package/example/package.json",
+     "version": "1.2.3"
+    }
+   ],
+   "name": "beep-boop",
+   "other_version_instances": [],
+   "status": "present_exact",
+   "version": "1.2.3"
+  },
+  {
+   "baseline_row_index": 2161,
+   "exact_instances": [
+    {
+     "dir_file_count": 3,
+     "dir_is_symlink": false,
+     "dir_manifest_sha256": "36b67664d1f597d64fe28e5e64fe23b65fee2d03b1f8bdcd2b2f3f12e2c75ed0",
+     "dpkg": {
+      "md5_actual": "5ecf72c316336032b1c1a2b3e619fe43",
+      "md5_match": true,
+      "md5sums_expected": "5ecf72c316336032b1c1a2b3e619fe43",
+      "md5sums_pkg": "node-undici",
+      "owner_path": [
+       "node-undici"
+      ],
+      "owner_realpath": null
+     },
+     "in_node_modules": false,
+     "license": "CC0-1.0",
+     "lock": null,
+     "name": "binary-search",
+     "package_json": "/usr/share/nodejs/binary-search/package.json",
+     "package_json_sha256": "395274762aa9711371fa97581516a906dae05b169d5e1baff315069f5b4584c2",
+     "realpath": "/usr/share/nodejs/binary-search/package.json",
+     "version": "1.3.6"
+    }
+   ],
+   "name": "binary-search",
+   "other_version_instances": [],
+   "status": "present_exact",
+   "version": "1.3.6"
+  },
+  {
+   "baseline_row_index": 2182,
+   "exact_instances": [
+    {
+     "dir_file_count": 2,
+     "dir_is_symlink": false,
+     "dir_manifest_sha256": "23ab8734e4400da4881b43ebdca9925393f9717b5ed0423843b1b30a7d7d1538",
+     "dpkg": {
+      "md5_actual": "4b877fcf0149128acf15926c546b8b98",
+      "md5_match": true,
+      "md5sums_expected": "4b877fcf0149128acf15926c546b8b98",
+      "md5sums_pkg": "node-brace-expansion",
+      "owner_path": [
+       "node-brace-expansion"
+      ],
+      "owner_realpath": null
+     },
+     "in_node_modules": false,
+     "license": "MIT",
+     "lock": null,
+     "name": "brace-expansion",
+     "package_json": "/usr/share/nodejs/brace-expansion/package.json",
+     "package_json_sha256": "4a9ae315ffc10674f4a71ea4465103e77426d86aeb2c23737607181f3f31344f",
+     "realpath": "/usr/share/nodejs/brace-expansion/package.json",
+     "version": "2.0.1"
+    }
+   ],
+   "name": "brace-expansion",
+   "other_version_instances": [
+    {
+     "dir_file_count": 13,
+     "dir_is_symlink": false,
+     "dir_manifest_sha256": "4c18507f4ecebbe1c75752076a1b4910400663f0b5cdfce0af27dc66995dc750",
+     "dpkg": {
+      "owner_path": null,
+      "owner_realpath": null
+     },
+     "in_node_modules": true,
+     "license": "MIT",
+     "lock": {
+      "dev": null,
+      "integrity": "sha512-ScQ4IuvIEF1TMlP7Zt+vjJ//9zlPb2SDcxWxM3bk8s6t6GGdJ7KO1dCcTidOPJKePW30LE/2cT7wCyPho9/Wxg==",
+      "key": "node_modules/brace-expansion",
+      "link": null,
+      "lockfile": "/opt/hermes/package-lock.json",
+      "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-5.0.9.tgz",
+      "version": "5.0.9"
+     },
+     "name": "brace-expansion",
+     "package_json": "/opt/hermes/node_modules/brace-expansion/package.json",
+     "package_json_sha256": "f8a0e0d0a6cbb58106ce6832205e0939a00b9583637011bf8ef4167f4a52fbda",
+     "realpath": "/opt/hermes/node_modules/brace-expansion/package.json",
+     "version": "5.0.9"
+    },
+    {
+     "containing_package": {
+      "dir": "/usr/local/lib/node_modules/npm",
+      "lock": null,
+      "name": "npm",
+      "package_json_sha256": "a4f04ad50219f82e0e8f262d3e1acbdbd678040198ea36fca10fe7bbb38da726",
+      "version": "11.17.0"
+     },
+     "dir_file_count": 6,
+     "dir_is_symlink": false,
+     "dir_manifest_sha256": "15af3910ce3acd3027a90d24e85fac09b478c621dcd01b072550ac3e7d3f97e1",
+     "dpkg": {
+      "owner_path": null,
+      "owner_realpath": null
+     },
+     "in_node_modules": true,
+     "license": "MIT",
+     "lock": null,
+     "name": "brace-expansion",
+     "package_json": "/usr/local/lib/node_modules/npm/node_modules/brace-expansion/package.json",
+     "package_json_sha256": "cfb879e49feee65834ac2d55235d589b34a6254b64e44ee8692f0a78d41ee4af",
+     "realpath": "/usr/local/lib/node_modules/npm/node_modules/brace-expansion/package.json",
+     "version": "5.0.6"
+    }
+   ],
+   "status": "present_exact",
+   "version": "2.0.1"
+  },
+  {
+   "baseline_row_index": 2239,
+   "exact_instances": [
+    {
+     "dir_file_count": 5,
+     "dir_is_symlink": false,
+     "dir_manifest_sha256": "fa8662f300f3889730c09f99e91792757f1d339e3de10e63aee058d1cf12c69a",
+     "dpkg": {
+      "md5_actual": "b54fa76f813574d7b750aa115e18a896",
+      "md5_match": true,
+      "md5sums_expected": "b54fa76f813574d7b750aa115e18a896",
+      "md5sums_pkg": "node-cjs-module-lexer",
+      "owner_path": [
+       "node-cjs-module-lexer"
+      ],
+      "owner_realpath": null
+     },
+     "in_node_modules": false,
+     "license": "MIT",
+     "lock": null,
+     "name": "cjs-module-lexer",
+     "package_json": "/usr/share/nodejs/cjs-module-lexer/package.json",
+     "package_json_sha256": "2e4163876e2ae8fa1190a00a026fc5408819ae44a43664069ba736b3b8de4a17",
+     "realpath": "/usr/share/nodejs/cjs-module-lexer/package.json",
+     "version": "1.2.3"
+    }
+   ],
+   "name": "cjs-module-lexer",
+   "other_version_instances": [],
+   "status": "present_exact",
+   "version": "1.2.3"
+  },
+  {
+   "baseline_row_index": 2298,
+   "exact_instances": [
+    {
+     "dir_file_count": 24,
+     "dir_is_symlink": false,
+     "dir_manifest_sha256": "cc814de697ef487e83d5091518182927bc8c688d253cf34076c3a162c70ff628",
+     "dpkg": {
+      "md5_actual": "7eaa7bb45f1bf0db29a525d7b94534c1",
+      "md5_match": true,
+      "md5sums_expected": "7eaa7bb45f1bf0db29a525d7b94534c1",
+      "md5sums_pkg": "node-corepack",
+      "owner_path": [
+       "node-corepack"
+      ],
+      "owner_realpath": null
+     },
+     "in_node_modules": false,
+     "license": "MIT",
+     "lock": null,
+     "name": "corepack",
+     "package_json": "/usr/share/nodejs/corepack/package.json",
+     "package_json_sha256": "a51909facb840f2b726ac611276f9a7a4d2ed5fcdf743f570ddb19e4f9ee6766",
+     "realpath": "/usr/share/nodejs/corepack/package.json",
+     "version": "0.24.0"
+    }
+   ],
+   "name": "corepack",
+   "other_version_instances": [],
+   "status": "present_exact",
+   "version": "0.24.0"
+  },
+  {
+   "baseline_row_index": 3069,
+   "exact_instances": [
+    {
+     "dir_file_count": 54,
+     "dir_is_symlink": false,
+     "dir_manifest_sha256": "371255deeca7f569e78a26c85977a584e7dce0349db3f7c9d8ff0017d526e906",
+     "dpkg": {
+      "md5_actual": "70889e6983719ba3e2654bf416126565",
+      "md5_match": true,
+      "md5sums_expected": "70889e6983719ba3e2654bf416126565",
+      "md5sums_pkg": "node-minimatch",
+      "owner_path": [
+       "node-minimatch"
+      ],
+      "owner_realpath": null
+     },
+     "in_node_modules": false,
+     "license": "ISC",
+     "lock": null,
+     "name": "minimatch",
+     "package_json": "/usr/share/nodejs/minimatch/package.json",
+     "package_json_sha256": "e52ed8f9f97ce5f65702b1e6df5c072e747678acbb92a2c8374b31cda3f6e284",
+     "realpath": "/usr/share/nodejs/minimatch/package.json",
+     "version": "9.0.3"
+    }
+   ],
+   "name": "minimatch",
+   "other_version_instances": [
+    {
+     "dir_file_count": 53,
+     "dir_is_symlink": false,
+     "dir_manifest_sha256": "79941b791058a87f43f8a8d301b218a814552be3c399e7b75d4eaeb142f012ca",
+     "dpkg": {
+      "owner_path": null,
+      "owner_realpath": null
+     },
+     "in_node_modules": true,
+     "license": "BlueOak-1.0.0",
+     "lock": {
+      "dev": true,
+      "integrity": "sha512-vpLQEs+VLCr1nU0BXS07maYoFwlDAH0gngQuuttxIwutDFEMHq2blX+8vpgxDdK3J1PwjCJiep77OitTZ4Ll1A==",
+      "key": "node_modules/minimatch",
+      "link": null,
+      "lockfile": "/opt/hermes/package-lock.json",
+      "resolved": "https://registry.npmjs.org/minimatch/-/minimatch-10.2.6.tgz",
+      "version": "10.2.6"
+     },
+     "name": "minimatch",
+     "package_json": "/opt/hermes/node_modules/minimatch/package.json",
+     "package_json_sha256": "bb847ba240909c9a36d4eaeb4e0efdc3e31182aeef208c1611259a48f282ea75",
+     "realpath": "/opt/hermes/node_modules/minimatch/package.json",
+     "version": "10.2.6"
+    },
+    {
+     "containing_package": {
+      "dir": "/usr/local/lib/node_modules/npm",
+      "lock": null,
+      "name": "npm",
+      "package_json_sha256": "a4f04ad50219f82e0e8f262d3e1acbdbd678040198ea36fca10fe7bbb38da726",
+      "version": "11.17.0"
+     },
+     "dir_file_count": 16,
+     "dir_is_symlink": false,
+     "dir_manifest_sha256": "f71c074144bfc29004a8dfc291bfe10fc5a3da55aa4f1fab9d97cae7d7ee96a1",
+     "dpkg": {
+      "owner_path": null,
+      "owner_realpath": null
+     },
+     "in_node_modules": true,
+     "license": "BlueOak-1.0.0",
+     "lock": null,
+     "name": "minimatch",
+     "package_json": "/usr/local/lib/node_modules/npm/node_modules/minimatch/package.json",
+     "package_json_sha256": "4b3a08a7ad20dead8bbe4b4fe97a2746bded7c51d218ef3034eb4e330ad31f08",
+     "realpath": "/usr/local/lib/node_modules/npm/node_modules/minimatch/package.json",
+     "version": "10.2.5"
+    }
+   ],
+   "status": "present_exact",
+   "version": "9.0.3"
+  },
+  {
+   "baseline_row_index": 3846,
+   "exact_instances": [
+    {
+     "dir_file_count": 106,
+     "dir_is_symlink": false,
+     "dir_manifest_sha256": "05352ec906c5183dc18b20f7406f99a783b0860e8684a67efb77c87827bb6d69",
+     "dpkg": {
+      "md5_actual": "bc9f8278665aa3250ea87edae5690b36",
+      "md5_match": true,
+      "md5sums_expected": "bc9f8278665aa3250ea87edae5690b36",
+      "md5sums_pkg": "node-undici",
+      "owner_path": [
+       "node-undici"
+      ],
+      "owner_realpath": null
+     },
+     "in_node_modules": false,
+     "license": "MIT",
+     "lock": null,
+     "name": "undici",
+     "package_json": "/usr/share/nodejs/undici/package.json",
+     "package_json_sha256": "2321842fd649cfa9ecc538a429e6743deeb010e7cb0ec27fdb08f4f81db35c46",
+     "realpath": "/usr/share/nodejs/undici/package.json",
+     "version": "7.3.0"
+    }
+   ],
+   "name": "undici",
+   "other_version_instances": [
+    {
+     "dir_file_count": 210,
+     "dir_is_symlink": false,
+     "dir_manifest_sha256": "df343e997829a9f4e520123f7cc09ac81cfe4993eb069aba6f4002807a7244e7",
+     "dpkg": {
+      "owner_path": null,
+      "owner_realpath": null
+     },
+     "in_node_modules": true,
+     "license": "MIT",
+     "lock": {
+      "dev": null,
+      "integrity": "sha512-IDxfleLmmbSskfWSUATiN1nfn2rDuvnMOqb5CWR92iIfojA0Ud+ulOAAEQ57LPr9rWmsreUyf5lwyao+7GNNVw==",
+      "key": "node_modules/undici",
+      "link": null,
+      "lockfile": "/opt/hermes/plugins/platforms/photon/sidecar/package-lock.json",
+      "resolved": "https://registry.npmjs.org/undici/-/undici-7.29.0.tgz",
+      "version": "7.29.0"
+     },
+     "name": "undici",
+     "package_json": "/opt/hermes/plugins/platforms/photon/sidecar/node_modules/undici/package.json",
+     "package_json_sha256": "d2fb5736b5adad6a74c3fba9345d756258e1e953a3a2a13c03fca1bd6c9f6c52",
+     "realpath": "/opt/hermes/plugins/platforms/photon/sidecar/node_modules/undici/package.json",
+     "version": "7.29.0"
+    },
+    {
+     "dir_file_count": 176,
+     "dir_is_symlink": false,
+     "dir_manifest_sha256": "e1a0f807cb5dab491af6ecc6f8697684c97cd4b0d9d2a6aaba8cb9fac94585ba",
+     "dpkg": {
+      "owner_path": null,
+      "owner_realpath": null
+     },
+     "in_node_modules": true,
+     "license": "MIT",
+     "lock": {
+      "dev": null,
+      "integrity": "sha512-LIY910g9TI13YS95lrMFrs8Rm/u/irgHeTWoKCoteeJ04CUJ92eEfj0rVn+7VKMPBpUPiUoBKfhNyLI23EE/KA==",
+      "key": "ui-tui/node_modules/undici",
+      "link": null,
+      "lockfile": "/opt/hermes/package-lock.json",
+      "resolved": "https://registry.npmjs.org/undici/-/undici-6.28.0.tgz",
+      "version": "6.28.0"
+     },
+     "name": "undici",
+     "package_json": "/opt/hermes/ui-tui/node_modules/undici/package.json",
+     "package_json_sha256": "f529aa8b145f6e270a72700ceb6c8dd3b87f742313078ea9f774a9d2ce8c865d",
+     "realpath": "/opt/hermes/ui-tui/node_modules/undici/package.json",
+     "version": "6.28.0"
+    },
+    {
+     "containing_package": {
+      "dir": "/usr/local/lib/node_modules/npm",
+      "lock": null,
+      "name": "npm",
+      "package_json_sha256": "a4f04ad50219f82e0e8f262d3e1acbdbd678040198ea36fca10fe7bbb38da726",
+      "version": "11.17.0"
+     },
+     "dir_file_count": 134,
+     "dir_is_symlink": false,
+     "dir_manifest_sha256": "96b3d70e85def2e39fb3edfadc0988fda6c6e208950d83e2b1bfafaa6d00b9ae",
+     "dpkg": {
+      "owner_path": null,
+      "owner_realpath": null
+     },
+     "in_node_modules": true,
+     "license": "MIT",
+     "lock": null,
+     "name": "undici",
+     "package_json": "/usr/local/lib/node_modules/npm/node_modules/undici/package.json",
+     "package_json_sha256": "0166115b952c799edc93912cd03575664d82f3ac5901792f203b5b9ab08aa5bd",
+     "realpath": "/usr/local/lib/node_modules/npm/node_modules/undici/package.json",
+     "version": "6.26.0"
+    }
+   ],
+   "status": "present_exact",
+   "version": "7.3.0"
+  },
+  {
+   "baseline_row_index": 3848,
+   "exact_instances": [
+    {
+     "dir_file_count": 39,
+     "dir_is_symlink": false,
+     "dir_manifest_sha256": "6d0b6869bddd03731ec2a5f535c7870bfe2b44f60216d8391fdb0a6413eef737",
+     "dpkg": {
+      "md5_actual": "bfda9917084ec6c4a65628e1ea031b2c",
+      "md5_match": true,
+      "md5sums_expected": "bfda9917084ec6c4a65628e1ea031b2c",
+      "md5sums_pkg": "node-undici",
+      "owner_path": [
+       "node-undici"
+      ],
+      "owner_realpath": null
+     },
+     "in_node_modules": false,
+     "license": "MIT",
+     "lock": null,
+     "name": "undici-types",
+     "package_json": "/usr/share/nodejs/undici-types/package.json",
+     "package_json_sha256": "3318ccd208667ce021cd8c88ec045f9b31f80c43ebf0669600954f178129c16d",
+     "realpath": "/usr/share/nodejs/undici-types/package.json",
+     "version": "7.3.0"
+    }
+   ],
+   "name": "undici-types",
+   "other_version_instances": [
+    {
+     "dir_file_count": 41,
+     "dir_is_symlink": false,
+     "dir_manifest_sha256": "17cfeb19c92c9341ccf33d0a7bcc56df2f92a4235cbd59f335fd11d47ed2e6b0",
+     "dpkg": {
+      "owner_path": null,
+      "owner_realpath": null
+     },
+     "in_node_modules": true,
+     "license": "MIT",
+     "lock": {
+      "dev": null,
+      "integrity": "sha512-iwDZqg0QAGrg9Rav5H4n0M64c3mkR59cJ6wQp+7C4nI0gsmExaedaYLNO44eT4AtBBwjbTiGPMlt2Md0T9H9JQ==",
+      "key": "node_modules/undici-types",
+      "link": null,
+      "lockfile": "/opt/hermes/package-lock.json",
+      "resolved": "https://registry.npmjs.org/undici-types/-/undici-types-6.21.0.tgz",
+      "version": "6.21.0"
+     },
+     "name": "undici-types",
+     "package_json": "/opt/hermes/node_modules/undici-types/package.json",
+     "package_json_sha256": "11f873b423b96a5ad444a099685ca6b9de1379dcd83fd8d368e757ddb53658e4",
+     "realpath": "/opt/hermes/node_modules/undici-types/package.json",
+     "version": "6.21.0"
+    }
+   ],
+   "status": "present_exact",
+   "version": "7.3.0"
+  },
+  {
+   "baseline_row_index": 4075,
+   "exact_instances": [
+    {
+     "dir_file_count": 3,
+     "dir_is_symlink": false,
+     "dir_manifest_sha256": "6409aae6537e8a984d3623bd4c60c37b659d71ff5e0b788cef892c1683b8d613",
+     "dpkg": {
+      "md5_actual": "9a88dd08c469a5a8b2ea15f999bf5db8",
+      "md5_match": true,
+      "md5sums_expected": "9a88dd08c469a5a8b2ea15f999bf5db8",
+      "md5sums_pkg": "node-xtend",
+      "owner_path": [
+       "node-xtend"
+      ],
+      "owner_realpath": null
+     },
+     "in_node_modules": false,
+     "license": "MIT",
+     "lock": null,
+     "name": "xtend",
+     "package_json": "/usr/share/nodejs/xtend/package.json",
+     "package_json_sha256": "b02ffef8cda96c5c3ee00a00390e63f608362c2ddfb3ed754e181d013a45d48a",
+     "realpath": "/usr/share/nodejs/xtend/package.json",
+     "version": "4.0.2"
+    }
+   ],
+   "name": "xtend",
+   "other_version_instances": [],
+   "status": "present_exact",
+   "version": "4.0.2"
+  }
+ ],
+ "walked_files": 165993
+}

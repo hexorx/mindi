@@ -1,0 +1,297 @@
+{
+  "baseline_rows": [
+    {
+      "baseline_row_index": 2635,
+      "kind": "sbom-go-module",
+      "name": "github.com/docker/cli/cmd/docker",
+      "version": "UNKNOWN",
+      "source_status": "not_reconciled",
+      "grant_evidence_rows": [],
+      "retained_source_evidence_rows": [
+        896
+      ],
+      "npm_final_instances": [],
+      "workspace_scope_rows": []
+    },
+    {
+      "baseline_row_index": 385,
+      "kind": "debian",
+      "name": "docker-cli",
+      "version": "26.1.5+dfsg1-9+b13",
+      "source_status": "not_reconciled",
+      "grant_evidence_rows": [],
+      "retained_source_evidence_rows": [],
+      "npm_final_instances": [],
+      "workspace_scope_rows": []
+    }
+  ],
+  "binary_facts": {
+    "docker_cli_md5sums_usr_bin_docker": [
+      "00bae64552d5b571a8910acdd1986cc2  usr/bin/docker"
+    ],
+    "docker_version": {
+      "cmd": [
+        "/usr/bin/docker",
+        "--version"
+      ],
+      "rc": 0,
+      "stderr": "",
+      "stdout": "Docker version 26.1.5+dfsg1, build a72d7cd\n"
+    },
+    "dpkg": {
+      "md5_actual": "00bae64552d5b571a8910acdd1986cc2",
+      "md5_match": true,
+      "md5sums_expected": "00bae64552d5b571a8910acdd1986cc2",
+      "md5sums_pkg": "docker-cli",
+      "owner_path": [
+        "docker-cli"
+      ],
+      "owner_realpath": null
+    },
+    "dpkg_S": {
+      "cmd": [
+        "dpkg",
+        "-S",
+        "/usr/bin/docker"
+      ],
+      "rc": 0,
+      "stderr": "",
+      "stdout": "docker-cli: /usr/bin/docker\n"
+    },
+    "dpkg_query": {
+      "cmd": [
+        "dpkg-query",
+        "-W",
+        "-f",
+        "${Package}\t${Version}\t${Architecture}\t${source:Package}\t${source:Version}\t${db:Status-Abbrev}\t${Built-Using}\t${Static-Built-Using}\n",
+        "docker-cli"
+      ],
+      "rc": 0,
+      "stderr": "",
+      "stdout": "docker-cli\t26.1.5+dfsg1-9+b13\tamd64\tdocker.io\t26.1.5+dfsg1-9\tii \tcontainerd (= 1.7.24~ds1-6+deb13u1), continuity (= 0.3.0-1), docker-registry (= 2.8.3+ds1-2), golang-1.24 (= 1.24.4-1), golang-dbus (= 5.1.0-1), golang-fsnotify (= 1.8.0-3), golang-github-agext-levenshtein (= 1.2.3-2), golang-github-appc-cni (= 1.1.2-1), golang-github-armon-circbuf (= 0.0~git20190214.5111143-1), golang-github-armon-go-metrics (= 0.4.1-1), golang-github-aws-aws-sdk-go-v2 (= 1.30.3-1), golang-github-aws-smithy-go (= 1.20.3-1), golang-github-azure-go-ansiterm (= 0.0~git20210617.d185dfc-2), golang-github-beorn7-perks (= 1.0.1-3), golang-github-cenkalti-backoff (= 4.3.0-1), golang-github-cespare-xxhash (= 2.3.0-1), golang-github-cilium-ebpf (= 0.11.0-2), golang-github-cloudflare-cfssl (= 1.6.5-2), golang-github-containerd-cgroups (= 3.0.3-4), golang-github-containerd-console (= 1.0.3-1), golang-github-containerd-errdefs (= 0.3.0-3), golang-github-containerd-fifo (= 1.1.0-1), golang-github-containerd-go-cni (= 1.1.9-2), golang-github-containerd-go-runc (= 1.1.0-2), golang-github-containerd-log (= 0.1.0-2), golang-github-containerd-platforms (= 0.2.1-2), golang-github-containerd-typeurl (= 2.1.1-3), golang-github-coreos-bbolt (= 1.3.10-2), golang-github-coreos-go-systemd (= 22.5.0-1), golang-github-cyphar-filepath-securejoin (= 0.3.4-3), golang-github-davecgh-go-spew (= 1.1.1-3), golang-github-deckarep-golang-set (= 2.7.0-1), golang-github-dimchansky-utfbom (= 1.1.1-1), golang-github-distribution-reference (= 0.6.0-4), golang-github-docker-docker-credential-helpers (= 0.6.4+ds1-1), golang-github-docker-go (= 1.5.2~git20160303.d30aec9-1), golang-github-docker-go-connections (= 0.4.0-4), golang-github-docker-go-events (= 0.0~git20190806.e31b211-4), golang-github-docker-go-metrics (= 0.0.1-2), golang-github-docker-go-units (= 0.4.0-4), golang-github-docker-libtrust (= 0.0~git20160708.aabc10e-1), golang-github-dustin-go-humanize (= 1.0.1-1), golang-github-felixge-httpsnoop (= 1.0.3-3), golang-github-fernet-fernet-go (= 0.0~git20180830.9eac43b-2), golang-github-fluent-fluent-logger-golang (= 1.9.0-1), golang-github-fvbommel-sortorder (= 1.0.2-3), golang-github-go-logr-logr (= 1.4.2-2), golang-github-go-logr-stdr (= 1.2.2-4), golang-github-gofrs-flock (= 0.8.1-1), golang-github-gogo-googleapis (= 1.4.0-2), golang-github-golang-groupcache (= 0.0~git20210331.41bb18b-1), golang-github-golang-jwt-jwt (= 5.0.0+really4.5.2-1), golang-github-golang-protobuf-1-5 (= 1.5.4-1), golang-github-google-btree (= 1.0.1-1), golang-github-google-certificate-transparency (= 1.3.1-2), golang-github-google-go-cmp (= 0.6.0-1), golang-github-google-shlex (= 0.0~git20191202.e7afc7f-1), golang-github-google-uuid (= 1.6.0-1), golang-github-googleapis-gax-go (= 2.14.1-1), golang-github-gorilla-mux (= 1.8.1-1), golang-github-graylog2-go-gelf (= 0.0+git20191017.1550ee6-1), golang-github-grpc-ecosystem-go-grpc-prometheus (= 1.2.0+git20191002.6af20e3-5), golang-github-grpc-ecosystem-grpc-gateway (= 2.20.0-2), golang-github-hashicorp-errwrap (= 1.1.0-1), golang-github-hashicorp-go-immutable-radix (= 1.3.1-3), golang-github-hashicorp-go-memdb (= 1.2.1-1), golang-github-hashicorp-go-msgpack (= 0.5.5-1), golang-github-hashicorp-go-multierror (= 1.1.1-2), golang-github-hashicorp-go-sockaddr (= 1.0.2-3), golang-github-hashicorp-golang-lru (= 0.5.4-2), golang-github-hashicorp-memberlist (= 0.5.0-1), golang-github-hashicorp-serf (= 0.10.1-1), golang-github-imdario-mergo (= 1.0.1-2), golang-github-ishidawataru-sctp (= 0.0+git20210707.9a39160-1), golang-github-jmoiron-sqlx (= 1.3.5-1), golang-github-klauspost-compress (= 1.18.0+ds1-1), golang-github-mattn-go-runewidth (= 0.0.16-1), golang-github-miekg-dns (= 1.1.64-1), golang-github-mitchellh-hashstructure (= 2.0.2-2), golang-github-mitchellh-mapstructure (= 1.5.0+git20231216.8508981-1), golang-github-moby-docker-image-spec (= 1.3.1-2), golang-github-moby-locker (= 1.0.1-3), golang-github-moby-patternmatcher (= 0.6.0-1), golang-github-moby-pubsub (= 1.0.0-2), golang-github-moby-sys (= 0.0~git20241107.638aa7c-2), golang-github-moby-term (= 0.0~git20230502.9c3c875-1), golang-github-morikuni-aec (= 1.0.0-3), golang-github-munnerz-goautoneg (= 0.0~git20191010.a7dc8b6-2), golang-github-opencontainers-go-digest (= 1.0.0-2), golang-github-opencontainers-image-spec (= 1.1.0-2), golang-github-opencontainers-selinux (= 1.11.1-1), golang-github-opencontainers-specs (= 1.2.0-2), golang-github-pelletier-go-toml (= 1.9.5-1), golang-github-philhofer-fwd (= 1.1.2+git20240916.20a13a1-1), golang-github-pkg-errors (= 0.9.1-3), golang-github-pmezard-go-difflib (= 1.0.0-3), golang-github-prometheus-client-golang (= 1.21.1-1), golang-github-prometheus-client-model (= 0.6.0-1), golang-github-prometheus-common (= 0.62.0-3), golang-github-prometheus-procfs (= 0.15.1-1), golang-github-racksec-srslog (= 0.0~git20180709.a4725f0-2), golang-github-rivo-uniseg (= 0.4.7-1), golang-github-secure-systems-lab-go-securesystemslib (= 0.9.0-1), golang-github-shibumi-go-pathspec (= 1.3.0-2), golang-github-spf13-cobra (= 1.8.1-1), golang-github-spf13-pflag (= 1.0.6~git20210604-d5e0c0615ace-1), golang-github-tinylib-msgp (= 1.2.5-1), golang-github-tonistiigi-units (= 0.0~git20180711.6950e57-2), golang-github-vbatts-tar-split (= 0.11.6-1), golang-github-vishvananda-netlink (= 1.3.0-2), golang-github-vishvananda-netns (= 0.0.5-1), golang-github-weppos-publicsuffix-go (= 0.30.1-1), golang-github-xeipuuv-gojsonpointer (= 0.0~git20190905.02993c4-3), golang-github-xeipuuv-gojsonreference (= 0.0~git20180127.bd5ef7b-3), golang-github-xeipuuv-gojsonschema (= 1.2.0-3), golang-github-zmap-zcrypto (= 0.0~git20240512.0fef58d-2), golang-github-zmap-zlint (= 3.6.2-4), golang-go-zfs (= 3.0.0-1), golang-go.crypto (= 1:0.25.0-1), golang-go.opencensus (= 0.24.0-2), golang-gogoprotobuf (= 1.3.2-3), golang-gogottrpc (= 1.2.4-2), golang-golang-x-exp (= 0.0~git20231006.7918f67-2), golang-golang-x-mod (= 0.19.0-1), golang-golang-x-net (= 1:0.27.0-2), golang-golang-x-oauth2 (= 0.27.0-1), golang-golang-x-sync (= 0.7.0-1), golang-golang-x-sys (= 0.22.0-1), golang-golang-x-term (= 0.22.0-1), golang-golang-x-text (= 0.22.0-1), golang-golang-x-time (= 0.5.0-1), golang-google-api (= 0.61.0-6), golang-google-cloud (= 0.56.0-6), golang-google-genproto (= 0.0~git20210726.e7812ac-4), golang-google-grpc (= 1.64.0-7), golang-google-protobuf (= 1.36.5-1), golang-gopkg-yaml.v3 (= 3.0.1-3), golang-k8s-klog (= 2.130.1-1), golang-logrus (= 1.9.0-1), golang-opentelemetry-contrib (= 0.56.0-5), golang-opentelemetry-otel (= 1.31.0-4), golang-opentelemetry-proto (= 1.3.1-2), golang-testify (= 1.10.0-1), golang-yaml.v2 (= 2.4.0-5), gotest.tools (= 3.5.1-1), in-toto-golang (= 0.9.0+ds-3), notary (= 0.7.0+git20240416.9d2b3b3+ds1-3), rootlesskit (= 2.0.2-2), runc (= 1.1.15+ds1-2)\t\n"
+    },
+    "dpkg_verify_docker_cli": {
+      "cmd": [
+        "dpkg",
+        "--verify",
+        "docker-cli"
+      ],
+      "rc": 0,
+      "stderr": "",
+      "stdout": ""
+    },
+    "elf": {
+      "e_type": "DYN",
+      "elf": true,
+      "interp": "/lib64/ld-linux-x86-64.so.2",
+      "needed": [
+        "libc.so.6"
+      ],
+      "statically_linked": false
+    },
+    "exists": true,
+    "md5": "00bae64552d5b571a8910acdd1986cc2",
+    "other_docker_named_files": [
+      {
+        "dpkg": {
+          "owner_path": null,
+          "owner_realpath": null
+        },
+        "path": "/etc/apt/apt.conf.d/docker-autoremove-suggests",
+        "sha256": "e34a13a90adbd88a66e1273ef3aa8f0be1d76336539ef94b6a6a1fb5704e6b09",
+        "size": 759
+      },
+      {
+        "dpkg": {
+          "owner_path": null,
+          "owner_realpath": null
+        },
+        "path": "/etc/apt/apt.conf.d/docker-clean",
+        "sha256": "484f60f8d215bf22008b5fe7dd8484350d7abd44655ea79accee79ce11976c81",
+        "size": 1175
+      },
+      {
+        "dpkg": {
+          "owner_path": null,
+          "owner_realpath": null
+        },
+        "path": "/etc/apt/apt.conf.d/docker-gzip-indexes",
+        "sha256": "9da4604fbac169caa47e787b4d85c8e06c887603878afa2a61f39fd551a41359",
+        "size": 481
+      },
+      {
+        "dpkg": {
+          "owner_path": null,
+          "owner_realpath": null
+        },
+        "path": "/etc/apt/apt.conf.d/docker-no-languages",
+        "sha256": "a7fea31d968796bf459a439279abdf8d45f5e3f68bbaa9e09dbd9e7f3bd831f6",
+        "size": 269
+      },
+      {
+        "dpkg": {
+          "owner_path": null,
+          "owner_realpath": null
+        },
+        "path": "/etc/dpkg/dpkg.cfg.d/docker-apt-speedup",
+        "sha256": "ab3af717d57cbbea36555833dc1ae031fa46750b879199ec579ee00be9aa0124",
+        "size": 259
+      },
+      {
+        "dpkg": {
+          "owner_path": null,
+          "owner_realpath": null
+        },
+        "path": "/opt/hermes/Dockerfile",
+        "sha256": "a11fc9fc39eadcaffd99377d831b5ec2458f1e09a5f5d5312fd8adcec362b7fc",
+        "size": 25687
+      },
+      {
+        "dpkg": {
+          "owner_path": null,
+          "owner_realpath": null
+        },
+        "path": "/opt/hermes/docker-compose.windows.yml",
+        "sha256": "6893f7e6df21115fb1a92f8f2aafbe24e33b48b356d0e9b2fded68bdeb1d389e",
+        "size": 1073
+      },
+      {
+        "dpkg": {
+          "owner_path": null,
+          "owner_realpath": null
+        },
+        "path": "/opt/hermes/docker-compose.yml",
+        "sha256": "cf2cd030fcb516e904a422eb64619164636db3724199c912fa2883f072bcf9ad",
+        "size": 3454
+      },
+      {
+        "dpkg": {
+          "owner_path": null,
+          "owner_realpath": null
+        },
+        "path": "/opt/hermes/scripts/docker_config_migrate.py",
+        "sha256": "62fdbd91cad654c0ce6277527ef2c25184d62f5dfca09025d670135baacb1fc6",
+        "size": 3490
+      },
+      {
+        "dpkg": {
+          "owner_path": null,
+          "owner_realpath": null
+        },
+        "path": "/opt/hermes/scripts/docker_rebootstrap_nous_session.py",
+        "sha256": "ea37fbca159725665a45d401d214b2744d725728ec9dfbfda062b887903e9928",
+        "size": 9291
+      },
+      {
+        "dpkg": {
+          "owner_path": null,
+          "owner_realpath": null
+        },
+        "path": "/opt/hermes/tools/environments/docker.py",
+        "sha256": "fe5a2e6ee02a6ef3e1e60d12dc26d39e20fcf7cf93f8515080a7c086c970c9cd",
+        "size": 91695
+      },
+      {
+        "dpkg": {
+          "md5_actual": "e9bca02d49e26a9349512a658b6421f3",
+          "md5_match": true,
+          "md5sums_expected": "e9bca02d49e26a9349512a658b6421f3",
+          "md5sums_pkg": "docker-cli",
+          "owner_path": [
+            "docker-cli"
+          ],
+          "owner_realpath": null
+        },
+        "path": "/usr/share/bash-completion/completions/docker",
+        "sha256": "8b52a70d086e377ea7ace5539d6caf708158c24c770b204ec9faa0a3072d92a5",
+        "size": 114668
+      },
+      {
+        "dpkg": {
+          "md5_actual": "785f3bd7e3eae55ca4827f9bd8837654",
+          "md5_match": true,
+          "md5sums_expected": "785f3bd7e3eae55ca4827f9bd8837654",
+          "md5sums_pkg": "python3-redis",
+          "owner_path": [
+            "python3-redis"
+          ],
+          "owner_realpath": null
+        },
+        "path": "/usr/share/doc/python3-redis/examples/opentelemetry/docker-compose.yml",
+        "sha256": "44c825462f7ba4735870979f3a6829153570d58476482454f6c0043a1f03e778",
+        "size": 1752
+      },
+      {
+        "dpkg": {
+          "md5_actual": "28b29c7a3547c6227d95330ecfa8537b",
+          "md5_match": true,
+          "md5sums_expected": "28b29c7a3547c6227d95330ecfa8537b",
+          "md5sums_pkg": "docker-cli",
+          "owner_path": [
+            "docker-cli"
+          ],
+          "owner_realpath": null
+        },
+        "path": "/usr/share/fish/vendor_completions.d/docker.fish",
+        "sha256": "57e75a50f7462ddfcdabf0038372f030f01d6d978f36fe7bbc81de257fd0dee7",
+        "size": 52323
+      },
+      {
+        "dpkg": {
+          "md5_actual": "5ef8d7faba909d791f3337e0dcba9a74",
+          "md5_match": true,
+          "md5sums_expected": "5ef8d7faba909d791f3337e0dcba9a74",
+          "md5sums_pkg": "docker-cli",
+          "owner_path": [
+            "docker-cli"
+          ],
+          "owner_realpath": null
+        },
+        "path": "/usr/share/lintian/overrides/docker-cli",
+        "sha256": "e9ba2c526e198ab3621cd1f5d53a9fa6e3f246163f98b8d54a33614ad2f4d53a",
+        "size": 78
+      },
+      {
+        "dpkg": {
+          "owner_path": null,
+          "owner_realpath": null
+        },
+        "path": "/var/lib/dpkg/info/docker-cli.list",
+        "sha256": "312d950f2ee164611f3f2f006ca0af97ceaadbc3c854e6917d96fc5f3924352c",
+        "size": 612
+      },
+      {
+        "dpkg": {
+          "owner_path": null,
+          "owner_realpath": null
+        },
+        "path": "/var/lib/dpkg/info/docker-cli.md5sums",
+        "sha256": "9dd10e5c38cf859c7b0be101b74cc944f48273da8507346ea220eca5c1643c6b",
+        "size": 591
+      }
+    ],
+    "path": "/usr/bin/docker",
+    "realpath": "/usr/bin/docker",
+    "sha1": "a76f30844f81b6b0ec239d1c523ff8af515a1d40",
+    "sha256": "dcd656567975bc326ab55e8a043989a60ca336638689d9faa10ef15614709b71",
+    "size": 30721152,
+    "which_all": {
+      "cmd": [
+        "sh",
+        "-c",
+        "for d in $(echo $PATH | tr : ' '); do [ -e $d/docker ] && ls -l $d/docker; done; echo PATH=$PATH"
+      ],
+      "rc": 0,
+      "stderr": "",
+      "stdout": "-rwxr-xr-x 1 root root 30721152 May  9 11:34 /usr/bin/docker\n-rwxr-xr-x 1 root root 30721152 May  9 11:34 /bin/docker\nPATH=/opt/hermes/bin:/opt/hermes/.venv/bin:/opt/data/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin\n"
+    }
+  },
+  "deb_binary_sha256": "dcd656567975bc326ab55e8a043989a60ca336638689d9faa10ef15614709b71",
+  "source_identity": {
+    "package": "docker.io",
+    "version": "26.1.5+dfsg1-9"
+  },
+  "retained_source_locator_rows": [],
+  "source_status": "not_reconciled",
+  "scope": "Ownership joins UNKNOWN to Debian package; does not infer complete source/build closure or change original Go version."
+}

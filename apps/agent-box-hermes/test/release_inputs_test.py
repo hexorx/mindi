@@ -61,6 +61,19 @@ class ReleaseInputsTest(unittest.TestCase):
         self.assertIn('COPY LICENSE /usr/share/doc/agent-box-hermes/LICENSE',
                       (APP / 'Dockerfile').read_text())
 
+    def test_accepted_residuals_stay_disclosed_and_separate_from_remediation(self):
+        status = (ROOT / 'docs/third-party/NOTICE-STATUS.md').read_text()
+        for component in ['Manylinux vendored libraries', 's6 musl toolchain',
+                          'cua/pg0 linkage bounds', 'Native bindings and esbuild',
+                          'TOFU source identity']:
+            self.assertIn(component, status)
+        self.assertIn('known limitations, not closed', status)
+        self.assertIn('not release blockers', status)
+        self.assertIn('source_status: not_reconciled', status)
+        self.assertIn('declared license only; upstream notice text not found', status)
+        self.assertIn('including copies in distributed layers and', status)
+        self.assertIn('Neither requirement is covered by the accepted residuals', status)
+
     def test_image_contains_notice_bytes_with_gap_disclosure(self):
         import hashlib
         bundle = ROOT / 'docs/third-party/hex184-resolution/bundle'

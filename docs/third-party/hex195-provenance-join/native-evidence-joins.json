@@ -1,0 +1,677 @@
+{
+  "image": "sha256:3819c0400a46d16ed3307ac3caa419a669ac91b1c9490998335773d76e35731f",
+  "source_commit": "2a74043e8d639de3547d517f5b31665a83c4ec43",
+  "ffmpeg": {
+    "baseline_rows": [
+      {
+        "baseline_row_index": 387,
+        "kind": "debian",
+        "name": "ffmpeg",
+        "version": "7:7.1.5-0+deb13u1",
+        "source_status": "not_reconciled",
+        "grant_evidence_rows": [],
+        "retained_source_evidence_rows": [],
+        "npm_final_instances": [],
+        "workspace_scope_rows": []
+      }
+    ],
+    "facts": {
+      "binaries": [
+        {
+          "buildconf": {
+            "cmd": [
+              "/opt/hermes/.playwright/ffmpeg-1011/ffmpeg-linux",
+              "-hide_banner",
+              "-buildconf"
+            ],
+            "rc": 0,
+            "stderr": "",
+            "stdout": "\n  configuration:\n    --pkg-config=pkg-config --pkg-config-flags=--static\n    --extra-cflags=-I//root/prefix/include\n    --extra-ldflags='-L//root/prefix/lib -static'\n    --prefix=/root/prefix\n    --bindir=/root/ffmpeg/bin\n    --extra-version=playwright-build-1011\n    --disable-debug\n    --disable-autodetect\n    --disable-everything\n    --enable-ffmpeg\n    --enable-protocol=pipe\n    --enable-protocol=file\n    --enable-parser=mjpeg\n    --enable-decoder=mjpeg\n    --enable-demuxer=image2pipe\n    --enable-filter=pad\n    --enable-filter=crop\n    --enable-filter=scale\n    --enable-muxer=webm\n    --enable-libvpx\n    --enable-static\n    --enable-encoder=libvpx_vp8\n    --enable-decoder=libvpx_vp8\n    --enable-demuxer=matroska\n    --enable-encoder=png\n    --enable-zlib\n    --enable-muxer=image2\n    --disable-iconv\n    --disable-bzlib\n"
+          },
+          "configure_flags": [
+            "--disable-autodetect",
+            "--disable-bzlib",
+            "--disable-debug",
+            "--disable-everything",
+            "--disable-iconv",
+            "--enable-decoder",
+            "--enable-demuxer",
+            "--enable-encoder",
+            "--enable-ffmpeg",
+            "--enable-filter",
+            "--enable-libvpx",
+            "--enable-muxer",
+            "--enable-parser",
+            "--enable-protocol",
+            "--enable-static",
+            "--enable-zlib"
+          ],
+          "dpkg": {
+            "owner_path": null,
+            "owner_realpath": null
+          },
+          "elf": {
+            "e_type": "EXEC",
+            "elf": true,
+            "interp": null,
+            "needed": [],
+            "statically_linked": true
+          },
+          "gpl": false,
+          "license": {
+            "cmd": [
+              "/opt/hermes/.playwright/ffmpeg-1011/ffmpeg-linux",
+              "-hide_banner",
+              "-L"
+            ],
+            "rc": 0,
+            "stderr": "",
+            "stdout": "ffmpeg is free software; you can redistribute it and/or\nmodify it under the terms of the GNU Lesser General Public\nLicense as published by the Free Software Foundation; either\nversion 2.1 of the License, or (at your option) any later version.\n\nffmpeg is distributed in the hope that it will be useful,\nbut WITHOUT ANY WARRANTY; without even the implied warranty of\nMERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU\nLesser General Public License for more details.\n\nYou should have received a copy of the GNU Lesser General Public\nLicense along with ffmpeg; if not, write to the Free Software\nFoundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA\n"
+          },
+          "nonfree": false,
+          "path": "/opt/hermes/.playwright/ffmpeg-1011/ffmpeg-linux",
+          "sha256": "460d44f3416005662f528d4b92e7b94ace924e8a0288106d3803b73c56eaadc8",
+          "size": 5101056,
+          "version": {
+            "cmd": [
+              "/opt/hermes/.playwright/ffmpeg-1011/ffmpeg-linux",
+              "-hide_banner",
+              "-version"
+            ],
+            "rc": 0,
+            "stderr": "",
+            "stdout": "ffmpeg version n7.0.1-playwright-build-1011 Copyright (c) 2000-2024 the FFmpeg developers\nbuilt with gcc 9 (Ubuntu 9.4.0-1ubuntu1~20.04.2)\nconfiguration: --pkg-config=pkg-config --pkg-config-flags=--static --extra-cflags=-I//root/prefix/include --extra-ldflags='-L//root/prefix/lib -static' --prefix=/root/prefix --bindir=/root/ffmpeg/bin --extra-version=playwright-build-1011 --disable-debug --disable-autodetect --disable-everything --enable-ffmpeg --enable-protocol=pipe --enable-protocol=file --enable-parser=mjpeg --enable-decoder=mjpeg --enable-demuxer=image2pipe --enable-filter=pad --enable-filter=crop --enable-filter=scale --enable-muxer=webm --enable-libvpx --enable-static --enable-encoder=libvpx_vp8 --enable-decoder=libvpx_vp8 --enable-demuxer=matroska --enable-encoder=png --enable-zlib --enable-muxer=image2 --disable-iconv --disable-bzlib\nlibavutil      59.  8.100 / 59.  8.100\nlibavcodec     61.  3.100 / 61.  3.100\nlibavformat    61.  1.100 / 61.  1.100\nlibavdevice    61.  1.100 / 61.  1.100\nlibavfilter    10.  1.100 / 10.  1.100\nlibswscale      8.  1.100 /  8.  1.100\nlibswresample   5.  1.100 /  5.  1.100\n"
+          },
+          "version3": false
+        },
+        {
+          "buildconf": {
+            "cmd": [
+              "/usr/bin/ffmpeg",
+              "-hide_banner",
+              "-buildconf"
+            ],
+            "rc": 0,
+            "stderr": "",
+            "stdout": "\n  configuration:\n    --prefix=/usr\n    --extra-version=0+deb13u1\n    --toolchain=hardened\n    --libdir=/usr/lib/x86_64-linux-gnu\n    --incdir=/usr/include/x86_64-linux-gnu\n    --arch=amd64\n    --enable-gpl\n    --disable-stripping\n    --disable-libmfx\n    --disable-omx\n    --enable-gnutls\n    --enable-libaom\n    --enable-libass\n    --enable-libbs2b\n    --enable-libcdio\n    --enable-libcodec2\n    --enable-libdav1d\n    --enable-libflite\n    --enable-libfontconfig\n    --enable-libfreetype\n    --enable-libfribidi\n    --enable-libglslang\n    --enable-libgme\n    --enable-libgsm\n    --enable-libharfbuzz\n    --enable-libmp3lame\n    --enable-libmysofa\n    --enable-libopenjpeg\n    --enable-libopenmpt\n    --enable-libopus\n    --enable-librubberband\n    --enable-libshine\n    --enable-libsnappy\n    --enable-libsoxr\n    --enable-libspeex\n    --enable-libtheora\n    --enable-libtwolame\n    --enable-libvidstab\n    --enable-libvorbis\n    --enable-libvpx\n    --enable-libwebp\n    --enable-libx265\n    --enable-libxml2\n    --enable-libxvid\n    --enable-libzimg\n    --enable-openal\n    --enable-opencl\n    --enable-opengl\n    --disable-sndio\n    --enable-libvpl\n    --enable-libdc1394\n    --enable-libdrm\n    --enable-libiec61883\n    --enable-chromaprint\n    --enable-frei0r\n    --enable-ladspa\n    --enable-libbluray\n    --enable-libcaca\n    --enable-libdvdnav\n    --enable-libdvdread\n    --enable-libjack\n    --enable-libpulse\n    --enable-librabbitmq\n    --enable-librist\n    --enable-libsrt\n    --enable-libssh\n    --enable-libsvtav1\n    --enable-libx264\n    --enable-libzmq\n    --enable-libzvbi\n    --enable-lv2\n    --enable-sdl2\n    --enable-libplacebo\n    --enable-librav1e\n    --enable-pocketsphinx\n    --enable-librsvg\n    --enable-libjxl\n    --enable-shared\n"
+          },
+          "configure_flags": [
+            "--disable-libmfx",
+            "--disable-omx",
+            "--disable-sndio",
+            "--disable-stripping",
+            "--enable-chromaprint",
+            "--enable-frei0r",
+            "--enable-gnutls",
+            "--enable-gpl",
+            "--enable-ladspa",
+            "--enable-libaom",
+            "--enable-libass",
+            "--enable-libbluray",
+            "--enable-libbs2b",
+            "--enable-libcaca",
+            "--enable-libcdio",
+            "--enable-libcodec2",
+            "--enable-libdav1d",
+            "--enable-libdc1394",
+            "--enable-libdrm",
+            "--enable-libdvdnav",
+            "--enable-libdvdread",
+            "--enable-libflite",
+            "--enable-libfontconfig",
+            "--enable-libfreetype",
+            "--enable-libfribidi",
+            "--enable-libglslang",
+            "--enable-libgme",
+            "--enable-libgsm",
+            "--enable-libharfbuzz",
+            "--enable-libiec61883",
+            "--enable-libjack",
+            "--enable-libjxl",
+            "--enable-libmp3lame",
+            "--enable-libmysofa",
+            "--enable-libopenjpeg",
+            "--enable-libopenmpt",
+            "--enable-libopus",
+            "--enable-libplacebo",
+            "--enable-libpulse",
+            "--enable-librabbitmq",
+            "--enable-librav1e",
+            "--enable-librist",
+            "--enable-librsvg",
+            "--enable-librubberband",
+            "--enable-libshine",
+            "--enable-libsnappy",
+            "--enable-libsoxr",
+            "--enable-libspeex",
+            "--enable-libsrt",
+            "--enable-libssh",
+            "--enable-libsvtav1",
+            "--enable-libtheora",
+            "--enable-libtwolame",
+            "--enable-libvidstab",
+            "--enable-libvorbis",
+            "--enable-libvpl",
+            "--enable-libvpx",
+            "--enable-libwebp",
+            "--enable-libx264",
+            "--enable-libx265",
+            "--enable-libxml2",
+            "--enable-libxvid",
+            "--enable-libzimg",
+            "--enable-libzmq",
+            "--enable-libzvbi",
+            "--enable-lv2",
+            "--enable-openal",
+            "--enable-opencl",
+            "--enable-opengl",
+            "--enable-pocketsphinx",
+            "--enable-sdl2",
+            "--enable-shared"
+          ],
+          "dpkg": {
+            "md5_actual": "bd7e5a7ccf997cce773389232a30b70d",
+            "md5_match": true,
+            "md5sums_expected": "bd7e5a7ccf997cce773389232a30b70d",
+            "md5sums_pkg": "ffmpeg",
+            "owner_path": [
+              "ffmpeg"
+            ],
+            "owner_realpath": null
+          },
+          "elf": {
+            "e_type": "DYN",
+            "elf": true,
+            "interp": "/lib64/ld-linux-x86-64.so.2",
+            "needed": [
+              "libavdevice.so.61",
+              "libavfilter.so.10",
+              "libavformat.so.61",
+              "libavcodec.so.61",
+              "libpostproc.so.58",
+              "libswresample.so.5",
+              "libswscale.so.8",
+              "libavutil.so.59",
+              "libm.so.6",
+              "libc.so.6"
+            ],
+            "statically_linked": false
+          },
+          "gpl": true,
+          "license": {
+            "cmd": [
+              "/usr/bin/ffmpeg",
+              "-hide_banner",
+              "-L"
+            ],
+            "rc": 0,
+            "stderr": "",
+            "stdout": "ffmpeg is free software; you can redistribute it and/or modify\nit under the terms of the GNU General Public License as published by\nthe Free Software Foundation; either version 2 of the License, or\n(at your option) any later version.\n\nffmpeg is distributed in the hope that it will be useful,\nbut WITHOUT ANY WARRANTY; without even the implied warranty of\nMERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\nGNU General Public License for more details.\n\nYou should have received a copy of the GNU General Public License\nalong with ffmpeg; if not, write to the Free Software\nFoundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA\n"
+          },
+          "nonfree": false,
+          "path": "/usr/bin/ffmpeg",
+          "sha256": "e8a8d46f5225f3062cec7c07fb145d58ae73c603cb740dcd5bad34bfb54e455a",
+          "size": 366984,
+          "version": {
+            "cmd": [
+              "/usr/bin/ffmpeg",
+              "-hide_banner",
+              "-version"
+            ],
+            "rc": 0,
+            "stderr": "",
+            "stdout": "ffmpeg version 7.1.5-0+deb13u1 Copyright (c) 2000-2026 the FFmpeg developers\nbuilt with gcc 14 (Debian 14.2.0-19)\nconfiguration: --prefix=/usr --extra-version=0+deb13u1 --toolchain=hardened --libdir=/usr/lib/x86_64-linux-gnu --incdir=/usr/include/x86_64-linux-gnu --arch=amd64 --enable-gpl --disable-stripping --disable-libmfx --disable-omx --enable-gnutls --enable-libaom --enable-libass --enable-libbs2b --enable-libcdio --enable-libcodec2 --enable-libdav1d --enable-libflite --enable-libfontconfig --enable-libfreetype --enable-libfribidi --enable-libglslang --enable-libgme --enable-libgsm --enable-libharfbuzz --enable-libmp3lame --enable-libmysofa --enable-libopenjpeg --enable-libopenmpt --enable-libopus --enable-librubberband --enable-libshine --enable-libsnappy --enable-libsoxr --enable-libspeex --enable-libtheora --enable-libtwolame --enable-libvidstab --enable-libvorbis --enable-libvpx --enable-libwebp --enable-libx265 --enable-libxml2 --enable-libxvid --enable-libzimg --enable-openal --enable-opencl --enable-opengl --disable-sndio --enable-libvpl --enable-libdc1394 --enable-libdrm --enable-libiec61883 --enable-chromaprint --enable-frei0r --enable-ladspa --enable-libbluray --enable-libcaca --enable-libdvdnav --enable-libdvdread --enable-libjack --enable-libpulse --enable-librabbitmq --enable-librist --enable-libsrt --enable-libssh --enable-libsvtav1 --enable-libx264 --enable-libzmq --enable-libzvbi --enable-lv2 --enable-sdl2 --enable-libplacebo --enable-librav1e --enable-pocketsphinx --enable-librsvg --enable-libjxl --enable-shared\nlibavutil      59. 39.100 / 59. 39.100\nlibavcodec     61. 19.101 / 61. 19.101\nlibavformat    61.  7.103 / 61.  7.103\nlibavdevice    61.  3.100 / 61.  3.100\nlibavfilter    10.  5.100 / 10.  5.100\nlibswscale      8.  3.100 /  8.  3.100\nlibswresample   5.  3.100 /  5.  3.100\nlibpostproc    58.  3.100 / 58.  3.100\n"
+          },
+          "version3": false
+        }
+      ],
+      "dpkg_ffmpeg": {
+        "cmd": [
+          "dpkg-query",
+          "-W",
+          "-f",
+          "${Package}\t${Version}\t${source:Package}\t${db:Status-Abbrev}\n",
+          "ffmpeg",
+          "libavcodec61"
+        ],
+        "rc": 0,
+        "stderr": "",
+        "stdout": "ffmpeg\t7:7.1.5-0+deb13u1\tffmpeg\tii \nlibavcodec61\t7:7.1.5-0+deb13u1\tffmpeg\tii \n"
+      },
+      "playwright_core": [
+        {
+          "browsers_json": {
+            "browsers": [
+              {
+                "browserVersion": "151.0.7922.34",
+                "installByDefault": true,
+                "name": "chromium",
+                "revision": "1234",
+                "title": "Chrome for Testing"
+              },
+              {
+                "browserVersion": "151.0.7922.34",
+                "installByDefault": true,
+                "name": "chromium-headless-shell",
+                "revision": "1234",
+                "title": "Chrome Headless Shell"
+              },
+              {
+                "browserVersion": "151.0.7893.0",
+                "installByDefault": false,
+                "name": "chromium-tip-of-tree",
+                "revision": "1433",
+                "title": "Chrome Canary for Testing"
+              },
+              {
+                "browserVersion": "151.0.7893.0",
+                "installByDefault": false,
+                "name": "chromium-tip-of-tree-headless-shell",
+                "revision": "1433",
+                "title": "Chrome Canary Headless Shell"
+              },
+              {
+                "browserVersion": "153.0",
+                "installByDefault": true,
+                "name": "firefox",
+                "revision": "1538",
+                "title": "Firefox"
+              },
+              {
+                "browserVersion": "152.0b1",
+                "installByDefault": false,
+                "name": "firefox-beta",
+                "revision": "1526",
+                "title": "Firefox Beta"
+              },
+              {
+                "browserVersion": "26.5",
+                "installByDefault": true,
+                "name": "webkit",
+                "revision": "2336",
+                "revisionOverrides": {
+                  "mac14": "2251",
+                  "mac14-arm64": "2251",
+                  "ubuntu20.04-arm64": "2092",
+                  "ubuntu20.04-x64": "2092"
+                },
+                "title": "WebKit"
+              },
+              {
+                "installByDefault": true,
+                "name": "ffmpeg",
+                "revision": "1011"
+              },
+              {
+                "installByDefault": false,
+                "name": "winldd",
+                "revision": "1007"
+              },
+              {
+                "installByDefault": false,
+                "name": "android",
+                "revision": "1001"
+              }
+            ],
+            "comment": "Do not edit this file, use utils/roll_browser.js"
+          },
+          "browsers_json_sha256": "f306eed529599b1eaf2f8a85db9de2b23e1a3fe36c2b66434b7c9434fb627a99",
+          "playwright_core": "/root/.npm/_npx/e41f203b7505f1fb/node_modules/playwright-core",
+          "version": "1.62.1"
+        }
+      ],
+      "playwright_dirs": {
+        "/opt/hermes/.playwright": {
+          ".links": [
+            "704f8577d6d525052aa2cd3567aec3bcdec22828"
+          ],
+          "chromium_headless_shell-1234": [
+            "DEPENDENCIES_VALIDATED",
+            "INSTALLATION_COMPLETE",
+            "chrome-headless-shell-linux64"
+          ],
+          "ffmpeg-1011": [
+            "COPYING.LGPLv2.1",
+            "DEPENDENCIES_VALIDATED",
+            "INSTALLATION_COMPLETE",
+            "ffmpeg-linux"
+          ]
+        }
+      }
+    },
+    "disposition": "Keep separate payload identities: Playwright static LGPL-2.1+ without GPL/nonfree; Debian dynamic GPL-2+ with --enable-gpl, no nonfree. Codi retains remediation; private recipe/static runtime versions remain gaps."
+  },
+  "chrome": {
+    "baseline_rows": [],
+    "association": "Native Playwright payload, not an invented package baseline row",
+    "facts": {
+      "binaries": [
+        {
+          "dir_listing": [
+            "ABOUT",
+            "LICENSE.headless_shell",
+            "chrome-headless-shell",
+            "deb.deps",
+            "headless_command_resources.pak",
+            "headless_lib_data.pak",
+            "headless_lib_strings.pak",
+            "hyphen-data",
+            "icudtl.dat",
+            "libEGL.so",
+            "libGLESv2.so",
+            "libvk_swiftshader.so",
+            "libvulkan.so.1",
+            "locales",
+            "rpm.deps",
+            "v8_context_snapshot.bin",
+            "vk_swiftshader_icd.json"
+          ],
+          "dpkg": {
+            "owner_path": null,
+            "owner_realpath": null
+          },
+          "elf": {
+            "e_type": "DYN",
+            "interp": "/lib64/ld-linux-x86-64.so.2",
+            "statically_linked": false
+          },
+          "needed_count": 28,
+          "path": "/opt/hermes/.playwright/chromium_headless_shell-1234/chrome-headless-shell-linux64/chrome-headless-shell",
+          "sha256": "e11fc9ce65c96313476f7ee9844b6fb6a9220fb048693cfe9eee00acf4170a9f",
+          "sidecar_files": {
+            "ABOUT": {
+              "head": "Google Chrome\n\nCopyright 2026 Google LLC. All rights reserved.\n\nChrome is made possible by the Chromium open source project\n(https://www.chromium.org/) and other open source software\n(chrome://credits).\n\nSee the Terms of Service at chrome://terms.\n",
+              "sha256": "34d078ce3003087a8374e7c6156fda374769b8047d6ddaf419d66414aa48edfb",
+              "size": 248
+            },
+            "LICENSE.headless_shell": {
+              "head": "--------------------\nThe Chromium Project\n--------------------\n// Copyright 2015 The Chromium Authors\n//\n// Redistribution and use in source and binary forms, with or without\n// modification, are permitted provided that the following conditions are\n// met:\n//\n//    * Redistributions of source code must retain the above copyright\n// notice, this list of conditions and the following disclaimer.\n//    * Redistributions in binary form must reproduce the above\n// copyright notice, this list of conditions and the following disclaimer\n// in the documentation and/or other materials provided with the\n/",
+              "sha256": "334f3e2d8a58954bc7152a8150bdd3e7f35e0d9bcf30dd323d4edcb7df5f36d5",
+              "size": 2120830
+            },
+            "headless_command_resources.pak": {
+              "head": null,
+              "sha256": "69dac576ca71db35e1716eefae2b4d7dac15012d18936d41c90e4222f4772583",
+              "size": 3033
+            }
+          },
+          "size": 196975952,
+          "strings": {
+            "Chrome for Testing": {
+              "count": 1,
+              "samples": [
+                "Chrome for Testing"
+              ]
+            },
+            "Chromium Authors": {
+              "count": 0,
+              "samples": []
+            },
+            "Chromium\\x00": {
+              "count": 6,
+              "samples": [
+                "Chromium\u0000"
+              ]
+            },
+            "Google Chrome for Testing": {
+              "count": 1,
+              "samples": [
+                "Google Chrome for Testing"
+              ]
+            },
+            "Google Chrome\\x00": {
+              "count": 0,
+              "samples": []
+            },
+            "chrome-headless-shell": {
+              "count": 0,
+              "samples": []
+            }
+          },
+          "version": {
+            "cmd": [
+              "/opt/hermes/.playwright/chromium_headless_shell-1234/chrome-headless-shell-linux64/chrome-headless-shell",
+              "--version"
+            ],
+            "rc": 0,
+            "stderr": "",
+            "stdout": "Google Chrome for Testing 151.0.7922.34\n"
+          }
+        }
+      ],
+      "dpkg_chromium_or_google_chrome": {
+        "cmd": [
+          "sh",
+          "-c",
+          "dpkg-query -W -f '${Package}\\t${Version}\\t${db:Status-Abbrev}\\n' 'chromium*' 'google-chrome*' 2>&1; true"
+        ],
+        "rc": 0,
+        "stderr": "",
+        "stdout": "dpkg-query: no packages found matching chromium*\ndpkg-query: no packages found matching google-chrome*\n"
+      }
+    },
+    "disposition": "Google Chrome for Testing headless shell 151.0.7922.34, not distro Chromium. Do not equate with consumer Chrome or infer redistribution grant. Codi retains remediation/disclosure; GN config remains unpublished."
+  },
+  "claude": {
+    "baseline_rows": [
+      {
+        "baseline_row_index": 160,
+        "kind": "python",
+        "name": "claude-agent-sdk",
+        "version": "0.2.162",
+        "source_status": "not_reconciled",
+        "grant_evidence_rows": [],
+        "retained_source_evidence_rows": [],
+        "npm_final_instances": [],
+        "workspace_scope_rows": []
+      },
+      {
+        "baseline_row_index": 2253,
+        "kind": "sbom-python",
+        "name": "claude-agent-sdk",
+        "version": "0.2.162",
+        "source_status": "not_reconciled",
+        "grant_evidence_rows": [],
+        "retained_source_evidence_rows": [],
+        "npm_final_instances": [],
+        "workspace_scope_rows": []
+      }
+    ],
+    "facts": {
+      "bundled": [
+        {
+          "dist_info": "/opt/hindsight/lib/python3.13/site-packages/claude_agent_sdk-0.2.162.dist-info",
+          "dist_info_license_files": {
+            "licenses/LICENSE": "cebdde8a8fb9ee59e5eaaed19578bf8085aa7047562259c31f38f225c26f6812"
+          },
+          "dpkg": {
+            "owner_path": null,
+            "owner_realpath": null
+          },
+          "elf": {
+            "e_type": "EXEC",
+            "elf": true,
+            "interp": "/lib64/ld-linux-x86-64.so.2",
+            "needed": [
+              "librt.so.1",
+              "libc.so.6",
+              "ld-linux-x86-64.so.2",
+              "libpthread.so.0",
+              "libdl.so.2",
+              "libm.so.6"
+            ],
+            "statically_linked": false
+          },
+          "metadata_head": "Name: claude-agent-sdk\nVersion: 0.2.162\nProject-URL: Homepage, https://github.com/anthropics/claude-agent-sdk-python\nProject-URL: Documentation, https://docs.anthropic.com/en/docs/claude-code/sdk\nProject-URL: Issues, https://github.com/anthropics/claude-agent-sdk-python/issues\nAuthor-email: Anthropic <support@anthropic.com>\nLicense: MIT\nLicense-File: LICENSE\nClassifier: License :: OSI Approved :: MIT License",
+          "mode": "0o755",
+          "path": "/opt/hindsight/lib/python3.13/site-packages/claude_agent_sdk/_bundled/claude",
+          "record": {
+            "line": "claude_agent_sdk/_bundled/claude,sha256=M9rR7GFaLgjMeLSU8FwRDkmRbeLHnXjsh5nr9GsjPSk,240327864",
+            "record_matches_file": true
+          },
+          "runtime_callers": [
+            "/opt/hindsight/lib/python3.13/site-packages/claude_agent_sdk-0.2.162.dist-info/direct_url.json:1: {\"archive_info\": {\"hash\": \"sha256=673598c9916f5f4d03ff49ab3128f856f0c6508135e8e258838fc3b6f7aafa49\", \"hashes\": {\"sha256\": \"673598c9916f5f4d03ff49ab3128f856f0c6508135e8e258838fc3b6f7aafa49\"}}, \"url\": \"https://files.python",
+            "/opt/hindsight/lib/python3.13/site-packages/hindsight_api/engine/llm_wrapper.py:799:             from claude_agent_sdk import query  # noqa: F401  # type: ignore[unresolved-import]",
+            "/opt/hindsight/lib/python3.13/site-packages/hindsight_api/engine/llm_wrapper.py:801:             sdk_logging.getLogger(\"claude_agent_sdk\").setLevel(sdk_logging.WARNING)",
+            "/opt/hindsight/lib/python3.13/site-packages/hindsight_api/engine/llm_wrapper.py:802:             sdk_logging.getLogger(\"claude_agent_sdk._internal\").setLevel(sdk_logging.WARNING)",
+            "/opt/hindsight/lib/python3.13/site-packages/hindsight_api/engine/providers/claude_code_llm.py:146:         from claude_agent_sdk import (  # type: ignore[unresolved-import]",
+            "/opt/hindsight/lib/python3.13/site-packages/hindsight_api/engine/providers/claude_code_llm.py:351:         from claude_agent_sdk import (  # type: ignore[unresolved-import]",
+            "/opt/hindsight/lib/python3.13/site-packages/hindsight_api/engine/providers/claude_code_llm.py:73:             from claude_agent_sdk import query  # noqa: F401  # type: ignore[unresolved-import]",
+            "/opt/hindsight/lib/python3.13/site-packages/hindsight_api/engine/providers/claude_code_llm.py:75:             sdk_logging.getLogger(\"claude_agent_sdk\").setLevel(sdk_logging.WARNING)",
+            "/opt/hindsight/lib/python3.13/site-packages/hindsight_api/engine/providers/claude_code_llm.py:76:             sdk_logging.getLogger(\"claude_agent_sdk._internal\").setLevel(sdk_logging.WARNING)"
+          ],
+          "sdk_code_refs": [
+            "claude_agent_sdk/__init__.py:566:         - No subprocess or IPC overhead for tool calls",
+            "claude_agent_sdk/client.py:78:                 instead of the default subprocess transport, and the CLI-flag",
+            "claude_agent_sdk/client.py:114:         # spawning the subprocess.",
+            "claude_agent_sdk/client.py:118:         # into a temp CLAUDE_CONFIG_DIR for the subprocess to resume from.",
+            "claude_agent_sdk/client.py:120:         # so the subprocess points at the temp dir; when None, fall through",
+            "claude_agent_sdk/client.py:133:             # If connect fails after the subprocess has spawned (e.g. at",
+            "claude_agent_sdk/client.py:134:             # query.initialize()), close the subprocess/read task *before*",
+            "claude_agent_sdk/client.py:151:         from ._internal.transport.subprocess_cli import SubprocessCLITransport",
+            "claude_agent_sdk/client.py:159:         # Use provided custom transport or create subprocess transport",
+            "claude_agent_sdk/types.py:1612:     The subprocess still writes to local disk under ``CLAUDE_CONFIG_DIR``; the",
+            "claude_agent_sdk/types.py:1634:         Called AFTER the subprocess's local write succeeds \u2014 durability is",
+            "claude_agent_sdk/types.py:1646:         dedup. Exceptions are logged and the subprocess continues unaffected",
+            "claude_agent_sdk/types.py:1656:         During a store-backed resume, called in the SDK parent before subprocess",
+            "claude_agent_sdk/types.py:1661:         temporary JSONL file; the subprocess resumes from that file using its",
+            "claude_agent_sdk/types.py:2099:     cli_path: str | Path | None = None",
+            "claude_agent_sdk/types.py:2125:     \"\"\"Environment variables to pass to the Claude Code subprocess.",
+            "claude_agent_sdk/types.py:2147:     \"\"\"Maximum bytes to buffer when reading the CLI subprocess stdout.\"\"\"",
+            "claude_agent_sdk/types.py:2153:     \"\"\"Callback for stderr output from the Claude Code subprocess.",
+            "claude_agent_sdk/_errors.py:18:         self, message: str = \"Claude Code not found\", cli_path: str | None = None",
+            "claude_agent_sdk/_errors.py:20:         if cli_path:",
+            "claude_agent_sdk/_errors.py:21:             message = f\"{message}: {cli_path}\"",
+            "claude_agent_sdk/query.py:64:                   instead of the default subprocess transport: the SDK calls its",
+            "claude_agent_sdk/query.py:68:                   cwd, permission mode, tools, and the other fields the subprocess",
+            "claude_agent_sdk/_internal/client.py:25: from .transport.subprocess_cli import SubprocessCLITransport",
+            "claude_agent_sdk/_internal/client.py:43:         # spawning the subprocess.",
+            "claude_agent_sdk/_internal/client.py:47:         # into a temp CLAUDE_CONFIG_DIR for the subprocess to resume from.",
+            "claude_agent_sdk/_internal/client.py:62:             # i.e. the subprocess is terminated \u2014 *before* we remove the temp",
+            "claude_agent_sdk/_internal/client.py:88:         # Use provided transport or create subprocess transport",
+            "claude_agent_sdk/_internal/message_parser.py:291:                         # SDK-synthesized via report_mirror_error \u2014 never emitted by the CLI subprocess.",
+            "claude_agent_sdk/_internal/sessions.py:13: import subprocess",
+            "claude_agent_sdk/_internal/sessions.py:134:     ``CLAUDE_CONFIG_DIR`` to the subprocess via ``options.env`` resolve the",
+            "claude_agent_sdk/_internal/sessions.py:135:     same directory the subprocess will write to.",
+            "claude_agent_sdk/_internal/sessions.py:394:         result = subprocess.run(",
+            "claude_agent_sdk/_internal/sessions.py:402:     except (OSError, subprocess.SubprocessError):",
+            "claude_agent_sdk/_internal/session_store_validation.py:21:     Called before subprocess spawn so misconfiguration fails fast instead of",
+            "claude_agent_sdk/_internal/query.py:67:     environment, as it does for the CLI subprocess. ``0`` means no limit;",
+            "claude_agent_sdk/_internal/query.py:1154:         ``transport.close()`` ever ran, leaking the CLI subprocess.",
+            "claude_agent_sdk/_internal/transcript_mirror_batcher.py:3: The CLI subprocess emits ``{\"type\": \"transcript_mirror\", \"filePath\": ..., \"entries\": [...]}``",
+            "claude_agent_sdk/_internal/transcript_mirror_batcher.py:172:                     \"under %s -- subprocess CLAUDE_CONFIG_DIR likely differs \"",
+            "claude_agent_sdk/_internal/session_resume.py:5: local disk \u2014 it lives in the external store. The CLI subprocess only knows how",
+            "claude_agent_sdk/_internal/session_resume.py:8: ``~/.claude/``, and returns the path so the caller can point the subprocess at",
+            "claude_agent_sdk/_internal/session_resume.py:26: import subprocess",
+            "claude_agent_sdk/_internal/session_resume.py:64:             point the subprocess at it via ``CLAUDE_CONFIG_DIR``.",
+            "claude_agent_sdk/_internal/session_resume.py:69:             Call it after the subprocess exits.",
+            "claude_agent_sdk/_internal/session_resume.py:107:     (so file_path \u2192 key resolution matches what the subprocess writes),",
+            "claude_agent_sdk/_internal/session_resume.py:173:         # The subprocess will run with CLAUDE_CONFIG_DIR=tmp_base. Copy auth",
+            "claude_agent_sdk/_internal/session_resume.py:349:     # so the subprocess's lookup misses and falls back to plainTextStorage at",
+            "claude_agent_sdk/_internal/session_resume.py:351:     # Keychain so the resumed subprocess can auth. Skipped when env-based",
+            "claude_agent_sdk/_internal/session_resume.py:378:     # it the resumed subprocess sees no user settings at all, and an",
+            "claude_agent_sdk/_internal/session_resume.py:399:     (which would point the subprocess's config reads away from ``tmp_base``).",
+            "claude_agent_sdk/_internal/session_resume.py:401:     subprocess sees exactly what the CLI would have read.",
+            "claude_agent_sdk/_internal/session_resume.py:434:     The resumed subprocess runs under a redirected ``CLAUDE_CONFIG_DIR``; if it",
+            "claude_agent_sdk/_internal/session_resume.py:438:     subprocess's refresh check short-circuits.",
+            "claude_agent_sdk/_internal/session_resume.py:450:         # Unparseable \u2014 write through; subprocess will fail to parse it too.",
+            "claude_agent_sdk/_internal/session_resume.py:489:         # Don't leave a truncated dst behind for the subprocess to misparse.",
+            "claude_agent_sdk/_internal/session_resume.py:509:         result = subprocess.run(",
+            "claude_agent_sdk/_internal/transport/__init__.py:25:         For subprocess transports, this starts the process.",
+            "claude_agent_sdk/_internal/transport/subprocess_cli.py:14: from subprocess import PIPE",
+            "claude_agent_sdk/_internal/transport/subprocess_cli.py:48: # is enabled). subprocess.list2cmdline quotes arguments for the MSVCRT argv",
+            "claude_agent_sdk/_internal/transport/subprocess_cli.py:54: # Track live CLI subprocesses so we can terminate them when the parent Python",
+            "claude_agent_sdk/_internal/transport/subprocess_cli.py:237:         self._cli_path: str | None = (",
+            "claude_agent_sdk/_internal/transport/subprocess_cli.py:238:             str(options.cli_path) if options.cli_path is not None else None",
+            "claude_agent_sdk/_internal/transport/subprocess_cli.py:255:     def _find_cli(self) -> str:",
+            "claude_agent_sdk/_internal/transport/subprocess_cli.py:258:         bundled_cli = self._find_bundled_cli()",
+            "claude_agent_sdk/_internal/transport/subprocess_cli.py:264:         if cli := shutil.which(\"claude\"):",
+            "claude_agent_sdk/_internal/transport/subprocess_cli.py:280:             exe = shutil.which(\"claude.exe\")",
+            "claude_agent_sdk/_internal/transport/subprocess_cli.py:328:                 \"  ClaudeAgentOptions(cli_path='C:\\\\\\\\path\\\\\\\\to\\\\\\\\claude.exe')\\n\"",
+            "claude_agent_sdk/_internal/transport/subprocess_cli.py:338:             \"  ClaudeAgentOptions(cli_path='/path/to/claude')\"",
+            "claude_agent_sdk/_internal/transport/subprocess_cli.py:341:     def _find_bundled_cli(self) -> str | None:",
+            "claude_agent_sdk/_internal/transport/subprocess_cli.py:344:         cli_name = \"claude.exe\" if platform.system() == \"Windows\" else \"claude\"",
+            "claude_agent_sdk/_internal/transport/subprocess_cli.py:347:         # The _bundled directory is in the same package as this module",
+            "claude_agent_sdk/_internal/transport/subprocess_cli.py:348:         bundled_path = Path(__file__).parent.parent.parent / \"_bundled\" / cli_name",
+            "claude_agent_sdk/_internal/transport/subprocess_cli.py:357:     def _is_windows_native_exe(cli_path: str) -> bool:",
+            "claude_agent_sdk/_internal/transport/subprocess_cli.py:358:         \"\"\"Whether cli_path's final component names an image CreateProcess",
+            "claude_agent_sdk/_internal/transport/subprocess_cli.py:363:         name = cli_path.replace(\"\\\\\", \"/\").rsplit(\"/\", 1)[-1]",
+            "claude_agent_sdk/_internal/transport/subprocess_cli.py:367:     def _is_windows_batch_cli(cli_path: str) -> bool:",
+            "claude_agent_sdk/_internal/transport/subprocess_cli.py:368:         \"\"\"Whether cli_path names a .bat/.cmd batch script on Windows.",
+            "claude_agent_sdk/_internal/transport/subprocess_cli.py:410:             for component in cli_path.replace(\"\\\\\", \"/\").split(\"/\")",
+            "claude_agent_sdk/_internal/transport/subprocess_cli.py:415:     def _reject_windows_batch_cli(cli_path: str) -> None:",
+            "claude_agent_sdk/_internal/transport/subprocess_cli.py:421:         subprocess.list2cmdline quotes arguments for the MSVCRT argv rules",
+            "claude_agent_sdk/_internal/transport/subprocess_cli.py:431:         In practice this refuses npm's claude.cmd shim, which _find_cli",
+            "claude_agent_sdk/_internal/transport/subprocess_cli.py:436:         if not SubprocessCLITransport._is_windows_batch_cli(cli_path):",
+            "claude_agent_sdk/_internal/transport/subprocess_cli.py:439:             f\"Refusing to execute batch script {cli_path!r}: Windows runs \"",
+            "claude_agent_sdk/_internal/transport/subprocess_cli.py:445:             \"ClaudeAgentOptions(cli_path=...) at a claude.exe, or install \"",
+            "claude_agent_sdk/_internal/transport/subprocess_cli.py:572:         if self._cli_path is None:",
+            "claude_agent_sdk/_internal/transport/subprocess_cli.py:574:         cmd = [self._cli_path, \"--output-format\", \"stream-json\", \"--verbose\"]",
+            "claude_agent_sdk/_internal/transport/subprocess_cli.py:798:         \"\"\"Start subprocess.\"\"\"",
+            "claude_agent_sdk/_internal/transport/subprocess_cli.py:802:         if self._cli_path is None:",
+            "claude_agent_sdk/_internal/transport/subprocess_cli.py:803:             self._cli_path = await anyio.to_thread.run_sync(self._find_cli)",
+            "claude_agent_sdk/_internal/transport/subprocess_cli.py:807:         self._reject_windows_batch_cli(self._cli_path)",
+            "claude_agent_sdk/_internal/transport/subprocess_cli.py:817:             # Filter out CLAUDECODE so SDK-spawned subprocesses don't think",
+            "claude_agent_sdk/_internal/transport/subprocess_cli.py:873:             self._process = await anyio.open_process(",
+            "claude_agent_sdk/_internal/transport/subprocess_cli.py:909:             error = CLINotFoundError(f\"Claude Code not found at: {self._cli_path}\")",
+            "claude_agent_sdk/_internal/transport/subprocess_cli.py:1025:             # needed. The subprocess needs time to flush its session file after",
+            "claude_agent_sdk/_internal/transport/subprocess_cli.py:1166:         if self._cli_path is None:",
+            "claude_agent_sdk/_internal/transport/subprocess_cli.py:1171:                 version_process = await anyio.open_process(",
+            "claude_agent_sdk/_internal/transport/subprocess_cli.py:1172:                     [self._cli_path, \"-v\"],",
+            "claude_agent_sdk/_internal/transport/subprocess_cli.py:1195:                                 self._cli_path,",
+            "claude_agent_sdk/_internal/transport/subprocess_cli.py:1214:                                 self._cli_path,"
+          ],
+          "sha256": "33dad1ec615a2e08cc78b494f05c110e49916de2c79d78ec8799ebf46b233d29",
+          "size": 240327864,
+          "strings": {
+            "@anthropic-ai/claude-code": {
+              "count": 295,
+              "samples": [
+                "@anthropic-ai/claude-code"
+              ]
+            },
+            "Bun v[0-9.]+": {
+              "count": 2,
+              "samples": [
+                "Bun v1.4.3"
+              ]
+            },
+            "Claude Code [0-9]+\\.[0-9]+\\.[0-9]+": {
+              "count": 2,
+              "samples": [
+                "Claude Code 2.1.247"
+              ]
+            },
+            "Copyright[^\\x00]{0,60}Anthropic": {
+              "count": 0,
+              "samples": []
+            },
+            "\\x00[0-9]+\\.[0-9]+\\.[0-9]+ \\(Claude Code\\)": {
+              "count": 0,
+              "samples": []
+            },
+            "bun build --compile": {
+              "count": 1,
+              "samples": [
+                "bun build --compile"
+              ]
+            }
+          },
+          "version": {
+            "cmd": [
+              "/opt/hindsight/lib/python3.13/site-packages/claude_agent_sdk/_bundled/claude",
+              "--version"
+            ],
+            "rc": 0,
+            "stderr": "",
+            "stdout": "2.1.285 (Claude Code)\n"
+          }
+        }
+      ]
+    },
+    "disposition": "SDK MIT declaration does not cover bundled Claude Code. HEX-194 exclusion/operator-install disposition remains; unsupported runtime reachability does not cure distribution. Codi must prove removal from final filesystem and all distributed layers."
+  },
+  "origin_and_callchain_reference": "opi-evidence/upstream-binary-compare.txt",
+  "authority": "final-disposition.json",
+  "release_ready": false
+}

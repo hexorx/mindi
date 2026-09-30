@@ -1,0 +1,868 @@
+{
+  "issue": "HEX-191",
+  "input_supplement_parts_sha256": [
+    "4270752a8bba61f8dbe70118dabc60035af0206e3362a883d5d06e1338db1824",
+    "3f3ea49369fee19f2462b4acd49d870047a07df3e6f496fd7916a24d35a392b1"
+  ],
+  "build_source": "hexorx/mindi 2a74043e8d639de3547d517f5b31665a83c4ec43 (hex-181-dependency-locks)",
+  "researched_at": "2026-09-30",
+  "rules_applied": [
+    "No copyright holder invented; holder lines quoted verbatim from fetched bytes only",
+    "Post-release and tag-bound texts are labelled as such, never as exact-release closure",
+    "Source-lock supersets (winapi) remain labelled; no binary membership claimed",
+    "No upstream issues filed; no repository/Dockerfile/lock changes"
+  ],
+  "out_of_scope_rows_in_remaining_gaps": [
+    "15 cua workspace crates (workspace_source_candidate; covered by cua root text, scope review stays with Devi)",
+    "github.com/docker/cli/cmd/docker UNKNOWN (Go; Opi/Devi source ownership)"
+  ],
+  "disposition_legend": {
+    "resolved_source_matched_text": "License text at an upstream commit whose files byte-match the release archive",
+    "resolved_source_matched_text_holder_anomaly": "As above, but the published copyright line is anomalous (recorded verbatim)",
+    "resolved_tag_bound_text": "License text at the upstream version tag (no gitHead); tag does not prove binary equivalence",
+    "resolved_post_release_upstream_text": "No text at release; upstream project later committed a LICENSE — usable with a post-release label",
+    "resolved_exact_statement_plus_linked_text": "Exact release has holder statement + link; linked text fetched",
+    "resolved_exact_release_dedication_statement": "Exact release contains a CC0 waiver by a named affirmer",
+    "resolved_exact_release_attribution_statement": "Exact release contains an attribution + licence statement; standard legal code to be appended",
+    "workspace_member_root_grant_candidate": "Private workspace member; repo-root grant candidate pending commit pin",
+    "not_a_package_fixture": "SBOM false positive",
+    "gap_declared_only": "No grant text upstream; only a declaration exists",
+    "gap_declared_only_low_risk": "As above, public-domain style licence with no attribution requirement",
+    "proprietary_linked_license_decision_required": "Non-OSS licence by link; needs a product decision"
+  },
+  "rows": [
+    {
+      "row": "pg0",
+      "ecosystem": "cargo (pg0-rust, path+file:///build/pg0)",
+      "version": "0.14.0",
+      "disposition": "gap_declared_only",
+      "source_url": "https://codeload.github.com/vectorize-io/pg0/tar.gz/refs/tags/v0.14.0",
+      "checksum": "source tarball sha256 729b27cdc35e652c18761b874996cdda3a657aa16c9e2915c78214372725ab8d (tag v0.14.0 -> commit 0426f8ce2f59797275e41e0c2c6d7087f04fbc4d); not a crates.io package",
+      "texts": [],
+      "gap_note": "Checked: full git history of github.com/vectorize-io/pg0 (all refs, incl. main 29191fb 2026-09-14): no LICENSE/COPYING file ever committed. raw main/LICENSE -> 404. Only declarations: Cargo.toml `license = \"MIT\"` (no `authors`), sdk/python/pyproject.toml `license = \"MIT\"` + MIT classifier, sdk/node/package.json `\"license\": \"MIT\"`, README.md `## License` / `MIT`. Nested sdk/node/node_modules licenses are third-party and not pg0 attribution.",
+      "recommendation": "Interim: SPDX MIT standard text labelled 'declared-license-only; no upstream copyright notice; holder not stated' (no invented holder). Durable: recommend an upstream issue on vectorize-io/pg0 asking for a LICENSE file with a copyright line (public action — not filed).",
+      "decision_for_mindi": false
+    },
+    {
+      "row": "pg0-embedded",
+      "ecosystem": "pypi (/opt/hindsight)",
+      "version": "0.14.0",
+      "disposition": "gap_declared_only",
+      "source_url": "https://files.pythonhosted.org/packages/f6/3d/715ede5249fb2dfcf2f44bc7f13a8206ecc9434269f7ecebf2eb24ba4f43/pg0_embedded-0.14.0.tar.gz ; wheel https://files.pythonhosted.org/packages/30/16/5dc8fc49e171df0967396a5986804c025142ce85fdfa8cb241537e105669/pg0_embedded-0.14.0-py3-none-manylinux_2_35_x86_64.whl",
+      "checksum": "sdist sha256 afcb94825f716351034d7d2eb9cc9edb6da46e3103b647a31a28e2975df47594 ; wheel sha256 bd7f59f64e12aa364ab8a8e89a47d093fdd296ea2fb5a3c95987db60d091f905 (PyPI JSON sha256 455c7132…)",
+      "texts": [],
+      "gap_note": "Same upstream as pg0 (sdk/python in vectorize-io/pg0 v0.14.0). sdist and wheel contain no license member; only MIT metadata/classifier.",
+      "recommendation": "Same as pg0: SPDX MIT text with declared-license-only label now; recommend upstream LICENSE request. One upstream fix closes both rows.",
+      "decision_for_mindi": false
+    },
+    {
+      "row": "cobble",
+      "ecosystem": "pypi (/opt/hindsight)",
+      "version": "0.1.4",
+      "disposition": "gap_declared_only",
+      "source_url": "https://files.pythonhosted.org/packages/54/7a/a507c709be2c96e1bb6102eb7b7f4026c5e5e223ef7d745a17d239e9d844/cobble-0.1.4.tar.gz ; https://github.com/mwilliamson/python-cobble tag 0.1.4 -> a4f92a3462303c1402c8c55e3b5a45fa3bc2fa37",
+      "checksum": "sdist sha256 de38be1539992c8a06e569630717c485a5f91be2192c461ea2b220607dfa78aa ; wheel sha256 36c91b1655e599fd428e2b95fdd5f0da1ca2e9f1abb0bc871dec21a0e78a2b44",
+      "texts": [
+        {
+          "file": "texts/inflection-0.3.1-LICENSE",
+          "sha256": "4a3f52ac1012a90db398e4c55f1d1bea501dddafef8a4b3adb7533b1d820e148",
+          "bytes": 1062,
+          "upstream_url": "https://raw.githubusercontent.com/jpvanhal/inflection/663982efaa1a99f677e20c342a7a75dd9c041c8d/LICENSE",
+          "copyright_line_in_text": "Copyright (C) 2012-2015 Janne Vanhala",
+          "scope": "VENDORED-FILE ONLY: covers cobble/inflection.py, whose header reads ':copyright: (c) 2012-2015 by Janne Vanhala / :license: MIT, see LICENSE'. inflection tags 0.3.0 and 0.3.1 carry the identical header and identical LICENSE bytes. Does NOT cover cobble itself."
+        },
+        {
+          "file": "../hex189-supplement/texts/d6d46202db973b560d2f521dced9110b3e0a46d9a75e1428dade8b7608dd0cca.txt  (existing HEX-189 supplement text, not re-bundled)",
+          "sha256": "d6d46202db973b560d2f521dced9110b3e0a46d9a75e1428dade8b7608dd0cca",
+          "scope": "cobble README.rst declaration: 'License: 2-Clause BSD <http://opensource.org/licenses/BSD-2-Clause>'"
+        }
+      ],
+      "gap_note": "Checked full git history of mwilliamson/python-cobble (HEAD == tag 0.1.4, 2024-06-01): no LICENSE/COPYING ever committed. Declarations only: README.rst '2-Clause BSD' link, setup.py classifier 'License :: OSI Approved :: BSD License', author 'Michael Williamson'. No copyright line anywhere.",
+      "recommendation": "Interim: SPDX BSD-2-Clause text labelled declared-license-only with no holder, plus the vendored inflection MIT text above for cobble/inflection.py. Durable: recommend an upstream issue on mwilliamson/python-cobble requesting a LICENSE file (not filed).",
+      "decision_for_mindi": false
+    },
+    {
+      "row": "winapi-i686-pc-windows-gnu",
+      "ecosystem": "cargo (cua source lock; all-platform superset)",
+      "version": "0.4.0",
+      "disposition": "resolved_source_matched_text",
+      "source_url": "https://static.crates.io/crates/winapi-i686-pc-windows-gnu/winapi-i686-pc-windows-gnu-0.4.0.crate ; https://github.com/retep998/winapi-rs commit 9497609ef44cc9bcd16cd2411c0ee6ccaf5483aa ('Publish 0.3.4', 2018-01-18)",
+      "checksum": ".crate sha256 ac3b87c63620426dd9b991e5ce0329eff545bccbbb34f3be09ff6fb6ab51b7b6 (matches crates.io checksum; published 2018-01-18T00:55Z)",
+      "texts": [
+        {
+          "file": "texts/winapi-9497609-LICENSE-MIT",
+          "sha256": "5b19674a1db628a475850a131956ed49521b744e3dda8f5a94141f9aba681219",
+          "bytes": 1068,
+          "upstream_url": "https://raw.githubusercontent.com/retep998/winapi-rs/9497609ef44cc9bcd16cd2411c0ee6ccaf5483aa/LICENSE-MIT",
+          "copyright_line_in_text": "Copyright (c) 2015 The winapi-rs Developers",
+          "scope": "repository-root grant at the source-matched commit"
+        },
+        {
+          "file": "texts/winapi-9497609-LICENSE-APACHE",
+          "sha256": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1",
+          "bytes": 11357,
+          "upstream_url": "https://raw.githubusercontent.com/retep998/winapi-rs/9497609ef44cc9bcd16cd2411c0ee6ccaf5483aa/LICENSE-APACHE",
+          "copyright_line_in_text": null,
+          "scope": "repository-root Apache-2.0 text at the source-matched commit (MIT OR Apache-2.0, at your option)"
+        },
+        {
+          "file": "texts/winapi-fa4e2c5-i686-LICENSE-MIT",
+          "sha256": "ce7bc3499fee93d5022ef430d5e4201e79a6d9154f3974e42f41349f0569e09b",
+          "bytes": 1073,
+          "upstream_url": "https://raw.githubusercontent.com/retep998/winapi-rs/fa4e2c5a6dc495c71e6031bdde2e52870ebf6fdf/i686/LICENSE-MIT",
+          "copyright_line_in_text": "per-crate copy, later year range",
+          "scope": "POST-RELEASE reference only: per-crate i686/LICENSE-MIT added 2018-06-07 in fa4e2c5 ('Include licenses in import library crates'); not in the 0.4.0 .crate"
+        }
+      ],
+      "gap_note": "The .crate lacks .cargo_vcs_info.json, but Cargo.toml.orig, build.rs and src/lib.rs are byte-identical to i686/ at 9497609 (earliest matching commit; published crate time is within minutes). src/lib.rs header: 'Copyright © 2016 winapi-rs developers / Licensed under the Apache License, Version 2.0 <LICENSE-APACHE…> or the MIT license <LICENSE-MIT…>, at your option'. lib/*.a MinGW import libraries not separately assessed. Row remains a source-lock superset (Windows target), not a binary member.",
+      "recommendation": "Use repository-root LICENSE-MIT + LICENSE-APACHE bytes from 9497609 labelled 'source-matched commit, repo-root grant'. Keep the source-lock-superset label; confirm non-membership in the linux binary rather than claiming it.",
+      "decision_for_mindi": false
+    },
+    {
+      "row": "winapi-x86_64-pc-windows-gnu",
+      "ecosystem": "cargo (cua source lock; all-platform superset)",
+      "version": "0.4.0",
+      "disposition": "resolved_source_matched_text",
+      "source_url": "https://static.crates.io/crates/winapi-x86_64-pc-windows-gnu/winapi-x86_64-pc-windows-gnu-0.4.0.crate ; https://github.com/retep998/winapi-rs commit 9497609ef44cc9bcd16cd2411c0ee6ccaf5483aa ('Publish 0.3.4', 2018-01-18)",
+      "checksum": ".crate sha256 712e227841d057c1ee1cd2fb22fa7e5a5461ae8e48fa2ca79ec42cfc1931183f (matches crates.io checksum; published 2018-01-18T00:55Z)",
+      "texts": [
+        {
+          "file": "texts/winapi-9497609-LICENSE-MIT",
+          "sha256": "5b19674a1db628a475850a131956ed49521b744e3dda8f5a94141f9aba681219",
+          "bytes": 1068,
+          "upstream_url": "https://raw.githubusercontent.com/retep998/winapi-rs/9497609ef44cc9bcd16cd2411c0ee6ccaf5483aa/LICENSE-MIT",
+          "copyright_line_in_text": "Copyright (c) 2015 The winapi-rs Developers",
+          "scope": "repository-root grant at the source-matched commit"
+        },
+        {
+          "file": "texts/winapi-9497609-LICENSE-APACHE",
+          "sha256": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1",
+          "bytes": 11357,
+          "upstream_url": "https://raw.githubusercontent.com/retep998/winapi-rs/9497609ef44cc9bcd16cd2411c0ee6ccaf5483aa/LICENSE-APACHE",
+          "copyright_line_in_text": null,
+          "scope": "repository-root Apache-2.0 text at the source-matched commit (MIT OR Apache-2.0, at your option)"
+        },
+        {
+          "file": "texts/winapi-fa4e2c5-x86_64-LICENSE-MIT",
+          "sha256": "ce7bc3499fee93d5022ef430d5e4201e79a6d9154f3974e42f41349f0569e09b",
+          "bytes": 1073,
+          "upstream_url": "https://raw.githubusercontent.com/retep998/winapi-rs/fa4e2c5a6dc495c71e6031bdde2e52870ebf6fdf/x86_64/LICENSE-MIT",
+          "copyright_line_in_text": "per-crate copy, later year range",
+          "scope": "POST-RELEASE reference only: per-crate x86_64/LICENSE-MIT added 2018-06-07 in fa4e2c5 ('Include licenses in import library crates'); not in the 0.4.0 .crate"
+        }
+      ],
+      "gap_note": "The .crate lacks .cargo_vcs_info.json, but Cargo.toml.orig, build.rs and src/lib.rs are byte-identical to x86_64/ at 9497609 (earliest matching commit; published crate time is within minutes). src/lib.rs header: 'Copyright © 2016 winapi-rs developers / Licensed under the Apache License, Version 2.0 <LICENSE-APACHE…> or the MIT license <LICENSE-MIT…>, at your option'. lib/*.a MinGW import libraries not separately assessed. Row remains a source-lock superset (Windows target), not a binary member.",
+      "recommendation": "Use repository-root LICENSE-MIT + LICENSE-APACHE bytes from 9497609 labelled 'source-matched commit, repo-root grant'. Keep the source-lock-superset label; confirm non-membership in the linux binary rather than claiming it.",
+      "decision_for_mindi": false
+    },
+    {
+      "row": "difflib",
+      "ecosystem": "cargo (uv + uvx SBOM, 2 rows)",
+      "version": "0.4.0",
+      "disposition": "resolved_source_matched_text_holder_anomaly",
+      "source_url": "https://static.crates.io/crates/difflib/difflib-0.4.0.crate ; https://github.com/DimaKudosh/difflib commit f035fb8e656f27119e23eca9d5b996df14f3885e (master HEAD, 2018-07-22)",
+      "checksum": ".crate sha256 6184e33543162437515c2e2b48714794e37845ec9851711914eec9d308f6ebe8 (== crates.io checksum; published 2018-07-22T12:47Z)",
+      "texts": [
+        {
+          "file": "texts/difflib-f035fb8e656f-LICENSE",
+          "sha256": "6725d1437fc6c77301f2ff0e7d52914cf4f9509213e1078dc77d9356dbe6eac5",
+          "bytes": 1086,
+          "upstream_url": "https://raw.githubusercontent.com/DimaKudosh/difflib/f035fb8e656f27119e23eca9d5b996df14f3885e/LICENSE",
+          "copyright_line_in_text": "Copyright (c) 2015-2016 Kevin B. Knapp",
+          "scope": "repository-root LICENSE at the source-matched commit (added 2017-09-09 in 8748d65 'Update version, changed license', replacing UNLICENSE)"
+        }
+      ],
+      "gap_note": "No tags. Cargo.toml.orig and every src/tests/examples file in the .crate are byte-identical to f035fb8 (merge 12:36Z, publish 12:47Z same day; 31ea2a2 also matches). ANOMALY: the LICENSE copyright line names 'Kevin B. Knapp' while Cargo.toml authors = 'Dima Kudosh'. Recorded verbatim; not corrected or reinterpreted.",
+      "recommendation": "Use the exact upstream LICENSE bytes verbatim with label 'source-matched repo-root grant; copyright line as published upstream (differs from crate author)'. No product decision needed.",
+      "decision_for_mindi": false
+    },
+    {
+      "row": "seahash",
+      "ecosystem": "cargo (uv + uvx SBOM, 2 rows)",
+      "version": "4.1.0",
+      "disposition": "resolved_post_release_upstream_text",
+      "source_url": "https://static.crates.io/crates/seahash/seahash-4.1.0.crate ; https://gitlab.redox-os.org/redox-os/seahash tag v4.1.0 -> 94b632aeac099031c373599313d5b5f0acbbaec0 (== .cargo_vcs_info.json sha1); LICENSE commit 3088c5c912b70b586d27bf553fbe964e025a2c89",
+      "checksum": ".crate sha256 1c107b6f4780854c8b126e228ea8869f4d7b71260f962fefb57b996b8959ba6b ; release-commit archive https://gitlab.redox-os.org/redox-os/seahash/-/archive/94b632ae…/…tar.gz sha256 c94a735407fa35d3b4c999c910f4a0532a7f00b405b38c78ce2eebc42aee47b7",
+      "texts": [
+        {
+          "file": "texts/seahash-3088c5c912b7-LICENSE",
+          "sha256": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3",
+          "bytes": 1023,
+          "upstream_url": "https://gitlab.redox-os.org/redox-os/seahash/-/raw/3088c5c912b70b586d27bf553fbe964e025a2c89/LICENSE",
+          "copyright_line_in_text": null,
+          "scope": "POST-RELEASE upstream grant: 'fix: add missing MIT license text' (2023-10-24), direct child of the v4.1.0 commit, diff adds only LICENSE"
+        }
+      ],
+      "gap_note": "Neither the .crate nor the release commit contains a license file; Cargo.toml `license = \"MIT\"`, authors 'ticki', 'Tom Almeida'. Upstream later added MIT permission text with NO copyright line.",
+      "recommendation": "Use the upstream post-release LICENSE bytes labelled 'post-release upstream text (child of v4.1.0 tag); no copyright holder stated upstream'. Do not add a holder.",
+      "decision_for_mindi": false
+    },
+    {
+      "row": "keyv",
+      "ecosystem": "npm (/opt/hermes)",
+      "version": "4.5.4",
+      "disposition": "resolved_source_matched_text",
+      "source_url": "https://registry.npmjs.org/keyv/-/keyv-4.5.4.tgz ; https://github.com/jaredwray/keyv commit e4d608eccdfc094b80f6e9545c5307ee0810af72 ('keyv - version bump to v4.5.4')",
+      "checksum": "tarball sha256 eb26f1c561e57af4a4365e6b54f5f3e745e3963747a93845af1f000a747b6098 (integrity sha512-oxVHkHR/…)",
+      "texts": [
+        {
+          "file": "texts/keyv-e4d608ec-LICENSE",
+          "sha256": "1f7dca26d2d328c3dbb9b6fe3b15ec3cda08ffe2288e47b73d617454b256f959",
+          "bytes": 1108,
+          "upstream_url": "https://raw.githubusercontent.com/jaredwray/keyv/e4d608eccdfc094b80f6e9545c5307ee0810af72/LICENSE",
+          "copyright_line_in_text": "Copyright (c) 2017-2021 Luke Childs",
+          "scope": "monorepo-root LICENSE at the source-matched commit"
+        }
+      ],
+      "gap_note": "No gitHead/tag, but packages/keyv/src/index.js, src/index.d.ts and README.md at e4d608ec are byte-identical to the tarball. README says 'MIT © Jared Wray'; LICENSE file says Luke Childs — both recorded verbatim.",
+      "recommendation": "Use monorepo-root LICENSE bytes labelled 'parent (repo-root) grant at source-matched commit'.",
+      "decision_for_mindi": false
+    },
+    {
+      "row": "@rolldown/binding-linux-x64-gnu",
+      "ecosystem": "npm (/opt/hermes)",
+      "version": "1.2.1",
+      "disposition": "resolved_tag_bound_text",
+      "source_url": "https://registry.npmjs.org/@rolldown/binding-linux-x64-gnu/-/binding-linux-x64-gnu-1.2.1.tgz ; https://github.com/rolldown/rolldown tag v1.2.1 -> 93c535d8875daacde3afa84c0d4e9d26e87453e9",
+      "checksum": "tarball sha256 5c6410d507aec8ee8061c01d2e148e5fb8d8575fef73ed633fda1f8a37a97632",
+      "texts": [
+        {
+          "file": "texts/rolldown-93c535d8875d-LICENSE",
+          "sha256": "23ecfff35a5a2e80d92142f75228912c3b1abc4b5a8337a821ff4397e2f9f734",
+          "bytes": 1302,
+          "upstream_url": "https://raw.githubusercontent.com/rolldown/rolldown/93c535d8875daacde3afa84c0d4e9d26e87453e9/LICENSE",
+          "copyright_line_in_text": "Copyright (c) 2024-present VoidZero Inc. & Contributors",
+          "scope": "repo-root LICENSE at version tag"
+        },
+        {
+          "file": "texts/rolldown-93c535d8875d-THIRD-PARTY-LICENSE",
+          "sha256": "a877291d800ed43692f3f9ae09d8e01cc6f7293ad39d43896059c188ffbb8b7c",
+          "bytes": 2209,
+          "upstream_url": "https://raw.githubusercontent.com/rolldown/rolldown/93c535d8875daacde3afa84c0d4e9d26e87453e9/THIRD-PARTY-LICENSE",
+          "copyright_line_in_text": null,
+          "scope": "repo-root third-party notice at version tag; relevant to the compiled native binding"
+        }
+      ],
+      "gap_note": "Registry gives no gitHead; binding is a compiled artifact of the rolldown monorepo (repository.directory packages/rolldown). Bound by version tag only; tag does not prove binary equivalence. Rust crates statically linked into the .node binary are not enumerated here.",
+      "recommendation": "Use tag-bound root LICENSE + THIRD-PARTY-LICENSE labelled 'version-tag source text'. Opi to confirm which binding variant is actually on the final filesystem (gnu/musl/wasi are optional platform packages).",
+      "decision_for_mindi": false
+    },
+    {
+      "row": "@rolldown/binding-linux-x64-musl",
+      "ecosystem": "npm (/opt/hermes)",
+      "version": "1.2.1",
+      "disposition": "resolved_tag_bound_text",
+      "source_url": "https://registry.npmjs.org/@rolldown/binding-linux-x64-musl/-/binding-linux-x64-musl-1.2.1.tgz ; https://github.com/rolldown/rolldown tag v1.2.1 -> 93c535d8875daacde3afa84c0d4e9d26e87453e9",
+      "checksum": "tarball sha256 a5d3061694a1e0ef4e6390274a8dd845247f84a92dacc7b644a1f67877cf051d",
+      "texts": [
+        {
+          "file": "texts/rolldown-93c535d8875d-LICENSE",
+          "sha256": "23ecfff35a5a2e80d92142f75228912c3b1abc4b5a8337a821ff4397e2f9f734",
+          "bytes": 1302,
+          "upstream_url": "https://raw.githubusercontent.com/rolldown/rolldown/93c535d8875daacde3afa84c0d4e9d26e87453e9/LICENSE",
+          "copyright_line_in_text": "Copyright (c) 2024-present VoidZero Inc. & Contributors",
+          "scope": "repo-root LICENSE at version tag"
+        },
+        {
+          "file": "texts/rolldown-93c535d8875d-THIRD-PARTY-LICENSE",
+          "sha256": "a877291d800ed43692f3f9ae09d8e01cc6f7293ad39d43896059c188ffbb8b7c",
+          "bytes": 2209,
+          "upstream_url": "https://raw.githubusercontent.com/rolldown/rolldown/93c535d8875daacde3afa84c0d4e9d26e87453e9/THIRD-PARTY-LICENSE",
+          "copyright_line_in_text": null,
+          "scope": "repo-root third-party notice at version tag; relevant to the compiled native binding"
+        }
+      ],
+      "gap_note": "Registry gives no gitHead; binding is a compiled artifact of the rolldown monorepo (repository.directory packages/rolldown). Bound by version tag only; tag does not prove binary equivalence. Rust crates statically linked into the .node binary are not enumerated here.",
+      "recommendation": "Use tag-bound root LICENSE + THIRD-PARTY-LICENSE labelled 'version-tag source text'. Opi to confirm which binding variant is actually on the final filesystem (gnu/musl/wasi are optional platform packages).",
+      "decision_for_mindi": false
+    },
+    {
+      "row": "@rolldown/binding-wasm32-wasi",
+      "ecosystem": "npm (/opt/hermes)",
+      "version": "1.2.1",
+      "disposition": "resolved_tag_bound_text",
+      "source_url": "https://registry.npmjs.org/@rolldown/binding-wasm32-wasi/-/binding-wasm32-wasi-1.2.1.tgz ; https://github.com/rolldown/rolldown tag v1.2.1 -> 93c535d8875daacde3afa84c0d4e9d26e87453e9",
+      "checksum": "tarball sha256 3a26f1ec51bab57902c70e42e99f56d63910a0eaab312b3f261efa554e419ff0",
+      "texts": [
+        {
+          "file": "texts/rolldown-93c535d8875d-LICENSE",
+          "sha256": "23ecfff35a5a2e80d92142f75228912c3b1abc4b5a8337a821ff4397e2f9f734",
+          "bytes": 1302,
+          "upstream_url": "https://raw.githubusercontent.com/rolldown/rolldown/93c535d8875daacde3afa84c0d4e9d26e87453e9/LICENSE",
+          "copyright_line_in_text": "Copyright (c) 2024-present VoidZero Inc. & Contributors",
+          "scope": "repo-root LICENSE at version tag"
+        },
+        {
+          "file": "texts/rolldown-93c535d8875d-THIRD-PARTY-LICENSE",
+          "sha256": "a877291d800ed43692f3f9ae09d8e01cc6f7293ad39d43896059c188ffbb8b7c",
+          "bytes": 2209,
+          "upstream_url": "https://raw.githubusercontent.com/rolldown/rolldown/93c535d8875daacde3afa84c0d4e9d26e87453e9/THIRD-PARTY-LICENSE",
+          "copyright_line_in_text": null,
+          "scope": "repo-root third-party notice at version tag; relevant to the compiled native binding"
+        }
+      ],
+      "gap_note": "Registry gives no gitHead; binding is a compiled artifact of the rolldown monorepo (repository.directory packages/rolldown). Bound by version tag only; tag does not prove binary equivalence. Rust crates statically linked into the .node binary are not enumerated here.",
+      "recommendation": "Use tag-bound root LICENSE + THIRD-PARTY-LICENSE labelled 'version-tag source text'. Opi to confirm which binding variant is actually on the final filesystem (gnu/musl/wasi are optional platform packages).",
+      "decision_for_mindi": false
+    },
+    {
+      "row": "yoga-layout",
+      "ecosystem": "npm (/opt/hermes)",
+      "version": "3.2.1",
+      "disposition": "resolved_tag_bound_text",
+      "source_url": "https://registry.npmjs.org/yoga-layout/-/yoga-layout-3.2.1.tgz ; https://github.com/facebook/yoga tag v3.2.1 -> 042f5013152eb81c1552dec945b88f7b95ca350f",
+      "checksum": "tarball sha256 48bc77618a736a752ba6a3f838862e547c38e0b22be9f5dc030ac4c4557e7fff",
+      "texts": [
+        {
+          "file": "texts/yoga-042f5013152e-LICENSE",
+          "sha256": "52412d7bc7ce4157ea628bbaacb8829e0a9cb3c58f57f99176126bc8cf2bfc85",
+          "bytes": 1086,
+          "upstream_url": "https://raw.githubusercontent.com/facebook/yoga/042f5013152eb81c1552dec945b88f7b95ca350f/LICENSE",
+          "copyright_line_in_text": "Copyright (c) Facebook, Inc. and its affiliates.",
+          "scope": "repo-root LICENSE at version tag"
+        }
+      ],
+      "gap_note": "No gitHead; bound by version tag only.",
+      "recommendation": "Use tag-bound root LICENSE labelled 'version-tag source text'.",
+      "decision_for_mindi": false
+    },
+    {
+      "row": "@alcalzone/ansi-tokenize",
+      "ecosystem": "npm (/opt/hermes)",
+      "version": "0.1.3",
+      "disposition": "resolved_post_release_upstream_text",
+      "source_url": "https://registry.npmjs.org/@alcalzone/ansi-tokenize/-/ansi-tokenize-0.1.3.tgz ; https://github.com/AlCalzone/ansi-tokenize gitHead d9313397d7fd91b0da5e1aed7445830911622929 (== tag v0.1.3); LICENSE commit 900f19ac5e16ab31633b10d5b46ab58b7af6273b",
+      "checksum": "tarball sha256 58b63d5c88515d5765418a3c4ece5b755878e89710ef3ceeeb5be9b3b8950ab4",
+      "texts": [
+        {
+          "file": "texts/ansi-tokenize-900f19ac5e16-LICENSE",
+          "sha256": "85a926eba7e6b0a078dfbcb9ff208c11b5faddff10a762415d0b0394399d62ad",
+          "bytes": 1071,
+          "upstream_url": "https://raw.githubusercontent.com/AlCalzone/ansi-tokenize/900f19ac5e16ab31633b10d5b46ab58b7af6273b/LICENSE",
+          "copyright_line_in_text": "Copyright (c) 2020-2025 AlCalzone",
+          "scope": "POST-RELEASE upstream LICENSE (added 2025-10-20); absent at the exact gitHead"
+        }
+      ],
+      "gap_note": "Correction to HEX-189 record: registry DOES publish gitHead d9313397 (only `repository` is missing). No license file at that commit.",
+      "recommendation": "Use post-release upstream LICENSE labelled 'post-release upstream text by project owner'.",
+      "decision_for_mindi": false
+    },
+    {
+      "row": "boolbase",
+      "ecosystem": "npm (photon sidecar)",
+      "version": "1.0.0",
+      "disposition": "resolved_post_release_upstream_text",
+      "source_url": "https://registry.npmjs.org/boolbase/-/boolbase-1.0.0.tgz ; https://github.com/fb55/boolbase release commit 9837d5b ('init', 2014-02-15, matches publish time); LICENSE commit be0bcd8a4e917a0a5895e95b523fbbed05a64871",
+      "checksum": "tarball sha256 69628ff8092c5ff940ea4a0f29da98d520615bae138755c9e059033606c6caa8",
+      "texts": [
+        {
+          "file": "texts/boolbase-be0bcd8a4e91-LICENSE",
+          "sha256": "cdf4d87ae0a6c160227263bf4e39a0a10e30e89ae7256e0f7ac7bde0836552c6",
+          "bytes": 751,
+          "upstream_url": "https://raw.githubusercontent.com/fb55/boolbase/be0bcd8a4e917a0a5895e95b523fbbed05a64871/LICENSE",
+          "copyright_line_in_text": "Copyright (c) 2014-2015, Felix Boehm <me@feedic.com>",
+          "scope": "POST-RELEASE upstream ISC LICENSE (2015-10-14, merged by owner via PR #1)"
+        }
+      ],
+      "gap_note": "No tag/gitHead; package.json declares ISC.",
+      "recommendation": "Use post-release upstream LICENSE labelled accordingly.",
+      "decision_for_mindi": false
+    },
+    {
+      "row": "react-remove-scroll-bar",
+      "ecosystem": "npm (/opt/hermes)",
+      "version": "2.3.8",
+      "disposition": "resolved_post_release_upstream_text",
+      "source_url": "https://registry.npmjs.org/react-remove-scroll-bar/-/react-remove-scroll-bar-2.3.8.tgz ; gitHead b3b1287aad81def2e2ae707274b74531b61ddbaf (NOT present in github.com/theKashey/react-remove-scroll-bar); LICENSE commit 7301c160fda44cb8cf2b9fdfde61efad35736196",
+      "checksum": "tarball sha256 ccc872d7a2dc007cbf9d755f30d56b8d80eabdbe22c44c95a709129bfdc46f01",
+      "texts": [
+        {
+          "file": "texts/react-remove-scroll-bar-7301c160fda4-LICENSE",
+          "sha256": "a79aae0c0f21990d9d963bb3c5a79cdcea9a46f8523ba55c58d7fe776b6ebc84",
+          "bytes": 1093,
+          "upstream_url": "https://raw.githubusercontent.com/theKashey/react-remove-scroll-bar/7301c160fda44cb8cf2b9fdfde61efad35736196/LICENSE",
+          "copyright_line_in_text": "Copyright (c) 2025 Anton Korzunov <thekashey@gmail.com>",
+          "scope": "POST-RELEASE upstream LICENSE (2025-05-21)"
+        }
+      ],
+      "gap_note": "Published gitHead was never pushed (server: 'not our ref'). README says 'MIT'.",
+      "recommendation": "Use post-release upstream LICENSE labelled accordingly.",
+      "decision_for_mindi": false
+    },
+    {
+      "row": "natural-compare",
+      "ecosystem": "npm (/opt/hermes)",
+      "version": "1.4.0",
+      "disposition": "resolved_exact_statement_plus_linked_text",
+      "source_url": "https://registry.npmjs.org/natural-compare/-/natural-compare-1.4.0.tgz ; gitHead eec83eee67cfac84d6db30cdd65363f155673770 (litejs/natural-compare-lite); README link http://lauri.rooden.ee/mit-license.txt",
+      "checksum": "tarball sha256 5e5569ecd12064f73632a8c18a45b1d1de4a27b699a671864801f1c35ee779ee",
+      "texts": [
+        {
+          "file": "../hex189-supplement/texts/ced6cb1fe6ee15a32c63ea8c7e0425454e80456a890c6df3909429530566d40a.txt  (existing HEX-189 supplement text, not re-bundled)",
+          "sha256": "ced6cb1fe6ee15a32c63ea8c7e0425454e80456a890c6df3909429530566d40a",
+          "scope": "EXACT tarball README: 'Copyright (c) 2012-2015 Lauri Rooden <lauri@rooden.ee> / [The MIT License](http://lauri.rooden.ee/mit-license.txt)'"
+        },
+        {
+          "file": "texts/natural-compare-mit-license.txt",
+          "sha256": "353fe762ba595bf1ffe786acf0f5984bb164205901d74f258af195fc8228c67d",
+          "bytes": 1087,
+          "upstream_url": "http://lauri.rooden.ee/mit-license.txt",
+          "copyright_line_in_text": "Copyright (c) Lauri Rooden <lauri@rooden.ee>",
+          "scope": "LINKED text fetched 2026-09-30 (content at 2016 release time unproven)"
+        },
+        {
+          "file": "texts/natural-compare-6b42bc713dca-LICENSE",
+          "sha256": "353fe762ba595bf1ffe786acf0f5984bb164205901d74f258af195fc8228c67d",
+          "bytes": 1087,
+          "upstream_url": "https://raw.githubusercontent.com/litejs/natural-compare-lite/6b42bc713dca62f35b927cd06b69a82e297f019b/LICENSE",
+          "copyright_line_in_text": "Copyright (c) Lauri Rooden <lauri@rooden.ee>",
+          "scope": "POST-RELEASE repo LICENSE (2024-10-11); byte-identical to the linked text"
+        }
+      ],
+      "gap_note": "Exact release carries holder + year in README and links the grant; linked URL and later repo LICENSE are identical bytes.",
+      "recommendation": "Use exact README copyright statement + linked/post-release MIT text (identical bytes).",
+      "decision_for_mindi": false
+    },
+    {
+      "row": "acorn-import-assertions",
+      "ecosystem": "npm (/usr/share/nodejs — Ubuntu deb path)",
+      "version": "1.8.0",
+      "disposition": "resolved_post_release_upstream_text",
+      "source_url": "https://registry.npmjs.org/acorn-import-assertions/-/acorn-import-assertions-1.8.0.tgz ; gitHead 74ae50bf34ac4ca48cc7e8735fd18a017c75bb4e (NOT present upstream); LICENSE commit 2c7059709cc529d81194c2d7057c181f4000e375 (github.com/xtuc/acorn-import-assertions)",
+      "checksum": "tarball sha256 dedafb23a8e23b9cf6666ba7fe70eeb938b09254d03c8a343b4df869f49ebcdf",
+      "texts": [
+        {
+          "file": "texts/acorn-import-assertions-2c7059709cc5-LICENSE",
+          "sha256": "68d38391fb464a7ffdfd27f6f41c46700dc7c8e3a11bd91bc9d75e9e3706badd",
+          "bytes": 1069,
+          "upstream_url": "https://raw.githubusercontent.com/xtuc/acorn-import-assertions/2c7059709cc529d81194c2d7057c181f4000e375/LICENSE",
+          "copyright_line_in_text": "Copyright (c) 2023 Sven Sauleau",
+          "scope": "POST-RELEASE upstream LICENSE (2023-08-21)"
+        },
+        {
+          "file": "../hex189-supplement/texts/66ca0a3cbccf13090cf72427030664a061411428ff2848bd1c5ba8cfbffd1bf6.txt  (existing HEX-189 supplement text, not re-bundled)",
+          "sha256": "66ca0a3cbccf13090cf72427030664a061411428ff2848bd1c5ba8cfbffd1bf6",
+          "scope": "EXACT tarball README: 'This plugin is released under an MIT License.'"
+        }
+      ],
+      "gap_note": "Installed under /usr/share/nodejs, i.e. shipped by an Ubuntu deb, not npm. The owning deb's /usr/share/doc/<pkg>/copyright is the authoritative in-image notice.",
+      "recommendation": "Preferred: Opi (HEX-190) maps the file to its owning deb (dpkg -S) and captures that deb's copyright bytes, as done for libxml2/libicu. Fallback: post-release upstream LICENSE above.",
+      "decision_for_mindi": false
+    },
+    {
+      "row": "binary-search",
+      "ecosystem": "npm (/usr/share/nodejs — Ubuntu deb path)",
+      "version": "1.3.6",
+      "disposition": "resolved_exact_release_dedication_statement",
+      "source_url": "https://registry.npmjs.org/binary-search/-/binary-search-1.3.6.tgz ; fallback commit 1caaa1207a11702612afd00ef7972855ea1e12a1 (darkskyapp/binary-search; no LICENSE file ever committed)",
+      "checksum": "tarball sha256 5e25f3045c4b7eb8a20fcc16def37f13e0dfb2b10038b0462adae6d7460516b6",
+      "texts": [
+        {
+          "file": "../hex189-supplement/texts/13bd5b0f5b8e84dbac09a999f1e9ce541be6f18c2c2e17fe60a55edfe95b4586.txt  (existing HEX-189 supplement text, not re-bundled)",
+          "sha256": "13bd5b0f5b8e84dbac09a999f1e9ce541be6f18c2c2e17fe60a55edfe95b4586",
+          "scope": "EXACT tarball README: 'To the extent possible by law, The Dark Sky Company, LLC has waived all copyright and related or neighboring rights [CC0] to this library.'"
+        }
+      ],
+      "gap_note": "CC0 waiver by a named affirmer is present in the exact release; only the CC0 legal code is absent. CC0 imposes no attribution requirement.",
+      "recommendation": "Accept the exact README waiver statement as the grant; optionally append SPDX CC0-1.0 legal code labelled 'reference text'. Prefer the owning Ubuntu deb copyright file if Opi maps it.",
+      "decision_for_mindi": false
+    },
+    {
+      "row": "spdx-license-ids",
+      "ecosystem": "npm (bundled in npm CLI)",
+      "version": "3.0.23",
+      "disposition": "gap_declared_only_low_risk",
+      "source_url": "https://registry.npmjs.org/spdx-license-ids/-/spdx-license-ids-3.0.23.tgz ; gitHead-equivalent a2a975daf48bbc2afdc8e7c304405b44c656fd53 (jslicense/spdx-license-ids)",
+      "checksum": "tarball sha256 fea7d95340e83a403c73463ea683cdde960029d956a86a023af6e283fd1e82fe",
+      "texts": [
+        {
+          "file": "../hex189-supplement/texts/b4807793db6058c819f76c023362b7d522b3d19c9b41563fcc01c2b2c5b1ccd3.txt  (existing HEX-189 supplement text, not re-bundled)",
+          "sha256": "b4807793db6058c819f76c023362b7d522b3d19c9b41563fcc01c2b2c5b1ccd3",
+          "scope": "EXACT tarball README: '## License / [Creative Commons Zero v1.0 Universal](…/publicdomain/zero/1.0/deed)'"
+        }
+      ],
+      "gap_note": "Repo had an Unlicense LICENSE (added 2014) that was deleted 2016-12-24 in 99503b7 'switch the project license from Unlicense to CC0-1.0'; no license file exists at the release commit. No named affirmer.",
+      "recommendation": "SPDX CC0-1.0 legal code labelled declared-license-only (CC0 needs no attribution). No upstream action needed.",
+      "decision_for_mindi": false
+    },
+    {
+      "row": "spdx-exceptions",
+      "ecosystem": "npm (bundled in npm CLI)",
+      "version": "2.5.0",
+      "disposition": "resolved_exact_release_attribution_statement",
+      "source_url": "https://registry.npmjs.org/spdx-exceptions/-/spdx-exceptions-2.5.0.tgz ; commit 3aa64bec339abc6a3eca00c3436aaa7e154b8799 (kemitchell/spdx-exceptions.json)",
+      "checksum": "tarball sha256 c5295dd22415e8b60a5af2560e7461954f660bcb591be7c5622e463956d33256",
+      "texts": [
+        {
+          "file": "../hex189-supplement/texts/554b19eee11d2964e9f7b244e47944c08d52ca75539260a04f3227e6c0144513.txt  (existing HEX-189 supplement text, not re-bundled)",
+          "sha256": "554b19eee11d2964e9f7b244e47944c08d52ca75539260a04f3227e6c0144513",
+          "scope": "EXACT tarball README 'Copyright and Licensing': 'Copyright © 2010-2015 Linux Foundation and its Contributors. Licensed under the Creative Commons Attribution License 3.0 Unported. All other rights are expressly reserved.'"
+        }
+      ],
+      "gap_note": "An unrelated 2015 MIT LICENSE.md (Kyle E. Mitchell) was added in ea87813 and removed in 7d437e9 (2015-10-03); it is not applicable to 2.5.0 and was not used.",
+      "recommendation": "Use the exact README attribution statement + SPDX CC-BY-3.0 legal code labelled 'standard text for declared licence; attribution from exact release'.",
+      "decision_for_mindi": false
+    },
+    {
+      "row": "hermes-agent",
+      "ecosystem": "npm workspace (/opt/hermes/package.json)",
+      "version": "1.0.0",
+      "disposition": "workspace_member_root_grant_candidate",
+      "source_url": "https://github.com/NousResearch/Hermes-Agent (member path present at HEAD ac0cfa7db94cefa90cf3e35191f38b53888b9e17)",
+      "checksum": "n/a (not a registry package)",
+      "texts": [
+        {
+          "file": "texts/hermes-agent-head-ac0cfa7db94c-LICENSE",
+          "sha256": "821556e6336796450ab852d375117b48a4887e71d255794fd6318d99982a5ab6",
+          "bytes": 1070,
+          "upstream_url": "https://raw.githubusercontent.com/NousResearch/Hermes-Agent/ac0cfa7db94cefa90cf3e35191f38b53888b9e17/LICENSE",
+          "copyright_line_in_text": "Copyright (c) 2025 Nous Research",
+          "scope": "Hermes-Agent repository root LICENSE at current HEAD (2026-07-30); identical bytes to restore commit 9ba5d399e58fa353d7132b0e2e9533d281ff64d1 and to baseline text 821556e6 already captured for hermes-agent 0.20.4 rows"
+        }
+      ],
+      "gap_note": "Workspace/private member of NousResearch/Hermes-Agent (package.json exists at the SBOM path in the upstream repo tree); npm registry 404 is expected. Candidate grant = Hermes-Agent root MIT LICENSE (sha256 821556e6…, already in the HEX-189 baseline for hermes-agent 0.20.4). Exact installed Hermes commit is not pinned by this work; per-member scope needs the same review as the cua workspace crates.",
+      "recommendation": "Map to the Hermes-Agent root grant as a workspace-member association once Opi (HEX-190) pins the installed Hermes source commit; do not use registry lookups for these names.",
+      "decision_for_mindi": false
+    },
+    {
+      "row": "hermes-tui",
+      "ecosystem": "npm workspace (/opt/hermes/ui-tui/package.json)",
+      "version": "0.0.1",
+      "disposition": "workspace_member_root_grant_candidate",
+      "source_url": "https://github.com/NousResearch/Hermes-Agent (member path present at HEAD ac0cfa7db94cefa90cf3e35191f38b53888b9e17)",
+      "checksum": "n/a (not a registry package)",
+      "texts": [
+        {
+          "file": "texts/hermes-agent-head-ac0cfa7db94c-LICENSE",
+          "sha256": "821556e6336796450ab852d375117b48a4887e71d255794fd6318d99982a5ab6",
+          "bytes": 1070,
+          "upstream_url": "https://raw.githubusercontent.com/NousResearch/Hermes-Agent/ac0cfa7db94cefa90cf3e35191f38b53888b9e17/LICENSE",
+          "copyright_line_in_text": "Copyright (c) 2025 Nous Research",
+          "scope": "Hermes-Agent repository root LICENSE at current HEAD (2026-07-30); identical bytes to restore commit 9ba5d399e58fa353d7132b0e2e9533d281ff64d1 and to baseline text 821556e6 already captured for hermes-agent 0.20.4 rows"
+        }
+      ],
+      "gap_note": "Workspace/private member of NousResearch/Hermes-Agent (package.json exists at the SBOM path in the upstream repo tree); npm registry 404 is expected. Candidate grant = Hermes-Agent root MIT LICENSE (sha256 821556e6…, already in the HEX-189 baseline for hermes-agent 0.20.4). Exact installed Hermes commit is not pinned by this work; per-member scope needs the same review as the cua workspace crates.",
+      "recommendation": "Map to the Hermes-Agent root grant as a workspace-member association once Opi (HEX-190) pins the installed Hermes source commit; do not use registry lookups for these names.",
+      "decision_for_mindi": false
+    },
+    {
+      "row": "hermes-whatsapp-bridge",
+      "ecosystem": "npm workspace (/opt/hermes/scripts/whatsapp-bridge/package.json)",
+      "version": "1.0.0",
+      "disposition": "workspace_member_root_grant_candidate",
+      "source_url": "https://github.com/NousResearch/Hermes-Agent (member path present at HEAD ac0cfa7db94cefa90cf3e35191f38b53888b9e17)",
+      "checksum": "n/a (not a registry package)",
+      "texts": [
+        {
+          "file": "texts/hermes-agent-head-ac0cfa7db94c-LICENSE",
+          "sha256": "821556e6336796450ab852d375117b48a4887e71d255794fd6318d99982a5ab6",
+          "bytes": 1070,
+          "upstream_url": "https://raw.githubusercontent.com/NousResearch/Hermes-Agent/ac0cfa7db94cefa90cf3e35191f38b53888b9e17/LICENSE",
+          "copyright_line_in_text": "Copyright (c) 2025 Nous Research",
+          "scope": "Hermes-Agent repository root LICENSE at current HEAD (2026-07-30); identical bytes to restore commit 9ba5d399e58fa353d7132b0e2e9533d281ff64d1 and to baseline text 821556e6 already captured for hermes-agent 0.20.4 rows"
+        }
+      ],
+      "gap_note": "Workspace/private member of NousResearch/Hermes-Agent (package.json exists at the SBOM path in the upstream repo tree); npm registry 404 is expected. Candidate grant = Hermes-Agent root MIT LICENSE (sha256 821556e6…, already in the HEX-189 baseline for hermes-agent 0.20.4). Exact installed Hermes commit is not pinned by this work; per-member scope needs the same review as the cua workspace crates.",
+      "recommendation": "Map to the Hermes-Agent root grant as a workspace-member association once Opi (HEX-190) pins the installed Hermes source commit; do not use registry lookups for these names.",
+      "decision_for_mindi": false
+    },
+    {
+      "row": "@hermes/ink",
+      "ecosystem": "npm workspace (/opt/hermes/ui-tui/packages/hermes-ink/package.json)",
+      "version": "0.0.1",
+      "disposition": "workspace_member_root_grant_candidate",
+      "source_url": "https://github.com/NousResearch/Hermes-Agent (member path present at HEAD ac0cfa7db94cefa90cf3e35191f38b53888b9e17)",
+      "checksum": "n/a (not a registry package)",
+      "texts": [
+        {
+          "file": "texts/hermes-agent-head-ac0cfa7db94c-LICENSE",
+          "sha256": "821556e6336796450ab852d375117b48a4887e71d255794fd6318d99982a5ab6",
+          "bytes": 1070,
+          "upstream_url": "https://raw.githubusercontent.com/NousResearch/Hermes-Agent/ac0cfa7db94cefa90cf3e35191f38b53888b9e17/LICENSE",
+          "copyright_line_in_text": "Copyright (c) 2025 Nous Research",
+          "scope": "Hermes-Agent repository root LICENSE at current HEAD (2026-07-30); identical bytes to restore commit 9ba5d399e58fa353d7132b0e2e9533d281ff64d1 and to baseline text 821556e6 already captured for hermes-agent 0.20.4 rows"
+        }
+      ],
+      "gap_note": "Workspace/private member of NousResearch/Hermes-Agent (package.json exists at the SBOM path in the upstream repo tree); npm registry 404 is expected. Candidate grant = Hermes-Agent root MIT LICENSE (sha256 821556e6…, already in the HEX-189 baseline for hermes-agent 0.20.4). Exact installed Hermes commit is not pinned by this work; per-member scope needs the same review as the cua workspace crates.",
+      "recommendation": "Map to the Hermes-Agent root grant as a workspace-member association once Opi (HEX-190) pins the installed Hermes source commit; do not use registry lookups for these names.",
+      "decision_for_mindi": false
+    },
+    {
+      "row": "@hermes/root-tests",
+      "ecosystem": "npm workspace (/opt/hermes/tests-js/package.json)",
+      "version": "UNKNOWN",
+      "disposition": "workspace_member_root_grant_candidate",
+      "source_url": "https://github.com/NousResearch/Hermes-Agent (member path present at HEAD ac0cfa7db94cefa90cf3e35191f38b53888b9e17)",
+      "checksum": "n/a (not a registry package)",
+      "texts": [
+        {
+          "file": "texts/hermes-agent-head-ac0cfa7db94c-LICENSE",
+          "sha256": "821556e6336796450ab852d375117b48a4887e71d255794fd6318d99982a5ab6",
+          "bytes": 1070,
+          "upstream_url": "https://raw.githubusercontent.com/NousResearch/Hermes-Agent/ac0cfa7db94cefa90cf3e35191f38b53888b9e17/LICENSE",
+          "copyright_line_in_text": "Copyright (c) 2025 Nous Research",
+          "scope": "Hermes-Agent repository root LICENSE at current HEAD (2026-07-30); identical bytes to restore commit 9ba5d399e58fa353d7132b0e2e9533d281ff64d1 and to baseline text 821556e6 already captured for hermes-agent 0.20.4 rows"
+        }
+      ],
+      "gap_note": "Workspace/private member of NousResearch/Hermes-Agent (package.json exists at the SBOM path in the upstream repo tree); npm registry 404 is expected. Candidate grant = Hermes-Agent root MIT LICENSE (sha256 821556e6…, already in the HEX-189 baseline for hermes-agent 0.20.4). Exact installed Hermes commit is not pinned by this work; per-member scope needs the same review as the cua workspace crates.",
+      "recommendation": "Map to the Hermes-Agent root grant as a workspace-member association once Opi (HEX-190) pins the installed Hermes source commit; do not use registry lookups for these names.",
+      "decision_for_mindi": false
+    },
+    {
+      "row": "@hermes/shared",
+      "ecosystem": "npm workspace (/opt/hermes/apps/shared/package.json)",
+      "version": "0.0.0",
+      "disposition": "workspace_member_root_grant_candidate",
+      "source_url": "https://github.com/NousResearch/Hermes-Agent (member path present at HEAD ac0cfa7db94cefa90cf3e35191f38b53888b9e17)",
+      "checksum": "n/a (not a registry package)",
+      "texts": [
+        {
+          "file": "texts/hermes-agent-head-ac0cfa7db94c-LICENSE",
+          "sha256": "821556e6336796450ab852d375117b48a4887e71d255794fd6318d99982a5ab6",
+          "bytes": 1070,
+          "upstream_url": "https://raw.githubusercontent.com/NousResearch/Hermes-Agent/ac0cfa7db94cefa90cf3e35191f38b53888b9e17/LICENSE",
+          "copyright_line_in_text": "Copyright (c) 2025 Nous Research",
+          "scope": "Hermes-Agent repository root LICENSE at current HEAD (2026-07-30); identical bytes to restore commit 9ba5d399e58fa353d7132b0e2e9533d281ff64d1 and to baseline text 821556e6 already captured for hermes-agent 0.20.4 rows"
+        }
+      ],
+      "gap_note": "Workspace/private member of NousResearch/Hermes-Agent (package.json exists at the SBOM path in the upstream repo tree); npm registry 404 is expected. Candidate grant = Hermes-Agent root MIT LICENSE (sha256 821556e6…, already in the HEX-189 baseline for hermes-agent 0.20.4). Exact installed Hermes commit is not pinned by this work; per-member scope needs the same review as the cua workspace crates.",
+      "recommendation": "Map to the Hermes-Agent root grant as a workspace-member association once Opi (HEX-190) pins the installed Hermes source commit; do not use registry lookups for these names.",
+      "decision_for_mindi": false
+    },
+    {
+      "row": "@hermes-agent/photon-sidecar",
+      "ecosystem": "npm workspace (/opt/hermes/plugins/platforms/photon/sidecar/package.json)",
+      "version": "0.4.0",
+      "disposition": "workspace_member_root_grant_candidate",
+      "source_url": "https://github.com/NousResearch/Hermes-Agent (member path present at HEAD ac0cfa7db94cefa90cf3e35191f38b53888b9e17)",
+      "checksum": "n/a (not a registry package)",
+      "texts": [
+        {
+          "file": "texts/hermes-agent-head-ac0cfa7db94c-LICENSE",
+          "sha256": "821556e6336796450ab852d375117b48a4887e71d255794fd6318d99982a5ab6",
+          "bytes": 1070,
+          "upstream_url": "https://raw.githubusercontent.com/NousResearch/Hermes-Agent/ac0cfa7db94cefa90cf3e35191f38b53888b9e17/LICENSE",
+          "copyright_line_in_text": "Copyright (c) 2025 Nous Research",
+          "scope": "Hermes-Agent repository root LICENSE at current HEAD (2026-07-30); identical bytes to restore commit 9ba5d399e58fa353d7132b0e2e9533d281ff64d1 and to baseline text 821556e6 already captured for hermes-agent 0.20.4 rows"
+        }
+      ],
+      "gap_note": "Workspace/private member of NousResearch/Hermes-Agent (package.json exists at the SBOM path in the upstream repo tree); npm registry 404 is expected. Candidate grant = Hermes-Agent root MIT LICENSE (sha256 821556e6…, already in the HEX-189 baseline for hermes-agent 0.20.4). Exact installed Hermes commit is not pinned by this work; per-member scope needs the same review as the cua workspace crates.",
+      "recommendation": "Map to the Hermes-Agent root grant as a workspace-member association once Opi (HEX-190) pins the installed Hermes source commit; do not use registry lookups for these names.",
+      "decision_for_mindi": false
+    },
+    {
+      "row": "web",
+      "ecosystem": "npm workspace (/opt/hermes/web/package.json)",
+      "version": "0.0.0",
+      "disposition": "workspace_member_root_grant_candidate",
+      "source_url": "https://github.com/NousResearch/Hermes-Agent (member path present at HEAD ac0cfa7db94cefa90cf3e35191f38b53888b9e17)",
+      "checksum": "n/a (not a registry package)",
+      "texts": [
+        {
+          "file": "texts/hermes-agent-head-ac0cfa7db94c-LICENSE",
+          "sha256": "821556e6336796450ab852d375117b48a4887e71d255794fd6318d99982a5ab6",
+          "bytes": 1070,
+          "upstream_url": "https://raw.githubusercontent.com/NousResearch/Hermes-Agent/ac0cfa7db94cefa90cf3e35191f38b53888b9e17/LICENSE",
+          "copyright_line_in_text": "Copyright (c) 2025 Nous Research",
+          "scope": "Hermes-Agent repository root LICENSE at current HEAD (2026-07-30); identical bytes to restore commit 9ba5d399e58fa353d7132b0e2e9533d281ff64d1 and to baseline text 821556e6 already captured for hermes-agent 0.20.4 rows"
+        }
+      ],
+      "gap_note": "Workspace/private member of NousResearch/Hermes-Agent (package.json exists at the SBOM path in the upstream repo tree); npm registry 404 is expected. Candidate grant = Hermes-Agent root MIT LICENSE (sha256 821556e6…, already in the HEX-189 baseline for hermes-agent 0.20.4). Exact installed Hermes commit is not pinned by this work; per-member scope needs the same review as the cua workspace crates. WARNING: the registry package 'web@0.0.0' (sha256 e269b259…) that HEX-189 fetched is an UNRELATED public package; it must not be associated with /opt/hermes/web.",
+      "recommendation": "Map to the Hermes-Agent root grant as a workspace-member association once Opi (HEX-190) pins the installed Hermes source commit; do not use registry lookups for these names.",
+      "decision_for_mindi": false
+    },
+    {
+      "row": "beep-boop",
+      "ecosystem": "npm (fixture: …/github-from-package/example/package.json)",
+      "version": "1.2.3",
+      "disposition": "not_a_package_fixture",
+      "source_url": "n/a",
+      "checksum": "n/a",
+      "texts": [
+        {
+          "file": "../hex189-supplement/texts/435a6722c786b0a56fbe7387028f1d9d3f3a2d0fb615bb8fee118727c3f59b7b.txt  (existing HEX-189 supplement text, not re-bundled)",
+          "sha256": "435a6722c786b0a56fbe7387028f1d9d3f3a2d0fb615bb8fee118727c3f59b7b",
+          "scope": "github-from-package package-level text already associated in HEX-189 (exact_version_upstream_text_candidates)"
+        }
+      ],
+      "gap_note": "SBOM false positive: an example package.json inside the github-from-package package directory, not an installed dependency. Covered by the containing package's notice.",
+      "recommendation": "Reclassify as a fixture of github-from-package; drop as a standalone notice obligation (no dependency change needed).",
+      "decision_for_mindi": false
+    },
+    {
+      "row": "gsap",
+      "ecosystem": "npm (/opt/hermes)",
+      "version": "3.15.0",
+      "disposition": "proprietary_linked_license_decision_required",
+      "decision_for_mindi": true,
+      "source_url": "https://registry.npmjs.org/gsap/-/gsap-3.15.0.tgz ; linked terms https://gsap.com/standard-license (redirects to https://gsap.com/community/standard-license/)",
+      "checksum": "tarball sha256 d2e33ad202d4811e9084883f7ff9a27967ac4095caef51ca4c9d20697a253b1c",
+      "texts": [
+        {
+          "file": "texts/gsap-standard-license.html",
+          "sha256": "b25352078e01ec5bd236c3e6abd2a4e880b122670967cc0d0941a9a2874b4032",
+          "bytes": 76095,
+          "upstream_url": "https://gsap.com/community/standard-license/",
+          "copyright_line_in_text": "Copyright (©) 2025, Webflow",
+          "scope": "Linked licence page as fetched 2026-09-30 (Effective 2025-04-30, last modified 2025-05-30). Web page — mutable by Webflow per its own 'Amendments' clause."
+        },
+        {
+          "file": "texts/gsap-standard-license.extracted.txt",
+          "sha256": "b46020a8ef5e50289e459547fa26d606b715adb0d7c3cca361781edc1a182665",
+          "bytes": 5212,
+          "upstream_url": "derived from the HTML above",
+          "copyright_line_in_text": null,
+          "scope": "plain-text extraction of the licence body for review (derived, not upstream bytes)"
+        },
+        {
+          "file": "../hex189-supplement/texts/66a79667b0538b19634b5a000a9a3debe588c98d390424e73e5d4de847270828.txt  (existing HEX-189 supplement text, not re-bundled)",
+          "sha256": "66a79667b0538b19634b5a000a9a3debe588c98d390424e73e5d4de847270828",
+          "scope": "EXACT tarball README: 'GreenSock's standard \"no charge\" license … Copyright (c) 2008-2026, GreenSock. All rights reserved.'"
+        }
+      ],
+      "gap_note": "Not an OSS licence. Webflow grants a non-exclusive licence to 'use, reproduce, display, and implement' for Permitted Uses; prohibits use in products competing with Webflow's visual animation builder, and removing proprietary notices; Webflow may amend or terminate. No licence file in the tarball; GSAP GitHub repo has no LICENSE file.",
+      "recommendation": "Decision for Mindi: accept GSAP Standard License terms for redistribution in the image (keep headers intact, record the fetched page bytes/hash) OR replace/remove gsap from the Hermes web bundle. Not an automatic closure."
+    },
+    {
+      "row": "@npmcli/agent",
+      "ecosystem": "npm (bundled in npm CLI /usr/local/lib/node_modules/npm)",
+      "version": "4.0.2",
+      "disposition": "gap_declared_only",
+      "source_url": "https://registry.npmjs.org/@npmcli/agent/-/agent-4.0.2.tgz ; gitHead db7852869c74ceb8985d7c36b291a2e7a866741c (npm/agent, == tag v4.0.2)",
+      "checksum": "tarball sha256 88dcd3e47fbb0ab7b9160014531c0e99a7ab478656d465a7985c25c759701b9a",
+      "texts": [],
+      "gap_note": "No license file in tarball (package.json files: bin/, lib/), at the exact gitHead, or anywhere in npm/agent history (HEAD checked). Only test/fixtures/socksv5/LICENSE (unrelated). Declaration: license ISC, author 'GitHub Inc.'.",
+      "recommendation": "SPDX ISC text labelled declared-license-only, no holder. Recommend an upstream issue on npm/agent requesting LICENSE (not filed). Ships inside the official npm CLI, so no replacement is practical.",
+      "decision_for_mindi": false
+    },
+    {
+      "row": "unicode-animations",
+      "ecosystem": "npm (/opt/hermes)",
+      "version": "1.0.3",
+      "disposition": "gap_declared_only",
+      "source_url": "https://registry.npmjs.org/unicode-animations/-/unicode-animations-1.0.3.tgz ; gitHead 8d2c988f7986c88e7ce8d8086b2444202a868617 (== current HEAD of gunnargray-dev/unicode-animations)",
+      "checksum": "tarball sha256 c3288aa989d22fe5aeb8d9c52be21d94c49282af6fc04b3d72cda3fb99578f6a",
+      "texts": [
+        {
+          "file": "../hex189-supplement/texts/7d7f35d56cb3d9870499b2117f2d74d6141f45da28526e7e5efe53781c481de9.txt  (existing HEX-189 supplement text, not re-bundled)",
+          "sha256": "7d7f35d56cb3d9870499b2117f2d74d6141f45da28526e7e5efe53781c481de9",
+          "scope": "EXACT tarball README: '## License / MIT'"
+        }
+      ],
+      "gap_note": "Repo HEAD == release commit; no LICENSE ever. README '## License / MIT'; package.json MIT; no author/holder.",
+      "recommendation": "SPDX MIT text labelled declared-license-only; recommend upstream LICENSE request (not filed).",
+      "decision_for_mindi": false
+    },
+    {
+      "row": "@humanfs/types",
+      "ecosystem": "npm (/opt/hermes)",
+      "version": "0.15.0",
+      "disposition": "gap_declared_only",
+      "source_url": "https://registry.npmjs.org/@humanfs/types/-/types-0.15.0.tgz ; gitHead 85069f193cbacc371c3beb649ce746f8c5a493be (humanwhocodes/humanfs)",
+      "checksum": "tarball sha256 3c2942da7ba321f6ba27255a5faceee76eae502403129d8aa50d2dc8400a94d5",
+      "texts": [
+        {
+          "file": "../hex189-supplement/texts/c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4.txt  (existing HEX-189 supplement text, not re-bundled)",
+          "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+          "scope": "SIBLING package LICENSE (Apache-2.0) at the exact gitHead — corroboration only"
+        }
+      ],
+      "gap_note": "packages/types has never had a LICENSE (checked all history); repo root has none. Sibling packages (box, core, deno, memory, node, web) at the same gitHead each carry Apache-2.0 text sha256 c71d239d… — sibling, not package-scoped, so not a grant for types. README '## License / Apache 2.0'.",
+      "recommendation": "SPDX Apache-2.0 text labelled declared-license-only (the sibling bytes may be cited as same-monorepo corroboration, not as the grant). Apache-2.0 carries no holder line, so risk is low.",
+      "decision_for_mindi": false
+    },
+    {
+      "row": "@nous-research/ui",
+      "ecosystem": "npm (/opt/hermes)",
+      "version": "0.18.2",
+      "disposition": "gap_declared_only",
+      "source_url": "https://registry.npmjs.org/@nous-research/ui/-/ui-0.18.2.tgz ; gitHead 36959a67ceb862f5ee635a21ff141e5f70f0db14 (no public repository; not in Hermes-Agent; GitHub commit search: 0 hits)",
+      "checksum": "tarball sha256 7a6eae6b82281bb6dc39b0665ca3d8af21cf54d4282f093aaa179532e7ee1434",
+      "texts": [],
+      "gap_note": "No license member; no repository metadata; source not public. Declaration MIT only. Tarball also bundles 'Collapse-*.woff2' font files whose font licence is undocumented.",
+      "recommendation": "Ask Nous Research (Hermes upstream) for the package LICENSE and the Collapse font licence; interim SPDX MIT declared-only label for code. Font licence is an open item — list for Mindi if no answer.",
+      "decision_for_mindi": true
+    },
+    {
+      "row": "@photon-ai/telegram-ts",
+      "ecosystem": "npm (photon sidecar)",
+      "version": "10.0.0",
+      "disposition": "gap_declared_only",
+      "source_url": "https://registry.npmjs.org/@photon-ai/telegram-ts/-/telegram-ts-10.0.0.tgz ; gitHead 56a291e2d62605fa44f23795e239cb8a67f5b48a (photon-hq/telegram-api, dir packages/telegram-ts)",
+      "checksum": "tarball sha256 e19ea31b7be3acbeac75604c9eed09459ed1402c956e3299ab9d455de455d0c9",
+      "texts": [],
+      "gap_note": "Photon platform plugin dependency (under /opt/hermes/plugins/platforms/photon/sidecar). No LICENSE anywhere in photon-hq/telegram-api history (all refs). README '## License / MIT'.",
+      "recommendation": "SPDX MIT declared-only label, or see Photon decision below.",
+      "decision_for_mindi": true
+    },
+    {
+      "row": "@photon-ai/otel",
+      "ecosystem": "npm (photon sidecar)",
+      "version": "1.1.0",
+      "disposition": "gap_declared_only",
+      "source_url": "https://registry.npmjs.org/@photon-ai/otel/-/otel-1.1.0.tgz",
+      "checksum": "tarball sha256 4f25acf4cb3844021c60d0d604a8461b8c9c8474a75e5d98f1841b29a94460a7",
+      "texts": [],
+      "gap_note": "Photon platform plugin dependency (under /opt/hermes/plugins/platforms/photon/sidecar). No repository/gitHead published; no license member. README '## License / MIT'.",
+      "recommendation": "SPDX MIT declared-only label, or see Photon decision below.",
+      "decision_for_mindi": true
+    },
+    {
+      "row": "@photon-ai/whatsapp-business",
+      "ecosystem": "npm (photon sidecar)",
+      "version": "0.1.1",
+      "disposition": "gap_declared_only",
+      "source_url": "https://registry.npmjs.org/@photon-ai/whatsapp-business/-/whatsapp-business-0.1.1.tgz",
+      "checksum": "tarball sha256 637ade6f46471a2aded4b03475248bd32f788fd5bef7727f8bde1b87b7b60cf5",
+      "texts": [],
+      "gap_note": "Photon platform plugin dependency (under /opt/hermes/plugins/platforms/photon/sidecar). No repository, no license member, and NO licence declaration at all (package.json has no license field). No grant of any kind found.",
+      "recommendation": "No licence = no permission. Needs Photon to state a licence, or drop/replace. Decision for Mindi.",
+      "decision_for_mindi": true
+    },
+    {
+      "row": "@parseaple/bplist",
+      "ecosystem": "npm (photon sidecar)",
+      "version": "1.0.1",
+      "disposition": "gap_declared_only",
+      "source_url": "https://registry.npmjs.org/@parseaple/bplist/-/bplist-1.0.1.tgz ; gitHead 90e758eaf52ec1058ca3f04243d75dbd4f580260 in github.com/photon-ai/parseaple (repository private or deleted: git asks for credentials)",
+      "checksum": "tarball sha256 1ad76c73d1ab0434e2c25c1cb22302af9b9ad1761233fcf993e521bd559c7aef",
+      "texts": [],
+      "gap_note": "Photon platform plugin dependency (under /opt/hermes/plugins/platforms/photon/sidecar). README links './LICENSE' but no LICENSE is in the tarball; repo not publicly reachable. Declaration MIT, author 'qwerzl <me@qwerzl.me>'.",
+      "recommendation": "SPDX MIT declared-only label, or see Photon decision below.",
+      "decision_for_mindi": true
+    },
+    {
+      "row": "@parseaple/typedstream",
+      "ecosystem": "npm (photon sidecar)",
+      "version": "2.0.2",
+      "disposition": "gap_declared_only",
+      "source_url": "https://registry.npmjs.org/@parseaple/typedstream/-/typedstream-2.0.2.tgz ; same private photon-ai/parseaple repo",
+      "checksum": "tarball sha256 42fe9252301c3329d41345cc5e6f41e8f1f6d6d65f7aa123f2a868945cd0059d",
+      "texts": [],
+      "gap_note": "Photon platform plugin dependency (under /opt/hermes/plugins/platforms/photon/sidecar). README links './LICENSE' but no LICENSE in tarball; no gitHead; repo not public. Declaration MIT.",
+      "recommendation": "SPDX MIT declared-only label, or see Photon decision below.",
+      "decision_for_mindi": true
+    },
+    {
+      "row": "launder",
+      "ecosystem": "npm (/opt/hermes)",
+      "version": "1.7.1",
+      "disposition": "resolved_post_release_upstream_text",
+      "source_url": "https://registry.npmjs.org/launder/-/launder-1.7.1.tgz ; tag launder@1.7.1 -> e9b0ab0849a5dfea0f75335fbdf99b5c6bf9e4b3 (apostrophecms/apostrophe, packages/launder; index.js byte-identical); LICENSE commit f57be4817a92279efbfa30658c9691209f879bbb",
+      "checksum": "tarball sha256 2a1b290620c8c1f9413b0ad0f41205a43d40018aaaa774314e3228d884212b05",
+      "texts": [
+        {
+          "file": "texts/launder-f57be4817a92-LICENSE.md",
+          "sha256": "04023acc083d1f83f526f7f7f73c33f4e863df9fb80b300b758324a9e9244a93",
+          "bytes": 1073,
+          "upstream_url": "https://raw.githubusercontent.com/apostrophecms/apostrophe/f57be4817a92279efbfa30658c9691209f879bbb/packages/launder/LICENSE.md",
+          "copyright_line_in_text": "Copyright (c) 2021 Apostrophe Technologies, Inc.",
+          "scope": "POST-RELEASE upstream LICENSE ('Missing license d'oh (#5591)', 2026-09-15; adds only this file + a changeset)"
+        }
+      ],
+      "gap_note": "No LICENSE at the release tag; no root LICENSE in the monorepo. Upstream added it 2026-09-15 with a changeset, so the next launder release should ship it (npm latest is still 1.7.1; 1.7.2-alpha.1 exists).",
+      "recommendation": "Use the post-release upstream LICENSE now; optionally bump to the first stable launder release that includes LICENSE.md when available.",
+      "decision_for_mindi": false
+    }
+  ]
+}

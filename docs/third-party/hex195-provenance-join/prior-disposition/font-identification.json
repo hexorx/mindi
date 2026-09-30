@@ -1,0 +1,984 @@
+{
+  "package": "@nous-research/ui",
+  "version": "0.18.2",
+  "tarball_url": "https://registry.npmjs.org/@nous-research/ui/-/ui-0.18.2.tgz",
+  "tarball_sha256": "7a6eae6b82281bb6dc39b0665ca3d8af21cf54d4282f093aaa179532e7ee1434",
+  "package_license_members": [],
+  "scope": "Exact npm package metadata; no claim of final-image font byte equality. Foundry product/EULA pages corroborate proprietary commercial families, not a purchased redistribution entitlement. No font binaries included in this supplement.",
+  "reader": "fontkit 2.0.4",
+  "fonts": [
+    {
+      "file": "Collapse-Bold.woff2",
+      "family": "Collapse",
+      "subfamily": "Bold",
+      "fullName": "Collapse Bold",
+      "version": "Version 0.100;Glyphs 3.2 (3255)",
+      "copyright": "Copyright © 2023 by Keussel, Blaze Type. All rights reserved.",
+      "records": {
+        "copyright": {
+          "en": "Copyright © 2023 by Keussel, Blaze Type. All rights reserved."
+        },
+        "fontFamily": {
+          "en": "Collapse"
+        },
+        "fontSubfamily": {
+          "en": "Bold"
+        },
+        "uniqueSubfamily": {
+          "en": "0.100;BLZT;Collapse-Bold"
+        },
+        "fullName": {
+          "en": "Collapse Bold"
+        },
+        "version": {
+          "en": "Version 0.100;Glyphs 3.2 (3255)"
+        },
+        "postscriptName": {
+          "en": "Collapse-Bold"
+        },
+        "vendorURL": {
+          "en": "http://blazetype.eu"
+        },
+        "designerURL": {
+          "en": "http://keussel.studio"
+        },
+        "license": {
+          "en": "Check blazetype.eu for licencing details."
+        },
+        "licenseURL": {
+          "en": "https://blazetype.eu/eula"
+        },
+        "preferredFamily": {
+          "en": "Collapse"
+        },
+        "preferredSubfamily": {
+          "en": "Bold"
+        },
+        "manufacturer": {
+          "fr": "http://blazetype.eu"
+        },
+        "designer": {
+          "fr": "Keussel"
+        }
+      },
+      "sha256": "cb1bc6803168cffb3ef7b8113f95f82480a6d0f46d6e37edc854259377c6c00b",
+      "bytes": 59144,
+      "package_paths": [
+        "package/src/fonts/Collapse-Bold.woff2",
+        "package/dist/fonts/Collapse-Bold.woff2"
+      ],
+      "license_class": "proprietary commercial font; image redistribution grant not established",
+      "disposition": "Codi replaces with system or independently licensed OFL font under HEX-193; do not ship these unverified font bytes"
+    },
+    {
+      "file": "Collapse-BoldItalic.woff2",
+      "family": "Collapse",
+      "subfamily": "Bold Italic",
+      "fullName": "Collapse Bold Italic",
+      "version": "Version 0.100;Glyphs 3.2 (3255)",
+      "copyright": "Copyright © 2023 by Keussel, Blaze Type. All rights reserved.",
+      "records": {
+        "copyright": {
+          "en": "Copyright © 2023 by Keussel, Blaze Type. All rights reserved."
+        },
+        "fontFamily": {
+          "en": "Collapse"
+        },
+        "fontSubfamily": {
+          "en": "Bold Italic"
+        },
+        "uniqueSubfamily": {
+          "en": "0.100;BLZT;Collapse-BoldItalic"
+        },
+        "fullName": {
+          "en": "Collapse Bold Italic"
+        },
+        "version": {
+          "en": "Version 0.100;Glyphs 3.2 (3255)"
+        },
+        "postscriptName": {
+          "en": "Collapse-BoldItalic"
+        },
+        "vendorURL": {
+          "en": "http://blazetype.eu"
+        },
+        "designerURL": {
+          "en": "http://keussel.studio"
+        },
+        "license": {
+          "en": "Check blazetype.eu for licencing details."
+        },
+        "licenseURL": {
+          "en": "https://blazetype.eu/eula"
+        },
+        "preferredFamily": {
+          "en": "Collapse"
+        },
+        "preferredSubfamily": {
+          "en": "Bold Italic"
+        },
+        "manufacturer": {
+          "fr": "http://blazetype.eu"
+        },
+        "designer": {
+          "fr": "Keussel"
+        }
+      },
+      "sha256": "b6e1478bb272e78dcf120ab57ddda4d86fe9cdf5ddc9e7ea6a38ebadfaed578b",
+      "bytes": 62096,
+      "package_paths": [
+        "package/src/fonts/Collapse-BoldItalic.woff2",
+        "package/dist/fonts/Collapse-BoldItalic.woff2"
+      ],
+      "license_class": "proprietary commercial font; image redistribution grant not established",
+      "disposition": "Codi replaces with system or independently licensed OFL font under HEX-193; do not ship these unverified font bytes"
+    },
+    {
+      "file": "Collapse-Italic.woff2",
+      "family": "Collapse",
+      "subfamily": "Italic",
+      "fullName": "Collapse Italic",
+      "version": "Version 0.100;Glyphs 3.2 (3255)",
+      "copyright": "Copyright © 2023 by Keussel, Blaze Type. All rights reserved.",
+      "records": {
+        "copyright": {
+          "en": "Copyright © 2023 by Keussel, Blaze Type. All rights reserved."
+        },
+        "fontFamily": {
+          "en": "Collapse"
+        },
+        "fontSubfamily": {
+          "en": "Italic"
+        },
+        "uniqueSubfamily": {
+          "en": "0.100;BLZT;Collapse-Italic"
+        },
+        "fullName": {
+          "en": "Collapse Italic"
+        },
+        "version": {
+          "en": "Version 0.100;Glyphs 3.2 (3255)"
+        },
+        "postscriptName": {
+          "en": "Collapse-Italic"
+        },
+        "vendorURL": {
+          "en": "http://blazetype.eu"
+        },
+        "designerURL": {
+          "en": "http://keussel.studio"
+        },
+        "license": {
+          "en": "Check blazetype.eu for licencing details."
+        },
+        "licenseURL": {
+          "en": "https://blazetype.eu/eula"
+        },
+        "preferredFamily": {
+          "en": "Collapse"
+        },
+        "preferredSubfamily": {
+          "en": "Italic"
+        },
+        "manufacturer": {
+          "fr": "http://blazetype.eu"
+        },
+        "designer": {
+          "fr": "Keussel"
+        }
+      },
+      "sha256": "298e45fff3151b13a2b7cc86822c81a0098e5e8af87c209b03b2cee2e38e3147",
+      "bytes": 64412,
+      "package_paths": [
+        "package/src/fonts/Collapse-Italic.woff2",
+        "package/dist/fonts/Collapse-Italic.woff2"
+      ],
+      "license_class": "proprietary commercial font; image redistribution grant not established",
+      "disposition": "Codi replaces with system or independently licensed OFL font under HEX-193; do not ship these unverified font bytes"
+    },
+    {
+      "file": "Collapse-Light.woff2",
+      "family": "Collapse Light",
+      "subfamily": "Regular",
+      "fullName": "Collapse Light",
+      "version": "Version 0.100;Glyphs 3.2 (3255)",
+      "copyright": "Copyright © 2023 by Keussel, Blaze Type. All rights reserved.",
+      "records": {
+        "copyright": {
+          "en": "Copyright © 2023 by Keussel, Blaze Type. All rights reserved."
+        },
+        "fontFamily": {
+          "en": "Collapse Light"
+        },
+        "fontSubfamily": {
+          "en": "Regular"
+        },
+        "uniqueSubfamily": {
+          "en": "0.100;BLZT;Collapse-Light"
+        },
+        "fullName": {
+          "en": "Collapse Light"
+        },
+        "version": {
+          "en": "Version 0.100;Glyphs 3.2 (3255)"
+        },
+        "postscriptName": {
+          "en": "Collapse-Light"
+        },
+        "vendorURL": {
+          "en": "http://blazetype.eu"
+        },
+        "designerURL": {
+          "en": "http://keussel.studio"
+        },
+        "license": {
+          "en": "Check blazetype.eu for licencing details."
+        },
+        "licenseURL": {
+          "en": "https://blazetype.eu/eula"
+        },
+        "preferredFamily": {
+          "en": "Collapse"
+        },
+        "preferredSubfamily": {
+          "en": "Light"
+        },
+        "manufacturer": {
+          "fr": "http://blazetype.eu"
+        },
+        "designer": {
+          "fr": "Keussel"
+        }
+      },
+      "sha256": "6e0a925d2f917f6e6d165047a6cc6b18290c4f5b283cefc2e6573e8c205f9b58",
+      "bytes": 63184,
+      "package_paths": [
+        "package/src/fonts/Collapse-Light.woff2",
+        "package/dist/fonts/Collapse-Light.woff2"
+      ],
+      "license_class": "proprietary commercial font; image redistribution grant not established",
+      "disposition": "Codi replaces with system or independently licensed OFL font under HEX-193; do not ship these unverified font bytes"
+    },
+    {
+      "file": "Collapse-LightItalic.woff2",
+      "family": "Collapse Light",
+      "subfamily": "Italic",
+      "fullName": "Collapse Light Italic",
+      "version": "Version 0.100;Glyphs 3.2 (3255)",
+      "copyright": "Copyright © 2023 by Keussel, Blaze Type. All rights reserved.",
+      "records": {
+        "copyright": {
+          "en": "Copyright © 2023 by Keussel, Blaze Type. All rights reserved."
+        },
+        "fontFamily": {
+          "en": "Collapse Light"
+        },
+        "fontSubfamily": {
+          "en": "Italic"
+        },
+        "uniqueSubfamily": {
+          "en": "0.100;BLZT;Collapse-LightItalic"
+        },
+        "fullName": {
+          "en": "Collapse Light Italic"
+        },
+        "version": {
+          "en": "Version 0.100;Glyphs 3.2 (3255)"
+        },
+        "postscriptName": {
+          "en": "Collapse-LightItalic"
+        },
+        "vendorURL": {
+          "en": "http://blazetype.eu"
+        },
+        "designerURL": {
+          "en": "http://keussel.studio"
+        },
+        "license": {
+          "en": "Check blazetype.eu for licencing details."
+        },
+        "licenseURL": {
+          "en": "https://blazetype.eu/eula"
+        },
+        "preferredFamily": {
+          "en": "Collapse"
+        },
+        "preferredSubfamily": {
+          "en": "Light Italic"
+        },
+        "manufacturer": {
+          "fr": "http://blazetype.eu"
+        },
+        "designer": {
+          "fr": "Keussel"
+        }
+      },
+      "sha256": "3d9c522decb96f81bcdaa53eca3aeebc34a46135181c4ba4e08f8864d8c1bd39",
+      "bytes": 64604,
+      "package_paths": [
+        "package/src/fonts/Collapse-LightItalic.woff2",
+        "package/dist/fonts/Collapse-LightItalic.woff2"
+      ],
+      "license_class": "proprietary commercial font; image redistribution grant not established",
+      "disposition": "Codi replaces with system or independently licensed OFL font under HEX-193; do not ship these unverified font bytes"
+    },
+    {
+      "file": "Collapse-Regular.woff2",
+      "family": "Collapse",
+      "subfamily": "Regular",
+      "fullName": "Collapse Regular",
+      "version": "Version 0.100;Glyphs 3.2 (3255)",
+      "copyright": "Copyright © 2023 by Keussel, Blaze Type. All rights reserved.",
+      "records": {
+        "copyright": {
+          "en": "Copyright © 2023 by Keussel, Blaze Type. All rights reserved."
+        },
+        "fontFamily": {
+          "en": "Collapse"
+        },
+        "fontSubfamily": {
+          "en": "Regular"
+        },
+        "uniqueSubfamily": {
+          "en": "0.100;BLZT;Collapse-Regular"
+        },
+        "fullName": {
+          "en": "Collapse Regular"
+        },
+        "version": {
+          "en": "Version 0.100;Glyphs 3.2 (3255)"
+        },
+        "postscriptName": {
+          "en": "Collapse-Regular"
+        },
+        "vendorURL": {
+          "en": "http://blazetype.eu"
+        },
+        "designerURL": {
+          "en": "http://keussel.studio"
+        },
+        "license": {
+          "en": "Check blazetype.eu for licencing details."
+        },
+        "licenseURL": {
+          "en": "https://blazetype.eu/eula"
+        },
+        "preferredFamily": {
+          "en": "Collapse"
+        },
+        "preferredSubfamily": {
+          "en": "Regular"
+        },
+        "manufacturer": {
+          "fr": "http://blazetype.eu"
+        },
+        "designer": {
+          "fr": "Keussel"
+        }
+      },
+      "sha256": "ce8c481f56da3a46074ab696c16481bea49ea83e75e7eb7cb42fd2114593f33a",
+      "bytes": 62816,
+      "package_paths": [
+        "package/src/fonts/Collapse-Regular.woff2",
+        "package/dist/fonts/Collapse-Regular.woff2"
+      ],
+      "license_class": "proprietary commercial font; image redistribution grant not established",
+      "disposition": "Codi replaces with system or independently licensed OFL font under HEX-193; do not ship these unverified font bytes"
+    },
+    {
+      "file": "Collapse-Thin.woff2",
+      "family": "Collapse Thin",
+      "subfamily": "Regular",
+      "fullName": "Collapse Thin",
+      "version": "Version 0.100;Glyphs 3.2 (3255)",
+      "copyright": "Copyright © 2023 by Keussel, Blaze Type. All rights reserved.",
+      "records": {
+        "copyright": {
+          "en": "Copyright © 2023 by Keussel, Blaze Type. All rights reserved."
+        },
+        "fontFamily": {
+          "en": "Collapse Thin"
+        },
+        "fontSubfamily": {
+          "en": "Regular"
+        },
+        "uniqueSubfamily": {
+          "en": "0.100;BLZT;Collapse-Thin"
+        },
+        "fullName": {
+          "en": "Collapse Thin"
+        },
+        "version": {
+          "en": "Version 0.100;Glyphs 3.2 (3255)"
+        },
+        "postscriptName": {
+          "en": "Collapse-Thin"
+        },
+        "vendorURL": {
+          "en": "http://blazetype.eu"
+        },
+        "designerURL": {
+          "en": "http://keussel.studio"
+        },
+        "license": {
+          "en": "Check blazetype.eu for licencing details."
+        },
+        "licenseURL": {
+          "en": "https://blazetype.eu/eula"
+        },
+        "preferredFamily": {
+          "en": "Collapse"
+        },
+        "preferredSubfamily": {
+          "en": "Thin"
+        },
+        "manufacturer": {
+          "fr": "http://blazetype.eu"
+        },
+        "designer": {
+          "fr": "Keussel"
+        }
+      },
+      "sha256": "771ac91301cf14f5d96e6c7812420d09cf6d6b5d9714ce0fb67cf57d4b81f0cf",
+      "bytes": 60132,
+      "package_paths": [
+        "package/src/fonts/Collapse-Thin.woff2",
+        "package/dist/fonts/Collapse-Thin.woff2"
+      ],
+      "license_class": "proprietary commercial font; image redistribution grant not established",
+      "disposition": "Codi replaces with system or independently licensed OFL font under HEX-193; do not ship these unverified font bytes"
+    },
+    {
+      "file": "Collapse-ThinItalic.woff2",
+      "family": "Collapse Thin",
+      "subfamily": "Italic",
+      "fullName": "Collapse Thin Italic",
+      "version": "Version 0.100;Glyphs 3.2 (3255)",
+      "copyright": "Copyright © 2023 by Keussel, Blaze Type. All rights reserved.",
+      "records": {
+        "copyright": {
+          "en": "Copyright © 2023 by Keussel, Blaze Type. All rights reserved."
+        },
+        "fontFamily": {
+          "en": "Collapse Thin"
+        },
+        "fontSubfamily": {
+          "en": "Italic"
+        },
+        "uniqueSubfamily": {
+          "en": "0.100;BLZT;Collapse-ThinItalic"
+        },
+        "fullName": {
+          "en": "Collapse Thin Italic"
+        },
+        "version": {
+          "en": "Version 0.100;Glyphs 3.2 (3255)"
+        },
+        "postscriptName": {
+          "en": "Collapse-ThinItalic"
+        },
+        "vendorURL": {
+          "en": "http://blazetype.eu"
+        },
+        "designerURL": {
+          "en": "http://keussel.studio"
+        },
+        "license": {
+          "en": "Check blazetype.eu for licencing details."
+        },
+        "licenseURL": {
+          "en": "https://blazetype.eu/eula"
+        },
+        "preferredFamily": {
+          "en": "Collapse"
+        },
+        "preferredSubfamily": {
+          "en": "Thin Italic"
+        },
+        "manufacturer": {
+          "fr": "http://blazetype.eu"
+        },
+        "designer": {
+          "fr": "Keussel"
+        }
+      },
+      "sha256": "ef9abc4ca4095345bdbda9ed027a427608dce41795206e7298cbb16225d37343",
+      "bytes": 61240,
+      "package_paths": [
+        "package/src/fonts/Collapse-ThinItalic.woff2",
+        "package/dist/fonts/Collapse-ThinItalic.woff2"
+      ],
+      "license_class": "proprietary commercial font; image redistribution grant not established",
+      "disposition": "Codi replaces with system or independently licensed OFL font under HEX-193; do not ship these unverified font bytes"
+    },
+    {
+      "file": "Mondwest-Regular.woff2",
+      "family": "Mondwest",
+      "subfamily": "Regular",
+      "fullName": "Mondwest-Regular",
+      "version": "Version 1.000;hotconv 1.0.109;makeotfexe 2.5.65596",
+      "copyright": "Copyright © 2020 by Pangram Pangram® Foundry. All rights reserved.",
+      "records": {
+        "copyright": {
+          "en": "Copyright © 2020 by Pangram Pangram® Foundry. All rights reserved."
+        },
+        "fontFamily": {
+          "en": "Mondwest"
+        },
+        "fontSubfamily": {
+          "en": "Regular"
+        },
+        "uniqueSubfamily": {
+          "en": "1.000;PP  ;Mondwest-Regular"
+        },
+        "fullName": {
+          "en": "Mondwest-Regular"
+        },
+        "version": {
+          "en": "Version 1.000;hotconv 1.0.109;makeotfexe 2.5.65596"
+        },
+        "postscriptName": {
+          "en": "Mondwest-Regular"
+        },
+        "manufacturer": {
+          "en": "Pangram Pangram® Foundry"
+        },
+        "designer": {
+          "en": "Steve Marchal - Datalaze™"
+        },
+        "description": {
+          "en": "Mondwest"
+        },
+        "vendorURL": {
+          "en": "https://pangrampangram.com"
+        },
+        "designerURL": {
+          "en": "https://instagram.com/datalaze"
+        },
+        "license": {
+          "en": "Pangram Pangram® Foundry\nAll Rights Reserved"
+        },
+        "sampleText": {
+          "en": "Five big quacking zephyrs jolt my wax bed"
+        }
+      },
+      "sha256": "9cf6e6e1cba70f7e991a92ce4225785725b6cc9a48cc77cbfaabeba26c18f072",
+      "bytes": 23828,
+      "package_paths": [
+        "package/src/fonts/Mondwest-Regular.woff2",
+        "package/dist/fonts/Mondwest-Regular.woff2"
+      ],
+      "license_class": "proprietary commercial font; image redistribution grant not established",
+      "disposition": "Codi replaces with system or independently licensed OFL font under HEX-193; do not ship these unverified font bytes"
+    },
+    {
+      "file": "Neuebit-Bold.woff2",
+      "family": "PP NeueBit",
+      "subfamily": "Bold",
+      "fullName": "PP NeueBit Bold",
+      "version": "Version 1.000;hotconv 1.0.109;makeotfexe 2.5.65596",
+      "copyright": "Copyright © 2020 by Pangram Pangram® Foundry. All rights reserved.",
+      "records": {
+        "200": {
+          "en": "Webfont 1.0"
+        },
+        "201": {
+          "en": "Sun Nov 30 22:17:12 2025"
+        },
+        "202": {
+          "en": "default"
+        },
+        "203": {
+          "en": "prd-worker-3"
+        },
+        "sampleText": {
+          "en": "Five big quacking zephyrs jolt my wax bed"
+        },
+        "copyright": {
+          "en": "Copyright © 2020 by Pangram Pangram® Foundry. All rights reserved."
+        },
+        "fontFamily": {
+          "en": "PP NeueBit"
+        },
+        "fontSubfamily": {
+          "en": "Bold"
+        },
+        "uniqueSubfamily": {
+          "en": "1.000;PP  ;PPNeueBit-Bold"
+        },
+        "fullName": {
+          "en": "PP NeueBit Bold"
+        },
+        "version": {
+          "en": "Version 1.000;hotconv 1.0.109;makeotfexe 2.5.65596"
+        },
+        "postscriptName": {
+          "en": "PPNeueBit-Bold"
+        },
+        "manufacturer": {
+          "en": "Pangram Pangram® Foundry"
+        },
+        "designer": {
+          "en": "Steve Marchal - Datalaze™"
+        },
+        "description": {
+          "en": "NeueBit\n"
+        },
+        "vendorURL": {
+          "en": "https://pangrampangram.com"
+        },
+        "designerURL": {
+          "en": "https://instagram.com/datalaze"
+        },
+        "license": {
+          "en": "Pangram Pangram® Foundry\nAll Rights Reserved"
+        },
+        "fontFeatures": {
+          "55555": {
+            "en": "Font Squirrel"
+          }
+        }
+      },
+      "sha256": "7c9760348e5b65d41fa38a4689062a7ed4e82a6c945225a7f22e2379f37da8b2",
+      "bytes": 19728,
+      "package_paths": [
+        "package/src/fonts/Neuebit-Bold.woff2",
+        "package/dist/fonts/Neuebit-Bold.woff2"
+      ],
+      "license_class": "proprietary commercial font; image redistribution grant not established",
+      "disposition": "Codi replaces with system or independently licensed OFL font under HEX-193; do not ship these unverified font bytes"
+    },
+    {
+      "file": "RulesCompressed-Medium.woff2",
+      "family": "Rules Compressed Medium",
+      "subfamily": "Regular",
+      "fullName": "Rules Compressed Medium",
+      "version": "Version 1.100",
+      "copyright": "Copyright 2022, Blaze Type, Matthieu Salvaggio, Léon Hugues",
+      "records": {
+        "copyright": {
+          "en": "Copyright 2022, Blaze Type, Matthieu Salvaggio, Léon Hugues"
+        },
+        "fontFamily": {
+          "en": "Rules Compressed Medium"
+        },
+        "fontSubfamily": {
+          "en": "Regular"
+        },
+        "uniqueSubfamily": {
+          "en": "1.100;BLZT;RulesCompressed-Medium"
+        },
+        "fullName": {
+          "en": "Rules Compressed Medium"
+        },
+        "version": {
+          "en": "Version 1.100"
+        },
+        "postscriptName": {
+          "en": "RulesCompressed-Medium"
+        },
+        "manufacturer": {
+          "en": "Blaze Type"
+        },
+        "designer": {
+          "en": "Matthieu Salvaggio ; Léon Hugues ; Blaze Type"
+        },
+        "vendorURL": {
+          "en": "http://blazetype.eu"
+        },
+        "designerURL": {
+          "en": "http://blazetype.eu"
+        },
+        "preferredFamily": {
+          "en": "Rules Compressed"
+        },
+        "preferredSubfamily": {
+          "en": "Medium"
+        },
+        "fontFeatures": {
+          "256": {
+            "en": "Alternate Characters"
+          },
+          "257": {
+            "en": "Alternate R t"
+          },
+          "258": {
+            "en": "Alternate Cut t"
+          },
+          "259": {
+            "en": "Geometric t"
+          },
+          "260": {
+            "en": "Lozenge Numbers"
+          },
+          "261": {
+            "en": "Black Lozenge Numbers"
+          },
+          "262": {
+            "en": "Square Numbers"
+          },
+          "263": {
+            "en": "Black Square Numbers"
+          }
+        }
+      },
+      "sha256": "d865cf7154121265d3d65c0931ec27dc289aa438cd62ffad2f38e05ae79956a3",
+      "bytes": 38848,
+      "package_paths": [
+        "package/src/fonts/RulesCompressed-Medium.woff2",
+        "package/dist/fonts/RulesCompressed-Medium.woff2"
+      ],
+      "license_class": "proprietary commercial font; image redistribution grant not established",
+      "disposition": "Codi replaces with system or independently licensed OFL font under HEX-193; do not ship these unverified font bytes"
+    },
+    {
+      "file": "RulesCompressed-Regular.woff2",
+      "family": "Rules Compressed",
+      "subfamily": "Regular",
+      "fullName": "Rules Compressed Regular",
+      "version": "Version 1.100",
+      "copyright": "Copyright 2022, Blaze Type, Matthieu Salvaggio, Léon Hugues",
+      "records": {
+        "copyright": {
+          "en": "Copyright 2022, Blaze Type, Matthieu Salvaggio, Léon Hugues"
+        },
+        "fontFamily": {
+          "en": "Rules Compressed"
+        },
+        "fontSubfamily": {
+          "en": "Regular"
+        },
+        "uniqueSubfamily": {
+          "en": "1.100;BLZT;RulesCompressed-Regular"
+        },
+        "fullName": {
+          "en": "Rules Compressed Regular"
+        },
+        "version": {
+          "en": "Version 1.100"
+        },
+        "postscriptName": {
+          "en": "RulesCompressed-Regular"
+        },
+        "manufacturer": {
+          "en": "Blaze Type"
+        },
+        "designer": {
+          "en": "Matthieu Salvaggio ; Léon Hugues ; Blaze Type"
+        },
+        "vendorURL": {
+          "en": "http://blazetype.eu"
+        },
+        "designerURL": {
+          "en": "http://blazetype.eu"
+        },
+        "preferredFamily": {
+          "en": "Rules Compressed"
+        },
+        "preferredSubfamily": {
+          "en": "Regular"
+        },
+        "fontFeatures": {
+          "256": {
+            "en": "Alternate Characters"
+          },
+          "257": {
+            "en": "Alternate R t"
+          },
+          "258": {
+            "en": "Alternate Cut t"
+          },
+          "259": {
+            "en": "Geometric t"
+          },
+          "260": {
+            "en": "Lozenge Numbers"
+          },
+          "261": {
+            "en": "Black Lozenge Numbers"
+          },
+          "262": {
+            "en": "Square Numbers"
+          },
+          "263": {
+            "en": "Black Square Numbers"
+          }
+        }
+      },
+      "sha256": "3bcbc330183f49cd49c72d4cdb3d1fbc675cf4e3000b06fd1c606ffc31b73e5f",
+      "bytes": 37764,
+      "package_paths": [
+        "package/src/fonts/RulesCompressed-Regular.woff2",
+        "package/dist/fonts/RulesCompressed-Regular.woff2"
+      ],
+      "license_class": "proprietary commercial font; image redistribution grant not established",
+      "disposition": "Codi replaces with system or independently licensed OFL font under HEX-193; do not ship these unverified font bytes"
+    },
+    {
+      "file": "RulesExpanded-Bold.woff2",
+      "family": "Rules Expanded",
+      "subfamily": "Bold",
+      "fullName": "Rules Expanded Bold",
+      "version": "Version 1.100",
+      "copyright": "Copyright 2022, Blaze Type, Matthieu Salvaggio, Léon Hugues",
+      "records": {
+        "copyright": {
+          "en": "Copyright 2022, Blaze Type, Matthieu Salvaggio, Léon Hugues"
+        },
+        "fontFamily": {
+          "en": "Rules Expanded"
+        },
+        "fontSubfamily": {
+          "en": "Bold"
+        },
+        "uniqueSubfamily": {
+          "en": "1.100;BLZT;RulesExpanded-Bold"
+        },
+        "fullName": {
+          "en": "Rules Expanded Bold"
+        },
+        "version": {
+          "en": "Version 1.100"
+        },
+        "postscriptName": {
+          "en": "RulesExpanded-Bold"
+        },
+        "manufacturer": {
+          "en": "Blaze Type"
+        },
+        "designer": {
+          "en": "Matthieu Salvaggio ; Léon Hugues ; Blaze Type"
+        },
+        "vendorURL": {
+          "en": "http://blazetype.eu"
+        },
+        "designerURL": {
+          "en": "http://blazetype.eu"
+        },
+        "preferredFamily": {
+          "en": "Rules Expanded"
+        },
+        "preferredSubfamily": {
+          "en": "Bold"
+        },
+        "fontFeatures": {
+          "256": {
+            "en": "Alternate Characters"
+          },
+          "257": {
+            "en": "Alternate R t"
+          },
+          "258": {
+            "en": "Alternate Cut t"
+          },
+          "259": {
+            "en": "Geometric t"
+          },
+          "260": {
+            "en": "Lozenge Numbers"
+          },
+          "261": {
+            "en": "Black Lozenge Numbers"
+          },
+          "262": {
+            "en": "Square Numbers"
+          },
+          "263": {
+            "en": "Black Square Numbers"
+          }
+        }
+      },
+      "sha256": "f2295406de2272086d5395af32b50ac51b15d75294c25a04094c8b1f85757931",
+      "bytes": 35012,
+      "package_paths": [
+        "package/src/fonts/RulesExpanded-Bold.woff2",
+        "package/dist/fonts/RulesExpanded-Bold.woff2"
+      ],
+      "license_class": "proprietary commercial font; image redistribution grant not established",
+      "disposition": "Codi replaces with system or independently licensed OFL font under HEX-193; do not ship these unverified font bytes"
+    },
+    {
+      "file": "RulesExpanded-Regular.woff2",
+      "family": "Rules Expanded",
+      "subfamily": "Regular",
+      "fullName": "Rules Expanded Regular",
+      "version": "Version 1.100",
+      "copyright": "Copyright 2022, Blaze Type, Matthieu Salvaggio, Léon Hugues",
+      "records": {
+        "copyright": {
+          "en": "Copyright 2022, Blaze Type, Matthieu Salvaggio, Léon Hugues"
+        },
+        "fontFamily": {
+          "en": "Rules Expanded"
+        },
+        "fontSubfamily": {
+          "en": "Regular"
+        },
+        "uniqueSubfamily": {
+          "en": "1.100;BLZT;RulesExpanded-Regular"
+        },
+        "fullName": {
+          "en": "Rules Expanded Regular"
+        },
+        "version": {
+          "en": "Version 1.100"
+        },
+        "postscriptName": {
+          "en": "RulesExpanded-Regular"
+        },
+        "manufacturer": {
+          "en": "Blaze Type"
+        },
+        "designer": {
+          "en": "Matthieu Salvaggio ; Léon Hugues ; Blaze Type"
+        },
+        "vendorURL": {
+          "en": "http://blazetype.eu"
+        },
+        "designerURL": {
+          "en": "http://blazetype.eu"
+        },
+        "preferredFamily": {
+          "en": "Rules Expanded"
+        },
+        "preferredSubfamily": {
+          "en": "Regular"
+        },
+        "fontFeatures": {
+          "256": {
+            "en": "Alternate Characters"
+          },
+          "257": {
+            "en": "Alternate R t"
+          },
+          "258": {
+            "en": "Alternate Cut t"
+          },
+          "259": {
+            "en": "Geometric t"
+          },
+          "260": {
+            "en": "Lozenge Numbers"
+          },
+          "261": {
+            "en": "Black Lozenge Numbers"
+          },
+          "262": {
+            "en": "Square Numbers"
+          },
+          "263": {
+            "en": "Black Square Numbers"
+          }
+        }
+      },
+      "sha256": "e8062ac4889b0f05de94035571e86991b6efd03539775cfe0790e37da75434db",
+      "bytes": 33820,
+      "package_paths": [
+        "package/src/fonts/RulesExpanded-Regular.woff2",
+        "package/dist/fonts/RulesExpanded-Regular.woff2"
+      ],
+      "license_class": "proprietary commercial font; image redistribution grant not established",
+      "disposition": "Codi replaces with system or independently licensed OFL font under HEX-193; do not ship these unverified font bytes"
+    }
+  ]
+}

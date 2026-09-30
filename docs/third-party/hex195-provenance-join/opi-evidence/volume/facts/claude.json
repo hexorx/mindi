@@ -1,0 +1,192 @@
+{
+ "bundled": [
+  {
+   "dist_info": "/opt/hindsight/lib/python3.13/site-packages/claude_agent_sdk-0.2.162.dist-info",
+   "dist_info_license_files": {
+    "licenses/LICENSE": "cebdde8a8fb9ee59e5eaaed19578bf8085aa7047562259c31f38f225c26f6812"
+   },
+   "dpkg": {
+    "owner_path": null,
+    "owner_realpath": null
+   },
+   "elf": {
+    "e_type": "EXEC",
+    "elf": true,
+    "interp": "/lib64/ld-linux-x86-64.so.2",
+    "needed": [
+     "librt.so.1",
+     "libc.so.6",
+     "ld-linux-x86-64.so.2",
+     "libpthread.so.0",
+     "libdl.so.2",
+     "libm.so.6"
+    ],
+    "statically_linked": false
+   },
+   "metadata_head": "Name: claude-agent-sdk\nVersion: 0.2.162\nProject-URL: Homepage, https://github.com/anthropics/claude-agent-sdk-python\nProject-URL: Documentation, https://docs.anthropic.com/en/docs/claude-code/sdk\nProject-URL: Issues, https://github.com/anthropics/claude-agent-sdk-python/issues\nAuthor-email: Anthropic <support@anthropic.com>\nLicense: MIT\nLicense-File: LICENSE\nClassifier: License :: OSI Approved :: MIT License",
+   "mode": "0o755",
+   "path": "/opt/hindsight/lib/python3.13/site-packages/claude_agent_sdk/_bundled/claude",
+   "record": {
+    "line": "claude_agent_sdk/_bundled/claude,sha256=M9rR7GFaLgjMeLSU8FwRDkmRbeLHnXjsh5nr9GsjPSk,240327864",
+    "record_matches_file": true
+   },
+   "runtime_callers": [
+    "/opt/hindsight/lib/python3.13/site-packages/claude_agent_sdk-0.2.162.dist-info/direct_url.json:1: {\"archive_info\": {\"hash\": \"sha256=673598c9916f5f4d03ff49ab3128f856f0c6508135e8e258838fc3b6f7aafa49\", \"hashes\": {\"sha256\": \"673598c9916f5f4d03ff49ab3128f856f0c6508135e8e258838fc3b6f7aafa49\"}}, \"url\": \"https://files.python",
+    "/opt/hindsight/lib/python3.13/site-packages/hindsight_api/engine/llm_wrapper.py:799:             from claude_agent_sdk import query  # noqa: F401  # type: ignore[unresolved-import]",
+    "/opt/hindsight/lib/python3.13/site-packages/hindsight_api/engine/llm_wrapper.py:801:             sdk_logging.getLogger(\"claude_agent_sdk\").setLevel(sdk_logging.WARNING)",
+    "/opt/hindsight/lib/python3.13/site-packages/hindsight_api/engine/llm_wrapper.py:802:             sdk_logging.getLogger(\"claude_agent_sdk._internal\").setLevel(sdk_logging.WARNING)",
+    "/opt/hindsight/lib/python3.13/site-packages/hindsight_api/engine/providers/claude_code_llm.py:146:         from claude_agent_sdk import (  # type: ignore[unresolved-import]",
+    "/opt/hindsight/lib/python3.13/site-packages/hindsight_api/engine/providers/claude_code_llm.py:351:         from claude_agent_sdk import (  # type: ignore[unresolved-import]",
+    "/opt/hindsight/lib/python3.13/site-packages/hindsight_api/engine/providers/claude_code_llm.py:73:             from claude_agent_sdk import query  # noqa: F401  # type: ignore[unresolved-import]",
+    "/opt/hindsight/lib/python3.13/site-packages/hindsight_api/engine/providers/claude_code_llm.py:75:             sdk_logging.getLogger(\"claude_agent_sdk\").setLevel(sdk_logging.WARNING)",
+    "/opt/hindsight/lib/python3.13/site-packages/hindsight_api/engine/providers/claude_code_llm.py:76:             sdk_logging.getLogger(\"claude_agent_sdk._internal\").setLevel(sdk_logging.WARNING)"
+   ],
+   "sdk_code_refs": [
+    "claude_agent_sdk/__init__.py:566:         - No subprocess or IPC overhead for tool calls",
+    "claude_agent_sdk/client.py:78:                 instead of the default subprocess transport, and the CLI-flag",
+    "claude_agent_sdk/client.py:114:         # spawning the subprocess.",
+    "claude_agent_sdk/client.py:118:         # into a temp CLAUDE_CONFIG_DIR for the subprocess to resume from.",
+    "claude_agent_sdk/client.py:120:         # so the subprocess points at the temp dir; when None, fall through",
+    "claude_agent_sdk/client.py:133:             # If connect fails after the subprocess has spawned (e.g. at",
+    "claude_agent_sdk/client.py:134:             # query.initialize()), close the subprocess/read task *before*",
+    "claude_agent_sdk/client.py:151:         from ._internal.transport.subprocess_cli import SubprocessCLITransport",
+    "claude_agent_sdk/client.py:159:         # Use provided custom transport or create subprocess transport",
+    "claude_agent_sdk/types.py:1612:     The subprocess still writes to local disk under ``CLAUDE_CONFIG_DIR``; the",
+    "claude_agent_sdk/types.py:1634:         Called AFTER the subprocess's local write succeeds \u2014 durability is",
+    "claude_agent_sdk/types.py:1646:         dedup. Exceptions are logged and the subprocess continues unaffected",
+    "claude_agent_sdk/types.py:1656:         During a store-backed resume, called in the SDK parent before subprocess",
+    "claude_agent_sdk/types.py:1661:         temporary JSONL file; the subprocess resumes from that file using its",
+    "claude_agent_sdk/types.py:2099:     cli_path: str | Path | None = None",
+    "claude_agent_sdk/types.py:2125:     \"\"\"Environment variables to pass to the Claude Code subprocess.",
+    "claude_agent_sdk/types.py:2147:     \"\"\"Maximum bytes to buffer when reading the CLI subprocess stdout.\"\"\"",
+    "claude_agent_sdk/types.py:2153:     \"\"\"Callback for stderr output from the Claude Code subprocess.",
+    "claude_agent_sdk/_errors.py:18:         self, message: str = \"Claude Code not found\", cli_path: str | None = None",
+    "claude_agent_sdk/_errors.py:20:         if cli_path:",
+    "claude_agent_sdk/_errors.py:21:             message = f\"{message}: {cli_path}\"",
+    "claude_agent_sdk/query.py:64:                   instead of the default subprocess transport: the SDK calls its",
+    "claude_agent_sdk/query.py:68:                   cwd, permission mode, tools, and the other fields the subprocess",
+    "claude_agent_sdk/_internal/client.py:25: from .transport.subprocess_cli import SubprocessCLITransport",
+    "claude_agent_sdk/_internal/client.py:43:         # spawning the subprocess.",
+    "claude_agent_sdk/_internal/client.py:47:         # into a temp CLAUDE_CONFIG_DIR for the subprocess to resume from.",
+    "claude_agent_sdk/_internal/client.py:62:             # i.e. the subprocess is terminated \u2014 *before* we remove the temp",
+    "claude_agent_sdk/_internal/client.py:88:         # Use provided transport or create subprocess transport",
+    "claude_agent_sdk/_internal/message_parser.py:291:                         # SDK-synthesized via report_mirror_error \u2014 never emitted by the CLI subprocess.",
+    "claude_agent_sdk/_internal/sessions.py:13: import subprocess",
+    "claude_agent_sdk/_internal/sessions.py:134:     ``CLAUDE_CONFIG_DIR`` to the subprocess via ``options.env`` resolve the",
+    "claude_agent_sdk/_internal/sessions.py:135:     same directory the subprocess will write to.",
+    "claude_agent_sdk/_internal/sessions.py:394:         result = subprocess.run(",
+    "claude_agent_sdk/_internal/sessions.py:402:     except (OSError, subprocess.SubprocessError):",
+    "claude_agent_sdk/_internal/session_store_validation.py:21:     Called before subprocess spawn so misconfiguration fails fast instead of",
+    "claude_agent_sdk/_internal/query.py:67:     environment, as it does for the CLI subprocess. ``0`` means no limit;",
+    "claude_agent_sdk/_internal/query.py:1154:         ``transport.close()`` ever ran, leaking the CLI subprocess.",
+    "claude_agent_sdk/_internal/transcript_mirror_batcher.py:3: The CLI subprocess emits ``{\"type\": \"transcript_mirror\", \"filePath\": ..., \"entries\": [...]}``",
+    "claude_agent_sdk/_internal/transcript_mirror_batcher.py:172:                     \"under %s -- subprocess CLAUDE_CONFIG_DIR likely differs \"",
+    "claude_agent_sdk/_internal/session_resume.py:5: local disk \u2014 it lives in the external store. The CLI subprocess only knows how",
+    "claude_agent_sdk/_internal/session_resume.py:8: ``~/.claude/``, and returns the path so the caller can point the subprocess at",
+    "claude_agent_sdk/_internal/session_resume.py:26: import subprocess",
+    "claude_agent_sdk/_internal/session_resume.py:64:             point the subprocess at it via ``CLAUDE_CONFIG_DIR``.",
+    "claude_agent_sdk/_internal/session_resume.py:69:             Call it after the subprocess exits.",
+    "claude_agent_sdk/_internal/session_resume.py:107:     (so file_path \u2192 key resolution matches what the subprocess writes),",
+    "claude_agent_sdk/_internal/session_resume.py:173:         # The subprocess will run with CLAUDE_CONFIG_DIR=tmp_base. Copy auth",
+    "claude_agent_sdk/_internal/session_resume.py:349:     # so the subprocess's lookup misses and falls back to plainTextStorage at",
+    "claude_agent_sdk/_internal/session_resume.py:351:     # Keychain so the resumed subprocess can auth. Skipped when env-based",
+    "claude_agent_sdk/_internal/session_resume.py:378:     # it the resumed subprocess sees no user settings at all, and an",
+    "claude_agent_sdk/_internal/session_resume.py:399:     (which would point the subprocess's config reads away from ``tmp_base``).",
+    "claude_agent_sdk/_internal/session_resume.py:401:     subprocess sees exactly what the CLI would have read.",
+    "claude_agent_sdk/_internal/session_resume.py:434:     The resumed subprocess runs under a redirected ``CLAUDE_CONFIG_DIR``; if it",
+    "claude_agent_sdk/_internal/session_resume.py:438:     subprocess's refresh check short-circuits.",
+    "claude_agent_sdk/_internal/session_resume.py:450:         # Unparseable \u2014 write through; subprocess will fail to parse it too.",
+    "claude_agent_sdk/_internal/session_resume.py:489:         # Don't leave a truncated dst behind for the subprocess to misparse.",
+    "claude_agent_sdk/_internal/session_resume.py:509:         result = subprocess.run(",
+    "claude_agent_sdk/_internal/transport/__init__.py:25:         For subprocess transports, this starts the process.",
+    "claude_agent_sdk/_internal/transport/subprocess_cli.py:14: from subprocess import PIPE",
+    "claude_agent_sdk/_internal/transport/subprocess_cli.py:48: # is enabled). subprocess.list2cmdline quotes arguments for the MSVCRT argv",
+    "claude_agent_sdk/_internal/transport/subprocess_cli.py:54: # Track live CLI subprocesses so we can terminate them when the parent Python",
+    "claude_agent_sdk/_internal/transport/subprocess_cli.py:237:         self._cli_path: str | None = (",
+    "claude_agent_sdk/_internal/transport/subprocess_cli.py:238:             str(options.cli_path) if options.cli_path is not None else None",
+    "claude_agent_sdk/_internal/transport/subprocess_cli.py:255:     def _find_cli(self) -> str:",
+    "claude_agent_sdk/_internal/transport/subprocess_cli.py:258:         bundled_cli = self._find_bundled_cli()",
+    "claude_agent_sdk/_internal/transport/subprocess_cli.py:264:         if cli := shutil.which(\"claude\"):",
+    "claude_agent_sdk/_internal/transport/subprocess_cli.py:280:             exe = shutil.which(\"claude.exe\")",
+    "claude_agent_sdk/_internal/transport/subprocess_cli.py:328:                 \"  ClaudeAgentOptions(cli_path='C:\\\\\\\\path\\\\\\\\to\\\\\\\\claude.exe')\\n\"",
+    "claude_agent_sdk/_internal/transport/subprocess_cli.py:338:             \"  ClaudeAgentOptions(cli_path='/path/to/claude')\"",
+    "claude_agent_sdk/_internal/transport/subprocess_cli.py:341:     def _find_bundled_cli(self) -> str | None:",
+    "claude_agent_sdk/_internal/transport/subprocess_cli.py:344:         cli_name = \"claude.exe\" if platform.system() == \"Windows\" else \"claude\"",
+    "claude_agent_sdk/_internal/transport/subprocess_cli.py:347:         # The _bundled directory is in the same package as this module",
+    "claude_agent_sdk/_internal/transport/subprocess_cli.py:348:         bundled_path = Path(__file__).parent.parent.parent / \"_bundled\" / cli_name",
+    "claude_agent_sdk/_internal/transport/subprocess_cli.py:357:     def _is_windows_native_exe(cli_path: str) -> bool:",
+    "claude_agent_sdk/_internal/transport/subprocess_cli.py:358:         \"\"\"Whether cli_path's final component names an image CreateProcess",
+    "claude_agent_sdk/_internal/transport/subprocess_cli.py:363:         name = cli_path.replace(\"\\\\\", \"/\").rsplit(\"/\", 1)[-1]",
+    "claude_agent_sdk/_internal/transport/subprocess_cli.py:367:     def _is_windows_batch_cli(cli_path: str) -> bool:",
+    "claude_agent_sdk/_internal/transport/subprocess_cli.py:368:         \"\"\"Whether cli_path names a .bat/.cmd batch script on Windows.",
+    "claude_agent_sdk/_internal/transport/subprocess_cli.py:410:             for component in cli_path.replace(\"\\\\\", \"/\").split(\"/\")",
+    "claude_agent_sdk/_internal/transport/subprocess_cli.py:415:     def _reject_windows_batch_cli(cli_path: str) -> None:",
+    "claude_agent_sdk/_internal/transport/subprocess_cli.py:421:         subprocess.list2cmdline quotes arguments for the MSVCRT argv rules",
+    "claude_agent_sdk/_internal/transport/subprocess_cli.py:431:         In practice this refuses npm's claude.cmd shim, which _find_cli",
+    "claude_agent_sdk/_internal/transport/subprocess_cli.py:436:         if not SubprocessCLITransport._is_windows_batch_cli(cli_path):",
+    "claude_agent_sdk/_internal/transport/subprocess_cli.py:439:             f\"Refusing to execute batch script {cli_path!r}: Windows runs \"",
+    "claude_agent_sdk/_internal/transport/subprocess_cli.py:445:             \"ClaudeAgentOptions(cli_path=...) at a claude.exe, or install \"",
+    "claude_agent_sdk/_internal/transport/subprocess_cli.py:572:         if self._cli_path is None:",
+    "claude_agent_sdk/_internal/transport/subprocess_cli.py:574:         cmd = [self._cli_path, \"--output-format\", \"stream-json\", \"--verbose\"]",
+    "claude_agent_sdk/_internal/transport/subprocess_cli.py:798:         \"\"\"Start subprocess.\"\"\"",
+    "claude_agent_sdk/_internal/transport/subprocess_cli.py:802:         if self._cli_path is None:",
+    "claude_agent_sdk/_internal/transport/subprocess_cli.py:803:             self._cli_path = await anyio.to_thread.run_sync(self._find_cli)",
+    "claude_agent_sdk/_internal/transport/subprocess_cli.py:807:         self._reject_windows_batch_cli(self._cli_path)",
+    "claude_agent_sdk/_internal/transport/subprocess_cli.py:817:             # Filter out CLAUDECODE so SDK-spawned subprocesses don't think",
+    "claude_agent_sdk/_internal/transport/subprocess_cli.py:873:             self._process = await anyio.open_process(",
+    "claude_agent_sdk/_internal/transport/subprocess_cli.py:909:             error = CLINotFoundError(f\"Claude Code not found at: {self._cli_path}\")",
+    "claude_agent_sdk/_internal/transport/subprocess_cli.py:1025:             # needed. The subprocess needs time to flush its session file after",
+    "claude_agent_sdk/_internal/transport/subprocess_cli.py:1166:         if self._cli_path is None:",
+    "claude_agent_sdk/_internal/transport/subprocess_cli.py:1171:                 version_process = await anyio.open_process(",
+    "claude_agent_sdk/_internal/transport/subprocess_cli.py:1172:                     [self._cli_path, \"-v\"],",
+    "claude_agent_sdk/_internal/transport/subprocess_cli.py:1195:                                 self._cli_path,",
+    "claude_agent_sdk/_internal/transport/subprocess_cli.py:1214:                                 self._cli_path,"
+   ],
+   "sha256": "33dad1ec615a2e08cc78b494f05c110e49916de2c79d78ec8799ebf46b233d29",
+   "size": 240327864,
+   "strings": {
+    "@anthropic-ai/claude-code": {
+     "count": 295,
+     "samples": [
+      "@anthropic-ai/claude-code"
+     ]
+    },
+    "Bun v[0-9.]+": {
+     "count": 2,
+     "samples": [
+      "Bun v1.4.3"
+     ]
+    },
+    "Claude Code [0-9]+\\.[0-9]+\\.[0-9]+": {
+     "count": 2,
+     "samples": [
+      "Claude Code 2.1.247"
+     ]
+    },
+    "Copyright[^\\x00]{0,60}Anthropic": {
+     "count": 0,
+     "samples": []
+    },
+    "\\x00[0-9]+\\.[0-9]+\\.[0-9]+ \\(Claude Code\\)": {
+     "count": 0,
+     "samples": []
+    },
+    "bun build --compile": {
+     "count": 1,
+     "samples": [
+      "bun build --compile"
+     ]
+    }
+   },
+   "version": {
+    "cmd": [
+     "/opt/hindsight/lib/python3.13/site-packages/claude_agent_sdk/_bundled/claude",
+     "--version"
+    ],
+    "rc": 0,
+    "stderr": "",
+    "stdout": "2.1.285 (Claude Code)\n"
+   }
+  }
+ ]
+}

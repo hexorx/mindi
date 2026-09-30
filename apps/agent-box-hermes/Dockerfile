@@ -18,14 +18,14 @@ RUN patch --fuzz=0 -p1 < /tmp/pg0-runtime-libs.patch \
  && patch --fuzz=0 -p1 < /tmp/pg0.patch \
  && patch --fuzz=0 -p1 < /tmp/pg0-bundle-hashes.patch \
  && cargo build --release --locked
-FROM nousresearch/hermes-agent:v2026.8.18@sha256:22e37bb4ed1b0f50cb6bd991dca7ecacd6c9f29df9b4a20fc989d32bc763ccf6
+FROM nousresearch/hermes-agent:v2026.8.18@sha256:22e37bb4ed1b0f50cb6bd991dca7ecacd6c9f29df9b4a20fc989d32bc763ccf6 AS assembled
 USER root
 ARG TARGETARCH
 COPY apps/agent-box-hermes/build/apt-* /opt/build/apt/
 RUN test "$TARGETARCH" = amd64 \
  && /opt/build/apt/apt-install-locked.sh \
     sway grim wtype wl-clipboard foot xwayland dbus at-spi2-core \
-    fonts-dejavu-core fonts-noto-color-emoji wayvnc novnc websockify nginx openssl python3-yaml \
+    fonts-dejavu-core fonts-noto-color-emoji wayvnc novnc websockify nginx openssl python3-yaml chromium \
  && rm -rf /opt/build/apt /var/lib/apt/lists/* /etc/s6-overlay/s6-rc.d /etc/cont-init.d \
  && usermod -u 1000 -d /home/agent hermes && groupmod -g 1000 hermes \
  && install -d -o hermes -g hermes /home/agent
@@ -53,21 +53,14 @@ RUN curl -fsSL --retry 3 https://github.com/trycua/cua/releases/download/cua-dri
  && chmod 755 /usr/local/bin/cua-driver && rm /tmp/cua.tar.gz
 # Optional userspace Tailscale; disabled unless AGENT_BOX_TAILSCALE=1. No containerboot entrypoint.
 COPY --from=tailscale /usr/local/bin/tailscaled /usr/local/bin/tailscale /usr/local/bin/
-ENV HOME=/home/agent USER=hermes HERMES_HOME=/home/agent/.hermes \
-    HERMES_PROFILE=default HERMES_WRITE_SAFE_ROOT=/home/agent \
-    HERMES_LAZY_INSTALL_TARGET=/home/agent/.hermes/lazy-packages \
-    XDG_RUNTIME_DIR=/run/user/1000 XDG_SESSION_TYPE=wayland \
-    WAYLAND_DISPLAY=wayland-1 SWAYSOCK=/run/user/1000/sway-ipc.sock DISPLAY=:0 \
-    WLR_BACKENDS=headless WLR_HEADLESS_OUTPUTS=1 WLR_LIBINPUT_NO_DEVICES=1 WLR_RENDERER=pixman \
-    DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus \
-    CUA_DRIVER_RS_ENABLE_WAYLAND=1 CUA_DRIVER_RS_TELEMETRY_ENABLED=0 GTK_A11Y=atspi \
-    S6_BEHAVIOUR_IF_STAGE2_FAILS=2 S6_KILL_GRACETIME=10000
 COPY LICENSE /usr/share/doc/agent-box-hermes/LICENSE
 # Ship the collected attribution bytes with the image, including explicit gaps.
 # Release acceptance still requires the final inventory/source reconciliation.
 COPY docs/third-party/hex184-resolution/bundle/ /usr/share/doc/agent-box-hermes/third-party/
+COPY docs/third-party/hex195-provenance-join/ /usr/share/doc/agent-box-hermes/third-party/hex195-provenance-join/
 COPY docs/third-party/NOTICE-STATUS.md /usr/share/doc/agent-box-hermes/third-party/NOTICE-STATUS.md
 COPY apps/agent-box-hermes/runtime/ /opt/agent-box/
+COPY --chmod=755 apps/agent-box-hermes/runtime/claude /usr/local/bin/claude
 COPY apps/agent-box-hermes/desktop/ /etc/agent-box/
 COPY apps/agent-box-hermes/defaults/ /opt/agent-box/defaults/
 COPY apps/agent-box-hermes/s6-rc.d/ /etc/s6-overlay/s6-rc.d/
@@ -79,9 +72,34 @@ RUN mkdir -p /etc/s6-overlay/s6-rc.d/user2/contents.d \
  && /command/s6-rc-compile /tmp/agent-box-s6-db \
       /etc/s6-overlay/s6-rc.d /package/admin/s6-overlay/etc/s6-rc/sources \
  && rm -rf /tmp/agent-box-s6-db
+# Sanitize before the final stage: inherited layers must never be distributed.
+COPY apps/agent-box-hermes/build/sanitize_payloads.py apps/agent-box-hermes/build/verify_payloads.py apps/agent-box-hermes/build/payload-policy.json /opt/build/
+RUN python3 /opt/build/sanitize_payloads.py --root / \
+      --report /usr/share/doc/agent-box-hermes/third-party/payload-remediation.json \
+ && python3 /opt/build/verify_payloads.py --root /
+
+FROM scratch AS runtime
+COPY --from=assembled / /
+# Explicitly restore inherited runtime settings after the scratch boundary.
+ENV PATH=/opt/hermes/bin:/opt/hermes/.venv/bin:/home/agent/.local/bin:/opt/data/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin \
+    PYTHONUNBUFFERED=1 PYTHONDONTWRITEBYTECODE=1 \
+    PLAYWRIGHT_BROWSERS_PATH=/opt/hermes/.playwright \
+    PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 AGENT_BROWSER_EXECUTABLE_PATH=/usr/bin/chromium \
+    npm_config_install_links=false HERMES_WEB_DIST=/opt/hermes/hermes_cli/web_dist \
+    HERMES_TUI_DIR=/opt/hermes/ui-tui HERMES_DISABLE_LAZY_INSTALLS=1
+ENV HOME=/home/agent USER=hermes HERMES_HOME=/home/agent/.hermes \
+    HERMES_PROFILE=default HERMES_WRITE_SAFE_ROOT=/home/agent \
+    HERMES_LAZY_INSTALL_TARGET=/home/agent/.hermes/lazy-packages \
+    XDG_RUNTIME_DIR=/run/user/1000 XDG_SESSION_TYPE=wayland \
+    WAYLAND_DISPLAY=wayland-1 SWAYSOCK=/run/user/1000/sway-ipc.sock DISPLAY=:0 \
+    WLR_BACKENDS=headless WLR_HEADLESS_OUTPUTS=1 WLR_LIBINPUT_NO_DEVICES=1 WLR_RENDERER=pixman \
+    DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus \
+    CUA_DRIVER_RS_ENABLE_WAYLAND=1 CUA_DRIVER_RS_TELEMETRY_ENABLED=0 GTK_A11Y=atspi \
+    S6_BEHAVIOUR_IF_STAGE2_FAILS=2 S6_KILL_GRACETIME=10000
+USER root
 WORKDIR /home/agent
 EXPOSE 8443
-VOLUME ["/home/agent", "/var/lib/agent-box/hindsight"]
+VOLUME ["/opt/data", "/home/agent", "/var/lib/agent-box/hindsight"]
 HEALTHCHECK --interval=10s --timeout=5s --start-period=30s CMD ["/command/s6-setuidgid", "hermes", "python3", "/opt/agent-box/health.py"]
 ENTRYPOINT ["/init"]
 CMD []

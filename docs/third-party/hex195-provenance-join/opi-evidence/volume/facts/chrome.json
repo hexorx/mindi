@@ -1,0 +1,106 @@
+{
+ "binaries": [
+  {
+   "dir_listing": [
+    "ABOUT",
+    "LICENSE.headless_shell",
+    "chrome-headless-shell",
+    "deb.deps",
+    "headless_command_resources.pak",
+    "headless_lib_data.pak",
+    "headless_lib_strings.pak",
+    "hyphen-data",
+    "icudtl.dat",
+    "libEGL.so",
+    "libGLESv2.so",
+    "libvk_swiftshader.so",
+    "libvulkan.so.1",
+    "locales",
+    "rpm.deps",
+    "v8_context_snapshot.bin",
+    "vk_swiftshader_icd.json"
+   ],
+   "dpkg": {
+    "owner_path": null,
+    "owner_realpath": null
+   },
+   "elf": {
+    "e_type": "DYN",
+    "interp": "/lib64/ld-linux-x86-64.so.2",
+    "statically_linked": false
+   },
+   "needed_count": 28,
+   "path": "/opt/hermes/.playwright/chromium_headless_shell-1234/chrome-headless-shell-linux64/chrome-headless-shell",
+   "sha256": "e11fc9ce65c96313476f7ee9844b6fb6a9220fb048693cfe9eee00acf4170a9f",
+   "sidecar_files": {
+    "ABOUT": {
+     "head": "Google Chrome\n\nCopyright 2026 Google LLC. All rights reserved.\n\nChrome is made possible by the Chromium open source project\n(https://www.chromium.org/) and other open source software\n(chrome://credits).\n\nSee the Terms of Service at chrome://terms.\n",
+     "sha256": "34d078ce3003087a8374e7c6156fda374769b8047d6ddaf419d66414aa48edfb",
+     "size": 248
+    },
+    "LICENSE.headless_shell": {
+     "head": "--------------------\nThe Chromium Project\n--------------------\n// Copyright 2015 The Chromium Authors\n//\n// Redistribution and use in source and binary forms, with or without\n// modification, are permitted provided that the following conditions are\n// met:\n//\n//    * Redistributions of source code must retain the above copyright\n// notice, this list of conditions and the following disclaimer.\n//    * Redistributions in binary form must reproduce the above\n// copyright notice, this list of conditions and the following disclaimer\n// in the documentation and/or other materials provided with the\n/",
+     "sha256": "334f3e2d8a58954bc7152a8150bdd3e7f35e0d9bcf30dd323d4edcb7df5f36d5",
+     "size": 2120830
+    },
+    "headless_command_resources.pak": {
+     "head": null,
+     "sha256": "69dac576ca71db35e1716eefae2b4d7dac15012d18936d41c90e4222f4772583",
+     "size": 3033
+    }
+   },
+   "size": 196975952,
+   "strings": {
+    "Chrome for Testing": {
+     "count": 1,
+     "samples": [
+      "Chrome for Testing"
+     ]
+    },
+    "Chromium Authors": {
+     "count": 0,
+     "samples": []
+    },
+    "Chromium\\x00": {
+     "count": 6,
+     "samples": [
+      "Chromium\u0000"
+     ]
+    },
+    "Google Chrome for Testing": {
+     "count": 1,
+     "samples": [
+      "Google Chrome for Testing"
+     ]
+    },
+    "Google Chrome\\x00": {
+     "count": 0,
+     "samples": []
+    },
+    "chrome-headless-shell": {
+     "count": 0,
+     "samples": []
+    }
+   },
+   "version": {
+    "cmd": [
+     "/opt/hermes/.playwright/chromium_headless_shell-1234/chrome-headless-shell-linux64/chrome-headless-shell",
+     "--version"
+    ],
+    "rc": 0,
+    "stderr": "",
+    "stdout": "Google Chrome for Testing 151.0.7922.34\n"
+   }
+  }
+ ],
+ "dpkg_chromium_or_google_chrome": {
+  "cmd": [
+   "sh",
+   "-c",
+   "dpkg-query -W -f '${Package}\\t${Version}\\t${db:Status-Abbrev}\\n' 'chromium*' 'google-chrome*' 2>&1; true"
+  ],
+  "rc": 0,
+  "stderr": "",
+  "stdout": "dpkg-query: no packages found matching chromium*\ndpkg-query: no packages found matching google-chrome*\n"
+ }
+}

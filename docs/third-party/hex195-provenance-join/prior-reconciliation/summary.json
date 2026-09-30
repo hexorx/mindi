@@ -1,0 +1,24 @@
+{
+  "baseline_rows": 4164,
+  "grant_matched_rows": 44,
+  "locator_matched_rows": 1648,
+  "npm_rows": 802,
+  "npm_exact_final_path_rows": 764,
+  "npm_with_lock_evidence_rows": 620,
+  "verified_grant_text_references": 44,
+  "notice_dispositions": {
+    "unchanged": 4105,
+    "gap_declared_only": 14,
+    "exact_retained_source_root_notice_association": 23,
+    "resolved_source_matched_text": 3,
+    "resolved_post_release_upstream_text": 7,
+    "resolved_tag_bound_text": 4,
+    "containing_package_fixture_path_verified": 1,
+    "resolved_exact_release_dedication_statement": 1,
+    "resolved_source_matched_text_holder_anomaly": 2,
+    "proprietary_linked_license_decision_required": 1,
+    "resolved_exact_statement_plus_linked_text": 1,
+    "resolved_exact_release_attribution_statement": 1,
+    "gap_declared_only_low_risk": 1
+  }
+}
