@@ -206,6 +206,70 @@ body {font-family:"Rules Expanded",sans-serif}'''
                                 if mode == 'docker-save':
                                     self.assertIn('layer.tar:', str(error.exception))
 
+    def test_docs_prefix_never_exempts_payloads_in_root_or_layers(self):
+        def packed(entries, kind):
+            data = io.BytesIO()
+            if kind == 'zip':
+                with zipfile.ZipFile(data, 'w') as archive:
+                    for name, content in entries.items():
+                        archive.writestr(name, content)
+            else:
+                with tarfile.open(fileobj=data, mode='w') as archive:
+                    for name, content in entries.items():
+                        member = tarfile.TarInfo(name)
+                        member.size = len(content)
+                        archive.addfile(member, io.BytesIO(content))
+            return data.getvalue()
+
+        docs = 'usr/share/doc/agent-box-hermes/'
+        notice = b'Historical notice: Collapse-Regular.woff2; @photon-ai/whatsapp-business/; claude_agent_sdk/_bundled/claude'
+        cases = [
+            (suffix, b'harmless synthetic bytes', 'forbidden payload path')
+            for suffix in ('Collapse-Regular.woff2',
+                           'node_modules/@photon-ai/whatsapp-business/index.js',
+                           'claude_agent_sdk/_bundled/claude',
+                           'chrome-headless-shell-linux64/chrome-headless-shell')
+        ] + [('third-party/NOTICE.txt', notice, None),
+             ('third-party/provenance.json', b'{"excluded":"Collapse-Regular.woff2"}', None),
+             ('third-party/NOTICE.txt', self.payload, 'forbidden payload hash')]
+        for prefix in (docs, 'invented/' + docs):
+            for suffix, content, error in cases:
+                entries = {prefix + suffix: content}
+                variants = {'direct': entries,
+                            'zip': {'cache.zip': packed(entries, 'zip')},
+                            'tar': {'cache.tar': packed(entries, 'tar')},
+                            'nested': {docs + 'evidence.gz': gzip.compress(packed(
+                                {docs + 'inner.zip': packed(entries, 'zip')}, 'tar'))}}
+                for kind, files in variants.items():
+                    for mode in ('root', 'docker-save'):
+                        with self.subTest(prefix=prefix, suffix=suffix, error=error,
+                                          kind=kind, mode=mode), tempfile.TemporaryDirectory() as d:
+                            root = Path(d) / 'root'
+                            root.mkdir()
+                            for name, data in files.items():
+                                path = root / name
+                                path.parent.mkdir(parents=True, exist_ok=True)
+                                path.write_bytes(data)
+                            if mode == 'root':
+                                scan = lambda: inspect_root(root, self.policy)
+                            else:
+                                image = Path(d) / 'image.tar'
+                                image.write_bytes(packed({
+                                    'manifest.json': b'[{"Layers":["layer.tar"]}]',
+                                    'layer.tar': packed(files, 'tar'),
+                                }, 'tar'))
+                                before = image.read_bytes()
+                                scan = lambda: inspect_docker_save(image, self.policy)
+                            if error:
+                                with self.assertRaisesRegex(ValueError, error):
+                                    scan()
+                            else:
+                                self.assertEqual(scan()['files'], 1)
+                            for name, data in files.items():
+                                self.assertEqual((root / name).read_bytes(), data)
+                            if mode == 'docker-save':
+                                self.assertEqual(image.read_bytes(), before)
+
     def test_recognized_unsupported_archive_fails_closed(self):
         with self.assertRaisesRegex(ValueError, 'unsupported archive format'):
             inspect_stream(io.BytesIO(b'\x28\xb5\x2f\xfdtest'), 'cache.zst', self.policy)

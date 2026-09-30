@@ -24,8 +24,8 @@ def forbidden_path(name, policy):
     while name.startswith('./'):
         name = name[2:]
     name = '/' + name.lstrip('/')
-    if '/usr/share/doc/agent-box-hermes/' in name:
-        return False  # historical metadata is explicitly preserved
+    # Notices may describe forbidden payloads, but their directory must never
+    # exempt actual payload filenames or runtime component paths.
     return ('/@photon-ai/whatsapp-business/' in name
             or '/claude_agent_sdk/_bundled/claude' in name
             or Path(name).name in policy['font_names']
