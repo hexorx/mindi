@@ -123,10 +123,15 @@ Desktop CI run 36699649263 / job 109835832230 at `418803c` rejected the
 base-image setuptools editable finder because six namespace search-path strings
 contain `@photon-ai/slack`. Inspection of the digest-verified source layer found
 no Photon Slack import in that finder. The sanitizer now recognizes only its
-exact installed path and full SHA-256, reports it as validated metadata, and
+exact installed path and normalized full-file SHA-256, reports the original
+SHA-256 as validated metadata, and
 continues to reject all other unexpected references before changing files.
 See [the actual-finder fixture and extraction provenance](../apps/agent-box-hermes/test/fixtures/README.md).
-Changed finder bytes require fresh inspection; there is no general exemption
+HEX-225 also validates the rebuilt finder captured in HEX-227. Only the literal
+NAMESPACES dictionary is canonicalized to tolerate filesystem-dependent key
+order; duplicate keys and nonliteral expressions are rejected. Namespace keys,
+ordered path lists, and every byte outside that literal remain digest-bound.
+Other changed finder content requires fresh inspection; there is no general exemption
 for editable finders or Python files. The stale namespace paths remain harmless
 references to the excluded directories. Final-image absence and real supported
 imports still require coordinator validation on the resulting PR head.
