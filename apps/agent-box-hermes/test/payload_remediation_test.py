@@ -178,6 +178,76 @@ for (const use of [() => whatsappBusiness(), () => whatsappBusiness.config({{}})
             self.assertEqual(os.readlink(link), '/usr/bin/ffmpeg')
             self.assertIn('disabled', (root / wrapper / 'dist/index.js').read_text())
 
+    def sanitizer_fixture(self, root):
+        sidecar = root / 'opt/hermes/plugins/platforms/photon/sidecar/node_modules'
+        payloads = {
+            sidecar / '@spectrum-ts/whatsapp-business/package.json': b'{"version":"8.0.0"}',
+            sidecar / '@spectrum-ts/whatsapp-business/dist/index.js':
+                b'import {x} from "@photon-ai/whatsapp-business";',
+            sidecar / '@photon-ai/whatsapp-business/package.json': b'{"version":"0.1.1"}',
+            root / 'root/.npm/_npx/test/node_modules/playwright-core/package.json':
+                b'{"version":"1.62.1"}',
+            root / 'opt/hermes/font.woff2': self.payload,
+            root / 'opt/hermes/app.css': b'body{font-family:"Collapse"}',
+        }
+        for path, content in payloads.items():
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_bytes(content)
+        return {'sha256': {hashlib.sha256(self.payload).hexdigest(): 'font:test'}}
+
+    def test_sanitizer_handles_absent_or_invalid_embedded_content(self):
+        maps = [{}, {'sourcesContent': None}, {'sourcesContent': 'not a list'},
+                {'sourcesContent': 42}, {'sourcesContent': {'css': '@font-face'}},
+                {'sourcesContent': False},
+                {'sourcesContent': '@font-face {font-family:Collapse;src:url(Collapse-Regular.woff2)}'},
+                [], None, 'not an object', 42,
+                {'sections': None}, {'sections': [None, {}, {'map': []}]}]
+        for source_map in maps:
+            with self.subTest(source_map=source_map), tempfile.TemporaryDirectory() as d:
+                root = Path(d)
+                policy = self.sanitizer_fixture(root)
+                path = root / 'opt/hermes/app.css.map'
+                original = json.dumps(source_map).encode('utf-8')
+                path.write_bytes(original)
+                report = sanitize(root, policy)
+                if isinstance(source_map, dict) and source_map.get('sourcesContent') is not None:
+                    source_map.pop('sourcesContent')
+                    self.assertEqual(json.loads(path.read_bytes()), source_map)
+                else:
+                    self.assertEqual(path.read_bytes(), original)
+                self.assertFalse((root / 'opt/hermes/font.woff2').exists())
+                self.assertEqual(report['patched_css'], ['/opt/hermes/app.css'])
+
+    def test_sanitizer_rewrites_embedded_css_in_regular_and_index_maps(self):
+        css = '@font-face {font-family:"Collapse";src:url(font.woff2)} body{font-family:"Collapse"}'
+        for indexed in (False, True):
+            with self.subTest(indexed=indexed), tempfile.TemporaryDirectory() as d:
+                root = Path(d)
+                policy = self.sanitizer_fixture(root)
+                embedded = {'version': 3, 'sourcesContent': [css, None, 42, 'unchanged café'],
+                            'mappings': 'AAAA', 'sources': ['app.css']}
+                source_map = {'sections': [{'offset': {'line': 0, 'column': 0},
+                                            'map': embedded}]} if indexed else embedded
+                path = root / 'opt/hermes/app.css.map'
+                path.write_text(json.dumps(source_map), encoding='utf-8')
+                sanitize(root, policy)
+                self.assertFalse((root / 'opt/hermes/font.woff2').exists())
+                inspect_root(root, self.policy)
+                embedded['sourcesContent'][0] = ' body{font-family:system-ui}'
+                self.assertEqual(json.loads(path.read_text(encoding='utf-8')), source_map)
+
+    def test_sanitizer_rejects_non_utf8_css_and_maps_with_path(self):
+        for suffix in ('.css', '.map'):
+            with self.subTest(suffix=suffix), tempfile.TemporaryDirectory() as d:
+                root = Path(d)
+                policy = self.sanitizer_fixture(root)
+                path = root / ('opt/hermes/invalid' + suffix)
+                path.write_bytes(b'\xff invalid UTF-8')
+                with self.assertRaises(ValueError) as error:
+                    sanitize(root, policy)
+                self.assertIn('non-UTF-8 payload:', str(error.exception))
+                self.assertIn(str(path), str(error.exception))
+
     def test_debian_notices_preserve_bytes_and_source_identity(self):
         with tempfile.TemporaryDirectory() as d:
             root = Path(d)

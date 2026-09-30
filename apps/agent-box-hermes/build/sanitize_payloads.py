@@ -43,6 +43,40 @@ def system_font_css(text):
     return text
 
 
+def read_payload_text(path):
+    """Fail closed with the offending path when payload text is not UTF-8."""
+    try:
+        return path.read_text(encoding='utf-8')
+    except UnicodeDecodeError as exc:
+        raise ValueError(f'non-UTF-8 payload: {path}') from exc
+
+
+def rewrite_source_map(source_map):
+    """Rewrite embedded CSS; discard malformed optional embedded content."""
+    if not isinstance(source_map, dict):
+        return False
+    changed = False
+    contents = source_map.get('sourcesContent')
+    if isinstance(contents, list):
+        for index, content in enumerate(contents):
+            if isinstance(content, str) and '@font-face' in content:
+                rewritten = system_font_css(content)
+                if rewritten != content:
+                    contents[index] = rewritten
+                    changed = True
+    elif contents is not None:
+        # sourcesContent is optional. Invalid scalar/object values are not
+        # source arrays and may hide unrewritten font CSS; omit them entirely.
+        del source_map['sourcesContent']
+        changed = True
+    sections = source_map.get('sections')
+    if isinstance(sections, list):
+        for section in sections:
+            if isinstance(section, dict) and rewrite_source_map(section.get('map')):
+                changed = True
+    return changed
+
+
 def files(root):
     for parent, dirs, names in os.walk(root, followlinks=False):
         dirs[:] = [d for d in dirs if not (Path(parent) / d).is_symlink()]
@@ -108,20 +142,17 @@ def sanitize(root, policy):
         if path.suffix == '.map' and rel.startswith('opt/hermes/'):
             # Source maps can retain the original CSS even after output patching.
             try:
-                source_map = json.loads(path.read_text())
-            except (ValueError, UnicodeDecodeError):
+                source_map = json.loads(read_payload_text(path))
+            except json.JSONDecodeError:
                 source_map = {}
-            contents = source_map.get('sourcesContent', [])
-            if any(isinstance(x, str) and '@font-face' in x for x in contents):
-                source_map['sourcesContent'] = [
-                    system_font_css(x) if isinstance(x, str) and '@font-face' in x else x
-                    for x in contents]
-                path.write_text(json.dumps(source_map, separators=(',', ':')))
+            if rewrite_source_map(source_map):
+                path.write_text(json.dumps(source_map, separators=(',', ':')),
+                                encoding='utf-8')
         if path.suffix == '.css' and rel.startswith('opt/hermes/'):
-            old = path.read_text()
+            old = read_payload_text(path)
             new = system_font_css(old)
             if new != old:
-                path.write_text(new)
+                path.write_text(new, encoding='utf-8')
                 report['patched_css'].append('/' + rel)
         with path.open('rb') as f:
             digest = hashlib.file_digest(f, 'sha256').hexdigest()
