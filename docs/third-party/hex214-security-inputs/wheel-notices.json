@@ -85,5 +85,29 @@
     "noticeFiles": [
       "pyjwt--pyjwt-2.14.0.dist-info__licenses__LICENSE.txt"
     ]
+  },
+  {
+    "package": "setuptools",
+    "url": "https://files.pythonhosted.org/packages/5d/40/e1e72872c6354b306daef1703549e8e83b4d43cfea356311bf722a043752/setuptools-83.0.0-py3-none-any.whl",
+    "sha256": "29b23c360f22f414dc7336bb39178cc7bcbf6021ed2733cde173f09dba19abb3",
+    "noticeFiles": [
+      "setuptools--setuptools___vendor__importlib_metadata-8.7.1.dist-info__licenses__LICENSE.txt",
+      "setuptools--setuptools___vendor__jaraco_context-6.1.0.dist-info__licenses__LICENSE.txt",
+      "setuptools--setuptools___vendor__jaraco_functools-4.4.0.dist-info__licenses__LICENSE.txt",
+      "setuptools--setuptools___vendor__more_itertools-10.8.0.dist-info__licenses__LICENSE.txt",
+      "setuptools--setuptools___vendor__packaging-26.0.dist-info__licenses__LICENSE.txt",
+      "setuptools--setuptools___vendor__packaging-26.0.dist-info__licenses__LICENSE.APACHE.txt",
+      "setuptools--setuptools___vendor__packaging-26.0.dist-info__licenses__LICENSE.BSD.txt",
+      "setuptools--setuptools___vendor__platformdirs-4.4.0.dist-info__licenses__LICENSE.txt",
+      "setuptools--setuptools___vendor__tomli-2.4.0.dist-info__licenses__LICENSE.txt",
+      "setuptools--setuptools___vendor__wheel-0.46.3.dist-info__licenses__LICENSE.txt.txt",
+      "setuptools--setuptools___vendor__zipp-3.23.0.dist-info__licenses__LICENSE.txt",
+      "setuptools--setuptools__config__NOTICE.txt",
+      "setuptools--setuptools__config___validate_pyproject__NOTICE.txt",
+      "setuptools--setuptools-83.0.0.dist-info__licenses__LICENSE.txt",
+      "setuptools--setuptools___vendor__autocommand-2.2.2.dist-info__LICENSE.txt",
+      "setuptools--setuptools___vendor__backports.tarfile-1.2.0.dist-info__LICENSE.txt",
+      "setuptools--setuptools___vendor__jaraco.text-4.0.0.dist-info__LICENSE.txt"
+    ]
   }
 ]

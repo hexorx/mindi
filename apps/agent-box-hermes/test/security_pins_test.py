@@ -54,5 +54,13 @@ class SecurityPinsTest(unittest.TestCase):
         lock = (BUILD / 'hindsight-linux-amd64.lock').read_text()
         for pin in ['hindsight-api-slim==0.8.3', 'cryptography==50.0.2',
                     'transformers==5.15.1', 'pg0-embedded==0.15.2',
-                    'sentence-transformers==6.1.0', 'torch==2.8.0+cpu']:
+                    'sentence-transformers==6.1.0', 'torch==2.8.0+cpu',
+                    'setuptools==83.0.0']:
             self.assertIn('# ' + pin + '\n', lock)
+
+    def test_hindsight_setuptools_uses_reviewed_build_tool_artifact(self):
+        def artifact(name):
+            return next(line for line in (BUILD / name).read_text().splitlines()
+                        if line.startswith('setuptools @ '))
+        self.assertEqual(artifact('hindsight-linux-amd64.lock'),
+                         artifact('hermes-build-tools.lock'))

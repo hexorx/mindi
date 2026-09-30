@@ -9,3 +9,7 @@ claim of complete pg0 license coverage is made.
 
 Wheel notices are extracted verbatim, including upstream CRLF line endings.
 Jinja2 and MarkupSafe are mirror-URL changes with identical version and hash.
+
+Follow-up scan remediation: setuptools 83.0.0 notices include its vendored packages.
+Native artifact hashes, exact libxml2 copyright provenance, and the supplemental
+pgvector 0.8.5 source-license limitation are recorded in `native-notices.json`.

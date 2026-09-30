@@ -79,3 +79,48 @@ part of this work. Runtime acceptance remains with HEX-212 after the new candida
 Rollback before merge: supersede the feature branch; main and the existing image
 are untouched. After merge: revert the source commit through a reviewed PR. Keep
 candidate tags/tars distinct. No existing runtime volume is migrated by this PR.
+
+## Follow-up to the first replacement scan
+
+Opi built source `00d3b7e2a52fc3d3530093c6e515b8727e684a1a` in [HEX-223](/HEX/issues/HEX-223). Its hash-verified core attachment is `7b071c56225ca597f257945dbe9306ce25786154660f5f628b39a018de139d88`. Grype found 1 fixable Critical and 33 fixable High rows. The table below records that candidate only; it is not a scan of the follow-up source.
+
+Hindsight now uses the same hash-verified setuptools 83.0.0 wheel as the Hermes build tools. Its vendored wheel is 0.46.3 and jaraco-context is 6.1.0, meeting the three reported fix thresholds. No other Hindsight lock artifact changes. Runtime compatibility and removal of these findings require a rebuilt candidate and fresh scan. Supplemental notices include all 17 setuptools license/notice files, the copyright from the exact libxml2 .12 deb, and the pgvector 0.8.5 upstream source license. The pgvector binary bundle contains no license; the source text does not establish source-to-binary correspondence or supersede historical accepted limitations.
+
+Mindi’s [conditional Tailscale decision](/HEX/issues/HEX-214#comment-bfec05cf-b2b0-43c9-b1a5-5de36085d7e0) requires module/path scope, no KEV matches, and no fixed stable at scan time. The three rows below meet module/path scope; fresh KEV and stable-release evidence is still required. Inherited security findings are not automatically accepted by the historical notice dispositions.
+
+| Severity | Finding | Package/version | Location | Reason/status |
+|---|---|---|---|---|
+| Critical | GHSA-23hp-3jrh-7fpw | tar 7.5.16 | `/usr/local/lib/node_modules/npm/node_modules/tar/package.json` | Inherited unchanged from pinned Hermes base; release disposition pending. |
+| High | GHSA-2v37-7h3g-55p8 | nanoid 3.3.17 | `/opt/hermes/node_modules/sanitize-html/node_modules/nanoid/package.json` | Inherited unchanged from pinned Hermes base; release disposition pending. |
+| High | GHSA-2v37-7h3g-55p8 | nanoid 3.3.17 | `/opt/hermes/node_modules/vite/node_modules/nanoid/package.json` | Inherited unchanged from pinned Hermes base; release disposition pending. |
+| High | GHSA-3jxr-9vmj-r5cp | brace-expansion 5.0.6 | `/usr/local/lib/node_modules/npm/node_modules/brace-expansion/package.json` | Inherited unchanged from pinned Hermes base; release disposition pending. |
+| High | GHSA-4w2j-m93h-cj5j | quinn-proto 0.11.14 | `/usr/local/bin/uv` | Inherited unchanged from pinned Hermes base; release disposition pending. |
+| High | GHSA-4w2j-m93h-cj5j | quinn-proto 0.11.14 | `/usr/local/bin/uvx` | Inherited unchanged from pinned Hermes base; release disposition pending. |
+| High | GHSA-58pv-8j8x-9vj2 | jaraco-context 5.3.0 | `/opt/hindsight/lib/python3.13/site-packages/setuptools/_vendor/jaraco.context-5.3.0.dist-info/METADATA` | Updated setuptools closure in source; rebuild/scan pending. |
+| High | GHSA-5rjg-fvgr-3xxf | setuptools 78.1.0 | `/opt/hindsight/lib/python3.13/site-packages/setuptools-78.1.0.dist-info/METADATA` | Updated setuptools closure in source; rebuild/scan pending. |
+| High | GHSA-6j4f-fj2g-mc7p | brace-expansion 5.0.6 | `/usr/local/lib/node_modules/npm/node_modules/brace-expansion/package.json` | Inherited unchanged from pinned Hermes base; release disposition pending. |
+| High | GHSA-6j4f-fj2g-mc7p | brace-expansion 5.0.9 | `/opt/hermes/node_modules/brace-expansion/package.json` | Inherited unchanged from pinned Hermes base; release disposition pending. |
+| High | GHSA-73wf-gq98-2v4g | browserslist 4.28.6 | `/opt/hermes/node_modules/browserslist/package.json` | Inherited unchanged from pinned Hermes base; release disposition pending. |
+| High | GHSA-7mj9-2mp8-4m2p | httpcore2 2.7.0 | `/opt/hermes/.venv/lib/python3.13/site-packages/httpcore2-2.7.0.dist-info/METADATA` | Inherited unchanged from pinned Hermes base; release disposition pending. |
+| High | GHSA-7mj9-2mp8-4m2p | httpx2 2.7.0 | `/opt/hermes/.venv/lib/python3.13/site-packages/httpx2-2.7.0.dist-info/METADATA` | Inherited unchanged from pinned Hermes base; release disposition pending. |
+| High | GHSA-82j2-j2ch-gfr8 | rustls-webpki 0.103.10 | `/usr/local/bin/uv` | Inherited unchanged from pinned Hermes base; release disposition pending. |
+| High | GHSA-82j2-j2ch-gfr8 | rustls-webpki 0.103.10 | `/usr/local/bin/uvx` | Inherited unchanged from pinned Hermes base; release disposition pending. |
+| High | GHSA-8rrh-rw8j-w5fx | wheel 0.45.1 | `/opt/hindsight/lib/python3.13/site-packages/setuptools/_vendor/wheel-0.45.1.dist-info/METADATA` | Updated setuptools closure in source; rebuild/scan pending. |
+| High | GHSA-8x88-c5mf-7j5w | tar 7.5.16 | `/usr/local/lib/node_modules/npm/node_modules/tar/package.json` | Inherited unchanged from pinned Hermes base; release disposition pending. |
+| High | GHSA-8xx6-hgc6-gc2m | httpx2 2.7.0 | `/opt/hermes/.venv/lib/python3.13/site-packages/httpx2-2.7.0.dist-info/METADATA` | Inherited unchanged from pinned Hermes base; release disposition pending. |
+| High | GHSA-c83g-rgw3-j3cx | browserslist 4.28.6 | `/opt/hermes/node_modules/browserslist/package.json` | Inherited unchanged from pinned Hermes base; release disposition pending. |
+| High | GHSA-mh99-v99m-4gvg | brace-expansion 5.0.6 | `/usr/local/lib/node_modules/npm/node_modules/brace-expansion/package.json` | Inherited unchanged from pinned Hermes base; release disposition pending. |
+| High | GHSA-mpf4-983q-p7j4 | tornado 6.5.7 | `/opt/hermes/.venv/lib/python3.13/site-packages/tornado-6.5.7.dist-info/METADATA` | Inherited unchanged from pinned Hermes base; release disposition pending. |
+| High | GHSA-mwp4-54f8-5fhr | ip-address 10.2.0 | `/usr/local/lib/node_modules/npm/node_modules/ip-address/package.json` | Inherited unchanged from pinned Hermes base; release disposition pending. |
+| High | GHSA-qhr7-859c-m2p7 | brace-expansion 5.0.6 | `/usr/local/lib/node_modules/npm/node_modules/brace-expansion/package.json` | Inherited unchanged from pinned Hermes base; release disposition pending. |
+| High | GHSA-qhr7-859c-m2p7 | brace-expansion 5.0.9 | `/opt/hermes/node_modules/brace-expansion/package.json` | Inherited unchanged from pinned Hermes base; release disposition pending. |
+| High | GHSA-r292-9mhp-454m | tar 7.5.16 | `/usr/local/lib/node_modules/npm/node_modules/tar/package.json` | Inherited unchanged from pinned Hermes base; release disposition pending. |
+| High | GHSA-rfgv-xxqx-mfg5 | undici 6.26.0 | `/usr/local/lib/node_modules/npm/node_modules/undici/package.json` | Inherited unchanged from pinned Hermes base; release disposition pending. |
+| High | GHSA-rfgv-xxqx-mfg5 | undici 6.28.0 | `/opt/hermes/ui-tui/node_modules/undici/package.json` | Inherited unchanged from pinned Hermes base; release disposition pending. |
+| High | GHSA-rfgv-xxqx-mfg5 | undici 7.29.0 | `/opt/hermes/plugins/platforms/photon/sidecar/node_modules/undici/package.json` | Inherited unchanged from pinned Hermes base; release disposition pending. |
+| High | GHSA-rgw5-rvv9-x895 | brace-expansion 5.0.6 | `/usr/local/lib/node_modules/npm/node_modules/brace-expansion/package.json` | Inherited unchanged from pinned Hermes base; release disposition pending. |
+| High | GHSA-vxpw-j846-p89q | undici 6.26.0 | `/usr/local/lib/node_modules/npm/node_modules/undici/package.json` | Inherited unchanged from pinned Hermes base; release disposition pending. |
+| High | GHSA-w293-vg96-wgc3 | undici 7.29.0 | `/opt/hermes/plugins/platforms/photon/sidecar/node_modules/undici/package.json` | Inherited unchanged from pinned Hermes base; release disposition pending. |
+| High | GO-2026-6303 | golang.org/x/crypto v0.54.0 | `/usr/local/bin/tailscaled` | No verified fixed upstream stable in supplied evidence; tracked by HEX-216; conditional acceptance checks pending. |
+| High | GO-2026-6354 | golang.org/x/crypto v0.54.0 | `/usr/local/bin/tailscaled` | No verified fixed upstream stable in supplied evidence; tracked by HEX-216; conditional acceptance checks pending. |
+| High | GO-2026-6355 | golang.org/x/crypto v0.54.0 | `/usr/local/bin/tailscaled` | No verified fixed upstream stable in supplied evidence; tracked by HEX-216; conditional acceptance checks pending. |
