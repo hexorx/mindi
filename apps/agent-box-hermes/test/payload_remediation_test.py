@@ -15,7 +15,7 @@ APP = Path(__file__).resolve().parents[1]
 BUILD = APP / 'build'
 sys.path.insert(0, str(BUILD))
 from sanitize_payloads import DISABLED_PROVIDER, sanitize, system_font_css  # noqa: E402
-from verify_payloads import inspect_docker_save, inspect_stream  # noqa: E402
+from verify_payloads import inspect_docker_save, inspect_root, inspect_stream  # noqa: E402
 
 
 class PayloadRemediationTest(unittest.TestCase):
@@ -49,6 +49,65 @@ body {font-family:"Rules Expanded",sans-serif}'''
         data.seek(0)
         with self.assertRaisesRegex(ValueError, 'forbidden payload hash'):
             inspect_stream(data, 'cache.whl', self.policy)
+
+    def test_scanner_rejects_compressed_npm_cache_by_magic(self):
+        import gzip
+        archive = io.BytesIO()
+        with tarfile.open(fileobj=archive, mode='w') as t:
+            member = tarfile.TarInfo('package/dist/renamed.js')
+            member.size = len(self.payload)
+            t.addfile(member, io.BytesIO(self.payload))
+        data = io.BytesIO(gzip.compress(archive.getvalue()))
+        with self.assertRaisesRegex(ValueError, 'forbidden payload hash'):
+            inspect_stream(data, '.npm/_cacache/content-v2/opaque', self.policy)
+
+    def test_compressed_and_extensionless_tar_members_fail_root_and_layers(self):
+        import bz2
+        import lzma
+        data = io.BytesIO()
+        with tarfile.open(fileobj=data, mode='w') as t:
+            member = tarfile.TarInfo('renamed')
+            member.size = len(self.payload)
+            t.addfile(member, io.BytesIO(self.payload))
+        formats = {'cache.tar.xz': lzma.compress(data.getvalue()),
+                   'cache.tar.bz2': bz2.compress(data.getvalue()),
+                   'opaque-cache': data.getvalue()}
+        for name, compressed in formats.items():
+            with self.subTest(name=name), tempfile.TemporaryDirectory() as d:
+                root = Path(d) / 'root'
+                root.mkdir()
+                (root / name).write_bytes(compressed)
+                with self.assertRaisesRegex(ValueError, 'forbidden payload hash'):
+                    inspect_root(root, self.policy)
+                layer = io.BytesIO()
+                with tarfile.open(fileobj=layer, mode='w') as t:
+                    member = tarfile.TarInfo(name)
+                    member.size = len(compressed)
+                    t.addfile(member, io.BytesIO(compressed))
+                image = Path(d) / 'image.tar'
+                with tarfile.open(image, mode='w') as t:
+                    for path, content in {
+                        'manifest.json': b'[{"Layers":["layer.tar"]}]',
+                        'layer.tar': layer.getvalue(),
+                    }.items():
+                        member = tarfile.TarInfo(path)
+                        member.size = len(content)
+                        t.addfile(member, io.BytesIO(content))
+                with self.assertRaisesRegex(ValueError, 'forbidden payload hash'):
+                    inspect_docker_save(image, self.policy)
+
+    def test_recognized_unsupported_archive_fails_closed(self):
+        with self.assertRaisesRegex(ValueError, 'unsupported archive format'):
+            inspect_stream(io.BytesIO(b'\x28\xb5\x2f\xfdtest'), 'cache.zst', self.policy)
+
+    def test_root_scanner_checks_links_without_following_them(self):
+        with tempfile.TemporaryDirectory() as d:
+            root = Path(d)
+            (root / 'allowed').symlink_to('/usr/bin/ffmpeg')
+            self.assertEqual(inspect_root(root, self.policy)['files'], 0)
+            (root / 'forbidden').symlink_to('/opt/fonts/Collapse-Regular.woff2')
+            with self.assertRaisesRegex(ValueError, 'forbidden payload link'):
+                inspect_root(root, self.policy)
 
     def test_scanner_allows_historical_metadata(self):
         inspect_stream(io.BytesIO(b'{"excluded":"Collapse-Regular.woff2"}'),

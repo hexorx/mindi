@@ -5,10 +5,12 @@ Archive members are inspected too: deleting a live file while retaining its
 wheel/npm/cache archive is not remediation. Symlinks are not followed.
 """
 import argparse
+import bz2
 import gzip
 import hashlib
-import io
 import json
+import lzma
+import os
 from pathlib import Path
 import tarfile
 import tempfile
@@ -18,7 +20,10 @@ POLICY = Path(__file__).with_name('payload-policy.json')
 
 
 def forbidden_path(name, policy):
-    name = '/' + name.lstrip('./')
+    # Remove only a literal ./ prefix; lstrip would alter hidden filenames.
+    while name.startswith('./'):
+        name = name[2:]
+    name = '/' + name.lstrip('/')
     if '/usr/share/doc/agent-box-hermes/' in name:
         return False  # historical metadata is explicitly preserved
     return ('/@photon-ai/whatsapp-business/' in name
@@ -30,8 +35,17 @@ def forbidden_path(name, policy):
 def inspect_stream(stream, name, policy, depth=0):
     if forbidden_path(name, policy):
         raise ValueError(f'forbidden payload path: {name}')
-    first = stream.read(4)
-    archive = first.startswith((b'PK\x03\x04', b'\x1f\x8b')) or name.endswith(('.tar', '.tgz', '.whl', '.zip'))
+    first = stream.read(512)
+    try:
+        tarfile.TarInfo.frombuf(first, 'utf-8', 'surrogateescape')
+        tar_header = True
+    except (tarfile.HeaderError, ValueError):
+        tar_header = False
+    compressed = first.startswith((b'\x1f\x8b', b'BZh', b'\xfd7zXZ\x00'))
+    if first.startswith((b'\x28\xb5\x2f\xfd', b'7z\xbc\xaf\x27\x1c', b'Rar!')):
+        raise ValueError(f'unsupported archive format requires inspection: {name}')
+    archive = (compressed or tar_header or first.startswith(b'PK\x03\x04')
+               or name.endswith(('.tar', '.tgz', '.whl', '.zip')))
     digest = hashlib.sha256(first)
     with tempfile.SpooledTemporaryFile(max_size=8 * 1024 * 1024) as saved:
         if archive:
@@ -58,11 +72,17 @@ def inspect_stream(stream, name, policy, depth=0):
                 with tarfile.open(fileobj=saved, mode='r:*') as t:
                     inspect_tar(t, policy, name + '!', depth + 1)
             except tarfile.ReadError:
-                if not first.startswith(b'\x1f\x8b'):
+                if not compressed:
                     raise ValueError(f'unreadable archive: {name}') from None
                 saved.seek(0)
-                with gzip.GzipFile(fileobj=saved) as f:
-                    inspect_stream(f, name + '!gunzip', policy, depth + 1)
+                if first.startswith(b'\x1f\x8b'):
+                    decoded = gzip.GzipFile(fileobj=saved)
+                elif first.startswith(b'BZh'):
+                    decoded = bz2.BZ2File(saved)
+                else:
+                    decoded = lzma.LZMAFile(saved)
+                with decoded as f:
+                    inspect_stream(f, name + '!decompressed', policy, depth + 1)
 
 
 def inspect_tar(archive, policy, prefix='', depth=0):
@@ -95,6 +115,15 @@ def inspect_root(root, policy):
     # Share filesystem traversal with the sanitizer, without changing anything.
     from sanitize_payloads import files
     count = 0
+    for parent, dirs, names in os.walk(root, followlinks=False):
+        if Path(parent) == root:
+            dirs[:] = [d for d in dirs if d not in ('proc', 'sys', 'dev')]
+        for name in dirs + names:
+            path = Path(parent) / name
+            if path.is_symlink() and (
+                    forbidden_path(str(path.relative_to(root)), policy)
+                    or forbidden_path(os.readlink(path), policy)):
+                raise ValueError(f'forbidden payload link: {path.relative_to(root)}')
     for path in files(root):
         with path.open('rb') as stream:
             inspect_stream(stream, str(path.relative_to(root)), policy)

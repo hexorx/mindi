@@ -54,7 +54,9 @@ python3 apps/agent-box-hermes/build/verify_payloads.py --docker-save image.tar
 ```
 
 This checks every layer, including files hidden by later whiteouts and nested
-wheel/npm archives. Image absence checks are required in addition to application
+wheel/npm archives, XZ/BZip2 archives, and extensionless tar cache blobs.
+Recognized Zstandard/7-Zip/RAR containers fail closed for explicit inspection.
+Image absence checks are required in addition to application
 unit tests. Record the exact Git head, image digest, package inventory, browser
 and FFmpeg smoke checks, Photon imports and configuration comparison. Historical
 HEX-195 evidence applies to source `2a74043` / image `3819c040…`; it does not
