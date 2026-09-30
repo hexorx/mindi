@@ -1,0 +1,36 @@
+name: Buzz startup supervisor
+on:
+  pull_request:
+    paths:
+      - stacks/buzz/**
+      - .github/workflows/buzz-startup.yml
+  push:
+    branches: [main]
+    paths:
+      - stacks/buzz/**
+      - .github/workflows/buzz-startup.yml
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - run: python3 -m pip install ruff==0.16.9
+      - run: ruff check --isolated --select E4,E7,E9,F,I,EXE,SIM stacks/buzz
+      - run: ruff format --isolated --check stacks/buzz
+      - run: python3 -B -m unittest discover -s stacks/buzz/tests -v
+      - name: Check Python syntax
+        run: python3 -c "import ast, pathlib; [ast.parse(p.read_text()) for p in pathlib.Path('stacks/buzz').rglob('*.py')]"
+      - name: Build image (no publishing)
+        run: docker build -t buzz-startup:test stacks/buzz
+      - name: Check image entrypoint and non-root user
+        run: |
+          test "$(docker image inspect buzz-startup:test --format '{{.Config.User}}')" = buzz:buzz
+          docker run --rm -e BUZZ_STARTUP_ATTEMPTS=invalid buzz-startup:test 2>startup.log && exit 1 || test "$?" = 2
+          cat startup.log
+      - name: Run process tests with the image Python runtime
+        run: docker run --rm --entrypoint /usr/bin/python3 -v "$PWD/stacks/buzz:/tmp/buzz:ro" buzz-startup:test -B -m unittest discover -s /tmp/buzz/tests -v
