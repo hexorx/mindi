@@ -1,7 +1,10 @@
 """Behavioral policy checks; fixtures contain no upstream proprietary bytes."""
+import bz2
+import gzip
 import hashlib
 import io
 import json
+import lzma
 import os
 from pathlib import Path
 import subprocess
@@ -96,6 +99,56 @@ body {font-family:"Rules Expanded",sans-serif}'''
                         t.addfile(member, io.BytesIO(content))
                 with self.assertRaisesRegex(ValueError, 'forbidden payload hash'):
                     inspect_docker_save(image, self.policy)
+
+    def test_compressed_non_tar_content_through_root_and_layers(self):
+        nested = io.BytesIO()
+        with zipfile.ZipFile(nested, 'w') as archive:
+            archive.writestr('renamed', self.payload)
+        forbidden_path = io.BytesIO()
+        with zipfile.ZipFile(forbidden_path, 'w') as archive:
+            archive.writestr('fonts/Collapse-Regular.woff2', b'allowed bytes')
+        for compressor in (gzip.compress, bz2.compress, lzma.compress):
+            too_deep = b'allowed bytes'
+            for _ in range(9):
+                too_deep = compressor(too_deep)
+            cases = [
+                ('allowed', compressor(b'ordinary non-tar content'), None),
+                ('denied', compressor(self.payload), 'forbidden payload hash'),
+                ('nested-hash', compressor(nested.getvalue()), 'forbidden payload hash'),
+                ('nested-path', compressor(forbidden_path.getvalue()), 'forbidden payload path'),
+                ('depth', too_deep, 'archive nesting exceeds verification limit'),
+                ('unsupported', compressor(b'\x28\xb5\x2f\xfdtest'), 'unsupported archive format'),
+            ]
+            for case, content, error in cases:
+                for mode in ('root', 'docker-save'):
+                    with self.subTest(format=compressor.__module__, case=case, mode=mode):
+                        with tempfile.TemporaryDirectory() as d:
+                            root = Path(d) / 'root'
+                            root.mkdir()
+                            (root / 'opaque-cache').write_bytes(content)
+                            if mode == 'root':
+                                scan = lambda: inspect_root(root, self.policy)
+                            else:
+                                layer = io.BytesIO()
+                                with tarfile.open(fileobj=layer, mode='w') as archive:
+                                    member = tarfile.TarInfo('opaque-cache')
+                                    member.size = len(content)
+                                    archive.addfile(member, io.BytesIO(content))
+                                image = Path(d) / 'image.tar'
+                                with tarfile.open(image, mode='w') as archive:
+                                    for name, data in {
+                                        'manifest.json': b'[{"Layers":["layer.tar"]}]',
+                                        'layer.tar': layer.getvalue(),
+                                    }.items():
+                                        member = tarfile.TarInfo(name)
+                                        member.size = len(data)
+                                        archive.addfile(member, io.BytesIO(data))
+                                scan = lambda: inspect_docker_save(image, self.policy)
+                            if error:
+                                with self.assertRaisesRegex(ValueError, error):
+                                    scan()
+                            else:
+                                self.assertEqual(scan()['files'], 1)
 
     def test_recognized_unsupported_archive_fails_closed(self):
         with self.assertRaisesRegex(ValueError, 'unsupported archive format'):

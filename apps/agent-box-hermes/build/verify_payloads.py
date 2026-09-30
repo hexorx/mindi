@@ -76,11 +76,11 @@ def inspect_stream(stream, name, policy, depth=0):
                     raise ValueError(f'unreadable archive: {name}') from None
                 saved.seek(0)
                 if first.startswith(b'\x1f\x8b'):
-                    decoded = gzip.GzipFile(fileobj=saved)
+                    decoded = gzip.GzipFile(fileobj=saved, mode='rb')
                 elif first.startswith(b'BZh'):
-                    decoded = bz2.BZ2File(saved)
+                    decoded = bz2.BZ2File(saved, mode='rb')
                 else:
-                    decoded = lzma.LZMAFile(saved)
+                    decoded = lzma.LZMAFile(saved, mode='rb')
                 with decoded as f:
                     inspect_stream(f, name + '!decompressed', policy, depth + 1)
 
