@@ -1,6 +1,7 @@
 """Cross-check the Hermes installed overlay against the complete upstream lock."""
 from pathlib import Path
 import re
+import shlex
 import tomllib
 import unittest
 
@@ -23,6 +24,31 @@ class SecurityPinsTest(unittest.TestCase):
         project = tomllib.loads((BUILD / 'hermes-pyproject.toml').read_text())
         self.assertIn('PyJWT[crypto]==2.14.0', project['project']['dependencies'])
         self.assertEqual(project['tool']['uv']['exclude-newer'], '2026-09-16T12:10:52Z')
+
+    def test_overlay_installs_ignore_inherited_project_config(self):
+        dockerfile = (BUILD.parent / 'Dockerfile').read_text()
+        commands = [shlex.split(line.rstrip(' \\'))
+                    for line in dockerfile.splitlines() if 'uv pip install ' in line]
+        self.assertEqual(len(commands), 3)
+        for command in commands:
+            with self.subTest(command=command):
+                self.assertIn('--no-config', command)
+                self.assertIn('--no-deps', command)
+                self.assertEqual(command[command.index('--python') + 1],
+                                 '/opt/hermes/.venv/bin/python')
+                if '-r' in command:
+                    self.assertIn('--require-hashes', command)
+                    self.assertIn('--only-binary=:all:', command)
+                else:
+                    self.assertIn('--no-index', command)
+                    self.assertIn('/opt/build/hermes-wheel/*.whl', command)
+        self.assertEqual({command[command.index('-r') + 1]
+                          for command in commands if '-r' in command},
+                         {'/opt/build/hermes-security.lock',
+                          '/opt/build/hermes-build-tools.lock'})
+        self.assertIn('(cd /opt/hermes && PYTHONPATH=/opt/build/hermes-build-tools '
+                      '.venv/bin/python -c "from setuptools.build_meta import build_editable;',
+                      dockerfile)
 
     def test_hindsight_compatible_fixed_versions_keep_cpu_torch(self):
         lock = (BUILD / 'hindsight-linux-amd64.lock').read_text()

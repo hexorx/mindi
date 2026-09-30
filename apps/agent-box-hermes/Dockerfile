@@ -35,11 +35,12 @@ RUN echo '9c46230f41e4263b3a9d93ae9284722709923c50d138bc64eed2bb6c02af0581  /usr
 COPY apps/agent-box-hermes/build/hermes-pyproject.toml /opt/hermes/pyproject.toml
 COPY apps/agent-box-hermes/build/hermes-uv.lock /opt/hermes/uv.lock
 COPY apps/agent-box-hermes/build/hermes-security.lock apps/agent-box-hermes/build/hermes-build-tools.lock /opt/build/
-RUN uv pip install --python /opt/hermes/.venv/bin/python --no-deps --only-binary=:all: --require-hashes -r /opt/build/hermes-security.lock \
- && uv pip install --python /opt/hermes/.venv/bin/python --target /opt/build/hermes-build-tools --no-deps --only-binary=:all: --require-hashes -r /opt/build/hermes-build-tools.lock \
+# Ignore inherited /opt/hermes project overrides; install only the locked artifacts.
+RUN uv pip install --no-config --python /opt/hermes/.venv/bin/python --no-deps --only-binary=:all: --require-hashes -r /opt/build/hermes-security.lock \
+ && uv pip install --no-config --python /opt/hermes/.venv/bin/python --target /opt/build/hermes-build-tools --no-deps --only-binary=:all: --require-hashes -r /opt/build/hermes-build-tools.lock \
  && mkdir /opt/build/hermes-wheel \
  && (cd /opt/hermes && PYTHONPATH=/opt/build/hermes-build-tools .venv/bin/python -c "from setuptools.build_meta import build_editable; build_editable('/opt/build/hermes-wheel')") \
- && uv pip install --python /opt/hermes/.venv/bin/python --no-deps --no-index /opt/build/hermes-wheel/*.whl \
+ && uv pip install --no-config --python /opt/hermes/.venv/bin/python --no-deps --no-index /opt/build/hermes-wheel/*.whl \
  && rm -rf /opt/build/hermes-build-tools /opt/build/hermes-wheel \
  && /opt/hermes/.venv/bin/python -c "import importlib.metadata as m; assert m.version('pyjwt') == '2.14.0'; assert m.version('anyio') == '4.14.2'"
 # Isolated dependency graph; pg0 0.15.2 bundles PostgreSQL and pgvector.
