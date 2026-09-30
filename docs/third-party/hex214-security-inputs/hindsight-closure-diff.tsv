@@ -1,0 +1,17 @@
+# package	old	new	change
+cryptography	46.0.7	50.0.2	changed
+hindsight-api-slim	0.6.1	0.8.3	changed
+huggingface-hub	0.36.2	1.33.0	changed
+jaraco-classes	3.4.0	-	removed
+jaraco-context	6.1.2	-	removed
+jaraco-functools	4.6.0	-	removed
+jaraco.classes	-	3.4.0	added
+jaraco.context	-	6.1.2	added
+jaraco.functools	-	4.6.0	added
+pdfminer-six	20260107	-	removed
+pdfminer.six	-	20260107	added
+pg0-embedded	0.14.0	0.15.2	changed
+sentence-transformers	5.1.0	6.1.0	changed
+sqlalchemy	2.1.1	2.0.54	changed
+transformers	4.57.6	5.15.1	changed
+setuptools	78.1.0	83.0.0	changed

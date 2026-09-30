@@ -1,0 +1,113 @@
+[
+  {
+    "package": "cryptography",
+    "url": "https://files.pythonhosted.org/packages/d3/69/2c833a049475e0a3444e94c7d0aca0aa51d166374a449b09e92ac98138de/cryptography-50.0.2-cp311-abi3-manylinux_2_34_x86_64.whl",
+    "sha256": "9dab55f57c74c3cad24c323bacbbd04be4705ba6eb0d92e920b1fc4837ed5079",
+    "noticeFiles": [
+      "cryptography--cryptography-50.0.2.dist-info__licenses__LICENSE.txt",
+      "cryptography--cryptography-50.0.2.dist-info__licenses__LICENSE.APACHE.txt",
+      "cryptography--cryptography-50.0.2.dist-info__licenses__LICENSE.BSD.txt"
+    ]
+  },
+  {
+    "package": "hindsight-api-slim",
+    "url": "https://files.pythonhosted.org/packages/84/c6/62014879d2847b7f6983fb69843102aed776b42692dbbfa90670f1059feb/hindsight_api_slim-0.8.3-py3-none-any.whl",
+    "sha256": "6cc0fe22d91db4f2f387a95131fcc0f12f5c0a2b50e099bbe666b2fdab35e7c6",
+    "noticeFiles": []
+  },
+  {
+    "package": "huggingface-hub",
+    "url": "https://files.pythonhosted.org/packages/fc/16/963096d224b80909432dc16561a615fd33d2d13beef3ce4c63fa25e40867/huggingface_hub-1.33.0-py3-none-any.whl",
+    "sha256": "04e434b06e100eddbce9a6e817d72693a7884b10a79bd67ab48080d5c07eb899",
+    "noticeFiles": [
+      "huggingface-hub--huggingface_hub-1.33.0.dist-info__licenses__LICENSE.txt"
+    ]
+  },
+  {
+    "package": "jinja2",
+    "url": "https://download.pytorch.org/whl/jinja2-3.1.6-py3-none-any.whl",
+    "sha256": "85ece4451f492d0c13c5dd7c13a64681a86afae63a5f347908daf103ce6d2f67",
+    "noticeFiles": [
+      "jinja2--jinja2-3.1.6.dist-info__licenses__LICENSE.txt.txt"
+    ]
+  },
+  {
+    "package": "markupsafe",
+    "url": "https://download.pytorch.org/whl/markupsafe-3.0.3-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+    "sha256": "ccfcd093f13f0f0b7fdd0f198b90053bf7b2f02a3927a30e63f3ccc9df56b676",
+    "noticeFiles": [
+      "markupsafe--markupsafe-3.0.3.dist-info__licenses__LICENSE.txt.txt"
+    ]
+  },
+  {
+    "package": "pg0-embedded",
+    "url": "https://files.pythonhosted.org/packages/68/a6/835812a7c3f02cc86b99f99016e75d221438bdc795e6653e9e0668c09192/pg0_embedded-0.15.2-py3-none-manylinux_2_35_x86_64.whl",
+    "sha256": "c55f43e36de626d4d1cd1ea2f8897e17779c3b5a38cba0107329a149dddfae18",
+    "noticeFiles": []
+  },
+  {
+    "package": "sentence-transformers",
+    "url": "https://files.pythonhosted.org/packages/b5/6e/9115e19589c83172bd37ec793cfef7f7c719464053fa6a8882700c1f4488/sentence_transformers-6.1.0-py3-none-any.whl",
+    "sha256": "eb8122f4d180f552eda26dc3d77e84e8c11dc2b1d456a406b9f24abb70ceeadd",
+    "noticeFiles": [
+      "sentence-transformers--sentence_transformers-6.1.0.dist-info__licenses__LICENSE.txt",
+      "sentence-transformers--sentence_transformers-6.1.0.dist-info__licenses__NOTICE.txt.txt"
+    ]
+  },
+  {
+    "package": "sqlalchemy",
+    "url": "https://files.pythonhosted.org/packages/84/26/bd327a1a6be223e438c98ac8faf299307d83797225a81f3b209607a9fd98/sqlalchemy-2.0.54-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+    "sha256": "cad78d04254967bdbcccbed5e631d88fe4868530946ab0929aa45e9032849518",
+    "noticeFiles": [
+      "sqlalchemy--sqlalchemy-2.0.54.dist-info__licenses__LICENSE.txt"
+    ]
+  },
+  {
+    "package": "transformers",
+    "url": "https://files.pythonhosted.org/packages/41/c4/a12e1d9b387fb0c40a57116db82b457e8c771cb419163cda29204d74a595/transformers-5.15.1-py3-none-any.whl",
+    "sha256": "b7cdf238ff583e3a58dbc7fa34da1aaf091ce063141f65a30538160bd5afe93f",
+    "noticeFiles": [
+      "transformers--transformers-5.15.1.dist-info__licenses__LICENSE.txt"
+    ]
+  },
+  {
+    "package": "anyio",
+    "url": "https://files.pythonhosted.org/packages/da/35/f2287558c17e29fafc8ef3daf819bb9834061cfa43bff8014f7df7f63bdc/anyio-4.14.2-py3-none-any.whl",
+    "sha256": "9f505dda5ac9f0c8309b5e8bd445a8c2bf7246f3ce950121e45ea15bc41d1494",
+    "noticeFiles": [
+      "anyio--anyio-4.14.2.dist-info__licenses__LICENSE.txt"
+    ]
+  },
+  {
+    "package": "pyjwt",
+    "url": "https://files.pythonhosted.org/packages/9c/97/672cb32ce0dfea44b740cb7b4f97038463b9cf7c0ead1aacf595572851d6/pyjwt-2.14.0-py3-none-any.whl",
+    "sha256": "ad0cef71c756a56e74863c2919cf0985f72decbcfcb550ee2f422e7c62b5eedc",
+    "noticeFiles": [
+      "pyjwt--pyjwt-2.14.0.dist-info__licenses__LICENSE.txt"
+    ]
+  },
+  {
+    "package": "setuptools",
+    "url": "https://files.pythonhosted.org/packages/5d/40/e1e72872c6354b306daef1703549e8e83b4d43cfea356311bf722a043752/setuptools-83.0.0-py3-none-any.whl",
+    "sha256": "29b23c360f22f414dc7336bb39178cc7bcbf6021ed2733cde173f09dba19abb3",
+    "noticeFiles": [
+      "setuptools--setuptools___vendor__importlib_metadata-8.7.1.dist-info__licenses__LICENSE.txt",
+      "setuptools--setuptools___vendor__jaraco_context-6.1.0.dist-info__licenses__LICENSE.txt",
+      "setuptools--setuptools___vendor__jaraco_functools-4.4.0.dist-info__licenses__LICENSE.txt",
+      "setuptools--setuptools___vendor__more_itertools-10.8.0.dist-info__licenses__LICENSE.txt",
+      "setuptools--setuptools___vendor__packaging-26.0.dist-info__licenses__LICENSE.txt",
+      "setuptools--setuptools___vendor__packaging-26.0.dist-info__licenses__LICENSE.APACHE.txt",
+      "setuptools--setuptools___vendor__packaging-26.0.dist-info__licenses__LICENSE.BSD.txt",
+      "setuptools--setuptools___vendor__platformdirs-4.4.0.dist-info__licenses__LICENSE.txt",
+      "setuptools--setuptools___vendor__tomli-2.4.0.dist-info__licenses__LICENSE.txt",
+      "setuptools--setuptools___vendor__wheel-0.46.3.dist-info__licenses__LICENSE.txt.txt",
+      "setuptools--setuptools___vendor__zipp-3.23.0.dist-info__licenses__LICENSE.txt",
+      "setuptools--setuptools__config__NOTICE.txt",
+      "setuptools--setuptools__config___validate_pyproject__NOTICE.txt",
+      "setuptools--setuptools-83.0.0.dist-info__licenses__LICENSE.txt",
+      "setuptools--setuptools___vendor__autocommand-2.2.2.dist-info__LICENSE.txt",
+      "setuptools--setuptools___vendor__backports.tarfile-1.2.0.dist-info__LICENSE.txt",
+      "setuptools--setuptools___vendor__jaraco.text-4.0.0.dist-info__LICENSE.txt"
+    ]
+  }
+]

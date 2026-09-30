@@ -44,10 +44,12 @@ Mapping `network.tailscale` from a config source to `AGENT_BOX_TAILSCALE` is P5 
 ```sh
 python3 -m pip install -r apps/agent-box-hermes/requirements-test.txt
 pnpm build && pnpm lint && pnpm typecheck && pnpm test
-docker buildx build --platform linux/amd64 --load -t hermes-desktop:smoke -f apps/agent-box-hermes/Dockerfile .
+docker buildx build --platform linux/amd64 --build-arg SOURCE_REVISION="$(git rev-parse HEAD)" --load -t hermes-desktop:smoke -f apps/agent-box-hermes/Dockerfile .
 apps/agent-box-hermes/test/container-smoke.sh hermes-desktop:smoke
 apps/agent-box-hermes/test/tailscale-smoke.sh hermes-desktop:smoke
 ```
+
+Both Compose files also require `MINDI_SOURCE_REVISION`; set it to `git rev-parse HEAD` from the source checkout used for the build. Release builds must use a clean checkout. The final OCI revision label names this mindi commit, while the pinned Hermes base retains its separate upstream identity.
 
 `tailscale-smoke.sh` runs the real `tailscaled` against a disposable, digest-pinned Headscale control server (no Tailscale account or secrets). It proves enrollment without TUN or added capabilities, locked preferences, a Serve config free of Funnel and TCP forwards, identical node ID after a restart with the key removed, `not_enrolled` after node expiry while the desktop stays healthy, and re-enrollment with a fresh key. A second tailnet node checks that it reaches the authenticated 8443 origin but not 5900, 6080 or the egress proxies. Headscale cannot issue Serve certificates, so HTTPS Serve itself is verified on a real tailnet during the P10 canary.
 

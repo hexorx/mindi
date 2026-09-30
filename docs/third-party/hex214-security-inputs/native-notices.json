@@ -1,0 +1,18 @@
+[
+  {
+    "package": "pgvector",
+    "version": "0.8.5",
+    "bundleTag": "v0.18.320",
+    "bundleSha256": "2461d601bbf2c8ab3c70965be87dff92e5778d1610f9b294fcf23e32bd8a603e",
+    "noticeSource": "https://raw.githubusercontent.com/pgvector/pgvector/159b79aaad5983fb7459c1e3df2897fbb2d11788/LICENSE",
+    "noticeSha256": "6bba9ebeb73e27477463b05e5ef1bf303bccbddb3db9bbc95905d351604d6a87",
+    "note": "Bundle vector.control identifies 0.8.5; bundle contains no license. Text from upstream source tag, not proof of source-to-binary correspondence."
+  },
+  {
+    "package": "libxml2",
+    "version": "2.9.13+dfsg-1ubuntu0.12",
+    "artifactSha256": "b3678e6e4b166bc0e4226fb118d489ab51802c772914421397c9dcb2dd0e0d2b",
+    "noticeSource": "usr/share/doc/libxml2/copyright inside hash-verified pinned Ubuntu deb",
+    "noticeFile": "libxml2-2.9.13-ubuntu0.12-copyright.txt"
+  }
+]

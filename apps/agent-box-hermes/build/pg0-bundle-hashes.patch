@@ -25,7 +25,7 @@
      }
 +
 +    // Verify cached bundles too, before exposing them to include_bytes!.
-+    verify_sha256(&bundle_path, "2a26eb71f4c5647d0db8fe16d42bc81e5c46754b4c511b14ff4b0f8b0f7a3843");
++    verify_sha256(&bundle_path, "2461d601bbf2c8ab3c70965be87dff92e5778d1610f9b294fcf23e32bd8a603e");
  
      println!(
          "cargo:rustc-env=PGVECTOR_BUNDLE_PATH={}",

@@ -1,14 +1,15 @@
 # syntax=docker/dockerfile:1.7
 # Adapted from the allowlisted mindi-stack b5ac82d Dockerfile; see docs/extraction-provenance.md.
 FROM tailscale/tailscale:v1.102.4@sha256:2667499ed87ae29218f292556ba062918402dd5e92e93637af14867e4df12dd3 AS tailscale
+FROM docker:29.8.1-cli@sha256:018edbc908e08fcc9dbf029c812c34251e9b4719e6f71ca0e5eae2a987d014ca AS dockercli
 # pg0 hardcodes localhost in setup and connection URIs; configure every path
-# before the database first starts. Build from verified source, preserving v0.14.0.
+# before the database first starts. Build from verified source, preserving v0.15.2.
 FROM rust:1.94-bookworm@sha256:4ec71e955e6c08aeb238885083222ddff79d82eb87654a96c76e38e94da1a53b AS pg0
 WORKDIR /build/pg0
-RUN curl -fsSL --retry 3 https://github.com/vectorize-io/pg0/archive/refs/tags/v0.14.0.tar.gz -o /tmp/pg0.tar.gz \
- && echo '729b27cdc35e652c18761b874996cdda3a657aa16c9e2915c78214372725ab8d  /tmp/pg0.tar.gz' | sha256sum -c - \
+RUN curl -fsSL --retry 3 https://github.com/vectorize-io/pg0/archive/refs/tags/v0.15.2.tar.gz -o /tmp/pg0.tar.gz \
+ && echo 'b999ce0e22c21c776331f125919b3c26aebf98909289c179d9d73712a61cf01e  /tmp/pg0.tar.gz' | sha256sum -c - \
  && tar -xzf /tmp/pg0.tar.gz --strip-components=1 \
- && echo 'f088b8a7469dcdbd1ba3ddec633d1ddae66fd6db26d1c93cc03c02774ed92688  src/main.rs' | sha256sum -c -
+ && echo 'fae6b81ff86ae75a3b1b1ce812f7e4ac768427ec6ed0b6475a78fdccf892a5b7  src/main.rs' | sha256sum -c -
 # The rolling Ubuntu mirror removed these packages. The snapshot retains the
 # exact upstream-pinned bytes; pg0 still verifies both SHA256 checksums.
 COPY apps/agent-box-hermes/build/pg0-runtime-libs.patch /tmp/pg0-runtime-libs.patch
@@ -24,12 +25,25 @@ ARG TARGETARCH
 COPY apps/agent-box-hermes/build/apt-* /opt/build/apt/
 RUN test "$TARGETARCH" = amd64 \
  && /opt/build/apt/apt-install-locked.sh \
-    sway grim wtype wl-clipboard foot xwayland dbus at-spi2-core \
-    fonts-dejavu-core fonts-noto-color-emoji wayvnc novnc websockify nginx openssl python3-yaml chromium \
  && rm -rf /opt/build/apt /var/lib/apt/lists/* /etc/s6-overlay/s6-rc.d /etc/cont-init.d \
  && usermod -u 1000 -d /home/agent hermes && groupmod -g 1000 hermes \
  && install -d -o hermes -g hermes /home/agent
-# Isolated dependency graph; pg0 0.14.0 bundles PostgreSQL and pgvector.
+# Replace the vulnerable Debian-built CLI at its actual installed path.
+COPY --from=dockercli /usr/local/bin/docker /usr/bin/docker
+RUN echo '9c46230f41e4263b3a9d93ae9284722709923c50d138bc64eed2bb6c02af0581  /usr/bin/docker' | sha256sum -c -
+# Keep the inherited project and installed metadata consistent with its relock.
+COPY apps/agent-box-hermes/build/hermes-pyproject.toml /opt/hermes/pyproject.toml
+COPY apps/agent-box-hermes/build/hermes-uv.lock /opt/hermes/uv.lock
+COPY apps/agent-box-hermes/build/hermes-security.lock apps/agent-box-hermes/build/hermes-build-tools.lock /opt/build/
+# Ignore inherited /opt/hermes project overrides; install only the locked artifacts.
+RUN uv pip install --no-config --python /opt/hermes/.venv/bin/python --no-deps --only-binary=:all: --require-hashes -r /opt/build/hermes-security.lock \
+ && uv pip install --no-config --python /opt/hermes/.venv/bin/python --target /opt/build/hermes-build-tools --no-deps --only-binary=:all: --require-hashes -r /opt/build/hermes-build-tools.lock \
+ && mkdir /opt/build/hermes-wheel \
+ && (cd /opt/hermes && PYTHONPATH=/opt/build/hermes-build-tools .venv/bin/python -c "from setuptools.build_meta import build_editable; build_editable('/opt/build/hermes-wheel')") \
+ && uv pip install --no-config --python /opt/hermes/.venv/bin/python --no-deps --no-index /opt/build/hermes-wheel/*.whl \
+ && rm -rf /opt/build/hermes-build-tools /opt/build/hermes-wheel \
+ && /opt/hermes/.venv/bin/python -c "import importlib.metadata as m; assert m.version('pyjwt') == '2.14.0'; assert m.version('anyio') == '4.14.2'"
+# Isolated dependency graph; pg0 0.15.2 bundles PostgreSQL and pgvector.
 # Hindsight migrations select psycopg 3, which its slim package does not declare.
 # Construct the migration engine at build time to verify the driver can load.
 COPY apps/agent-box-hermes/build/patch_hindsight.py /opt/build/patch_hindsight.py
@@ -59,6 +73,7 @@ COPY LICENSE /usr/share/doc/agent-box-hermes/LICENSE
 COPY docs/third-party/hex184-resolution/bundle/ /usr/share/doc/agent-box-hermes/third-party/
 COPY docs/third-party/hex198-build-inputs/ /usr/share/doc/agent-box-hermes/third-party/hex198-build-inputs/
 COPY docs/third-party/hex195-provenance-join/ /usr/share/doc/agent-box-hermes/third-party/hex195-provenance-join/
+COPY docs/third-party/hex214-security-inputs/ /usr/share/doc/agent-box-hermes/third-party/hex214-security-inputs/
 COPY docs/third-party/NOTICE-STATUS.md /usr/share/doc/agent-box-hermes/third-party/NOTICE-STATUS.md
 COPY apps/agent-box-hermes/runtime/ /opt/agent-box/
 COPY --chmod=755 apps/agent-box-hermes/runtime/claude /usr/local/bin/claude
@@ -81,9 +96,16 @@ RUN python3 /opt/build/sanitize_payloads.py --root / \
       --report /usr/share/doc/agent-box-hermes/third-party/payload-remediation.json \
  && python3 /opt/build/verify_payloads.py --root /
 
+# Require the standalone source commit; an upstream or empty revision mislabels
+# the release. Keep validation late so changing only metadata reuses build work.
+ARG SOURCE_REVISION
+RUN test "${#SOURCE_REVISION}" -eq 40 \
+ && case "$SOURCE_REVISION" in *[!0-9a-f]*) exit 1;; esac
+
 FROM scratch AS runtime
-# Preserve the inherited upstream revision label (not the standalone Git head).
-LABEL org.opencontainers.image.revision=e624e9fde561e1add9388384012b295fde669ade
+ARG SOURCE_REVISION
+LABEL org.opencontainers.image.revision=$SOURCE_REVISION \
+      org.opencontainers.image.source="https://github.com/hexorx/mindi"
 COPY --from=assembled / /
 # Explicitly restore inherited runtime settings after the scratch boundary.
 ENV PATH=/opt/hermes/bin:/opt/hermes/.venv/bin:/home/agent/.local/bin:/opt/data/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin \

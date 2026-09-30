@@ -23,7 +23,7 @@ debconf	1.5.91	all	debconf	1.5.91	base-digest	deb.debian.org:pool/main/d/debconf
 debian-archive-keyring	2025.1	all	debian-archive-keyring	2025.1	base-digest	deb.debian.org:pool/main/d/debian-archive-keyring/debian-archive-keyring_2025.1_all.deb sha256:9ea7778e443144ca490668737a8ab22dd3e748bb99e805e22ec055abeb3c7fac size:179244
 debianutils	5.23.2	amd64	debianutils	5.23.2	base-digest	deb.debian.org:pool/main/d/debianutils/debianutils_5.23.2_amd64.deb sha256:720e43fda316676076498b4224ad3318049deafe60cc7c601011048de03ee97d size:92360
 diffutils	1:3.10-4	amd64	diffutils	1:3.10-4	base-digest	deb.debian.org:pool/main/d/diffutils/diffutils_3.10-4_amd64.deb sha256:d3412669f7ae53ba895c3a509620ea7494ec1a36faa204c5215442ced381a479 size:386504
-docker-cli	26.1.5+dfsg1-9+b13	amd64	docker.io	26.1.5+dfsg1-9	base-digest	snapshot:debian/pool/main/d/docker.io/docker-cli_26.1.5+dfsg1-9+b13_amd64.deb sha1:1d5ed5bf92d1baddbb4dbaa7df5c00542a79ef36 size:7337584 first_seen:20260510T144321Z
+docker-cli	26.1.5+dfsg1-9+b13	amd64	docker.io	26.1.5+dfsg1-9	replaced-by-lock:26.1.5+dfsg1-9+deb13u1	-
 dpkg	1.22.22	amd64	dpkg	1.22.22	base-digest	deb.debian.org:pool/main/d/dpkg/dpkg_1.22.22_amd64.deb sha256:3e800c6d75e8e709007ed1c356e5fa8509a75c1694fb0a1183709abc9cfdc1f3 size:1537216
 ffmpeg	7:7.1.5-0+deb13u1	amd64	ffmpeg	7:7.1.5-0+deb13u1	base-digest	deb.debian.org:pool/main/f/ffmpeg/ffmpeg_7.1.5-0+deb13u1_amd64.deb sha256:8669bc77e55393c14e0dd257ba9a916007cb6da0e1074c9b5e1d53812024f2af size:2001944
 findutils	4.10.0-3	amd64	findutils	4.10.0-3	base-digest	deb.debian.org:pool/main/f/findutils/findutils_4.10.0-3_amd64.deb sha256:3edf02b016456b6a98cefdbab99c5ce6f829b786f63affe970badea221aecfc7 size:700008
@@ -50,12 +50,12 @@ gcc-x86-64-linux-gnu	4:14.2.0-1	amd64	gcc-defaults	1.220	base-digest	deb.debian.
 git	1:2.47.3-0+deb13u1	amd64	git	1:2.47.3-0+deb13u1	base-digest	deb.debian.org:pool/main/g/git/git_2.47.3-0+deb13u1_amd64.deb sha256:3e35662fd5c46add561703e54031a1d8ad9df45811927689f0a51122b13be722 size:8861572
 git-man	1:2.47.3-0+deb13u1	all	git	1:2.47.3-0+deb13u1	base-digest	deb.debian.org:pool/main/g/git/git-man_2.47.3-0+deb13u1_all.deb sha256:b58306b60e1dff920e1e18bc7e1e499f2ef75184190ab3d98657b165969bf7c9 size:2204692
 grep	3.11-4	amd64	grep	3.11-4	base-digest	deb.debian.org:pool/main/g/grep/grep_3.11-4_amd64.deb sha256:2d78ed07d86a530ebf538f05cb2415f37c8daf908596bc32fc2563cc7e88c55a size:431488
-gzip	1.13-1	amd64	gzip	1.13-1	base-digest	snapshot:debian/pool/main/g/gzip/gzip_1.13-1_amd64.deb sha1:17e2275e726dad554ab38aa3f3d240f5270923cb size:138408 first_seen:20250117T150945Z
+gzip	1.13-1	amd64	gzip	1.13-1	replaced-by-lock:1.13-1+deb13u1	-
 hostname	3.25	amd64	hostname	3.25	base-digest	deb.debian.org:pool/main/h/hostname/hostname_3.25_amd64.deb sha256:9c2a27e5d4d87137211fe46631b05b2ee8892ec76aae926304e4485ba02e1015 size:11024
 init-system-helpers	1.69~deb13u1	all	init-system-helpers	1.69~deb13u1	base-digest	deb.debian.org:pool/main/i/init-system-helpers/init-system-helpers_1.69~deb13u1_all.deb sha256:addf78073e1cbc5a5508937e11d2571055e29835e00ee8fab52a66775649378f size:39360
 iputils-ping	3:20240905-3	amd64	iputils	3:20240905-3	base-digest	deb.debian.org:pool/main/i/iputils/iputils-ping_20240905-3_amd64.deb sha256:a78f6118527796bde8c34d410dda1e5457f4e4e2de080a0b852cd59d7058ef6f size:51248
 libacl1:amd64	2.3.2-2+b1	amd64	acl	2.3.2-2	base-digest	deb.debian.org:pool/main/a/acl/libacl1_2.3.2-2+b1_amd64.deb sha256:08074f01e384bc07c0c2d79a58cf4a6523f71cf75d1808101c79617656c9a39d size:32860
-libaom3:amd64	3.12.1-1	amd64	aom	3.12.1-1	base-digest	snapshot:debian/pool/main/a/aom/libaom3_3.12.1-1_amd64.deb sha1:d8cd6332973da7765c8210e657882014f2c4914d size:1871136 first_seen:20250419T144353Z
+libaom3:amd64	3.12.1-1	amd64	aom	3.12.1-1	replaced-by-lock:3.12.1-1+deb13u1	-
 libapt-pkg7.0:amd64	3.0.3	amd64	apt	3.0.3	base-digest	deb.debian.org:pool/main/a/apt/libapt-pkg7.0_3.0.3_amd64.deb sha256:fdcc9f780c7de466c7f0038e6e242c73cb63c8f9fe2781a3185a2c810984ab0a size:1112916
 libarchive13t64:amd64	3.7.4-4+deb13u1	amd64	libarchive	3.7.4-4+deb13u1	base-digest	deb.debian.org:pool/main/liba/libarchive/libarchive13t64_3.7.4-4+deb13u1_amd64.deb sha256:12e06195a899e8db371803ed70111fc7302573d3ed84e967d3d48ef2d543ace8 size:350192
 libasan8:amd64	14.2.0-19	amd64	gcc-14	14.2.0-19	base-digest	deb.debian.org:pool/main/g/gcc-14/libasan8_14.2.0-19_amd64.deb sha256:771899ade7310fe31aa538a509354c33d62bbe4e408b4e5fc1e513988dc42645 size:2725272
@@ -87,10 +87,10 @@ libbrotli1:amd64	1.1.0-2+b7	amd64	brotli	1.1.0-2	base-digest	deb.debian.org:pool
 libbs2b0:amd64	3.1.0+dfsg-8+b1	amd64	libbs2b	3.1.0+dfsg-8	base-digest	deb.debian.org:pool/main/libb/libbs2b/libbs2b0_3.1.0+dfsg-8+b1_amd64.deb sha256:683621e230de5d9cb919f6c6c3a18db4eb7b80706761b983a4a8f2a56747351d size:12520
 libbsd0:amd64	0.12.2-2	amd64	libbsd	0.12.2-2	base-digest	deb.debian.org:pool/main/libb/libbsd/libbsd0_0.12.2-2_amd64.deb sha256:e5a85986fa6bec3307ab1bc860736b478b331882bc45e17675a7bdf88eecb43a size:130968
 libbz2-1.0:amd64	1.0.8-6	amd64	bzip2	1.0.8-6	base-digest	deb.debian.org:pool/main/b/bzip2/libbz2-1.0_1.0.8-6_amd64.deb sha256:cba4cda04244b5e481bb15524bc3c983a7d1b6f330013b9b381706a2fcb65310 size:37912
-libc-bin	2.41-12+deb13u3	amd64	glibc	2.41-12+deb13u3	base-digest	snapshot:debian/pool/main/g/glibc/libc-bin_2.41-12+deb13u3_amd64.deb sha1:9da59a3267c04db2c92a34345818c2cf320299ed size:638184 first_seen:20260504T025922Z
-libc-dev-bin	2.41-12+deb13u3	amd64	glibc	2.41-12+deb13u3	base-digest	snapshot:debian/pool/main/g/glibc/libc-dev-bin_2.41-12+deb13u3_amd64.deb sha1:4a63880454e8cdb1c0fb13d23f472d8244039aad size:59836 first_seen:20260504T025922Z
-libc6-dev:amd64	2.41-12+deb13u3	amd64	glibc	2.41-12+deb13u3	base-digest	snapshot:debian/pool/main/g/glibc/libc6-dev_2.41-12+deb13u3_amd64.deb sha1:fbb9e46e11e1a8365a4f067eb9d6ec10251df100 size:1992332 first_seen:20260504T025922Z
-libc6:amd64	2.41-12+deb13u3	amd64	glibc	2.41-12+deb13u3	base-digest	snapshot:debian/pool/main/g/glibc/libc6_2.41-12+deb13u3_amd64.deb sha1:11449623c6859d9164dff8aedbcf023edaddc513 size:2849576 first_seen:20260504T025922Z
+libc-bin	2.41-12+deb13u3	amd64	glibc	2.41-12+deb13u3	replaced-by-lock:2.41-12+deb13u4	-
+libc-dev-bin	2.41-12+deb13u3	amd64	glibc	2.41-12+deb13u3	replaced-by-lock:2.41-12+deb13u4	-
+libc6-dev:amd64	2.41-12+deb13u3	amd64	glibc	2.41-12+deb13u3	replaced-by-lock:2.41-12+deb13u4	-
+libc6:amd64	2.41-12+deb13u3	amd64	glibc	2.41-12+deb13u3	replaced-by-lock:2.41-12+deb13u4	-
 libcaca0:amd64	0.99.beta20-5+deb13u1	amd64	libcaca	0.99.beta20-5+deb13u1	base-digest	deb.debian.org:pool/main/libc/libcaca/libcaca0_0.99.beta20-5+deb13u1_amd64.deb sha256:29d212b4b137aa8cfb0d98d496cf0aca65a2e8832b4c4d38ce1ea276d77c97a0 size:202116
 libcairo-gobject2:amd64	1.18.4-1+b1	amd64	cairo	1.18.4-1	base-digest	deb.debian.org:pool/main/c/cairo/libcairo-gobject2_1.18.4-1+b1_amd64.deb sha256:4fcd432ebe8f93599bd05426f304e2f70409aad271fc6b4b3a2c6243c99c377c size:130284
 libcairo2:amd64	1.18.4-1+b1	amd64	cairo	1.18.4-1	base-digest	deb.debian.org:pool/main/c/cairo/libcairo2_1.18.4-1+b1_amd64.deb sha256:01390b049661e4cc8bd39cef78b41c2587d4035619d3b00d6c7846f43d80bbba size:537556
@@ -151,7 +151,7 @@ libgdk-pixbuf2.0-common	2.42.12+dfsg-4+deb13u1	all	gdk-pixbuf	2.42.12+dfsg-4+deb
 libgfortran5:amd64	14.2.0-19	amd64	gcc-14	14.2.0-19	base-digest	deb.debian.org:pool/main/g/gcc-14/libgfortran5_14.2.0-19_amd64.deb sha256:11b62b53f4704de557e44b510e18a1a2106bcd9a3fc31a475a45952a9aa3dbb2 size:836252
 libgl1-mesa-dri:amd64	25.0.7-2+deb13u1	amd64	mesa	25.0.7-2+deb13u1	base-digest	deb.debian.org:pool/main/m/mesa/libgl1-mesa-dri_25.0.7-2+deb13u1_amd64.deb sha256:722fad9944bdfd29eb6421576331a2697f83bc4b3551d693edb7aefdde6bb198 size:46240
 libgl1:amd64	1.7.0-1+b2	amd64	libglvnd	1.7.0-1	base-digest	deb.debian.org:pool/main/libg/libglvnd/libgl1_1.7.0-1+b2_amd64.deb sha256:87fa2f6e5abaed4ed385fac879c8dd735af719ee2300222d901793c66e041678 size:89504
-libglib2.0-0t64:amd64	2.84.4-3~deb13u3	amd64	glib2.0	2.84.4-3~deb13u3	base-digest	snapshot:debian/pool/main/g/glib2.0/libglib2.0-0t64_2.84.4-3~deb13u3_amd64.deb sha1:43bfd0c80ba9526302754fd35fd5edf5398b2ca4 size:1518888 first_seen:20260408T203914Z
+libglib2.0-0t64:amd64	2.84.4-3~deb13u3	amd64	glib2.0	2.84.4-3~deb13u3	replaced-by-lock:2.84.4-3~deb13u5	-
 libglvnd0:amd64	1.7.0-1+b2	amd64	libglvnd	1.7.0-1	base-digest	deb.debian.org:pool/main/libg/libglvnd/libglvnd0_1.7.0-1+b2_amd64.deb sha256:887f74008166549ce9e100c906aa937e95d6e5ce1c8d86efe8c95fd953359b9c size:51960
 libglx-mesa0:amd64	25.0.7-2+deb13u1	amd64	mesa	25.0.7-2+deb13u1	base-digest	deb.debian.org:pool/main/m/mesa/libglx-mesa0_25.0.7-2+deb13u1_amd64.deb sha256:2e6ab57de9931e890621d3ade04213b06e7142a4ae8a72a1756c44d0271aaeb7 size:143408
 libglx0:amd64	1.7.0-1+b2	amd64	libglvnd	1.7.0-1	base-digest	deb.debian.org:pool/main/libg/libglvnd/libglx0_1.7.0-1+b2_amd64.deb sha256:2721fdca0fe3bd963cb39482eabc253af52b88f4a7f6dbb69e475549daf5af3b size:34892
@@ -195,7 +195,7 @@ libllvm19:amd64	1:19.1.7-3+b1	amd64	llvm-toolchain-19	1:19.1.7-3	base-digest	deb
 liblsan0:amd64	14.2.0-19	amd64	gcc-14	14.2.0-19	base-digest	deb.debian.org:pool/main/g/gcc-14/liblsan0_14.2.0-19_amd64.deb sha256:a0df07da76287a45e665d584363dc2a6a1c4e240aee41b8bbc0f67cdff97cd68 size:1204164
 liblz4-1:amd64	1.10.0-4	amd64	lz4	1.10.0-4	base-digest	deb.debian.org:pool/main/l/lz4/liblz4-1_1.10.0-4_amd64.deb sha256:c31ec4c7c82755a38b2f3fe066fc0c5518cc91a601a268fbcd19bdacb1f22e1e size:63900
 liblzma5:amd64	5.8.1-1+deb13u1	amd64	xz-utils	5.8.1-1+deb13u1	base-digest	deb.debian.org:pool/main/x/xz-utils/liblzma5_5.8.1-1+deb13u1_amd64.deb sha256:1cfcc6e0dc36f438a79b6e2189facdb9d150b08f57d190a60e01c98075c7f896 size:309492
-libmbedcrypto16:amd64	3.6.5-0.1~deb13u1	amd64	mbedtls	3.6.5-0.1~deb13u1	base-digest	snapshot:debian/pool/main/m/mbedtls/libmbedcrypto16_3.6.5-0.1~deb13u1_amd64.deb sha1:35dea5b481e7bf00d4e45e6d70596f11d48ec741 size:360928 first_seen:20260103T144517Z
+libmbedcrypto16:amd64	3.6.5-0.1~deb13u1	amd64	mbedtls	3.6.5-0.1~deb13u1	replaced-by-lock:3.6.6-0.1~deb13u1	-
 libmd0:amd64	1.1.0-2+b1	amd64	libmd	1.1.0-2	base-digest	deb.debian.org:pool/main/libm/libmd/libmd0_1.1.0-2+b1_amd64.deb sha256:7244ec3839b61fac0c1884fe08aaa040f26e8f1f35f1f5d3482eacefd30d1b44 size:36272
 libmount1:amd64	2.41-5	amd64	util-linux	2.41-5	base-digest	snapshot:debian/pool/main/u/util-linux/libmount1_2.41-5_amd64.deb sha1:a82622f9dbedc5d438d8791f4e3a59f6f9976d88 size:208788 first_seen:20250510T023717Z
 libmp3lame0:amd64	3.100-6+b3	amd64	lame	3.100-6	base-digest	deb.debian.org:pool/main/l/lame/libmp3lame0_3.100-6+b3_amd64.deb sha256:3867319c9fbbc8cc25f2d1dc1d75d13548c84c37fa709c1ac9ca02ac051b63ab size:362660
@@ -230,8 +230,8 @@ libpango-1.0-0:amd64	1.56.3-1	amd64	pango1.0	1.56.3-1	base-digest	deb.debian.org
 libpangocairo-1.0-0:amd64	1.56.3-1	amd64	pango1.0	1.56.3-1	base-digest	deb.debian.org:pool/main/p/pango1.0/libpangocairo-1.0-0_1.56.3-1_amd64.deb sha256:6994729c5b7a9649661ec078cf039991f22eff44600543aa917894f83c89cd05 size:35748
 libpangoft2-1.0-0:amd64	1.56.3-1	amd64	pango1.0	1.56.3-1	base-digest	deb.debian.org:pool/main/p/pango1.0/libpangoft2-1.0-0_1.56.3-1_amd64.deb sha256:b506cf66f78ddf542ddb4bb4a68b3d748d41caa6e190e4480430a6630c1e5105 size:55568
 libpciaccess0:amd64	0.17-3+b3	amd64	libpciaccess	0.17-3	base-digest	deb.debian.org:pool/main/libp/libpciaccess/libpciaccess0_0.17-3+b3_amd64.deb sha256:d9a0091071635a84e837051e4813005ac445071731becea28fba4d9806df5252 size:51920
-libpcre2-8-0:amd64	10.46-1~deb13u1	amd64	pcre2	10.46-1~deb13u1	base-digest	snapshot:debian/pool/main/p/pcre2/libpcre2-8-0_10.46-1~deb13u1_amd64.deb sha1:1594986c3db12e53c6d738df0926766b852e8e9d size:298536 first_seen:20250829T085713Z
-libperl5.40:amd64	5.40.1-6	amd64	perl	5.40.1-6	base-digest	snapshot:debian/pool/main/p/perl/libperl5.40_5.40.1-6_amd64.deb sha1:115f4cbe17c3706c068bab13e8659621c15591f2 size:4341332 first_seen:20250729T023717Z
+libpcre2-8-0:amd64	10.46-1~deb13u1	amd64	pcre2	10.46-1~deb13u1	replaced-by-lock:10.46-1~deb13u3	-
+libperl5.40:amd64	5.40.1-6	amd64	perl	5.40.1-6	replaced-by-lock:5.40.1-6+deb13u1	-
 libpgm-5.3-0t64:amd64	5.3.128~dfsg-2.1+b1	amd64	libpgm	5.3.128~dfsg-2.1	base-digest	deb.debian.org:pool/main/libp/libpgm/libpgm-5.3-0t64_5.3.128~dfsg-2.1+b1_amd64.deb sha256:865c47a7865da63e7d620f0999ab7d10cdae8b638b691061166975c654a0e5f9 size:161816
 libpixman-1-0:amd64	0.44.0-3	amd64	pixman	0.44.0-3	base-digest	deb.debian.org:pool/main/p/pixman/libpixman-1-0_0.44.0-3_amd64.deb sha256:3862c87596f6b4b60fc916395fd69aa10af28a875a8e5c081a8cf30ddd120bd6 size:247888
 libpkgconf3:amd64	1.8.1-4	amd64	pkgconf	1.8.1-4	base-digest	deb.debian.org:pool/main/p/pkgconf/libpkgconf3_1.8.1-4_amd64.deb sha256:85087cd04e57fd4ab7d6e816d348c335047823ab60c78878336b74f07b352ca1 size:36436
@@ -244,10 +244,10 @@ libpsl5t64:amd64	0.21.2-1.1+b1	amd64	libpsl	0.21.2-1.1	base-digest	deb.debian.or
 libpulse0:amd64	17.0+dfsg1-2+b1	amd64	pulseaudio	17.0+dfsg1-2	base-digest	deb.debian.org:pool/main/p/pulseaudio/libpulse0_17.0+dfsg1-2+b1_amd64.deb sha256:786aca79119cb249562708fd24dcdf817604cfe75bbfcb8cda3464042e17f40e size:275632
 libpython3-dev:amd64	3.13.5-1	amd64	python3-defaults	3.13.5-1	base-digest	deb.debian.org:pool/main/p/python3-defaults/libpython3-dev_3.13.5-1_amd64.deb sha256:da4acbba1c79f037d2d24635fbae22850640e716b0d95dbed33cb9d1f698a24b size:10444
 libpython3-stdlib:amd64	3.13.5-1	amd64	python3-defaults	3.13.5-1	base-digest	deb.debian.org:pool/main/p/python3-defaults/libpython3-stdlib_3.13.5-1_amd64.deb sha256:7e142ed64a81ccdd39714f213467bd365736ef341adb2be11be981f638b9175f size:10180
-libpython3.13-dev:amd64	3.13.5-2+deb13u4	amd64	python3.13	3.13.5-2+deb13u4	base-digest	deb.debian.org:pool/main/p/python3.13/libpython3.13-dev_3.13.5-2+deb13u4_amd64.deb sha256:dabada7ca12f95a17a31d19c3be4a8708a6a37207ac3b46cd1c344503825b0ee size:5275756
-libpython3.13-minimal:amd64	3.13.5-2+deb13u4	amd64	python3.13	3.13.5-2+deb13u4	base-digest	deb.debian.org:pool/main/p/python3.13/libpython3.13-minimal_3.13.5-2+deb13u4_amd64.deb sha256:e3a45504aaf395acb5c57efb5ccfdf85efa6eaffc165653d1f03532bbf5b92c5 size:863160
-libpython3.13-stdlib:amd64	3.13.5-2+deb13u4	amd64	python3.13	3.13.5-2+deb13u4	base-digest	deb.debian.org:pool/main/p/python3.13/libpython3.13-stdlib_3.13.5-2+deb13u4_amd64.deb sha256:0def2d972310b59704ad119abee5a97f95409e14ff1359edd8cc7b8892cfd43f size:1957100
-libpython3.13:amd64	3.13.5-2+deb13u4	amd64	python3.13	3.13.5-2+deb13u4	base-digest	deb.debian.org:pool/main/p/python3.13/libpython3.13_3.13.5-2+deb13u4_amd64.deb sha256:2381bdaa2462b186db27671507e53eba9515c5341575fb72189b6228c73e3df8 size:2161044
+libpython3.13-dev:amd64	3.13.5-2+deb13u4	amd64	python3.13	3.13.5-2+deb13u4	replaced-by-lock:3.13.5-2+deb13u5	-
+libpython3.13-minimal:amd64	3.13.5-2+deb13u4	amd64	python3.13	3.13.5-2+deb13u4	replaced-by-lock:3.13.5-2+deb13u5	-
+libpython3.13-stdlib:amd64	3.13.5-2+deb13u4	amd64	python3.13	3.13.5-2+deb13u4	replaced-by-lock:3.13.5-2+deb13u5	-
+libpython3.13:amd64	3.13.5-2+deb13u4	amd64	python3.13	3.13.5-2+deb13u4	replaced-by-lock:3.13.5-2+deb13u5	-
 libquadmath0:amd64	14.2.0-19	amd64	gcc-14	14.2.0-19	base-digest	deb.debian.org:pool/main/g/gcc-14/libquadmath0_14.2.0-19_amd64.deb sha256:f5b51cf0ece3ec3bb7494d0cdbff3ce715ae00cfb2b6ed787f7db91319d64a7b size:145068
 librabbitmq4:amd64	0.15.0-1+deb13u1	amd64	librabbitmq	0.15.0-1+deb13u1	base-digest	snapshot:debian-security/pool/updates/main/libr/librabbitmq/librabbitmq4_0.15.0-1+deb13u1_amd64.deb sha1:4df6868de6392af298ff827fb644f34e904a7eb8 size:42092 first_seen:20260612T184528Z
 librav1e0.7:amd64	0.7.1-9+b2	amd64	rust-rav1e	0.7.1-9	base-digest	deb.debian.org:pool/main/r/rust-rav1e/librav1e0.7_0.7.1-9+b2_amd64.deb sha256:d5b1373a8d6905ee4523faf1db7a626dc660e03836ec91b616e57ba386f47eb6 size:946396
@@ -283,12 +283,12 @@ libsord-0-0:amd64	0.16.18-1	amd64	sord	0.16.18-1	base-digest	deb.debian.org:pool
 libsoxr0:amd64	0.1.3-4+b2	amd64	libsoxr	0.1.3-4	base-digest	deb.debian.org:pool/main/libs/libsoxr/libsoxr0_0.1.3-4+b2_amd64.deb sha256:384caa47b6cfe780f30d33c5dfb1c18f6579aed9f3bdbf7f8cd0395ab2d537b7 size:81008
 libspeex1:amd64	1.2.1-3	amd64	speex	1.2.1-3	base-digest	deb.debian.org:pool/main/s/speex/libspeex1_1.2.1-3_amd64.deb sha256:26623d450c2a51f9f6801b19ee5be1303aee4087557d1389020a0df00afa6e77 size:56824
 libsphinxbase3t64:amd64	0.8+5prealpha+1-21+b1	amd64	sphinxbase	0.8+5prealpha+1-21	base-digest	deb.debian.org:pool/main/s/sphinxbase/libsphinxbase3t64_0.8+5prealpha+1-21+b1_amd64.deb sha256:97edf4f50ed24364795e53abecd6e100d1f24278968b2eb01a688c78255eb80b size:121416
-libsqlite3-0:amd64	3.46.1-7+deb13u1	amd64	sqlite3	3.46.1-7+deb13u1	base-digest	snapshot:debian/pool/main/s/sqlite3/libsqlite3-0_3.46.1-7+deb13u1_amd64.deb sha1:06b33d5379fe5bd7f1453379afd3e65843a2b9cd size:914268 first_seen:20260301T143049Z
+libsqlite3-0:amd64	3.46.1-7+deb13u1	amd64	sqlite3	3.46.1-7+deb13u1	replaced-by-lock:3.46.1-7+deb13u2	-
 libsratom-0-0:amd64	0.6.18-1	amd64	sratom	0.6.18-1	base-digest	deb.debian.org:pool/main/s/sratom/libsratom-0-0_0.6.18-1_amd64.deb sha256:63195bd9233678ed397cfded0aae85d85cf2584ff7c638b34013ca34544962d7 size:17692
 libsrt1.5-gnutls:amd64	1.5.4-1	amd64	srt	1.5.4-1	base-digest	snapshot:debian/pool/main/s/srt/libsrt1.5-gnutls_1.5.4-1_amd64.deb sha1:011dd271cfbda9bfffbebf91ed007e2e9d84b401 size:345416 first_seen:20241113T203919Z
-libssh-4:amd64	0.11.2-1+deb13u1	amd64	libssh	0.11.2-1+deb13u1	base-digest	snapshot:debian/pool/main/libs/libssh/libssh-4_0.11.2-1+deb13u1_amd64.deb sha1:32d0d272c64b56aa299d19895f5bf0b66c17864b size:209344 first_seen:20251108T024659Z
-libssh2-1t64:amd64	1.11.1-1+deb13u1	amd64	libssh2	1.11.1-1+deb13u1	base-digest	deb.debian.org:pool/updates/main/libs/libssh2/libssh2-1t64_1.11.1-1+deb13u1_amd64.deb sha256:915c4ec450a369d430e0151f9e10e25044ea2f0d6e41901e00a9317e232e5683 size:245088
-libssl3t64:amd64	3.5.6-1~deb13u2	amd64	openssl	3.5.6-1~deb13u2	replaced-by-lock:3.5.7-1~deb13u2	-
+libssh-4:amd64	0.11.2-1+deb13u1	amd64	libssh	0.11.2-1+deb13u1	replaced-by-lock:0.11.5-0+deb13u1	-
+libssh2-1t64:amd64	1.11.1-1+deb13u1	amd64	libssh2	1.11.1-1+deb13u1	replaced-by-lock:1.11.1-1+deb13u2	-
+libssl3t64:amd64	3.5.6-1~deb13u2	amd64	openssl	3.5.6-1~deb13u2	replaced-by-lock:3.5.7-1~deb13u3	-
 libstdc++-14-dev:amd64	14.2.0-19	amd64	gcc-14	14.2.0-19	base-digest	deb.debian.org:pool/main/g/gcc-14/libstdc++-14-dev_14.2.0-19_amd64.deb sha256:4b962fac5f1af0bd8b1b3f97e0f47b9d8e9a79e88802143f00ebfbd78ad87a7b size:2375760
 libstdc++6:amd64	14.2.0-19	amd64	gcc-14	14.2.0-19	base-digest	deb.debian.org:pool/main/g/gcc-14/libstdc++6_14.2.0-19_amd64.deb sha256:ab1fa05837aa7a92aae748fd07a18a35f7d18bb4a71c4724fe2bbf0e32089de0 size:713628
 libsvtav1enc2:amd64	2.3.0+dfsg-1	amd64	svt-av1	2.3.0+dfsg-1	base-digest	deb.debian.org:pool/main/s/svt-av1/libsvtav1enc2_2.3.0+dfsg-1_amd64.deb sha256:cdaf961c3cc4fe78a19ff18c17d83d813f78a378fdcc4c86ccbb9b54e84ae599 size:2489492
@@ -389,12 +389,12 @@ ncurses-bin	6.5+20250216-2	amd64	ncurses	6.5+20250216-2	base-digest	deb.debian.o
 netbase	6.5	all	netbase	6.5	base-digest	deb.debian.org:pool/main/n/netbase/netbase_6.5_all.deb sha256:76bafa92947ebd37b0a6f9ec6570412041f56edebc1c66d323731216d318471e size:12436
 ocl-icd-libopencl1:amd64	2.3.3-1	amd64	ocl-icd	2.3.3-1	base-digest	deb.debian.org:pool/main/o/ocl-icd/ocl-icd-libopencl1_2.3.3-1_amd64.deb sha256:99dfd409ae92505ee56742feea4e82a1e052818c5b0036ee618a371b5e28c9d1 size:42896
 openssh-client	1:10.0p1-7+deb13u4	amd64	openssh	1:10.0p1-7+deb13u4	base-digest	deb.debian.org:pool/main/o/openssh/openssh-client_10.0p1-7+deb13u4_amd64.deb sha256:8fff343654f86c3b3266f94cd338c7b4da2e386da029327815118ea00bce03b9 size:989904
-openssl	3.5.6-1~deb13u2	amd64	openssl	3.5.6-1~deb13u2	replaced-by-lock:3.5.7-1~deb13u2	-
-openssl-provider-legacy	3.5.6-1~deb13u2	amd64	openssl	3.5.6-1~deb13u2	replaced-by-lock:3.5.7-1~deb13u2	-
+openssl	3.5.6-1~deb13u2	amd64	openssl	3.5.6-1~deb13u2	replaced-by-lock:3.5.7-1~deb13u3	-
+openssl-provider-legacy	3.5.6-1~deb13u2	amd64	openssl	3.5.6-1~deb13u2	replaced-by-lock:3.5.7-1~deb13u3	-
 passwd	1:4.17.4-2	amd64	shadow	1:4.17.4-2	base-digest	deb.debian.org:pool/main/s/shadow/passwd_4.17.4-2_amd64.deb sha256:c5eaef41c6947d2888fa3462f787a7e02158b997bd0119154283f425ba57b8b8 size:1228860
-perl	5.40.1-6	amd64	perl	5.40.1-6	base-digest	snapshot:debian/pool/main/p/perl/perl_5.40.1-6_amd64.deb sha1:9c5005df956b8fa8a3f487c175499e6029669465 size:267336 first_seen:20250729T023717Z
-perl-base	5.40.1-6	amd64	perl	5.40.1-6	base-digest	snapshot:debian/pool/main/p/perl/perl-base_5.40.1-6_amd64.deb sha1:170febe68b6846ec3f9341fd618179c79d4f7804 size:1665744 first_seen:20250729T023717Z
-perl-modules-5.40	5.40.1-6	all	perl	5.40.1-6	base-digest	snapshot:debian/pool/main/p/perl/perl-modules-5.40_5.40.1-6_all.deb sha1:8e8e460fc410a98e6eed5cbc5a5af8f82ae23ed4 size:3019100 first_seen:20250729T023717Z
+perl	5.40.1-6	amd64	perl	5.40.1-6	replaced-by-lock:5.40.1-6+deb13u1	-
+perl-base	5.40.1-6	amd64	perl	5.40.1-6	replaced-by-lock:5.40.1-6+deb13u1	-
+perl-modules-5.40	5.40.1-6	all	perl	5.40.1-6	replaced-by-lock:5.40.1-6+deb13u1	-
 pkg-config:amd64	1.8.1-4	amd64	pkgconf	1.8.1-4	base-digest	deb.debian.org:pool/main/p/pkgconf/pkg-config_1.8.1-4_amd64.deb sha256:385209ba52e5c97808bbdc2fc4da22aea9020f96fbab6fbfb144921c4a31d400 size:13968
 pkgconf-bin	1.8.1-4	amd64	pkgconf	1.8.1-4	base-digest	deb.debian.org:pool/main/p/pkgconf/pkgconf-bin_1.8.1-4_amd64.deb sha256:54efef2aef4db5fcb5e0f5b7746465000c6a779b06f3686d0ec3d2a901b20aeb size:30220
 pkgconf:amd64	1.8.1-4	amd64	pkgconf	1.8.1-4	base-digest	deb.debian.org:pool/main/p/pkgconf/pkgconf_1.8.1-4_amd64.deb sha256:f1fcad470ca3ac80b4a0f4af6f03cd215089473996b07e508b3ee342bbb11af7 size:26172
@@ -406,10 +406,10 @@ python3-minimal	3.13.5-1	amd64	python3-defaults	3.13.5-1	base-digest	deb.debian.
 python3-pip-whl	25.1.1+dfsg-1	all	python-pip	25.1.1+dfsg-1	base-digest	deb.debian.org:pool/main/p/python-pip/python3-pip-whl_25.1.1+dfsg-1_all.deb sha256:e65351935aa4af2b10ae2abb5744f5059e9abad51aea6cd0cb825702010763f7 size:1507328
 python3-setuptools-whl	78.1.1-0.1	all	setuptools	78.1.1-0.1	base-digest	deb.debian.org:pool/main/s/setuptools/python3-setuptools-whl_78.1.1-0.1_all.deb sha256:0caf134e73ab90ffeaa5ce2529d73ea7d48078b2a9251ed9d1b7b514a61e9483 size:1268108
 python3-venv	3.13.5-1	amd64	python3-defaults	3.13.5-1	base-digest	deb.debian.org:pool/main/p/python3-defaults/python3-venv_3.13.5-1_amd64.deb sha256:744ea5038e645ed22299e1bca47f76169b5665dd640df3492bdd1e21eba6cb76 size:1180
-python3.13	3.13.5-2+deb13u4	amd64	python3.13	3.13.5-2+deb13u4	base-digest	deb.debian.org:pool/main/p/python3.13/python3.13_3.13.5-2+deb13u4_amd64.deb sha256:035889aaac2ddf70543ea6918f2e8d48512576dfaea9c14e08d2ef68e1b97182 size:757420
-python3.13-dev	3.13.5-2+deb13u4	amd64	python3.13	3.13.5-2+deb13u4	base-digest	deb.debian.org:pool/main/p/python3.13/python3.13-dev_3.13.5-2+deb13u4_amd64.deb sha256:df14962a607050ab16d6065c21ab4f2521f0d975114f51001c577d15e5210d9e size:504284
-python3.13-minimal	3.13.5-2+deb13u4	amd64	python3.13	3.13.5-2+deb13u4	base-digest	deb.debian.org:pool/main/p/python3.13/python3.13-minimal_3.13.5-2+deb13u4_amd64.deb sha256:d86fb415db31273c8d98b42088c070b55094fa0bedb5d2daf34101195b78cf23 size:2216940
-python3.13-venv	3.13.5-2+deb13u4	amd64	python3.13	3.13.5-2+deb13u4	base-digest	deb.debian.org:pool/main/p/python3.13/python3.13-venv_3.13.5-2+deb13u4_amd64.deb sha256:886b8a63bd076a43949f7f704dd9f84ea431e25ba97ed9783676043e3f398165 size:5472
+python3.13	3.13.5-2+deb13u4	amd64	python3.13	3.13.5-2+deb13u4	replaced-by-lock:3.13.5-2+deb13u5	-
+python3.13-dev	3.13.5-2+deb13u4	amd64	python3.13	3.13.5-2+deb13u4	replaced-by-lock:3.13.5-2+deb13u5	-
+python3.13-minimal	3.13.5-2+deb13u4	amd64	python3.13	3.13.5-2+deb13u4	replaced-by-lock:3.13.5-2+deb13u5	-
+python3.13-venv	3.13.5-2+deb13u4	amd64	python3.13	3.13.5-2+deb13u4	replaced-by-lock:3.13.5-2+deb13u5	-
 readline-common	8.2-6	all	readline	8.2-6	base-digest	deb.debian.org:pool/main/r/readline/readline-common_8.2-6_all.deb sha256:f77e8aa0bf0de618f11cb0b21658a4ed60f177d63b3cf26d7fc3706b6d0eaaa9 size:69360
 ripgrep	14.1.1-1+b4	amd64	rust-ripgrep	14.1.1-1	base-digest	deb.debian.org:pool/main/r/rust-ripgrep/ripgrep_14.1.1-1+b4_amd64.deb sha256:7e0c32510c264c31335fe3b9ae37ab76dcd22f7d1627a0a08518a5bf28b17ac2 size:1433568
 rpcsvc-proto	1.4.3-1	amd64	rpcsvc-proto	1.4.3-1	base-digest	deb.debian.org:pool/main/r/rpcsvc-proto/rpcsvc-proto_1.4.3-1_amd64.deb sha256:32ac0692694f8a34cc90c895f4fc739680fb2ef0e2d4870a68833682bf1c81a3 size:63268
@@ -426,8 +426,8 @@ xfonts-encodings	1:1.0.4-2.2	all	xfonts-encodings	1:1.0.4-2.2	base-digest	deb.de
 xfonts-scalable	1:1.0.3-1.3	all	xfonts-scalable	1:1.0.3-1.3	base-digest	deb.debian.org:pool/main/x/xfonts-scalable/xfonts-scalable_1.0.3-1.3_all.deb sha256:0371d7944a7c972c715efa1e7635b636320508f433777ed575e5281de61f20cf size:306272
 xfonts-utils	1:7.7+7	amd64	xfonts-utils	1:7.7+7	base-digest	deb.debian.org:pool/main/x/xfonts-utils/xfonts-utils_7.7+7_amd64.deb sha256:36e77ba3fd25a42d4b807808de93eba87c0bd53981ee94d27da4cee502387f35 size:93340
 xkb-data	2.42-1	all	xkeyboard-config	2.42-1	base-digest	deb.debian.org:pool/main/x/xkeyboard-config/xkb-data_2.42-1_all.deb sha256:196ff18533382f64e057ea49df2bb486bd4275a4cc0917361edb560b8756dada size:789736
-xserver-common	2:21.1.16-1.3+deb13u3	all	xorg-server	2:21.1.16-1.3+deb13u3	base-digest	deb.debian.org:pool/main/x/xorg-server/xserver-common_21.1.16-1.3+deb13u3_all.deb sha256:dc1d37303c103b23c40cd1ea694c5c6561e0e8dc1734a73c7a0ae0ef080e7fcc size:2410088
-xvfb	2:21.1.16-1.3+deb13u3	amd64	xorg-server	2:21.1.16-1.3+deb13u3	base-digest	deb.debian.org:pool/main/x/xorg-server/xvfb_21.1.16-1.3+deb13u3_amd64.deb sha256:365da2b6c93339f34337c434a9489bb6411a240fa47b9f49693d3091745f28c2 size:3198040
+xserver-common	2:21.1.16-1.3+deb13u3	all	xorg-server	2:21.1.16-1.3+deb13u3	replaced-by-lock:2:21.1.16-1.3+deb13u4	-
+xvfb	2:21.1.16-1.3+deb13u3	amd64	xorg-server	2:21.1.16-1.3+deb13u3	replaced-by-lock:2:21.1.16-1.3+deb13u4	-
 xz-utils	5.8.1-1+deb13u1	amd64	xz-utils	5.8.1-1+deb13u1	base-digest	deb.debian.org:pool/main/x/xz-utils/xz-utils_5.8.1-1+deb13u1_amd64.deb sha256:9e0a39d95373afdaad3c9dfaab3c8b0beb9a2c4654e6be10b4bcf458509a3217 size:659488
 zlib1g-dev:amd64	1:1.3.dfsg+really1.3.1-1+b1	amd64	zlib	1:1.3.dfsg+really1.3.1-1	base-digest	deb.debian.org:pool/main/z/zlib/zlib1g-dev_1.3.dfsg+really1.3.1-1+b1_amd64.deb sha256:76ed5c858e1aef38b7be93acce5910e457e77bd6271471b9d05fb42e78826224 size:919744
 zlib1g:amd64	1:1.3.dfsg+really1.3.1-1+b1	amd64	zlib	1:1.3.dfsg+really1.3.1-1	base-digest	deb.debian.org:pool/main/z/zlib/zlib1g_1.3.dfsg+really1.3.1-1+b1_amd64.deb sha256:015be740d6236ad114582dea500c1d907f29e16d6db00566ca32fb68d71ac90d size:88892

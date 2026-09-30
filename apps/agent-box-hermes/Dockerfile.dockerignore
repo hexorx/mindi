@@ -11,6 +11,7 @@
 !apps/agent-box-hermes/build/pg0-runtime-libs.patch
 !apps/agent-box-hermes/build/patch_hindsight.py
 !apps/agent-box-hermes/build/pg0-bundle-hashes.patch
+!apps/agent-box-hermes/build/hermes-*
 !apps/agent-box-hermes/build/hindsight-linux-amd64.lock
 !apps/agent-box-hermes/build/apt-*
 !apps/agent-box-hermes/build/sanitize_payloads.py
@@ -194,3 +195,5 @@
 **/__pycache__/**
 **/*.pyc
 **/.git/**
+
+!docs/third-party/hex214-security-inputs/**
