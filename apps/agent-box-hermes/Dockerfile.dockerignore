@@ -10,6 +10,8 @@
 !apps/agent-box-hermes/build/pg0-private-loopback.patch
 !apps/agent-box-hermes/build/pg0-runtime-libs.patch
 !apps/agent-box-hermes/build/patch_hindsight.py
+!apps/agent-box-hermes/build/pg0-bundle-hashes.patch
+!apps/agent-box-hermes/build/hindsight-linux-amd64.lock
 !LICENSE
 # Reject credentials and local interpreter state even under allowed directories.
 **/.env

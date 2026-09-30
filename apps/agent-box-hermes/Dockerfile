@@ -13,8 +13,10 @@ RUN curl -fsSL --retry 3 https://github.com/vectorize-io/pg0/archive/refs/tags/v
 # exact upstream-pinned bytes; pg0 still verifies both SHA256 checksums.
 COPY apps/agent-box-hermes/build/pg0-runtime-libs.patch /tmp/pg0-runtime-libs.patch
 COPY apps/agent-box-hermes/build/pg0-private-loopback.patch /tmp/pg0.patch
+COPY apps/agent-box-hermes/build/pg0-bundle-hashes.patch /tmp/pg0-bundle-hashes.patch
 RUN patch --fuzz=0 -p1 < /tmp/pg0-runtime-libs.patch \
  && patch --fuzz=0 -p1 < /tmp/pg0.patch \
+ && patch --fuzz=0 -p1 < /tmp/pg0-bundle-hashes.patch \
  && cargo build --release --locked
 FROM nousresearch/hermes-agent:v2026.8.18@sha256:22e37bb4ed1b0f50cb6bd991dca7ecacd6c9f29df9b4a20fc989d32bc763ccf6
 USER root
@@ -31,14 +33,14 @@ RUN test "$TARGETARCH" = amd64 \
 # Hindsight migrations select psycopg 3, which its slim package does not declare.
 # Construct the migration engine at build time to verify the driver can load.
 COPY apps/agent-box-hermes/build/patch_hindsight.py /opt/build/patch_hindsight.py
+COPY apps/agent-box-hermes/build/hindsight-linux-amd64.lock /opt/build/hindsight-linux-amd64.lock
+# Complete resolved CPU-only wheel closure; fail rather than resolve new artifacts.
+# Model weights still download on first local-mode boot into the memory volume.
 RUN python3 -m venv /opt/hindsight \
- && /opt/hindsight/bin/pip install --no-cache-dir 'hindsight-api-slim[embedded-db]==0.6.1' 'pg0-embedded==0.14.0' 'psycopg[binary]==3.2.10' \
+ && /opt/hindsight/bin/pip install --no-cache-dir --no-index --no-deps --only-binary=:all: --require-hashes -r /opt/build/hindsight-linux-amd64.lock \
+ && /opt/hindsight/bin/pip check \
  && /opt/hindsight/bin/python /opt/build/patch_hindsight.py \
- && /opt/hindsight/bin/python -c "from sqlalchemy import create_engine; create_engine('postgresql+psycopg://localhost/hindsight')"
-# CPU-only local embeddings: no paid embedding API or CUDA runtime needed.
-# Model weights download on first local-mode boot into the persistent memory volume.
-RUN /opt/hindsight/bin/pip install --no-cache-dir --index-url https://download.pytorch.org/whl/cpu 'torch==2.8.0' \
- && /opt/hindsight/bin/pip install --no-cache-dir 'sentence-transformers==5.1.0' \
+ && /opt/hindsight/bin/python -c "from sqlalchemy import create_engine; create_engine('postgresql+psycopg://localhost/hindsight')" \
  && /opt/hindsight/bin/python -c "from sentence_transformers import SentenceTransformer; import torch; assert torch.version.cuda is None"
 COPY --from=pg0 /build/pg0/target/release/pg0 /opt/build/pg0
 # The SDK prefers its bundled binary over PATH. Replace that exact executable.

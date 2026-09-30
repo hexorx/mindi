@@ -2,8 +2,8 @@
 
 This branch starts at PR #13's `ec4f9ea` source-grant and build-context repair.
 It is not a reproducible release or a completed notice bundle. The Rust builder
-is pinned by digest; apt and Python resolution still require the target-image
-inventory. Runtime services and the extraction keep/strip boundary are unchanged.
+is pinned by digest. The Hindsight wheel closure and embedded pg0 bundles now
+use the resolved artifact hashes. Apt locking and notice reconciliation are pending. Runtime services and the extraction keep/strip boundary are unchanged.
 
 ## LAN builder handoff
 
@@ -52,3 +52,37 @@ unresolved obligations remain release blockers, not blanket license assertions.
 
 Obtain independent review and green CI on the final head. Parent HEX-97 retains
 candidate-layer secret scans, smokes and pre-push/publication gates.
+
+## Resolved Python and pg0 inputs (2026-09-30)
+
+Opi's HEX-184 build of `352b6eb5331030019eb26033675d2ab53d47459d`
+produced image `sha256:55422e9bab38e8be3cf1d28294acbd854dffafd23c9d0d6656da7a1589ee521c`.
+Its Paperclip core evidence attachment is
+`96db3014-d486-4d66-8102-db5a51e9ce54`; the summary is
+`5df57957-f9c9-4f45-a5f9-60fcbf31973c`.
+
+`build/hindsight-linux-amd64.lock` contains 214 unique wheel URLs and SHA256
+hashes, covering every installed Hindsight distribution except `pip`, which
+`ensurepip` supplies from the digest-pinned base. Generate it with
+`scripts/release/lock_python.py --inventory <pip-inspect.json> --output <lock>
+<r1.json> <r2.json> <r3.json>` using the ordered reports in
+`run/python/resolver-replay.tar`. Later reports supersede earlier versions;
+the generator refuses a closure that differs from the installed inventory.
+The Docker build uses `--no-index --no-deps --only-binary=:all: --require-hashes`
+and runs `pip check`, the migration-driver import, and CPU torch import.
+No package resolver fallback or sdist build is permitted. Direct URLs preserve
+PyTorch's CPU wheel source without making its index a global resolver source.
+The inherited Hermes/system Python environments remain fixed by base digest;
+this lock does not rebuild them or download local embedding model weights.
+
+`build/pg0-bundle-hashes.patch` checks the PostgreSQL 18.1.0 and pgvector 0.8.1
+bundles after download (or cache reuse) and before embedding. The SHA256 values
+match both the actual built bundles and upstream release digests recorded in
+`supplemental/pg0-embedded-upstream-digests.tsv`. Unsupported build targets fail
+explicitly; this image already supports linux/amd64 only. Existing Ubuntu
+runtime library checks and Cargo.lock enforcement remain in place.
+
+These inputs still need a clean integrated amd64 build and final independent
+review. HEX-186 owns the Debian snapshot/artifact lock; HEX-185 owns actual
+third-party texts and source-obligation reconciliation. Their evidence must be
+integrated before this branch can claim complete reproducibility/notices.

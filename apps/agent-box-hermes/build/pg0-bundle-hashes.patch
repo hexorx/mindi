@@ -1,0 +1,31 @@
+--- a/build.rs
++++ b/build.rs
+@@ -9,6 +9,8 @@
+ use sha2::{Digest, Sha256};
+ 
+ fn main() {
++    assert_eq!(env::var("TARGET").unwrap(), "x86_64-unknown-linux-gnu",
++        "Only the reviewed linux/amd64 bundles are hash-locked");
+     println!("cargo:rerun-if-changed=versions.env");
+ 
+     let versions_env = fs::read_to_string("versions.env").expect("Failed to read versions.env");
+@@ -100,6 +102,9 @@
+         eprintln!("Using cached PostgreSQL bundle: {}", bundle_path.display());
+     }
+ 
++    // Verify cached bundles too, before exposing them to include_bytes!.
++    verify_sha256(&bundle_path, "c8b2a68d26d0d766a5701a1c5ca7db1714ac88a47c3d4e82b5c2ad738d2e77df");
++
+     println!(
+         "cargo:rustc-env=POSTGRESQL_BUNDLE_PATH={}",
+         bundle_path.display()
+@@ -155,6 +160,9 @@
+     } else {
+         eprintln!("Using cached pgvector bundle: {}", bundle_path.display());
+     }
++
++    // Verify cached bundles too, before exposing them to include_bytes!.
++    verify_sha256(&bundle_path, "2a26eb71f4c5647d0db8fe16d42bc81e5c46754b4c511b14ff4b0f8b0f7a3843");
+ 
+     println!(
+         "cargo:rustc-env=PGVECTOR_BUNDLE_PATH={}",
