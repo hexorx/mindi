@@ -28,7 +28,7 @@ def sha(data):
 
 
 class Candidate:
-    def __init__(self, root, indexed=False):
+    def __init__(self, root, indexed=True, mutate_statement=None, revision=None):
         self.root = root
         self.source = 'a' * 40
         self.now = dt.datetime.now(dt.timezone.utc).replace(microsecond=0)
@@ -38,7 +38,7 @@ class Candidate:
             digest = sha(data)
             self.blobs['blobs/sha256/' + digest] = data
             return {'digest': 'sha256:' + digest, 'size': len(data), 'mediaType': media}
-        config = blob(encoded({'os': 'linux', 'architecture': 'amd64', 'config': {'Labels': {'org.opencontainers.image.revision': 'e' * 40}}}), 'application/vnd.oci.image.config.v1+json')
+        config = blob(encoded({'os': 'linux', 'architecture': 'amd64', 'config': {'Labels': {'org.opencontainers.image.revision': revision or self.source}}}), 'application/vnd.oci.image.config.v1+json')
         layer = blob(b'fixture layer only', 'application/vnd.oci.image.layer.v1.tar')
         manifest = {'schemaVersion': 2, 'mediaType': 'application/vnd.oci.image.manifest.v1+json', 'config': config, 'layers': [layer]}
         platform = blob(encoded(manifest), manifest['mediaType'])
@@ -46,7 +46,15 @@ class Candidate:
         desc = copy.deepcopy(platform)
         layers = [layer]
         if indexed:
-            statement = blob(encoded({'_type': 'https://in-toto.io/Statement/v0.1', 'subject': [{'name': '_', 'digest': {'sha256': platform['digest'][7:]}}]}), 'application/vnd.in-toto+json')
+            native = {'_type': 'https://in-toto.io/Statement/v0.1',
+                      'subject': [{'name': '_', 'digest': {'sha256': platform['digest'][7:]}}],
+                      'predicateType': 'https://slsa.dev/provenance/v0.2',
+                      'predicate': {'buildType': 'https://mobyproject.org/buildkit@v1',
+                                    'metadata': {'https://mobyproject.org/buildkit@v1#metadata': {
+                                        'vcs': {'source': 'https://github.com/hexorx/mindi.git', 'revision': self.source}}}}}
+            if mutate_statement:
+                mutate_statement(native)
+            statement = blob(encoded(native), 'application/vnd.in-toto+json')
             att = blob(encoded({'schemaVersion': 2, 'mediaType': manifest['mediaType'], 'config': config, 'layers': [statement]}), manifest['mediaType'])
             desc['platform'] = {'os': 'linux', 'architecture': 'amd64'}
             att['platform'] = {'os': 'unknown', 'architecture': 'unknown'}
@@ -112,7 +120,7 @@ class GateTests(unittest.TestCase):
     def verify(self):
         return gate.verify_candidate(self.c.record, self.data)
 
-    def test_valid_single_manifest_and_index(self):
+    def test_valid_index(self):
         self.assertEqual(self.verify()['manifest_digest'], self.c.record['manifest_digest'])
         indexed = self.root / 'indexed'
         indexed.mkdir()
@@ -120,6 +128,41 @@ class GateTests(unittest.TestCase):
         result = gate.verify_candidate(candidate.record, indexed)
         self.assertNotEqual(result['manifest_digest'], result['platform_manifest_digest'])
         self.assertNotEqual(result['platform_manifest_digest'], result['config_digest'])
+
+    def test_native_provenance_rejections(self):
+        def vcs(s): return s['predicate']['metadata']['https://mobyproject.org/buildkit@v1#metadata']['vcs']
+        mutations = [lambda s: s.pop('predicate'),
+                     lambda s: vcs(s).pop('source'), lambda s: vcs(s).pop('revision'),
+                     lambda s: vcs(s).update(source='https://github.com/attacker/mindi'),
+                     lambda s: vcs(s).update(revision='f'*40),
+                     lambda s: vcs(s).update(revision='a'*40 + '-dirty'),
+                     lambda s: s.update(predicateType='unknown'),
+                     lambda s: s['subject'][0].update(digest={'sha256': 'f'*64})]
+        for i, mutation in enumerate(mutations):
+            with self.subTest(mutation=i):
+                directory = self.root / str(i)
+                directory.mkdir()
+                c = Candidate(directory, mutate_statement=mutation)
+                with self.assertRaises(ValueError): gate.verify_candidate(c.record, directory)
+
+    def test_valid_slsa_v1(self):
+        def upgrade(s):
+            vcs = s['predicate']['metadata']['https://mobyproject.org/buildkit@v1#metadata']['vcs']
+            s.update(_type='https://in-toto.io/Statement/v1', predicateType='https://slsa.dev/provenance/v1',
+                     predicate={'buildDefinition': {'buildType': 'https://github.com/moby/buildkit/blob/master/docs/attestations/slsa-definitions.md'},
+                                'runDetails': {'metadata': {'buildkit_metadata': {'vcs': vcs}}}})
+        c = Candidate(self.data, mutate_statement=upgrade)
+        self.assertEqual(gate.verify_candidate(c.record, self.data)['source_commit'], c.source)
+
+    def test_unattested_single_manifest_refused(self):
+        c = Candidate(self.data, indexed=False)
+        with self.assertRaisesRegex(ValueError, 'indexed native provenance'):
+            gate.verify_candidate(c.record, self.data)
+
+    def test_upstream_revision_cannot_replace_standalone_label(self):
+        c = Candidate(self.data, revision='e'*40)
+        with self.assertRaisesRegex(ValueError, 'standalone OCI revision'):
+            gate.verify_candidate(c.record, self.data)
 
     def test_exact_bundle_roundtrip(self):
         bundle = self.c.bundle(self.root / 'candidate.zip')
@@ -145,6 +188,7 @@ class GateTests(unittest.TestCase):
 
     def test_config_id_is_not_manifest_digest(self):
         self.c.record['manifest_digest'] = self.c.manifest['config']['digest']
+        self.c.record['index_digest'] = self.c.record['manifest_digest']
         with self.assertRaisesRegex(ValueError, 'manifest/index'): self.verify()
 
     def test_rehashed_archive_cannot_hide_modified_blob(self):
@@ -249,8 +293,8 @@ class TransportTests(unittest.TestCase):
             promote.assert_tag_absent('v1.2.3', 'fixture', lambda *a, **k: Response())
 
     def test_only_explicit_registry_404_allows_publication(self):
-        for code, body, accepted in [(404, b'{"errors":[{"code":"MANIFEST_UNKNOWN"}]}', True),
-                                      (404, b'{"errors":[{"code":"NAME_UNKNOWN"}]}', True),
+        for code, body, accepted in [(404, b'{"errors":[{"code":"MANIFEST_UNKNOWN","message":"manifest unknown"}]}', True),
+                                      (404, b'{"errors":[{"code":"NAME_UNKNOWN","message":"repository name not known to registry"}]}', True),
                                       (401, b'{}', False), (403, b'{}', False), (429, b'{}', False),
                                       (500, b'{}', False), (404, b'{}', False)]:
             with self.subTest(code=code, body=body):
@@ -258,6 +302,26 @@ class TransportTests(unittest.TestCase):
                 if accepted: promote.assert_tag_absent('v1.2.3', 'fixture', opener)
                 else:
                     with self.assertRaises(ValueError): promote.assert_tag_absent('v1.2.3', 'fixture', opener)
+
+    def test_existing_index_and_negotiation_error_prevent_every_copy(self):
+        class Response:
+            def __enter__(self): return self
+            def __exit__(self, *args): pass
+        for negotiation_error in (False, True):
+            with self.subTest(negotiation_error=negotiation_error), tempfile.TemporaryDirectory() as temp:
+                path = Path(temp)
+                c = Candidate(path)
+                def opener(request, **kwargs):
+                    self.assertIn('application/vnd.oci.image.index.v1+json', request.headers['Accept'])
+                    self.assertIn('application/vnd.docker.distribution.manifest.list.v2+json', request.headers['Accept'])
+                    if negotiation_error:
+                        body = encoded({'errors': [{'code': 'MANIFEST_UNKNOWN', 'message': 'OCI index found, but Accept header does not support OCI indexes'}]})
+                        raise urllib.error.HTTPError(request.full_url, 404, '', {}, io.BytesIO(body))
+                    return Response()
+                real_check = promote.assert_tag_absent
+                with patch.object(promote, 'registry_token', return_value='fixture'), patch.object(promote, 'run') as run, patch.object(promote, 'assert_tag_absent', side_effect=lambda tag, token: real_check(tag, token, opener)):
+                    with self.assertRaises(ValueError): promote.publish(c.record, path, path)
+                    run.assert_not_called()
 
     def test_network_failure_is_not_absence(self):
         def opener(*a, **k): raise urllib.error.URLError('offline')

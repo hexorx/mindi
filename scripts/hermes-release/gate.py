@@ -118,7 +118,26 @@ def unpack_bundle(record, bundle, output):
     return verify_candidate(record, output)
 
 
-def verify_oci(path, expected):
+def verify_provenance(statement, source_commit):
+    """Supported BuildKit local-context schemas; metadata still needs native review."""
+    require(statement.get('_type') in {'https://in-toto.io/Statement/v0.1', 'https://in-toto.io/Statement/v1'}, 'unsupported in-toto statement')
+    predicate = statement.get('predicate')
+    require(isinstance(predicate, dict), 'native provenance predicate missing')
+    kind = statement.get('predicateType')
+    if kind == 'https://slsa.dev/provenance/v0.2':
+        require(predicate.get('buildType') == 'https://mobyproject.org/buildkit@v1', 'unsupported provenance builder')
+        metadata = predicate.get('metadata', {}).get('https://mobyproject.org/buildkit@v1#metadata', {})
+    elif kind == 'https://slsa.dev/provenance/v1':
+        require(predicate.get('buildDefinition', {}).get('buildType') == 'https://github.com/moby/buildkit/blob/master/docs/attestations/slsa-definitions.md', 'unsupported provenance builder')
+        metadata = predicate.get('runDetails', {}).get('metadata', {}).get('buildkit_metadata', {})
+    else:
+        raise ValueError('unsupported native provenance schema')
+    vcs = metadata.get('vcs', {})
+    require(vcs.get('source') in {'https://github.com/hexorx/mindi', 'https://github.com/hexorx/mindi.git'}, 'native provenance repository mismatch')
+    require(vcs.get('revision') == source_commit, 'native provenance revision mismatch')
+
+
+def verify_oci(path, expected, source_commit):
     """Hash every blob without extracting any paths, and bind config/layers to manifest."""
     with tarfile.open(path, mode='r:') as archive:
         members = {}
@@ -153,6 +172,7 @@ def verify_oci(path, expected):
         names = {root_name}
         root_doc = document(root_name)
         is_index = root['mediaType'] == 'application/vnd.oci.image.index.v1+json'
+        require(is_index, 'indexed native provenance required')
         if is_index:
             require(root_doc['schemaVersion'] == 2 and len(root_doc['manifests']) == 2, 'one platform plus one provenance attestation required')
             platform = [d for d in root_doc['manifests'] if d.get('platform') == {'architecture': 'amd64', 'os': 'linux'}]
@@ -170,7 +190,8 @@ def verify_oci(path, expected):
                 name = descriptor(layer, {'application/vnd.in-toto+json'})
                 names.add(name)
                 statement = document(name)
-                require(statement['_type'] == 'https://in-toto.io/Statement/v0.1' and statement['subject'] and all(x['digest'] == {'sha256': image_desc['digest'][7:]} for x in statement['subject']), 'in-toto subject mismatch')
+                verify_provenance(statement, source_commit)
+                require(statement['subject'] and all(x['digest'] == {'sha256': image_desc['digest'][7:]} for x in statement['subject']), 'in-toto subject mismatch')
         else:
             image_desc, att_doc = root, {'layers': []}
         manifest_name = descriptor(image_desc, {'application/vnd.oci.image.manifest.v1+json'})
@@ -197,7 +218,7 @@ def verify_candidate(record, directory):
     validate_record(record)
     directory = Path(directory)
     require(digest_file(directory / 'image.oci.tar') == record['archive_sha256'], 'archive digest mismatch')
-    manifest, config, platform_digest, is_index, att_layers = verify_oci(directory / 'image.oci.tar', record['manifest_digest'])
+    manifest, config, platform_digest, is_index, att_layers = verify_oci(directory / 'image.oci.tar', record['manifest_digest'], record['source_commit'])
     require(platform_digest == record['platform_manifest_digest'] and is_index == (record['index_digest'] is not None), 'platform/index identity mismatch')
     for name, digest in record['attachments'].items():
         require(digest_file(directory / name) == digest, 'raw evidence digest mismatch')
@@ -250,8 +271,9 @@ def verify_candidate(record, directory):
     review = reports['review']
     require(review['commit'] == record['accepted_commit'] and review['reviewer'] != review['author'] and review['reviewer'] and review['author'], 'independent exact-head review required')
     require(review['decision'] == 'approved' and review['ci'] == 'success', 'approval/CI gate failed')
-    # Existing image deliberately labels upstream Hermes, not the standalone build.
-    require(match(COMMIT, provenance['upstream_revision']) and config.get('config', {}).get('Labels', {}).get('org.opencontainers.image.revision') == provenance['upstream_revision'], 'upstream OCI revision mismatch')
+    # Upstream identity remains separate from the final standalone image revision.
+    require(match(COMMIT, provenance['upstream_revision']), 'invalid upstream revision')
+    require(config.get('config', {}).get('Labels', {}).get('org.opencontainers.image.revision') == record['source_commit'], 'standalone OCI revision mismatch')
     return {'manifest_digest': record['manifest_digest'], 'index_digest': record['index_digest'], 'platform_manifest_digest': platform_digest, 'config_digest': manifest['config']['digest'],
             'archive_sha256': record['archive_sha256'], 'source_commit': record['source_commit'],
             'tags': ['sha-' + record['source_commit'], record['version']]}

@@ -15,9 +15,8 @@ and [residual disclosures](hermes-release-gates.md) remain unchanged.
    or accepts a Docker config ID as a registry digest. A new build is a different
    candidate and requires new scans and runtime evidence, even with equal inputs.
 2. Export the exact OCI graph to `image.oci.tar`. The archive's `index.json` must
-   have one descriptor identifying either a single amd64 image manifest, or an
-   OCI index containing one linux/amd64 manifest plus one buildx provenance
-   attestation (unknown/unknown). For an indexed candidate, retain the whole graph;
+   have one descriptor identifying an OCI index containing one linux/amd64 manifest plus one buildx provenance
+   attestation (unknown/unknown). Unattested single manifests are refused. Retain the whole graph;
    do not flatten it, recompress layers, or drop attestations. The attestation's
    raw in-toto statements must also be in the provenance attachments. All blobs
    and descriptor sizes are checked; unrelated blobs and external URLs fail.
@@ -57,11 +56,30 @@ and [residual disclosures](hermes-release-gates.md) remain unchanged.
 
 The reviewed source may differ from the actual built source only with reviewed
 matching Docker-input manifest hashes. This does **not** make an image built in CI
-identical to the LAN candidate. Existing images deliberately label the **upstream
-Hermes** revision; `provenance.upstream_revision` must match that label, while
-`source_commit`, build provenance and input inventories identify the standalone
-build. Do not rewrite an accepted image merely to relabel it. A future label change
-would create a new candidate and require full requalification.
+identical to the LAN candidate. The final OCI revision label must equal
+`source_commit` (the actual standalone **mindi** commit). Keep the upstream
+Hermes commit separately in `provenance.upstream_revision` and base evidence.
+Old upstream-labelled candidates cannot pass; a new build needs full qualification.
+
+Native provenance is mandatory, with subject equal to the amd64 manifest. The
+supported local-context BuildKit schemas are SLSA v0.2 (`predicate.buildType`
+`https://mobyproject.org/buildkit@v1`) and SLSA v1 (`predicate.buildDefinition.buildType`
+`https://github.com/moby/buildkit/blob/master/docs/attestations/slsa-definitions.md`).
+Both in-toto Statement/v0.1 and Statement/v1 envelopes are accepted. Read VCS from
+v0.2 `predicate.metadata["https://mobyproject.org/buildkit@v1#metadata"].vcs` or
+v1 `predicate.runDetails.metadata.buildkit_metadata.vcs`. Require `source` exactly
+`https://github.com/hexorx/mindi` (optional `.git`) and `revision` exactly
+`source_commit`; missing metadata, dirty suffixes and unsupported schemas fail.
+These are the native fields populated from `vcs:source`/`vcs:revision` options.
+Retain explicit `--provenance=mode=min` and the complete raw statement bytes.
+
+[BuildKit documents](https://github.com/moby/buildkit/blob/master/docs/attestations/slsa-definitions.md)
+that local-context VCS metadata is client-supplied and unverified. Matching it is
+an identity consistency gate, not proof of a trusted build. Independent review
+of native build logs, clean source/input inventories and the evidence record on
+main remains mandatory. Report repetition or a detached unsigned statement cannot
+replace the embedded provenance. Other schema/context forms require a reviewed
+contract change before use.
 
 ## Bundle and JSON contract (version 1)
 
@@ -77,7 +95,7 @@ Insufficient disk fails; this task does not provision a larger runner.
 and all eight report envelopes. It is **not release evidence**, is deliberately
 expired, and has no real transport assets. The executable contract is
 [`gate.py`](../scripts/hermes-release/gate.py); the offline test fixture exercises
-both supported OCI shapes.
+the indexed OCI shape and rejection of unattested images.
 
 Record fields:
 
@@ -86,8 +104,8 @@ Record fields:
 | `schema_version`, `destination` | `1`, `ghcr.io/hexorx/agent-box-hermes` |
 | `source_commit`, `accepted_commit` | Full 40-character actual-build and independently approved Git commits |
 | `version` | `vMAJOR.MINOR.PATCH`, optional lowercase prerelease; never `latest` |
-| `manifest_digest` | Exact root **registry subject**: index digest for indexed candidates, otherwise image manifest digest |
-| `index_digest` | Same as root digest for indexed candidates; JSON null for single-manifest candidates |
+| `manifest_digest` | Exact root **registry subject**: OCI index digest |
+| `index_digest` | Same as root digest; required indexed candidate |
 | `platform_manifest_digest` | Exact linux/amd64 manifest digest; never a config ID |
 | `archive_sha256`, `bundle_sha256` | SHA256 of exact OCI tar and complete ZIP bytes |
 | `created_at`, `expires_at` | UTC `Z`, valid now, at most 7 days apart |
@@ -107,7 +125,7 @@ Additional per-report fields:
   Syft JSON must identify the archive/source and scanner/schema in raw evidence.
 - **provenance:** `builder`, `build_without_package_write: true`,
   `archive_sha256`, `config_digest`, `upstream_revision`. Include build inputs,
-  source/build log, builder settings and raw attestation statements when present.
+  source/build log, builder settings and mandatory raw attestation statements.
 - **source:** `accepted_commit`, matching SHA256 `built_inputs_sha256` and
   `accepted_inputs_sha256`, with both inventories in raw evidence.
 - **notices:** `disclosures` contains the 12 accepted residual identifiers shown
@@ -146,8 +164,11 @@ check. Restrict package-write access operationally; this implementation makes no
 repository/package/access setting changes.
 
 Both `sha-FULL_BUILD_COMMIT` and `vX.Y.Z` must be absent before any copy; each is
-checked again immediately before use. Only authenticated registry 404 responses
-with `MANIFEST_UNKNOWN` or `NAME_UNKNOWN` count as absence. Authentication,
+checked again immediately before use. The lookup advertises OCI image/index and Docker manifest/list media types. Only
+authenticated registry 404 responses with canonical `MANIFEST_UNKNOWN` /
+`manifest unknown` or `NAME_UNKNOWN` / `repository name not known to registry`
+messages and absent or matching-tag detail count as absence. Negotiation errors
+and unknown response shapes fail closed. Authentication,
 network, rate-limit or server failures stop publication. Existing tags always
 fail, even if their digest matches. The workflow uses
 [`skopeo copy --all --preserve-digests`](https://github.com/containers/skopeo/blob/main/docs/skopeo-copy.1.md)

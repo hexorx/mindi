@@ -76,7 +76,7 @@ def registry_token():
 
 def assert_tag_absent(tag, token, opener=urllib.request.urlopen):
     request = urllib.request.Request('https://ghcr.io/v2/hexorx/agent-box-hermes/manifests/' + tag,
-                                    headers={'Authorization': 'Bearer ' + token, 'Accept': 'application/vnd.oci.image.manifest.v1+json, application/vnd.docker.distribution.manifest.v2+json'})
+                                    headers={'Authorization': 'Bearer ' + token, 'Accept': 'application/vnd.oci.image.index.v1+json, application/vnd.docker.distribution.manifest.list.v2+json, application/vnd.oci.image.manifest.v1+json, application/vnd.docker.distribution.manifest.v2+json'})
     try:
         with opener(request, timeout=60):
             raise ValueError('immutable tag already exists: ' + tag)
@@ -84,7 +84,15 @@ def assert_tag_absent(tag, token, opener=urllib.request.urlopen):
         # A timeout, 401/403, 429, 5xx, or generic proxy 404 is NOT absence.
         require(error.code == 404, 'cannot establish tag absence')
         payload = json.load(error)
-        require(payload.get('errors') and all(e.get('code') in {'MANIFEST_UNKNOWN', 'NAME_UNKNOWN'} for e in payload['errors']), 'unverified registry absence')
+        errors = payload.get('errors')
+        # Distribution also uses MANIFEST_UNKNOWN for media negotiation errors.
+        # Accept only canonical absence responses; unexpected wording/detail fails closed.
+        messages = {'MANIFEST_UNKNOWN': 'manifest unknown', 'NAME_UNKNOWN': 'repository name not known to registry'}
+        require(isinstance(errors, list) and errors and all(
+            isinstance(e, dict) and e.get('code') in messages
+            and e.get('message') == messages[e['code']]
+            and e.get('detail') in (None, tag, {'Tag': tag})
+            for e in errors), 'unverified registry absence')
 
 
 def publish(record, directory, work):
