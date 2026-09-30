@@ -81,9 +81,16 @@ RUN python3 /opt/build/sanitize_payloads.py --root / \
       --report /usr/share/doc/agent-box-hermes/third-party/payload-remediation.json \
  && python3 /opt/build/verify_payloads.py --root /
 
+# Require the standalone source commit; an upstream or empty revision mislabels
+# the release. Keep validation late so changing only metadata reuses build work.
+ARG SOURCE_REVISION
+RUN test "${#SOURCE_REVISION}" -eq 40 \
+ && case "$SOURCE_REVISION" in *[!0-9a-f]*) exit 1;; esac
+
 FROM scratch AS runtime
-# Preserve the inherited upstream revision label (not the standalone Git head).
-LABEL org.opencontainers.image.revision=e624e9fde561e1add9388384012b295fde669ade
+ARG SOURCE_REVISION
+LABEL org.opencontainers.image.revision=$SOURCE_REVISION \
+      org.opencontainers.image.source="https://github.com/hexorx/mindi"
 COPY --from=assembled / /
 # Explicitly restore inherited runtime settings after the scratch boundary.
 ENV PATH=/opt/hermes/bin:/opt/hermes/.venv/bin:/home/agent/.local/bin:/opt/data/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin \

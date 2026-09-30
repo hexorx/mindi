@@ -53,3 +53,30 @@ Do not push an image until the evidence below is recorded on the ticket.
    existing volumes; shared data changes need their separate approval.
 
 This document and its source checks do not certify the image for release.
+
+## Replacement candidate identity and attestations (HEX-214)
+
+Build the replacement from a clean checkout and pass its full `git rev-parse HEAD`
+as `--build-arg SOURCE_REVISION`. The Dockerfile rejects missing/malformed SHA-1
+IDs and labels the final scratch stage with the standalone mindi revision and
+source URL. The builder must verify that label against its actual checked-out
+commit; argument syntax validation alone cannot prove the context's identity.
+CI uses its actual checkout commit, including a PR merge commit when applicable.
+
+Keep BuildKit provenance with explicit `--provenance=mode=min`. Save the OCI
+archive/index and **the full provenance statement blob**, not just the attestation
+manifest digest. Record the statement's SHA256 and verify its subject names the
+linux/amd64 image manifest in that index. Record the top-level index digest,
+linux/amd64 manifest digest, config digest, source commit and image tar path
+separately. A Docker image ID from a containerd store may be the index digest.
+A classic Docker `--load` store can discard attestations; an image with missing
+provenance is not an acceptable substitute for the retained-provenance candidate.
+The desktop CI smoke's local load is not the release evidence export.
+
+This is the attestation contract for [HEX-213](/HEX/issues/HEX-213). Its gate must
+check the final OCI revision against the built mindi source commit, not against
+upstream Hermes `e624e9fd`. Preserve that upstream identity separately through
+the pinned base digest. Retain existing notice evidence and accepted residuals.
+No statement body or rebuilt candidate has been captured by this source change;
+[HEX-214](/HEX/issues/HEX-214) still requires the dependency updates, new image,
+Syft/Grype evidence and independent exact-head review before completion.

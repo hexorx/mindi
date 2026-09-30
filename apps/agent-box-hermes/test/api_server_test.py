@@ -66,7 +66,10 @@ class APIServiceTest(unittest.TestCase):
                        'MEMORY_EMBEDDINGS_PROVIDER', 'MEMORY_EMBEDDINGS_MODEL', 'MEMORY_EMBEDDINGS_BASE_URL'}
         inference_vars = {'HERMES_INFERENCE_PROVIDER', 'HERMES_INFERENCE_MODEL', 'HERMES_INFERENCE_BASE_URL'}
         self.assertEqual(set(service['environment']), set(FIXTURE) | memory_vars | inference_vars)
-        self.assertEqual(service['build'], {'context': '.', 'dockerfile': 'apps/agent-box-hermes/Dockerfile'})
+        self.assertEqual(service['build'], {
+            'context': '.', 'dockerfile': 'apps/agent-box-hermes/Dockerfile',
+            'args': {'SOURCE_REVISION': '${MINDI_SOURCE_REVISION:?Set MINDI_SOURCE_REVISION to the full built source commit}'},
+        })
         self.assertIn('inference_api_key', service['secrets'])
         self.assertEqual(compose['secrets']['inference_api_key']['file'],
                          '${INFERENCE_API_KEY_FILE:?Set INFERENCE_API_KEY_FILE}')

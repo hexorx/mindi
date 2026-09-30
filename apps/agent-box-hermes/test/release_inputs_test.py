@@ -3,6 +3,7 @@ import fnmatch
 import json
 from pathlib import Path
 import shlex
+import subprocess
 import unittest
 
 APP = Path(__file__).resolve().parents[1]
@@ -22,6 +23,26 @@ def included(path):
 
 
 class ReleaseInputsTest(unittest.TestCase):
+    def test_source_revision_validation_rejects_missing_short_and_malformed_ids(self):
+        dockerfile = (APP / 'Dockerfile').read_text()
+        assembled, runtime = dockerfile.split('FROM scratch AS runtime', 1)
+        validation = assembled.rsplit('ARG SOURCE_REVISION\n', 1)[1].strip()
+        self.assertTrue(validation.startswith('RUN '))
+        command = validation.removeprefix('RUN ')
+        for revision in ['', '123abc', 'g' * 40, 'A' * 40, 'a' * 39 + '\n', 'a' * 41]:
+            with self.subTest(revision=repr(revision)):
+                result = subprocess.run(['sh', '-c', command],
+                                        env={'SOURCE_REVISION': revision}, capture_output=True)
+                self.assertNotEqual(result.returncode, 0)
+        result = subprocess.run(['sh', '-c', command],
+                                env={'SOURCE_REVISION': '0123456789abcdef' * 2 + '01234567'},
+                                capture_output=True)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn('ARG SOURCE_REVISION', runtime)
+        self.assertIn('org.opencontainers.image.revision=$SOURCE_REVISION', runtime)
+        self.assertIn('org.opencontainers.image.source="https://github.com/hexorx/mindi"', runtime)
+        self.assertNotIn('e624e9fde561e1add9388384012b295fde669ade', runtime)
+
     def test_every_local_copy_has_all_of_its_tracked_inputs(self):
         for line in (APP / 'Dockerfile').read_text().splitlines():
             if not line.startswith('COPY ') or '--from=' in line:

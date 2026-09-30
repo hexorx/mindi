@@ -3,6 +3,8 @@ services:
     build:
       context: .
       dockerfile: apps/agent-box-hermes/Dockerfile
+      args:
+        SOURCE_REVISION: ${MINDI_SOURCE_REVISION:?Set MINDI_SOURCE_REVISION to the full built source commit}
     environment:
       API_SERVER_KEY: ${API_SERVER_KEY:?Set API_SERVER_KEY}
       PAPERCLIP_CALLBACK_KEY: ${PAPERCLIP_CALLBACK_KEY:?Set PAPERCLIP_CALLBACK_KEY}
