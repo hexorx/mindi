@@ -26,7 +26,8 @@ The latter's 265 listed files verify. They are resolver evidence, not this image
   resolver extra. Seven packages change, none are added; CPU torch 2.8.0 remains.
   cryptography 50.0.2, transformers 5.15.1, sentence-transformers 6.1.0,
   huggingface-hub 1.33.0, sqlalchemy 2.0.54, pg0-embedded 0.15.2.
-  The committed direct-wheel lock normalizes distribution-name spelling only.
+  The committed direct-wheel lock normalizes distribution-name spelling and retains the resolver mirror URLs
+  for Jinja2/MarkupSafe (identical versions and artifact hashes).
 - Hermes: full candidate pyproject/uv lock plus a narrow hash-pinned installed
   overlay for PyJWT 2.14.0 and anyio 4.14.2. Absolute resolution cutoff
   `2026-09-16T12:10:52Z`. Rebuild the editable project metadata with pinned
@@ -54,7 +55,7 @@ ICU retains its existing pinned bytes and snapshot. Patches apply to the exact
 source without fuzz; the Rust/container builds and real memory smoke remain gates.
 
 Historical notices and HEX-189/193/194 dispositions are unchanged. Supplemental
-wheel notices and Docker/pg0 source licenses are under
+wheel notices and Docker/Hindsight source licenses are under
 `docs/third-party/hex214-security-inputs`. The old image's attribution joins are
 historical evidence, not proof for changed bytes; final inventory reconciliation
 must use the new candidate and identify any remaining supplemental notice gaps.
