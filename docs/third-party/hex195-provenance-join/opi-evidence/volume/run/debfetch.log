@@ -1,0 +1,49 @@
+== apt-cache policy
+docker-cli:
+  Installed: (none)
+  Candidate: 26.1.5+dfsg1-9+deb13u1
+  Version table:
+     26.1.5+dfsg1-9+deb13u1 500
+        500 http://deb.debian.org/debian trixie/main amd64 Packages
+        500 http://deb.debian.org/debian-security trixie-security/main amd64 Packages
+== apt-cache show
+== deb
+-rw-r--r-- 1 root root 7337584 Sep 30 02:51 docker-cli_26.1.5+dfsg1-9+b13_amd64.deb
+842ab48440373eb31a66aef8f5579dfcb2e0b5cfda4a8e5bd3a4b9ab76b8a08b  docker-cli_26.1.5+dfsg1-9+b13_amd64.deb
+1d5ed5bf92d1baddbb4dbaa7df5c00542a79ef36  docker-cli_26.1.5+dfsg1-9+b13_amd64.deb
+deb sha1 matches lock sha1 1d5ed5bf92d1baddbb4dbaa7df5c00542a79ef36
+00bae64552d5b571a8910acdd1986cc2  usr/bin/docker
+dcd656567975bc326ab55e8a043989a60ca336638689d9faa10ef15614709b71  x/usr/bin/docker
+00bae64552d5b571a8910acdd1986cc2  x/usr/bin/docker
+image_sha256=dcd656567975bc326ab55e8a043989a60ca336638689d9faa10ef15614709b71 deb_sha256=dcd656567975bc326ab55e8a043989a60ca336638689d9faa10ef15614709b71 identical=yes
+cmp: byte-identical
+== signed snapshot index check 20260510T144321Z trixie-proposed-updates
+gpgv rc=0
+Origin: Debian
+Suite: proposed-updates
+Codename: trixie-proposed-updates
+Date: Sun, 10 May 2026 14:12:31 UTC
+Packages.xz expected=bd80183e49a00c22e0c6aefb8727b12454b24a0b49400accc94c5abb31bcb77a actual=bd80183e49a00c22e0c6aefb8727b12454b24a0b49400accc94c5abb31bcb77a
+Package: docker-cli
+Source: docker.io (26.1.5+dfsg1-9)
+Version: 26.1.5+dfsg1-9+b13
+Filename: pool/main/d/docker.io/docker-cli_26.1.5+dfsg1-9+b13_amd64.deb
+Size: 7337584
+SHA256: 842ab48440373eb31a66aef8f5579dfcb2e0b5cfda4a8e5bd3a4b9ab76b8a08b
+RESULT deb sha256 listed in signed index
+== signed snapshot index check 20260520T000000Z trixie
+gpgv rc=0
+Origin: Debian
+Suite: stable
+Codename: trixie
+Date: Sat, 16 May 2026 09:42:04 UTC
+Packages.xz expected=3a66223535ccb4af69b6bd323a8d8cd46a665a00622ef1a63321ca71ddb2b092 actual=3a66223535ccb4af69b6bd323a8d8cd46a665a00622ef1a63321ca71ddb2b092
+Package: docker-cli
+Source: docker.io (26.1.5+dfsg1-9)
+Version: 26.1.5+dfsg1-9+b13
+Filename: pool/main/d/docker.io/docker-cli_26.1.5+dfsg1-9+b13_amd64.deb
+Size: 7337584
+SHA256: 842ab48440373eb31a66aef8f5579dfcb2e0b5cfda4a8e5bd3a4b9ab76b8a08b
+RESULT deb sha256 listed in signed index
+rc=0
+sha256:a99cfc517144bc59b1978475ec53b46ecabec7e43635402ee5b77cc54cd1b20a ["debian@sha256:a99cfc517144bc59b1978475ec53b46ecabec7e43635402ee5b77cc54cd1b20a"]

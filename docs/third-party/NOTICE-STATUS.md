@@ -50,13 +50,14 @@ P9 under HEX-193. They are not release blockers and must not be labelled closed:
 The original conservative `source_status: not_reconciled` and membership fields
 remain in the evidence. Acceptance of these residuals does not change them.
 
-## Remediation still requiring changed-image evidence
+## Remediation requirements and evidence scope
 
 HEX-193 requires exclusion of the proprietary bundled Claude executable and
 @photon-ai/whatsapp-business 0.1.1, including copies in distributed layers and
 caches. Claude must use an operator-installed official executable with a clear
 missing-install error; the WhatsApp Business path must be disabled in this
-flavor. These requirements are not yet proven by the baseline inventory.
+flavor. The baseline inventory does not prove these requirements; completed HEX-198
+remediation evidence is scoped in the dated addendum below.
 
 HEX-192 supplies FFmpeg and Chrome provenance. A private-recipe static FFmpeg
 requires replacement with Debian ffmpeg or the exact recipe and corresponding
@@ -85,8 +86,8 @@ final stage, selects Debian Chromium/FFmpeg, disables WhatsApp Business, and
 replaces all 14 proprietary font hashes with system-font usage. GSAP notices
 and separately labelled linked terms remain in the additive evidence. The
 build writes `payload-remediation.json` and runs the filesystem absence check.
-Changed-head LAN/all-layer evidence and independent exact-head approval are
-still required before claiming remediation verified. See
+HEX-198/HEX-199 supplied LAN/all-layer evidence and scoped independent approval
+for the pre-Slack remediation head. The new Slack head needs matching evidence. See
 `docs/payload-remediation.md` in the source repository for operator behavior.
 
 The Chromium replacement adds 20 Debian artifacts, including `libopenh264-8`
@@ -107,3 +108,20 @@ Slack from distributed components; historical inventories and
 `hex198-build-inputs/photon-chain.json` remain unchanged evidence. Refreshed
 exact-head LAN build, inventory/SBOM and independent review are still required.
 No publication is authorized.
+
+## Dated acceptance addendum — 2026-09-30
+
+HEX-198 built `d37d1e9bce1ed8e30ce31a3a9f8ad4287c349448` as image
+`sha256:72e6ed46632973b999d8ae487eaac1f652bde94575deb3b9a9d9db64c8e42290`.
+HEX-199 approved that scoped remediation. HEX-205 approved dependency input
+locks only, and required missing historical logs and final notice/source
+reconciliation to be repaired. The four logs are restored without modifying
+their manifests. Historical missing `bin/docker` bytes remain disclosed.
+
+The exact new-head SBOM/per-environment inventories and additive notice overlay
+will be collected under HEX-207. Corresponding-source evidence for 20 added
+Debian packages must be reconciled separately; copyright presence does not
+close their obligations. Declared-only/native/source residuals above remain
+accepted limitations, not closed findings. Full acceptance requires fresh
+independent review and green CI on that head. HEX-181 retains the operator hold
+after acceptance and must not trigger HEX-97. No merge or publication is authorized.

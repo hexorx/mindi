@@ -1,0 +1,15 @@
+2026-09-30T02:49:25Z start
+2026-09-30T02:49:30Z probe rc=1
+2026-09-30T02:49:31Z go buildinfo done
+2026-09-30T02:49:38Z debfetch done
+2026-09-30T02:49:38Z DONE lines=28
+2026-09-30T02:50:00Z start
+2026-09-30T02:50:08Z probe rc=0
+2026-09-30T02:50:09Z go buildinfo done
+2026-09-30T02:50:20Z debfetch done
+2026-09-30T02:50:20Z DONE lines=35
+2026-09-30T02:51:45Z start
+2026-09-30T02:51:50Z probe rc=0
+2026-09-30T02:51:50Z go buildinfo done
+2026-09-30T02:51:58Z debfetch done
+2026-09-30T02:51:58Z DONE lines=38

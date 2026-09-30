@@ -80,8 +80,8 @@ browser/Claude path changes. It retains the upstream revision label, root user,
 and `/opt/data` volume. The standalone image continues to set `/home/agent` as
 workdir, `/init` as entrypoint, empty command, port 8443, its own healthcheck and
 two additional data volumes. The base has no custom shell or stop signal;
-its ArgsEscaped flag is Windows-specific and is not copied into this Linux
-scratch image. The upstream revision label identifies Hermes, not this repo's
+the final config observed in HEX-198 has `ArgsEscaped: true`. That field is
+Windows-specific, but it must not be reported absent from this Linux image. The upstream revision label identifies Hermes, not this repo's
 head; build evidence must record the standalone Git head separately.
 
 Chromium adds 20 Debian artifacts (131 total locked additions/upgrades,
@@ -106,3 +106,13 @@ Slack from distributed components; historical inventories and
 `hex198-build-inputs/photon-chain.json` remain unchanged evidence. Refreshed
 exact-head LAN build, inventory/SBOM and independent review are still required.
 No publication is authorized.
+
+## Dated evidence status — 2026-09-30
+
+HEX-198 built remediation head `d37d1e9bce1ed8e30ce31a3a9f8ad4287c349448`
+as image `sha256:72e6ed46632973b999d8ae487eaac1f652bde94575deb3b9a9d9db64c8e42290`;
+HEX-199 records scoped independent approval. Preserve the raw configuration
+comparison FAIL and its intentional PATH-difference explanation. Those completed
+checks do not cover the subsequent Slack exclusion. HEX-207 supplies the next
+exact-head LAN evidence. The final notice/source overlay and full acceptance
+remain outstanding; see `final-inventory-reconciliation.md`.

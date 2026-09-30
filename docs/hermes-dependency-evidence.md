@@ -3,7 +3,7 @@
 This branch starts at PR #13's `ec4f9ea` source-grant and build-context repair.
 It is not a reproducible release or a completed notice bundle. The Rust builder
 is pinned by digest. The Hindsight wheel closure and embedded pg0 bundles now
-use the resolved artifact hashes. Apt locking and notice reconciliation are pending. Runtime services and the extraction keep/strip boundary are unchanged.
+use the resolved artifact hashes. Apt snapshot/artifact locking is integrated; final notice/source reconciliation remains incomplete. Runtime services and the extraction keep/strip boundary are unchanged.
 
 ## LAN builder handoff
 
@@ -82,7 +82,32 @@ match both the actual built bundles and upstream release digests recorded in
 explicitly; this image already supports linux/amd64 only. Existing Ubuntu
 runtime library checks and Cargo.lock enforcement remain in place.
 
-These inputs still need a clean integrated amd64 build and final independent
-review. HEX-186 owns the Debian snapshot/artifact lock; HEX-185 owns actual
-third-party texts and source-obligation reconciliation. Their evidence must be
-integrated before this branch can claim complete reproducibility/notices.
+The integrated locks were built under HEX-188; remediation head
+`d37d1e9bce1ed8e30ce31a3a9f8ad4287c349448` was built under
+[HEX-198](/HEX/issues/HEX-198) as image
+`sha256:72e6ed46632973b999d8ae487eaac1f652bde94575deb3b9a9d9db64c8e42290`.
+[HEX-199](/HEX/issues/HEX-199) approved that scoped remediation; the
+[HEX-205 audit](/HEX/issues/HEX-205#document-audit) approved only dependency
+input locks at that head and required broader acceptance repairs. These are
+completed historical checks, not acceptance of a later head.
+
+## Acceptance continuation (2026-09-30)
+
+The four historical HEX-195 logs are restored with exact bytes and narrow Git
+ignore exceptions. Existing manifests are unchanged; validate the committed
+archive, not just a shared worktree. Missing historical `bin/docker` remains
+disclosed. Bootstrap pip/setuptools wheel identity is supported by inherited
+Debian ownership, base digest and matching final hashes; the failed private-API
+ensurepip probe is not execution-tracing evidence.
+
+Mindi accepted Photon Slack exclusion, implemented with HEX-206. Every changed
+head requires corresponding LAN build, inventory/SBOM, independent review and
+CI. HEX-207 owns the fresh build and the 20 added Debian packages' corresponding
+source evidence. `scripts/release/reconcile_final_inventory.py` creates an
+additive final overlay from shipped baseline bytes, final Syft artifacts and
+per-environment inventories; historical rows/source_status remain unchanged.
+Declared-only and native/build-source limitations remain accepted disclosures,
+not closed obligations. No bit-for-bit reproducibility is claimed.
+
+HEX-181 remains operator-held after acceptance. Neither this evidence nor a
+successful review authorizes merge, publication, deployment or HEX-97 continuation.
