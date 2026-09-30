@@ -63,6 +63,10 @@ ENV HOME=/home/agent USER=hermes HERMES_HOME=/home/agent/.hermes \
     CUA_DRIVER_RS_ENABLE_WAYLAND=1 CUA_DRIVER_RS_TELEMETRY_ENABLED=0 GTK_A11Y=atspi \
     S6_BEHAVIOUR_IF_STAGE2_FAILS=2 S6_KILL_GRACETIME=10000
 COPY LICENSE /usr/share/doc/agent-box-hermes/LICENSE
+# Ship the collected attribution bytes with the image, including explicit gaps.
+# Release acceptance still requires the final inventory/source reconciliation.
+COPY docs/third-party/hex184-resolution/bundle/ /usr/share/doc/agent-box-hermes/third-party/
+COPY docs/third-party/NOTICE-STATUS.md /usr/share/doc/agent-box-hermes/third-party/NOTICE-STATUS.md
 COPY apps/agent-box-hermes/runtime/ /opt/agent-box/
 COPY apps/agent-box-hermes/desktop/ /etc/agent-box/
 COPY apps/agent-box-hermes/defaults/ /opt/agent-box/defaults/

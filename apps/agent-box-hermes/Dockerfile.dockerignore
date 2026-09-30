@@ -14,6 +14,16 @@
 !apps/agent-box-hermes/build/hindsight-linux-amd64.lock
 !apps/agent-box-hermes/build/apt-*
 !LICENSE
+!docs/
+!docs/third-party/
+!docs/third-party/NOTICE-STATUS.md
+!docs/third-party/hex184-resolution/
+!docs/third-party/hex184-resolution/bundle/
+!docs/third-party/hex184-resolution/bundle/manifest.json
+!docs/third-party/hex184-resolution/bundle/reconciliation.json
+!docs/third-party/hex184-resolution/bundle/verification.json
+!docs/third-party/hex184-resolution/bundle/texts/
+!docs/third-party/hex184-resolution/bundle/texts/*.txt
 # Reject credentials and local interpreter state even under allowed directories.
 **/.env
 **/.env.*

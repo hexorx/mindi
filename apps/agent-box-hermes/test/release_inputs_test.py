@@ -40,6 +40,9 @@ class ReleaseInputsTest(unittest.TestCase):
     def test_credentials_and_repository_state_are_excluded(self):
         for path in ['.env', '.git/config', 'docs/private.md',
                      'apps/agent-box-hermes/build/.env',
+                     'docs/third-party/hex184-resolution/inputs.json',
+                     'docs/third-party/hex184-resolution/bundle/private.pem',
+                     'docs/third-party/hex184-resolution/bundle/texts/.env',
                      'apps/agent-box-hermes/build/apt-private.key',
                      'apps/agent-box-hermes/build/apt-private.pem',
                      'apps/agent-box-hermes/runtime/.env.production',
@@ -57,3 +60,20 @@ class ReleaseInputsTest(unittest.TestCase):
         self.assertEqual(manifest['defaultTreatment'], 'exclude')
         self.assertIn('COPY LICENSE /usr/share/doc/agent-box-hermes/LICENSE',
                       (APP / 'Dockerfile').read_text())
+
+    def test_image_contains_notice_bytes_with_gap_disclosure(self):
+        import hashlib
+        bundle = ROOT / 'docs/third-party/hex184-resolution/bundle'
+        manifest = json.loads((bundle / 'manifest.json').read_text())
+        for notice in manifest['notices']:
+            data = (bundle / notice['file']).read_bytes()
+            self.assertEqual(hashlib.sha256(data).hexdigest(), notice['sha256'])
+            self.assertEqual(len(data), notice['bytes'])
+        dockerfile = (APP / 'Dockerfile').read_text()
+        self.assertIn('COPY docs/third-party/hex184-resolution/bundle/ '
+                      '/usr/share/doc/agent-box-hermes/third-party/', dockerfile)
+        self.assertIn('COPY docs/third-party/NOTICE-STATUS.md ', dockerfile)
+        self.assertTrue(included('docs/third-party/NOTICE-STATUS.md'))
+        status = (ROOT / 'docs/third-party/NOTICE-STATUS.md').read_text()
+        self.assertIn('Incomplete', status)
+        self.assertIn('reconciliation.json', status)
