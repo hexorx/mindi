@@ -6,6 +6,7 @@ import io
 import json
 import lzma
 import os
+import re
 from pathlib import Path
 import subprocess
 import sys
@@ -303,6 +304,73 @@ for (const use of [() => whatsappBusiness(), () => whatsappBusiness.config({{}})
             path.write_bytes(content)
         return {'sha256': {hashlib.sha256(self.payload).hexdigest(): 'font:test'}}
 
+    def test_html_dynamic_font_removal_preserves_startup(self):
+        # Minimal pinned-template shape, no font bytes or network needed.
+        html = '''<style>
+@font-face {font-family: "Mondwest";src:url("https://esm.sh/@nous-research/ui@0.4.0/dist/fonts/Mondwest-Regular.woff2")}
+@font-face {font-family: "Allowed";src:url("allowed.woff2")}
+.primer {font:400 26px "Mondwest",serif}
+:root {--font-mondwest:system-ui,sans-serif}
+</style><canvas id="orbCanvas"></canvas><script>
+const DS_CDN = "https://esm.sh/@nous-research/ui@0.4.0/dist/fonts";
+const FACES = [new FontFace("Mondwest", `url(${DS_CDN}/Mondwest-Regular.woff2) format("woff2")`, { weight: "400", display: "block" })];
+(async () => {
+  const loaded = await Promise.all(FACES.map(f => f.load()));
+  for (const f of loaded) document.fonts.add(f);
+  await document.fonts.load(BODY_FONT, "Aa");
+  await document.fonts.load(ASCII_FONT, "Aa");
+  rebuildLayouts();
+  fontsReady = true;
+  requestAnimationFrame(draw);
+})();
+</script>'''
+        for changed_layout in (False, True):
+            with self.subTest(changed_layout=changed_layout), tempfile.TemporaryDirectory() as d:
+                root = Path(d)
+                policy = self.sanitizer_fixture(root)
+                path = root / 'opt/hermes/skills/creative/pretext/templates/donut-orbit.html'
+                path.parent.mkdir(parents=True)
+                path.write_text(html.replace('const FACES =', 'const FACES=') if changed_layout else html)
+                if changed_layout:
+                    with self.assertRaisesRegex(ValueError, 'unexpected dynamic font layout:.*donut-orbit.html'):
+                        sanitize(root, policy)
+                    continue
+                report = sanitize(root, policy)
+                result = path.read_text()
+                self.assertNotIn('Mondwest-Regular.woff2', result)
+                self.assertNotIn('DS_CDN', result)
+                self.assertNotIn('new FontFace', result)
+                self.assertIn('font:400 26px system-ui,serif', result)
+                self.assertIn('--font-mondwest:system-ui,sans-serif', result)
+                self.assertIn('src:url("allowed.woff2")', result)
+                self.assertIn('<canvas id="orbCanvas"></canvas>', result)
+                self.assertEqual(report['patched_html'], ['/' + str(path.relative_to(root))])
+                self.assertEqual(report['patched_css'], ['/opt/hermes/app.css'])
+                # Execute the rewritten script: constructing any FontFace fails,
+                # while permitted loads, layout preparation and animation run.
+                script = re.search(r'<script>(.*?)</script>', result, re.S)[1]
+                harness = '''
+const assert = require('node:assert/strict');
+let fontsReady = false, rebuilt = false;
+const BODY_FONT = '10px monospace', ASCII_FONT = '8px monospace';
+const loads = [];
+const FontFace = function() { throw Error('unexpected font download'); };
+const document = {fonts: {add() { throw Error('unexpected face'); },
+  async load(font) { loads.push(font); }}};
+function rebuildLayouts() { rebuilt = true; }
+function draw() {}
+function requestAnimationFrame(callback) {
+  assert.equal(callback, draw);
+  assert.equal(fontsReady, true);
+  assert.equal(rebuilt, true);
+  assert.deepEqual(loads, [BODY_FONT, ASCII_FONT]);
+  console.log('animation ready');
+}
+'''
+                run = subprocess.run(['node', '-e', harness + script], capture_output=True, text=True)
+                self.assertEqual(run.returncode, 0, run.stderr)
+                self.assertEqual(run.stdout.strip(), 'animation ready')
+
     def test_sanitizer_handles_absent_or_invalid_embedded_content(self):
         maps = [{}, {'sourcesContent': None}, {'sourcesContent': 'not a list'},
                 {'sourcesContent': 42}, {'sourcesContent': {'css': '@font-face'}},
@@ -345,7 +413,7 @@ for (const use of [() => whatsappBusiness(), () => whatsappBusiness.config({{}})
                 self.assertEqual(json.loads(path.read_text(encoding='utf-8')), source_map)
 
     def test_sanitizer_rejects_non_utf8_css_and_maps_with_path(self):
-        for suffix in ('.css', '.map'):
+        for suffix in ('.css', '.map', '.html'):
             with self.subTest(suffix=suffix), tempfile.TemporaryDirectory() as d:
                 root = Path(d)
                 policy = self.sanitizer_fixture(root)

@@ -43,6 +43,30 @@ def system_font_css(text):
     return text
 
 
+DONUT_TEMPLATE = 'opt/hermes/skills/creative/pretext/templates/donut-orbit.html'
+DONUT_CDN = 'const DS_CDN = "https://esm.sh/@nous-research/ui@0.4.0/dist/fonts";'
+DONUT_FACES = 'const FACES = [new FontFace("Mondwest", `url(${DS_CDN}/Mondwest-Regular.woff2) format("woff2")`, { weight: "400", display: "block" })];'
+
+
+def system_font_html(text, *, donut=False):
+    """Patch style blocks without applying CSS substitutions to JavaScript.
+
+    The pinned donut template also loads Mondwest through FontFace. Keep the
+    existing Promise.all/startup flow with an empty face list. Require its
+    known declarations so upstream changes cannot silently restore downloads.
+    """
+    text = re.sub(r'(<style\b[^>]*>)(.*?)(</style\s*>)',
+                  lambda m: m[1] + system_font_css(m[2]) + m[3], text,
+                  flags=re.I | re.S)
+    if donut:
+        if text.count(DONUT_CDN) != 1 or text.count(DONUT_FACES) != 1:
+            raise ValueError(f'unexpected dynamic font layout: {DONUT_TEMPLATE}')
+        text = text.replace(DONUT_CDN, '').replace(DONUT_FACES, 'const FACES = [];')
+        if 'DS_CDN' in text or 'Mondwest-Regular.woff2' in text:
+            raise ValueError(f'residual proprietary font download: {DONUT_TEMPLATE}')
+    return text
+
+
 def read_payload_text(path):
     """Fail closed with the offending path when payload text is not UTF-8."""
     try:
@@ -113,7 +137,7 @@ def sanitize(root, policy):
         raise ValueError('unexpected Photon WhatsApp version')
     remove(excluded)
 
-    report = {'removed': [], 'patched_css': [], 'policy': 'HEX-193'}
+    report = {'removed': [], 'patched_css': [], 'patched_html': [], 'policy': 'HEX-193'}
     # The pinned base keeps its only playwright-core inside an npx cache.
     # Preserve the self-contained MIT package at a readable runtime path before
     # clearing compressed install caches (also usable by uid 1000 smoke tests).
@@ -148,6 +172,12 @@ def sanitize(root, policy):
             if rewrite_source_map(source_map):
                 path.write_text(json.dumps(source_map, separators=(',', ':')),
                                 encoding='utf-8')
+        if path.suffix == '.html' and rel.startswith('opt/hermes/'):
+            old = read_payload_text(path)
+            new = system_font_html(old, donut=rel == DONUT_TEMPLATE)
+            if new != old:
+                path.write_text(new, encoding='utf-8')
+                report['patched_html'].append('/' + rel)
         if path.suffix == '.css' and rel.startswith('opt/hermes/'):
             old = read_payload_text(path)
             new = system_font_css(old)
