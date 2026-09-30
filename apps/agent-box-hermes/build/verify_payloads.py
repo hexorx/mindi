@@ -32,9 +32,11 @@ def forbidden_path(name, policy):
             or '/chrome-headless-shell-linux64/' in name)
 
 
-def inspect_stream(stream, name, policy, depth=0):
+def inspect_stream(stream, name, policy, depth=0, label=None):
+    # Policy sees only the actual member path; labels retain archive ancestry.
+    label = name if label is None else label
     if forbidden_path(name, policy):
-        raise ValueError(f'forbidden payload path: {name}')
+        raise ValueError(f'forbidden payload path: {label}')
     first = stream.read(512)
     try:
         tarfile.TarInfo.frombuf(first, 'utf-8', 'surrogateescape')
@@ -43,7 +45,7 @@ def inspect_stream(stream, name, policy, depth=0):
         tar_header = False
     compressed = first.startswith((b'\x1f\x8b', b'BZh', b'\xfd7zXZ\x00'))
     if first.startswith((b'\x28\xb5\x2f\xfd', b'7z\xbc\xaf\x27\x1c', b'Rar!')):
-        raise ValueError(f'unsupported archive format requires inspection: {name}')
+        raise ValueError(f'unsupported archive format requires inspection: {label}')
     archive = (compressed or tar_header or first.startswith(b'PK\x03\x04')
                or name.endswith(('.tar', '.tgz', '.whl', '.zip')))
     digest = hashlib.sha256(first)
@@ -55,25 +57,26 @@ def inspect_stream(stream, name, policy, depth=0):
             if archive:
                 saved.write(chunk)
         if digest.hexdigest() in policy['sha256']:
-            raise ValueError(f'forbidden payload hash: {name}: {policy["sha256"][digest.hexdigest()]}')
+            raise ValueError(f'forbidden payload hash: {label}: {policy["sha256"][digest.hexdigest()]}')
         if not archive:
             return
         if depth >= 8:
-            raise ValueError(f'archive nesting exceeds verification limit: {name}')
+            raise ValueError(f'archive nesting exceeds verification limit: {label}')
         saved.seek(0)
         if first.startswith(b'PK\x03\x04'):
             with zipfile.ZipFile(saved) as z:
                 for member in z.infolist():
                     if not member.is_dir():
                         with z.open(member) as f:
-                            inspect_stream(f, name + '!' + member.filename, policy, depth + 1)
+                            inspect_stream(f, member.filename, policy, depth + 1,
+                                           label + '!' + member.filename)
         else:
             try:
                 with tarfile.open(fileobj=saved, mode='r:*') as t:
-                    inspect_tar(t, policy, name + '!', depth + 1)
+                    inspect_tar(t, policy, label + '!', depth + 1)
             except tarfile.ReadError:
                 if not compressed:
-                    raise ValueError(f'unreadable archive: {name}') from None
+                    raise ValueError(f'unreadable archive: {label}') from None
                 saved.seek(0)
                 if first.startswith(b'\x1f\x8b'):
                     decoded = gzip.GzipFile(fileobj=saved, mode='rb')
@@ -82,7 +85,8 @@ def inspect_stream(stream, name, policy, depth=0):
                 else:
                     decoded = lzma.LZMAFile(saved, mode='rb')
                 with decoded as f:
-                    inspect_stream(f, name + '!decompressed', policy, depth + 1)
+                    inspect_stream(f, 'decompressed', policy, depth + 1,
+                                   label + '!decompressed')
 
 
 def inspect_tar(archive, policy, prefix='', depth=0):
@@ -90,7 +94,7 @@ def inspect_tar(archive, policy, prefix='', depth=0):
     for member in archive:
         if member.isfile():
             with archive.extractfile(member) as f:
-                inspect_stream(f, prefix + member.name, policy, depth)
+                inspect_stream(f, member.name, policy, depth, prefix + member.name)
             count += 1
         elif member.issym() or member.islnk():
             if forbidden_path(member.name, policy) or forbidden_path(member.linkname, policy):

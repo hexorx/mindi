@@ -150,6 +150,61 @@ body {font-family:"Rules Expanded",sans-serif}'''
                             else:
                                 self.assertEqual(scan()['files'], 1)
 
+    def test_archive_member_paths_are_separate_from_diagnostic_labels(self):
+        def tar_bytes(name, content):
+            data = io.BytesIO()
+            with tarfile.open(fileobj=data, mode='w') as archive:
+                member = tarfile.TarInfo(name)
+                member.size = len(content)
+                archive.addfile(member, io.BytesIO(content))
+            return data.getvalue()
+
+        for member_name in ('Collapse-Regular.woff2', 'fonts/Collapse-Regular.woff2',
+                            './Collapse-Regular.woff2', 'allowed.woff2'):
+            # Harmless bytes ensure filename checks, not hash checks, decide.
+            payload = b'allowed bytes'
+            zipped = io.BytesIO()
+            with zipfile.ZipFile(zipped, 'w') as archive:
+                archive.writestr(member_name, payload)
+            formats = {'zip': zipped.getvalue(), 'tar': tar_bytes(member_name, payload)}
+            for kind, data in list(formats.items()):
+                for compressor in (gzip.compress, bz2.compress, lzma.compress):
+                    formats[kind + '-' + compressor.__module__] = compressor(data)
+            formats['direct'] = payload
+            for kind, content in formats.items():
+                for mode in ('root', 'docker-save'):
+                    with self.subTest(member=member_name, kind=kind, mode=mode):
+                        with tempfile.TemporaryDirectory() as d:
+                            root = Path(d) / 'root'
+                            root.mkdir()
+                            name = member_name if kind == 'direct' else 'opaque-cache'
+                            path = root / name
+                            path.parent.mkdir(parents=True, exist_ok=True)
+                            path.write_bytes(content)
+                            if mode == 'root':
+                                scan = lambda: inspect_root(root, self.policy)
+                            else:
+                                image = Path(d) / 'image.tar'
+                                with tarfile.open(image, 'w') as archive:
+                                    for entry, data in {
+                                        'manifest.json': b'[{"Layers":["layer.tar"]}]',
+                                        'layer.tar': tar_bytes(name, content),
+                                    }.items():
+                                        member = tarfile.TarInfo(entry)
+                                        member.size = len(data)
+                                        archive.addfile(member, io.BytesIO(data))
+                                scan = lambda: inspect_docker_save(image, self.policy)
+                            if member_name == 'allowed.woff2':
+                                self.assertEqual(scan()['files'], 1)
+                            else:
+                                with self.assertRaisesRegex(ValueError, 'forbidden payload path') as error:
+                                    scan()
+                                self.assertIn('Collapse-Regular.woff2', str(error.exception))
+                                if kind != 'direct':
+                                    self.assertIn('opaque-cache!', str(error.exception))
+                                if mode == 'docker-save':
+                                    self.assertIn('layer.tar:', str(error.exception))
+
     def test_recognized_unsupported_archive_fails_closed(self):
         with self.assertRaisesRegex(ValueError, 'unsupported archive format'):
             inspect_stream(io.BytesIO(b'\x28\xb5\x2f\xfdtest'), 'cache.zst', self.policy)
