@@ -6,6 +6,7 @@ removed bytes are not inherited in distributed layers. Fail on unexpected
 upstream layouts instead of silently shipping a partially patched image.
 """
 import argparse
+import ast
 import hashlib
 import json
 import os
@@ -33,14 +34,41 @@ DISABLED_SLACK = DISABLED_PROVIDER.replace(
     SLACK_ERROR).replace('whatsappBusiness', 'slack')
 
 
-# The pinned base's setuptools editable finder inventories node_modules as
-# Python namespace search paths. Its six Slack strings are inert path metadata,
-# not imports. Accept only the inspected bytes at the exact installed path;
-# any upstream/code change must be reviewed again (see fixture provenance).
+# Setuptools may discover namespace keys in filesystem-dependent order.
+# Canonicalize only the literal NAMESPACES dict; hash every other byte unchanged.
+# The exact installed path, keys, ordered value lists and importer code remain
+# bound to the reviewed fixtures. Never import/execute a finder for validation.
 EDITABLE_FINDER = (
     'opt/hermes/.venv/lib/python3.13/site-packages/'
     '__editable___hermes_agent_0_20_4_finder.py')
-EDITABLE_FINDER_SHA256 = 'd742cfb3c9791162c7bf9a8a4f359f321da8efb5e2ab3aad5ee17d59815423d3'
+EDITABLE_FINDER_SHA256 = '80860416113ee72341ac431359c9855657c6f765876add38f7b4ff8e7aab40a6'
+
+
+def editable_finder_digest(data):
+    try:
+        assignments = [node for node in ast.parse(data).body
+                       if isinstance(node, ast.AnnAssign)
+                       and isinstance(node.target, ast.Name)
+                       and node.target.id == 'NAMESPACES']
+        if len(assignments) != 1:
+            return None
+        value = assignments[0].value
+        if not isinstance(value, ast.Dict) or value.lineno != value.end_lineno:
+            return None
+        namespaces = ast.literal_eval(value)
+        if (len(namespaces) != len(value.keys)
+                or any(type(key) is not str or type(paths) is not list
+                       or any(type(path) is not str for path in paths)
+                       for key, paths in namespaces.items())):
+            return None
+        lines = data.splitlines(keepends=True)
+        offset = sum(map(len, lines[:value.lineno - 1]))
+        canonical = json.dumps(namespaces, sort_keys=True, separators=(',', ':')).encode()
+        normalized = (data[:offset + value.col_offset] + canonical
+                      + data[offset + value.end_col_offset:])
+        return hashlib.sha256(normalized).hexdigest()
+    except (SyntaxError, ValueError, TypeError, RecursionError):
+        return None
 
 
 def exclude_slack(root):
@@ -66,9 +94,9 @@ def exclude_slack(root):
         if '@photon-ai/slack' not in read_payload_text(path):
             continue
         if (path.relative_to(root).as_posix() == EDITABLE_FINDER
-                and hashlib.sha256(path.read_bytes()).hexdigest() == EDITABLE_FINDER_SHA256):
+                and editable_finder_digest(path.read_bytes()) == EDITABLE_FINDER_SHA256):
             validated_metadata.append({'path': '/' + EDITABLE_FINDER,
-                                       'sha256': EDITABLE_FINDER_SHA256})
+                                       'sha256': hashlib.sha256(path.read_bytes()).hexdigest()})
             continue
         # Type declarations are non-executable upstream metadata.
         if wrapper in path.parents and path.name.endswith(('.d.ts', '.d.mts', '.d.cts')):

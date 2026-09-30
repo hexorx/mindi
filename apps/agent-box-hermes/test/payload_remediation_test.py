@@ -428,6 +428,62 @@ for (const use of [() => slack(), () => slack.config({{}}), () => new slack()]) 
             self.assertEqual(report['validated_importers'], [
                 '/' + str((modules / '@spectrum-ts/slack/dist/index.js').relative_to(root))])
 
+    def test_slack_rebuilt_and_reordered_namespace_finders(self):
+        base = gzip.decompress((APP / 'test/fixtures/hermes-editable-finder.py.gz').read_bytes())
+        rebuilt = gzip.decompress((APP / 'test/fixtures/hermes-rebuilt-editable-finder.py.gz').read_bytes())
+        self.assertNotEqual(base, rebuilt)
+        self.assertEqual(hashlib.sha256(rebuilt).hexdigest(),
+                         '73c39a284e629bf22cca4a6fb7c95c0aa9724800ab20a9346823c8b51cb1fb46')
+        node = next(n for n in ast.parse(base).body
+                    if isinstance(n, ast.AnnAssign) and n.target.id == 'NAMESPACES')
+        values = ast.literal_eval(node.value)
+        lines = base.splitlines(keepends=True)
+        offset = sum(map(len, lines[:node.value.lineno - 1]))
+        start, end = offset + node.value.col_offset, offset + node.value.end_col_offset
+
+        def replace_table(table):
+            return base[:start] + table.encode() + base[end:]
+
+        reordered = replace_table(repr(dict(reversed(list(values.items())))))
+        duplicate = replace_table(repr(values)[:-1] + ', ' +
+                                  repr(next(iter(values))) + ': ' +
+                                  repr(next(iter(values.values()))) + '}')
+        missing = dict(values)
+        missing.pop(next(iter(missing)))
+        extra = dict(values, unexpected=['/opt/hermes/unknown'])
+        changed = dict(values)
+        changed[next(iter(changed))] = ['/opt/hermes/unknown']
+        cases = [(rebuilt, True), (reordered, True), (duplicate, False),
+                 (replace_table(repr(missing)), False),
+                 (replace_table(repr(extra)), False),
+                 (replace_table(repr(changed)), False),
+                 (replace_table('dict(' + repr(values) + ')'), False),
+                 (replace_table('{**' + repr(values) + '}'), False),
+                 (rebuilt + b'\n# unreviewed bytes\n', False),
+                 (rebuilt.replace(b'return None', b'return __import__(fullname)', 1), False)]
+        for content, accepted in cases:
+            with self.subTest(digest=hashlib.sha256(content).hexdigest()), tempfile.TemporaryDirectory() as d:
+                root = Path(d)
+                modules = self.slack_fixture(root)
+                rel = ('opt/hermes/.venv/lib/python3.13/site-packages/'
+                       '__editable___hermes_agent_0_20_4_finder.py')
+                path = root / rel
+                path.parent.mkdir(parents=True)
+                path.write_bytes(content)
+                if accepted:
+                    report = exclude_slack(root)
+                    self.assertEqual(path.read_bytes(), content)
+                    self.assertEqual(report['validated_metadata'],
+                                     [{'path': '/' + rel,
+                                       'sha256': hashlib.sha256(content).hexdigest()}])
+                else:
+                    entry = modules / '@spectrum-ts/slack/dist/index.js'
+                    original = entry.read_bytes()
+                    with self.assertRaisesRegex(ValueError, 'unexpected Photon Slack dependency'):
+                        exclude_slack(root)
+                    self.assertEqual(entry.read_bytes(), original)
+                    self.assertTrue((modules / '@photon-ai/slack').exists())
+
     def test_slack_finder_exception_is_bound_to_path_and_complete_bytes(self):
         finder = gzip.decompress((APP / 'test/fixtures/hermes-editable-finder.py.gz').read_bytes())
         rel = ('opt/hermes/.venv/lib/python3.13/site-packages/'
