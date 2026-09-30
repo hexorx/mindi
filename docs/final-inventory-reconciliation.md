@@ -8,6 +8,10 @@ version/configuration and unsupported coverage. Do not use an all-layer SBOM as
 proof of installed membership. Keep raw SBOM rows even when they describe
 historical evidence; classify those separately rather than editing the scan.
 
+The `--source-head` value identifies the **built image** source commit, not the
+checkout containing a newer offline mapper. Output records the mapper SHA256
+separately. A mapper-only repair does not relabel prior image evidence.
+
 Against an exported final filesystem, run the read-only overlay generator:
 
 ```sh
@@ -21,9 +25,17 @@ python3 scripts/release/reconcile_final_inventory.py \
 The overlay validates shipped baseline notice hashes and retains each original
 row's `source_status`. It links final artifact identities, installed environment
 identities, historical notice references and prior disposition row numbers.
-Cargo metadata/lock supersets stay candidate-only. Excluded Photon providers in
-the final SBOM fail the join, except records located solely in historical
-notice/evidence files. Modified SDK/wrappers/fonts are labelled; the build's
+Cargo metadata/lock supersets stay candidate-only. Schema 2 retains npm lock-only records separately when the cataloger is exactly
+`javascript-lock-cataloger`, metadata type is `javascript-npm-package-lock-entry`,
+and every path/accessPath is an npm lockfile. These records do not establish
+installed membership or close pending historical rows. Missing metadata, mixed
+lock/manifest locations, and separate installed artifacts cannot use this rule.
+Excluded Photon providers otherwise fail the join, except records located solely
+in historical notice/evidence files. A separate read-only filesystem walk also
+rejects excluded node_modules paths (including partial packages and symlinks)
+and manifests identifying excluded packages, even under aliases or when Syft
+misses them. This is not a replacement for independent layer/archive scans.
+Raw SBOM and lockfile bytes remain unchanged. Modified SDK/wrappers/fonts are labelled; the build's
 sanitizer report supplies the concrete file mutations. Cache deletion and
 Playwright relocation do not rewrite old rows.
 
@@ -35,7 +47,7 @@ reviewed disposition overlay; never rewrite the historical records to make a
 validator green. Accepted declared-only/native/build-source limitations remain
 known limitations, not closed source obligations.
 
-Opi's HEX-207 handoff must include the 20 new Debian packages' exact source
+The coordinator's existing-daemon HEX-207 handoff must include the 20 new Debian packages' exact source
 versions, signed Sources/.dsc identities, retained archive/patch checksums and
 accessible artifact references. Reconcile these to installed versions and the
 21 build-collected `debian-replacements/` notice records. Copyright presence or
