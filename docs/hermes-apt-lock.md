@@ -61,8 +61,8 @@ It runs these steps in order and stops on the first failure:
 8. Requires the final dpkg inventory to equal `apt-final-inventory.tsv` and
    both purged packages to be absent. Then it clears the apt lists and cache.
 
-Proposed Dockerfile integration (Codi owns the Dockerfile). Also allow
-`apps/agent-box-hermes/build/apt-*` in `Dockerfile.dockerignore`:
+The Dockerfile invokes the installer below. Its restricted build context allows
+`apps/agent-box-hermes/build/apt-*`, with credential exclusions applied last:
 
 ```dockerfile
 COPY apps/agent-box-hermes/build/apt-* /opt/build/apt/

@@ -21,12 +21,12 @@ RUN patch --fuzz=0 -p1 < /tmp/pg0-runtime-libs.patch \
 FROM nousresearch/hermes-agent:v2026.8.18@sha256:22e37bb4ed1b0f50cb6bd991dca7ecacd6c9f29df9b4a20fc989d32bc763ccf6
 USER root
 ARG TARGETARCH
+COPY apps/agent-box-hermes/build/apt-* /opt/build/apt/
 RUN test "$TARGETARCH" = amd64 \
- && apt-get update && apt-get install -y --no-install-recommends \
+ && /opt/build/apt/apt-install-locked.sh \
     sway grim wtype wl-clipboard foot xwayland dbus at-spi2-core \
     fonts-dejavu-core fonts-noto-color-emoji wayvnc novnc websockify nginx openssl python3-yaml \
- && apt-get purge -y sudo openssh-server \
- && rm -rf /var/lib/apt/lists/* /etc/s6-overlay/s6-rc.d /etc/cont-init.d \
+ && rm -rf /opt/build/apt /var/lib/apt/lists/* /etc/s6-overlay/s6-rc.d /etc/cont-init.d \
  && usermod -u 1000 -d /home/agent hermes && groupmod -g 1000 hermes \
  && install -d -o hermes -g hermes /home/agent
 # Isolated dependency graph; pg0 0.14.0 bundles PostgreSQL and pgvector.

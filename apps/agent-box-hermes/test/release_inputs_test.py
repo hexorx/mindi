@@ -28,9 +28,10 @@ class ReleaseInputsTest(unittest.TestCase):
                 continue
             args = [arg for arg in shlex.split(line)[1:] if not arg.startswith('--')]
             for source in args[:-1]:
-                path = ROOT / source
-                self.assertTrue(path.exists(), source)
-                files = [path] if path.is_file() else list(path.rglob('*'))
+                paths = list(ROOT.glob(source))
+                self.assertTrue(paths, source)
+                files = [file for path in paths
+                         for file in ([path] if path.is_file() else path.rglob('*'))]
                 for file in files:
                     if file.is_file() and '__pycache__' not in file.parts:
                         relative = file.relative_to(ROOT).as_posix()
@@ -39,6 +40,8 @@ class ReleaseInputsTest(unittest.TestCase):
     def test_credentials_and_repository_state_are_excluded(self):
         for path in ['.env', '.git/config', 'docs/private.md',
                      'apps/agent-box-hermes/build/.env',
+                     'apps/agent-box-hermes/build/apt-private.key',
+                     'apps/agent-box-hermes/build/apt-private.pem',
                      'apps/agent-box-hermes/runtime/.env.production',
                      'apps/agent-box-hermes/runtime/server.key',
                      'apps/agent-box-hermes/desktop/server.pem',

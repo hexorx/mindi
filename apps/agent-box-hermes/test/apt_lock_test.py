@@ -127,6 +127,8 @@ class HelperTest(unittest.TestCase):
         self.env = dict(os.environ, PATH=f'{bindir}:{os.environ["PATH"]}',
                         STUB=str(self.stub), APT_LOCK_DIR=str(self.locks),
                         APT_LOCK_ROOT=str(self.root))
+        # Shell startup hooks can replace PATH and bypass the isolated stubs.
+        self.env.pop('BASH_ENV', None)
 
         release = 'snapshot.debian.org_archive_debian_20260929T202609Z_dists_trixie_InRelease'
         (self.stub / 'lists' / release).write_bytes(b'signed release\n')

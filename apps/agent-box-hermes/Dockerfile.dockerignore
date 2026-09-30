@@ -12,6 +12,7 @@
 !apps/agent-box-hermes/build/patch_hindsight.py
 !apps/agent-box-hermes/build/pg0-bundle-hashes.patch
 !apps/agent-box-hermes/build/hindsight-linux-amd64.lock
+!apps/agent-box-hermes/build/apt-*
 !LICENSE
 # Reject credentials and local interpreter state even under allowed directories.
 **/.env
