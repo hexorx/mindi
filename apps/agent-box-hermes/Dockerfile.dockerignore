@@ -209,3 +209,6 @@
 **/.git/**
 
 !docs/third-party/hex214-security-inputs/**
+
+!apps/agent-box-hermes/build/verify_uv_notices.py
+!docs/third-party/hex263-uv-inputs/**

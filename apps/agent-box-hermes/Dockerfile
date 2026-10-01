@@ -96,6 +96,9 @@ COPY docs/third-party/hex198-build-inputs/ /usr/share/doc/agent-box-hermes/third
 COPY docs/third-party/hex195-provenance-join/ /usr/share/doc/agent-box-hermes/third-party/hex195-provenance-join/
 COPY docs/third-party/hex214-security-inputs/ /usr/share/doc/agent-box-hermes/third-party/hex214-security-inputs/
 COPY docs/third-party/hex232-security-inputs/ /usr/share/doc/agent-box-hermes/third-party/hex232-security-inputs/
+COPY docs/third-party/hex263-uv-inputs/ /usr/share/doc/agent-box-hermes/third-party/hex263-uv-inputs/
+COPY apps/agent-box-hermes/build/verify_uv_notices.py /opt/build/verify_uv_notices.py
+RUN python3 /opt/build/verify_uv_notices.py /usr/share/doc/agent-box-hermes/third-party/hex263-uv-inputs --bin-dir /usr/local/bin
 COPY docs/third-party/NOTICE-STATUS.md /usr/share/doc/agent-box-hermes/third-party/NOTICE-STATUS.md
 COPY apps/agent-box-hermes/runtime/ /opt/agent-box/
 COPY --chmod=755 apps/agent-box-hermes/runtime/claude /usr/local/bin/claude
