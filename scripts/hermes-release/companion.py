@@ -26,15 +26,16 @@ def inventory(record):
     require(c['repository'] == REPO and c['url'] == pointer(record), 'companion release pointer mismatch')
     require(type(c['release_id']) is int and c['release_id'] > 0, 'invalid companion release id')
     assets = c['assets']
-    require(isinstance(assets, list) and 3 <= len(assets) <= 66, 'invalid companion asset count')
-    names = [prefix(record) + '.PARTS.json', prefix(record) + '.SHA256SUMS']
-    names += [prefix(record) + '.tar.part%02d' % n for n in range(len(assets) - 2)]
+    require(isinstance(assets, list) and 5 <= len(assets) <= 68, 'invalid companion asset count')
+    names = [prefix(record) + '.PARTS.json', prefix(record) + '.SHA256SUMS',
+             prefix(record) + '.manifest.json', prefix(record) + '.README.md']
+    names += [prefix(record) + '.tar.part%02d' % n for n in range(len(assets) - 4)]
     ids = [a['id'] for a in record['assets']]
     for n, asset in enumerate(assets):
         require(set(asset) == {'id', 'name', 'size', 'sha256'}, 'unexpected companion asset fields')
         require(type(asset['id']) is int and asset['id'] > 0, 'invalid companion asset id')
         require(asset['name'] == names[n], 'unexpected or unordered companion asset')
-        require(type(asset['size']) is int and 0 < asset['size'] <= (META_LIMIT if n < 2 else PART_LIMIT), 'invalid companion asset size')
+        require(type(asset['size']) is int and 0 < asset['size'] <= (META_LIMIT if n < 4 else PART_LIMIT), 'invalid companion asset size')
         require(match(SHA, asset['sha256']), 'invalid companion asset hash')
         ids.append(asset['id'])
     require(len(set(ids)) == len(ids), 'duplicate transport asset id')
@@ -70,7 +71,7 @@ def verify(record, directory, config_digest):
                 and digest_file(path) == a['sha256'], 'companion asset size/hash mismatch')
     info = read_json(directory / assets[0]['name'])
     require(set(info) == {'schema', 'tar_name', 'tar_size', 'tar_sha256', 'part_limit', 'parts', 'manifest_sha256', 'members_sha256sums_sha256'}, 'unexpected PARTS fields')
-    parts = [{k: a[k] for k in ('name', 'size', 'sha256')} for a in assets[2:]]
+    parts = [{k: a[k] for k in ('name', 'size', 'sha256')} for a in assets[4:]]
     require(info['schema'] == 'hexorx.source-companion-parts/1' and info['tar_name'] == prefix(record) + '.tar'
             and type(info['part_limit']) is int and info['part_limit'] == PART_LIMIT and info['parts'] == parts, 'PARTS inventory mismatch')
     require(all(isinstance(p, dict) and type(p.get('size')) is int for p in info['parts']), 'invalid PARTS sizes')
@@ -145,6 +146,9 @@ def verify(record, directory, config_digest):
     require(set(metadata) == META | {'SHA256SUMS'}, 'missing companion metadata')
     require(observed['manifest.json']['sha256'] == info['manifest_sha256']
             and observed['SHA256SUMS']['sha256'] == info['members_sha256sums_sha256'], 'companion metadata hash mismatch')
+    for asset, member in zip(assets[2:4], ('manifest.json', 'README.md')):
+        require((directory / asset['name']).read_bytes() == metadata[member],
+                'external/internal companion sidecar mismatch: ' + member)
     sums = checksums(metadata['SHA256SUMS'])
     require(sums == {n: v['sha256'] for n, v in observed.items() if n != 'SHA256SUMS'}, 'internal companion checksums mismatch')
     manifest = json.loads(metadata['manifest.json'], object_pairs_hook=no_duplicates, parse_constant=lambda _: require(False, 'non-finite companion JSON'))

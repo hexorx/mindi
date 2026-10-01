@@ -47,6 +47,8 @@ def make_companion(record, directory, config, mutate=None, extra=None):
     assets = []
     for n, (name, data) in enumerate([(prefix + '.PARTS.json', encode(parts)),
                                      (prefix + '.SHA256SUMS', (part['sha256'] + '  ' + part['name'] + '\n').encode()),
+                                     (prefix + '.manifest.json', files['manifest.json']),
+                                     (prefix + '.README.md', files['README.md']),
                                      (part['name'], raw)]):
         (directory / name).write_bytes(data)
         assets.append({'id': 100 + n, 'name': name, 'size': len(data), 'sha256': sha(data)})

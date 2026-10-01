@@ -37,10 +37,55 @@ class CompanionTests(unittest.TestCase):
         asset.update(size=len(raw), sha256=sha(raw))
 
     def test_valid(self):
-        self.assertEqual(self.verify()['assets'], 3)
+        self.assertEqual(self.verify()['assets'], 5)
+
+    def test_required_sidecar_inventory(self):
+        original = copy.deepcopy(self.record)
+        for n in (2, 3):
+            for case in ('absent', 'duplicate', 'extra', 'wrong-id', 'oversized'):
+                with self.subTest(sidecar=n, case=case):
+                    self.record = copy.deepcopy(original)
+                    assets = self.record['source_companion']['assets']
+                    if case == 'absent':
+                        assets.pop(n)
+                    elif case == 'duplicate':
+                        assets.insert(n, copy.deepcopy(assets[n]))
+                    elif case == 'extra':
+                        assets.append(dict(assets[n], id=999, name='unexpected.json'))
+                    elif case == 'wrong-id':
+                        assets[n]['id'] = assets[0]['id']
+                    else:
+                        assets[n]['size'] = companion.META_LIMIT + 1
+                    with self.assertRaises(ValueError):
+                        companion.inventory(self.record)
+
+    def test_sidecar_bytes_missing_tampered_and_archive_mismatched(self):
+        for n in (2, 3):
+            for case in ('missing', 'tampered', 'truncated', 'archive-mismatched'):
+                with self.subTest(sidecar=n, case=case):
+                    make_companion(self.record, self.directory, self.config)
+                    asset = self.record['source_companion']['assets'][n]
+                    path = self.directory / asset['name']
+                    raw = path.read_bytes()
+                    if case == 'missing':
+                        hidden = path.with_suffix('.missing')
+                        path.rename(hidden)
+                        with self.assertRaisesRegex(ValueError, 'missing/extra'):
+                            self.verify()
+                        hidden.rename(path)
+                    elif case == 'archive-mismatched':
+                        # Both documents remain valid and identity-equivalent, but
+                        # independently pinned bytes must equal the archive bytes.
+                        self.reseal(n, raw + b'\n')
+                        with self.assertRaisesRegex(ValueError, 'external/internal.*sidecar mismatch'):
+                            self.verify()
+                    else:
+                        path.write_bytes(raw[:-1] if case == 'truncated' else b'!' + raw[1:])
+                        with self.assertRaisesRegex(ValueError, 'asset size/hash mismatch'):
+                            self.verify()
 
     def test_missing_tampered_and_partial_asset(self):
-        asset = self.record['source_companion']['assets'][2]
+        asset = self.record['source_companion']['assets'][4]
         path = self.directory / asset['name']
         original = path.read_bytes()
         for raw in [original[:-1], original + b'x', b'x' + original[1:]]:
@@ -55,11 +100,11 @@ class CompanionTests(unittest.TestCase):
                    lambda r: r['source_companion'].update(repository='attacker/mindi'),
                    lambda r: r['source_companion'].update(release_id=True),
                    lambda r: r['source_companion'].update(url='https://example.com'),
-                   lambda r: r['source_companion']['assets'][2].update(id=42),
-                   lambda r: r['source_companion']['assets'][2].update(id='102'),
-                   lambda r: r['source_companion']['assets'][2].update(name='../part'),
+                   lambda r: r['source_companion']['assets'][4].update(id=42),
+                   lambda r: r['source_companion']['assets'][4].update(id='102'),
+                   lambda r: r['source_companion']['assets'][4].update(name='../part'),
                    lambda r: r['source_companion']['assets'].reverse(),
-                   lambda r: r['source_companion']['assets'][2].update(size=companion.PART_LIMIT + 1)]
+                   lambda r: r['source_companion']['assets'][4].update(size=companion.PART_LIMIT + 1)]
         for change in changes:
             self.record = copy.deepcopy(original)
             change(self.record)
@@ -141,6 +186,17 @@ class CompanionTests(unittest.TestCase):
             token.assert_not_called()
             run.assert_not_called()
 
+    def test_archive_mismatched_sidecars_prevent_publication(self):
+        for n in (2, 3):
+            make_companion(self.record, self.directory, self.config)
+            asset = self.record['source_companion']['assets'][n]
+            self.reseal(n, (self.directory / asset['name']).read_bytes() + b'\n')
+            with patch.object(promote, 'registry_token') as token, patch.object(promote, 'run') as run:
+                with self.assertRaisesRegex(ValueError, 'external/internal.*sidecar mismatch'):
+                    promote.publish(self.record, self.root, self.root)
+                token.assert_not_called()
+                run.assert_not_called()
+
     def test_download_bounds_partial_hash_and_anonymous_credentials(self):
         class Response(io.BytesIO):
             status = 200
@@ -167,12 +223,12 @@ class CompanionTests(unittest.TestCase):
         with patch.object(promote, 'public_github', side_effect=[self.release(), self.release(), self.listed()]), patch.object(urllib.request, 'build_opener') as opener:
             opener.return_value.open.side_effect = open_asset
             downloaded = promote.download_companion(self.record, self.root, anonymous=True)
-        self.assertEqual(companion.verify(self.record, downloaded, self.config)['assets'], 3)
+        self.assertEqual(companion.verify(self.record, downloaded, self.config)['assets'], 5)
         self.assertFalse((self.root / 'candidate.zip').exists())
 
     def test_ordered_multiple_parts(self):
         assets = self.record['source_companion']['assets']
-        tar = (self.directory / assets[2]['name']).read_bytes()
+        tar = (self.directory / assets[4]['name']).read_bytes()
         limit = len(tar) // 2
         parts = []
         for n, raw in enumerate((tar[:limit], tar[limit:])):
@@ -183,10 +239,10 @@ class CompanionTests(unittest.TestCase):
         info.update(parts=parts, part_limit=limit)
         self.reseal(0, json.dumps(info).encode())
         self.reseal(1, ''.join(p['sha256'] + '  ' + p['name'] + '\n' for p in parts).encode())
-        assets[2:] = [dict(p, id=102 + n) for n, p in enumerate(parts)]
+        assets[4:] = [dict(p, id=104 + n) for n, p in enumerate(parts)]
         with patch.object(companion, 'PART_LIMIT', limit):
-            self.assertEqual(self.verify()['assets'], 4)
-            assets[2:] = list(reversed(assets[2:]))
+            self.assertEqual(self.verify()['assets'], 6)
+            assets[4:] = list(reversed(assets[4:]))
             with self.assertRaises(ValueError): self.verify()
 
     def test_redirect_strips_auth_and_refuses_untrusted_host(self):

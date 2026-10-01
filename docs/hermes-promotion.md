@@ -242,7 +242,11 @@ Every record also requires `source_companion` with exactly `repository` (fixed
 `hexorx/mindi`), positive numeric `release_id`, `url` (the source-commit pointer
 above), and ordered `assets`. Each asset has exactly `{id, name, size, sha256}`.
 The order is `source-companion-<index12>.PARTS.json`,
-`source-companion-<index12>.SHA256SUMS`, then `.tar.part00`, `.tar.part01`, etc.
+`source-companion-<index12>.SHA256SUMS`, `.manifest.json`, `.README.md`,
+then `.tar.part00`, `.tar.part01`, etc. The manifest and README sidecars each
+require their own numeric asset ID, exact size and SHA-256 pin. Their downloaded
+bytes must equal the corresponding internal archive members byte-for-byte;
+identity-equivalent JSON or Markdown with different bytes is rejected.
 IDs must be distinct across both transports. Metadata is limited to 16 MiB each;
 parts retain HEX-215's 1,900,000,000-byte limit (all nonfinal parts are full).
 The companion total is limited to 64 GiB. The release's complete asset inventory
