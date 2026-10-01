@@ -125,3 +125,13 @@ close their obligations. Declared-only/native/source residuals above remain
 accepted limitations, not closed findings. Full acceptance requires fresh
 independent review and green CI on that head. HEX-181 retains the operator hold
 after acceptance and must not trigger HEX-97. No merge or publication is authorized.
+
+## uv 0.12.21 (HEX-263)
+
+`hex263-uv-inputs/THIRD-PARTY-NOTICES-uv.txt` covers all 495 third-party
+crates in the approved uv/uvx closure: 484 with byte-exact upstream files,
+11 with exact-version declared-only dispositions. priority-queue 2.7.0 uses
+MPL-2.0; canonical SPDX texts are supplemental, not upstream. The image build
+checks both installed binaries against these notices and rejects closure drift.
+See `hex263-uv-inputs/README.md` for provenance and regeneration. Final image
+reconciliation and HEX-97 corresponding_source remain separate gates.

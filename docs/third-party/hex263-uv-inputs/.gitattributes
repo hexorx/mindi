@@ -1,0 +1,4 @@
+# Preserve upstream and supplemental notice bytes, including CRLF and spaces.
+crates/** -text -whitespace
+spdx/** -text -whitespace
+THIRD-PARTY-NOTICES-uv.txt -text -whitespace
