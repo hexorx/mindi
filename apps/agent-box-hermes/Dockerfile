@@ -52,8 +52,10 @@ RUN uv pip install --no-config --python /opt/hermes/.venv/bin/python --no-deps -
  && uv pip install --no-config --python /opt/hermes/.venv/bin/python --no-deps --no-index /opt/build/hermes-wheel/*.whl \
  && rm -rf /opt/build/hermes-build-tools /opt/build/hermes-wheel \
  && /opt/hermes/.venv/bin/python -c "import importlib.metadata as m; assert m.version('pyjwt') == '2.14.0'; assert m.version('anyio') == '4.14.2'; assert m.version('httpx2') == '2.12.0'; assert m.version('httpcore2') == '2.12.0'; assert m.version('tornado') == '6.5.8'"
-COPY apps/agent-box-hermes/build/verify_python_security.py /opt/build/
-RUN /opt/hermes/.venv/bin/python /opt/build/verify_python_security.py
+# The lazy feature registry carries an independent exact pin; align it too.
+COPY apps/agent-box-hermes/build/patch_lazy_deps.py apps/agent-box-hermes/build/verify_python_security.py /opt/build/
+RUN /opt/hermes/.venv/bin/python /opt/build/patch_lazy_deps.py \
+ && /opt/hermes/.venv/bin/python /opt/build/verify_python_security.py
 # Isolated dependency graph; pg0 0.15.2 bundles PostgreSQL and pgvector.
 # Hindsight migrations select psycopg 3, which its slim package does not declare.
 # Construct the migration engine at build time to verify the driver can load.

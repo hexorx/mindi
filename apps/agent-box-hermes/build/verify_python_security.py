@@ -1,6 +1,8 @@
 """Offline compatibility checks for the narrow Hermes overlay."""
 import asyncio
 import importlib.metadata as metadata
+import sys
+from unittest.mock import patch
 
 from packaging.requirements import Requirement
 import httpx2
@@ -36,3 +38,12 @@ async def check_async():
 
 asyncio.run(check_async())
 print('Python overlay: dependency bounds and offline HTTP/JWT/MSAL/Tornado checks passed')
+
+# Exercise the same readiness gate used by CuaBackend before starting the driver.
+# A stale lazy pin must fail the image build, without attempting an install.
+sys.path.insert(0, '/opt/hermes')
+from tools import lazy_deps
+assert lazy_deps.feature_missing('tool.computer_use') == []
+with patch.object(lazy_deps, '_venv_pip_install', side_effect=AssertionError('unexpected lazy install')):
+    lazy_deps.ensure('tool.computer_use', prompt=False)
+print('Computer-use dependency readiness passed without runtime installation')
