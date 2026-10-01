@@ -236,7 +236,8 @@ def secret_entries():
         require(isinstance(entry['rule_id'], str) and entry['rule_id'].strip(), 'invalid allowlist rule')
         require(isinstance(entry['reason'], str) and entry['reason'].strip(), 'empty allowlist reason')
         lines = entry['lines']
-        require(isinstance(lines, list) and lines and all(type(n) is int and n > 0 for n in lines), 'invalid allowlist lines')
+        require(isinstance(lines, list) and lines and all(type(n) is int and n >= 0 for n in lines), 'invalid allowlist lines')
+        require(0 not in lines or lines == [0], 'whole-file allowlist must use only line zero')
         require(lines == sorted(set(lines)), 'duplicate/unsorted allowlist lines')
         require(type(entry['count']) is int and entry['count'] >= len(lines), 'invalid allowlist count')
         key = (entry['layer_digest'], entry['path'], entry['rule_id'])
@@ -327,7 +328,12 @@ def verify_secrets(report, directory, manifest, att_layers):
     def group(rows, target, digest=None, visible=None):
         for row in rows:
             path, rule, line = row.get('File'), row.get('RuleID'), row.get('StartLine')
-            require(absolute_path(path) and isinstance(rule, str) and rule and type(line) is int and line > 0, 'invalid native finding location')
+            require(absolute_path(path) and isinstance(rule, str) and rule and type(line) is int and line >= 0, 'invalid native finding location')
+            if line == 0:
+                # Gitleaks uses zero coordinates for binary whole-file matches.
+                require(all(type(row.get(field)) is int and row[field] == 0
+                            for field in ('EndLine', 'StartColumn', 'EndColumn')),
+                        'invalid whole-file finding location')
             owner = digest if digest is not None else visible.get(path)
             require(owner is not None, 'rootfs finding has no layer owner')
             key = (owner, path, rule)

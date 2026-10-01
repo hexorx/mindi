@@ -123,6 +123,12 @@ class GateTests(unittest.TestCase):
         self.data = self.root / 'data'
         self.data.mkdir()
         self.c = Candidate(self.data)
+        # Synthetic zero-finding candidates have their own empty policy.
+        allowlist = self.root / 'secret-allowlist.json'
+        allowlist.write_bytes(encoded({'schema_version': 1, 'entries': []}))
+        policy = patch.object(gate, 'SECRET_ALLOWLIST', allowlist)
+        policy.start()
+        self.addCleanup(policy.stop)
 
     def verify(self):
         return gate.verify_candidate(self.c.record, self.data)
