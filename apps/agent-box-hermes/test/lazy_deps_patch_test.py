@@ -1,9 +1,12 @@
 """Regression coverage for the computer-use lazy dependency security pin."""
+import ast
 from pathlib import Path
 import sys
 import tempfile
 import tomllib
 import unittest
+from types import SimpleNamespace
+from unittest.mock import Mock, patch
 
 BUILD = Path(__file__).parents[1] / 'build'
 sys.path.insert(0, str(BUILD))
@@ -32,3 +35,27 @@ class LazyDepsPatchTest(unittest.TestCase):
                 with self.assertRaises(ValueError):
                     patch_lazy_deps.patch(path)
                 self.assertEqual(path.read_text(), source)
+
+
+class ReadinessCheckTest(unittest.TestCase):
+    def run_readiness_check(self, missing):
+        source = ast.parse((BUILD / 'verify_python_security.py').read_text())
+        start = next(i for i, node in enumerate(source.body)
+                     if isinstance(node, ast.Assign)
+                     and any(isinstance(target, ast.Name) and target.id == 'missing'
+                             for target in node.targets))
+        check = ast.Module(body=source.body[start:-1], type_ignores=[])
+        lazy = SimpleNamespace(feature_missing=Mock(return_value=missing),
+                               ensure=Mock(), _venv_pip_install=Mock())
+        exec(compile(check, '<readiness-check>', 'exec'), {'lazy_deps': lazy, 'patch': patch})
+        return lazy
+
+    def test_accepts_upstream_empty_tuple_and_exercises_ensure(self):
+        lazy = self.run_readiness_check(())
+        lazy.feature_missing.assert_called_once_with('tool.computer_use')
+        lazy.ensure.assert_called_once_with('tool.computer_use', prompt=False)
+        lazy._venv_pip_install.assert_not_called()
+
+    def test_reports_missing_dependency(self):
+        with self.assertRaisesRegex(AssertionError, 'httpx2==2.12.0'):
+            self.run_readiness_check(('httpx2==2.12.0',))

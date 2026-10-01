@@ -43,7 +43,8 @@ print('Python overlay: dependency bounds and offline HTTP/JWT/MSAL/Tornado check
 # A stale lazy pin must fail the image build, without attempting an install.
 sys.path.insert(0, '/opt/hermes')
 from tools import lazy_deps
-assert lazy_deps.feature_missing('tool.computer_use') == []
+missing = lazy_deps.feature_missing('tool.computer_use')
+assert not missing, f'Computer-use dependencies missing: {missing}'
 with patch.object(lazy_deps, '_venv_pip_install', side_effect=AssertionError('unexpected lazy install')):
     lazy_deps.ensure('tool.computer_use', prompt=False)
 print('Computer-use dependency readiness passed without runtime installation')
