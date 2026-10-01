@@ -17,6 +17,12 @@
 !apps/agent-box-hermes/build/sanitize_payloads.py
 !apps/agent-box-hermes/build/verify_payloads.py
 !apps/agent-box-hermes/build/payload-policy.json
+!apps/agent-box-hermes/build/bake_tokenizers.py
+!apps/agent-box-hermes/test/offline-tokenizer-probe.py
+!docs/third-party/hex240-tokenizer-inputs/README.md
+!docs/third-party/hex240-tokenizer-inputs/manifest.json
+!docs/third-party/hex240-tokenizer-inputs/tiktoken-LICENSE
+!docs/third-party/hex240-tokenizer-inputs/litellm-LICENSE
 !LICENSE
 !docs/
 !docs/third-party/

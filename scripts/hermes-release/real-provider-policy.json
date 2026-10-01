@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "ceiling_usd": "1.00",
+  "safety_factor": "2",
+  "rates_source": "https://developers.openai.com/api/docs/models/gpt-4o-mini (+ /text-embedding-3-small), read 2026-10-01; re-read before the window",
+  "rates_usd_per_mtok": {
+    "gpt-4o-mini": {"input": "0.15", "output": "0.60"},
+    "text-embedding-3-small": {"input": "0.02", "output": "0"}
+  },
+  "upstream": "https://api.openai.com/v1",
+  "routes": {
+    "hermes": {"kind": "chat", "model": "gpt-4o-mini", "max_body_bytes": 163840, "max_requests": 8},
+    "memory_llm": {"kind": "chat", "model": "gpt-4o-mini", "max_body_bytes": 49152, "max_requests": 12},
+    "memory_embeddings": {"kind": "embeddings", "model": "text-embedding-3-small", "max_body_bytes": 32768, "max_requests": 32}
+  },
+  "phases": {
+    "closed": {},
+    "memory": {"memory_llm": 2048, "memory_embeddings": 0},
+    "api_complete": {"hermes": 128, "memory_llm": 2048, "memory_embeddings": 0},
+    "api_cancel": {"hermes": 256, "memory_llm": 2048, "memory_embeddings": 0},
+    "reservation_stop": {}
+  }
+}

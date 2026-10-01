@@ -50,12 +50,20 @@ COPY apps/agent-box-hermes/build/patch_hindsight.py /opt/build/patch_hindsight.p
 COPY apps/agent-box-hermes/build/hindsight-linux-amd64.lock /opt/build/hindsight-linux-amd64.lock
 # Complete resolved CPU-only wheel closure; fail rather than resolve new artifacts.
 # Model weights still download on first local-mode boot into the memory volume.
+ENV TIKTOKEN_CACHE_DIR=/opt/agent-box/tiktoken-cache LITELLM_LOCAL_MODEL_COST_MAP=True
 RUN python3 -m venv /opt/hindsight \
  && /opt/hindsight/bin/pip install --no-cache-dir --no-index --no-deps --only-binary=:all: --require-hashes -r /opt/build/hindsight-linux-amd64.lock \
  && /opt/hindsight/bin/pip check \
  && /opt/hindsight/bin/python /opt/build/patch_hindsight.py \
  && /opt/hindsight/bin/python -c "from sqlalchemy import create_engine; create_engine('postgresql+psycopg://localhost/hindsight')" \
  && /opt/hindsight/bin/python -c "from sentence_transformers import SentenceTransformer; import torch; assert torch.version.cuda is None"
+# Pin tokenizer data separately from wheels; never populate a runtime volume.
+COPY docs/third-party/hex240-tokenizer-inputs/ /usr/share/doc/agent-box-hermes/third-party/hex240-tokenizer-inputs/
+COPY apps/agent-box-hermes/build/bake_tokenizers.py /opt/build/bake_tokenizers.py
+COPY apps/agent-box-hermes/test/offline-tokenizer-probe.py /opt/build/offline-tokenizer-probe.py
+RUN /opt/hindsight/bin/python /opt/build/bake_tokenizers.py
+# Verify the actual locked wheels as the service user, including caught network attempts.
+RUN --network=none /command/s6-setuidgid hermes /opt/hindsight/bin/python /opt/build/offline-tokenizer-probe.py
 COPY --from=pg0 /build/pg0/target/release/pg0 /opt/build/pg0
 # The SDK prefers its bundled binary over PATH. Replace that exact executable.
 RUN /opt/hindsight/bin/python -c "import pathlib, pg0, shutil; target = pathlib.Path(pg0.__file__).parent / 'bin/pg0'; assert target.is_file(); shutil.copy2('/opt/build/pg0', target)" \
@@ -115,6 +123,7 @@ ENV PATH=/opt/hermes/bin:/opt/hermes/.venv/bin:/home/agent/.local/bin:/opt/data/
     PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 AGENT_BROWSER_EXECUTABLE_PATH=/usr/bin/chromium \
     npm_config_install_links=false HERMES_WEB_DIST=/opt/hermes/hermes_cli/web_dist \
     HERMES_TUI_DIR=/opt/hermes/ui-tui HERMES_DISABLE_LAZY_INSTALLS=1
+ENV TIKTOKEN_CACHE_DIR=/opt/agent-box/tiktoken-cache LITELLM_LOCAL_MODEL_COST_MAP=True
 ENV HOME=/home/agent USER=hermes HERMES_HOME=/home/agent/.hermes \
     HERMES_PROFILE=default HERMES_WRITE_SAFE_ROOT=/home/agent \
     HERMES_LAZY_INSTALL_TARGET=/home/agent/.hermes/lazy-packages \

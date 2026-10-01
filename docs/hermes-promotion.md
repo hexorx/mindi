@@ -129,7 +129,8 @@ Insufficient disk fails; this task does not provision a larger runner.
 
 [The synthetic contract example](hermes-promotion-example.json) contains a record
 and all eight report envelopes. It is **not release evidence**, is deliberately
-expired, and has no real transport assets. The executable contract is
+expired, uses the rejected legacy smoke schema, and has no real transport assets.
+Use [schema 2](hermes-smoke-schema.md) for new smoke reports. The executable contract is
 [`gate.py`](../scripts/hermes-release/gate.py); the offline test fixture exercises
 the indexed OCI shape and rejection of unattested images.
 
@@ -150,7 +151,7 @@ Record fields:
 | `reports` | Exactly `sbom`, `provenance`, `notices`, `secrets`, `vulnerabilities`, `smoke`, `source`, `review`; each `{file: KIND.json, sha256}` |
 | `attachments` | Map of flat raw attachment filenames to SHA256 |
 
-Every report has `schema_version: 1`, `kind`, `status: pass`, `source_commit`,
+Every report has `schema_version: 1` (smoke requires `2`), `kind`, `status: pass`, `source_commit`,
 `manifest_digest`, `observed_at` and nonempty `raw` attachment references. Reports
 must predate the record and be at most seven days old at verification. A missing
 field fails closed. Hashes cover **raw bytes**, not reformatted JSON.
@@ -182,11 +183,11 @@ Additional per-report fields:
   require `id`, `reason`, `approved_by`, `expires_at` (valid through record expiry).
   Attach native Grype output and disposition rows with id/severity/fix state,
   package/location, installed-vs-lock-only, and decision. Review checks completeness.
-- **smoke:** `checks` has exactly the 12 named gates in the example. Each has
-  `status: pass`, `mode: real`, `image_digest_tested` equal to the root digest,
-  `evidence` referencing a raw attachment, and `inference_spend: none` or a
-  Paperclip `/HEX/approvals/…` URL. Structural URL validation is not approval;
-  the record reviewer must verify the authorization and underlying evidence.
+- **smoke:** schema **2**, with exactly 13 assertions (credential isolation and
+  provider-dependent second-box recall are separate). See
+  [the strict smoke contract](hermes-smoke-schema.md). Native execution alone
+  cannot qualify provider fixtures. Every exercised dependency must be real;
+  component evidence uses a separate validator and never satisfies promotion.
 - **review:** `commit` equals `accepted_commit`, distinct nonempty `author` and
   `reviewer`, `decision: approved`, `ci: success`, raw exact-head review evidence.
   Online GitHub check validation is additional to this recorded evidence.

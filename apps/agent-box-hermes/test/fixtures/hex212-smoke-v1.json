@@ -1,0 +1,171 @@
+{
+ "schema_version": 1,
+ "source_commit": "d1d5598bd349849c219504f3a6182d3697203184",
+ "manifest_digest": "sha256:2578fc447dff1265fd1d1f565ad2676cb57737d6abc7b30995b2542adbf774b2",
+ "observed_at": "2026-09-30T23:43:51Z",
+ "raw": [
+  "hex212-2578fc447dff-evidence.tar.gz"
+ ],
+ "kind": "smoke",
+ "status": "pass",
+ "checks": {
+  "no_github_no_tailscale_boot": {
+   "status": "pass",
+   "mode": "real",
+   "mocked_components": [],
+   "image_digest_tested": "sha256:2578fc447dff1265fd1d1f565ad2676cb57737d6abc7b30995b2542adbf774b2",
+   "image_id_verified": "docker image ID == index digest; OCI revision label == d1d5598bd349849c219504f3a6182d3697203184",
+   "inference_spend": "none",
+   "evidence": "hex212-2578fc447dff-evidence.tar.gz",
+   "evidence_path": "r2/runtime/boot-a1.txt",
+   "run": "r2",
+   "notes": "Run 2 (default Docker bridge, no published ports): healthy in 12s from packaged defaults (config source=defaults, no GitHub source/credentials), network.json disabled, no tailscaled, loopback-only private listeners. FINDING F1: run 1 with --network none never became healthy (Hindsight/tiktoken download of cl100k_base from openaipublic.blob.core.windows.net is fatal offline; LiteLLM also attempts raw.githubusercontent.com cost map, non-fatal)."
+  },
+  "desktop_auth": {
+   "status": "pass",
+   "mode": "real",
+   "mocked_components": [],
+   "image_digest_tested": "sha256:2578fc447dff1265fd1d1f565ad2676cb57737d6abc7b30995b2542adbf774b2",
+   "image_id_verified": "docker image ID == index digest; OCI revision label == d1d5598bd349849c219504f3a6182d3697203184",
+   "inference_spend": "none",
+   "evidence": "hex212-2578fc447dff-evidence.tar.gz",
+   "evidence_path": "r2/runtime/desktop-a1.txt",
+   "run": "r2",
+   "notes": "Unauthenticated /vnc.html and /websockify 401, Basic auth 200, bad Origin 403, authenticated WebSocket upgrade 101 to RFB."
+  },
+  "screenshot": {
+   "status": "pass",
+   "mode": "real",
+   "mocked_components": [],
+   "image_digest_tested": "sha256:2578fc447dff1265fd1d1f565ad2676cb57737d6abc7b30995b2542adbf774b2",
+   "image_id_verified": "docker image ID == index digest; OCI revision label == d1d5598bd349849c219504f3a6182d3697203184",
+   "inference_spend": "none",
+   "evidence": "hex212-2578fc447dff-evidence.tar.gz",
+   "evidence_path": "r2/runtime/computer-use-a1.txt",
+   "run": "r2",
+   "notes": "Real Hermes computer_use capture via cua on Sway (PNG frame retained as r2/runtime/screenshot-a1.bin), no inference."
+  },
+  "click": {
+   "status": "pass",
+   "mode": "real",
+   "mocked_components": [],
+   "image_digest_tested": "sha256:2578fc447dff1265fd1d1f565ad2676cb57737d6abc7b30995b2542adbf774b2",
+   "image_id_verified": "docker image ID == index digest; OCI revision label == d1d5598bd349849c219504f3a6182d3697203184",
+   "inference_spend": "none",
+   "evidence": "hex212-2578fc447dff-evidence.tar.gz",
+   "evidence_path": "r2/runtime/computer-use-a1.txt",
+   "run": "r2",
+   "notes": "Real Hermes computer_use foreground click via cua (smoke.py), no inference."
+  },
+  "type": {
+   "status": "pass",
+   "mode": "real",
+   "mocked_components": [],
+   "image_digest_tested": "sha256:2578fc447dff1265fd1d1f565ad2676cb57737d6abc7b30995b2542adbf774b2",
+   "image_id_verified": "docker image ID == index digest; OCI revision label == d1d5598bd349849c219504f3a6182d3697203184",
+   "inference_spend": "none",
+   "evidence": "hex212-2578fc447dff-evidence.tar.gz",
+   "evidence_path": "r2/runtime/computer-use-a1.txt",
+   "run": "r2",
+   "notes": "Real Hermes computer_use type + key via cua (smoke.py), no inference."
+  },
+  "memory_recreation": {
+   "status": "pass",
+   "mode": "real",
+   "mocked_components": [
+    "memory provider embeddings/extraction responses (mock-memory-provider.py)"
+   ],
+   "image_digest_tested": "sha256:2578fc447dff1265fd1d1f565ad2676cb57737d6abc7b30995b2542adbf774b2",
+   "image_id_verified": "docker image ID == index digest; OCI revision label == d1d5598bd349849c219504f3a6182d3697203184",
+   "inference_spend": "none",
+   "evidence": "hex212-2578fc447dff-evidence.tar.gz",
+   "evidence_path": "r2/runtime/memory-summary.txt",
+   "run": "r2",
+   "notes": "Real Hindsight/pg0 retain; recall after restart, after fresh-name recreation on the same volume, and from an offline backup restored into a new volume. Memory provider (embeddings/extraction) responses are MOCKED (mock-memory-provider.py), as in the repo gate."
+  },
+  "second_box_isolation": {
+   "status": "pass",
+   "mode": "real",
+   "mocked_components": [],
+   "image_digest_tested": "sha256:2578fc447dff1265fd1d1f565ad2676cb57737d6abc7b30995b2542adbf774b2",
+   "image_id_verified": "docker image ID == index digest; OCI revision label == d1d5598bd349849c219504f3a6182d3697203184",
+   "inference_spend": "none",
+   "evidence": "hex212-2578fc447dff-evidence.tar.gz",
+   "evidence_path": "r2/runtime/second-box.txt",
+   "run": "r2",
+   "notes": "Box B with its own API/callback keys, TLS cert, desktop password and volumes: cross API keys 401 both ways, box-A desktop password 401 on B, box-A CA rejects B cert, distinct bank ids, box-A fact absent from B recall and home."
+  },
+  "shutdown": {
+   "status": "pass",
+   "mode": "real",
+   "mocked_components": [],
+   "image_digest_tested": "sha256:2578fc447dff1265fd1d1f565ad2676cb57737d6abc7b30995b2542adbf774b2",
+   "image_id_verified": "docker image ID == index digest; OCI revision label == d1d5598bd349849c219504f3a6182d3697203184",
+   "inference_spend": "none",
+   "evidence": "hex212-2578fc447dff-evidence.tar.gz",
+   "evidence_path": "r2/runtime/shutdown-a1.txt",
+   "run": "r2",
+   "notes": "s6 SIGTERM: docker stop --time 20 completed in 12-13s with exit 0 for every box."
+  },
+  "secret_redaction": {
+   "status": "pass",
+   "mode": "real",
+   "mocked_components": [],
+   "image_digest_tested": "sha256:2578fc447dff1265fd1d1f565ad2676cb57737d6abc7b30995b2542adbf774b2",
+   "image_id_verified": "docker image ID == index digest; OCI revision label == d1d5598bd349849c219504f3a6182d3697203184",
+   "inference_spend": "none",
+   "evidence": "hex212-2578fc447dff-evidence.tar.gz",
+   "evidence_path": "r2/runtime/redaction.txt",
+   "run": "r2",
+   "notes": "No generated secret value (API/callback keys, desktop passwords, TLS key body, fixture provider keys) appears in any box log across runs 1-3; missing memory_llm_key fails with a named diagnostic and no value."
+  },
+  "api_stream": {
+   "status": "pass",
+   "mode": "real",
+   "mocked_components": [
+    "LLM provider responses (mock-llm.py)"
+   ],
+   "image_digest_tested": "sha256:2578fc447dff1265fd1d1f565ad2676cb57737d6abc7b30995b2542adbf774b2",
+   "image_id_verified": "docker image ID == index digest; OCI revision label == d1d5598bd349849c219504f3a6182d3697203184",
+   "inference_spend": "none",
+   "evidence": "hex212-2578fc447dff-evidence.tar.gz",
+   "evidence_path": "r3/runtime/evaluation.txt",
+   "run": "r3",
+   "notes": "Real nginx TLS -> hermes-compat -> native Hermes gateway: 202 create, SSE message.delta events carrying provider tokens, run.completed with output; reconnect with Last-Event-ID resumes after the given id. LLM provider responses MOCKED (mock-llm.py); no provider credentials exist."
+  },
+  "api_cancel": {
+   "status": "pass",
+   "mode": "real",
+   "mocked_components": [
+    "LLM provider responses (mock-llm.py)"
+   ],
+   "image_digest_tested": "sha256:2578fc447dff1265fd1d1f565ad2676cb57737d6abc7b30995b2542adbf774b2",
+   "image_id_verified": "docker image ID == index digest; OCI revision label == d1d5598bd349849c219504f3a6182d3697203184",
+   "inference_spend": "none",
+   "evidence": "hex212-2578fc447dff-evidence.tar.gz",
+   "evidence_path": "r3/runtime/evaluation.txt",
+   "run": "r3",
+   "notes": "Stop on a running streaming run: 200, status cancelled within ~1s, provider stream aborted after 2 chunks; reservation stop before start returns cancelled and the later create returns the same cancelled run with zero provider calls. LLM MOCKED."
+  },
+  "api_retry": {
+   "status": "pass",
+   "mode": "real",
+   "mocked_components": [
+    "LLM provider responses (mock-llm.py)"
+   ],
+   "image_digest_tested": "sha256:2578fc447dff1265fd1d1f565ad2676cb57737d6abc7b30995b2542adbf774b2",
+   "image_id_verified": "docker image ID == index digest; OCI revision label == d1d5598bd349849c219504f3a6182d3697203184",
+   "inference_spend": "none",
+   "evidence": "hex212-2578fc447dff-evidence.tar.gz",
+   "evidence_path": "r3/runtime/evaluation.txt",
+   "run": "r3",
+   "notes": "Same Idempotency-Key + body returns the same run (202) with zero additional provider calls; changed body with the same key 409 idempotency_conflict. LLM MOCKED."
+  }
+ },
+ "supplementary": {
+  "api_ingress_auth": "pass",
+  "config_refresh_rollback": "pass",
+  "offline_boot_network_none": "fail (finding F1; run 1 r1 runtime/boot-a1.txt)",
+  "missing_key_diagnostic": "pass"
+ }
+}
