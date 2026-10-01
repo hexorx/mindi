@@ -6,11 +6,13 @@ import http.client
 import json
 from pathlib import Path
 import socket
+import select
 import sys
 import tempfile
 import threading
 import time
 import unittest
+from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT / 'scripts/hermes-release'))
@@ -26,7 +28,7 @@ def chat(model='gpt-4o-mini', **extra):
 class FakeUpstream:
     """Records request entry and returns canned usage; never a real provider."""
 
-    def __init__(self, ledger_path=None, status=200, usage=None, stream_chunks=0, chunk_delay=0.0):
+    def __init__(self, ledger_path=None, status=200, usage=None, stream_chunks=0, chunk_delay=0.0, stall=None):
         self.requests = []
         self.ledger_at_entry = []
         self.closed = threading.Event()
@@ -38,12 +40,21 @@ class FakeUpstream:
             def log_message(self, *args):
                 pass
 
+            def wait_for_close(self):
+                readable, _, _ = select.select([self.connection], [], [], 3)
+                if readable and not self.connection.recv(1):
+                    fake.closed.set()
+                self.close_connection = True
+
             def do_POST(self):
                 body = json.loads(self.rfile.read(int(self.headers['Content-Length'])))
                 fake.requests.append({'path': self.path, 'body': body,
                                       'auth': self.headers.get('Authorization')})
                 if ledger_path:
                     fake.ledger_at_entry.append(Path(ledger_path).read_text())
+                if stall == 'headers':
+                    self.wait_for_close()
+                    return
                 if status != 200:
                     data = b'{"error":{"message":"rate limited"}}'
                     self.send_response(status)
@@ -61,8 +72,11 @@ class FakeUpstream:
                         for i in range(stream_chunks):
                             self.wfile.write(b'data: {"choices":[{"delta":{"content":"t%d"}}]}\n\n' % i)
                             self.wfile.flush()
+                            if stall == 'stream':
+                                self.wait_for_close()
+                                return
                             time.sleep(chunk_delay)
-                        if usage:
+                        if usage is not None:
                             self.wfile.write(b'data: ' + json.dumps({'choices': [], 'usage': usage}).encode() + b'\n\n')
                         self.wfile.write(b'data: [DONE]\n\n')
                         self.wfile.flush()
@@ -71,12 +85,15 @@ class FakeUpstream:
                     fake.closed.set()
                     self.close_connection = True
                     return
-                data = json.dumps({'usage': usage} if usage else {}).encode()
+                data = json.dumps({'usage': usage} if usage is not None else {}).encode()
                 self.send_response(200)
                 self.send_header('Content-Type', 'application/json')
                 self.send_header('x-request-id', 'req_fake_1')
                 self.send_header('Content-Length', str(len(data)))
                 self.end_headers()
+                if stall == 'body':
+                    self.wait_for_close()
+                    return
                 self.wfile.write(data)
 
         self.server = ThreadingHTTPServer(('127.0.0.1', 0), Handler)
@@ -103,6 +120,9 @@ class Harness:
         response = conn.getresponse()
         data = response.read()
         conn.close()
+        deadline = time.monotonic() + 2
+        while self.ledger.state()['open_usd'] != '0' and time.monotonic() < deadline:
+            time.sleep(0.01)
         return response.status, data
 
     def stop(self):
@@ -172,6 +192,37 @@ class PolicyTest(unittest.TestCase):
         forward, _, out, stream = bp.prepare(policy, 'hermes', 'api_complete', chat(max_tokens=16, stream=True))
         self.assertEqual((out, stream), (16, True))
         self.assertEqual(json.loads(forward)['stream_options'], {'include_usage': True})
+
+    def test_admitted_requests_fit_load_time_bound(self):
+        policy = bp.Policy(SHIPPED)
+        for name, phase in (('hermes', 'api_cancel'), ('memory_llm', 'memory')):
+            size = policy.routes[name]['max_body_bytes']
+            candidates = [
+                chat(messages=[{}] * 50000),
+                chat(messages=[{'role': 'user', 'content': ''}] * (size // 30 + 1)),
+                chat(tools=[{}] * (size // 40 + 1)),
+                chat(tools=[{}] * (size // 40)),
+                chat(messages=[{'role': 'user', 'content': ''}] * (size // 40)),
+                chat(pad='x' * (size - len(chat(pad='')))),
+                chat(stream=True, pad='x' * (size - 200)),
+                chat(messages=[{'role': 'user', 'content': 'é' * 1000}]),
+            ]
+            accepted = 0
+            for body in candidates:
+                try:
+                    forward, bound, cap, _ = bp.prepare(policy, name, phase, body)
+                except bp.Denied:
+                    continue
+                accepted += 1
+                self.assertLessEqual(len(forward), size)
+                self.assertLessEqual(policy.cost(policy.routes[name]['model'], bound, cap),
+                                     policy.worst_call(name))
+            self.assertGreaterEqual(accepted, 3)
+            for body in candidates[:3]:
+                with self.assertRaises(bp.Denied):
+                    bp.prepare(policy, name, phase, body)
+            with self.assertRaises(bp.Denied):
+                bp.prepare(policy, name, phase, candidates[5])
 
 
 class ProxyTest(unittest.TestCase):
@@ -313,6 +364,83 @@ class ProxyTest(unittest.TestCase):
         self.assertIn('client_disconnected_at', settle)
         self.assertLess(settle['upstream_closed_at'] - settle['client_disconnected_at'], 5)
         self.assertEqual(fake.requests[0]['body']['max_completion_tokens'], 256)
+
+    def test_malformed_usage_is_charged_in_full_json_and_sse(self):
+        invalid = [{}, {'prompt_tokens': -1, 'completion_tokens': 0},
+                   {'prompt_tokens': '1', 'completion_tokens': 0},
+                   {'prompt_tokens': True, 'completion_tokens': 0},
+                   {'prompt_tokens': 1}, {'completion_tokens': 1},
+                   {'prompt_tokens': 1, 'completion_tokens': -1},
+                   {'prompt_tokens': 1, 'completion_tokens': False},
+                   {'prompt_tokens': 1.5, 'completion_tokens': 0}]
+        for stream in (False, True):
+            for usage in invalid:
+                with self.subTest(stream=stream, usage=usage):
+                    self.ledger_path = Path(self.tmp.name) / f'ledger-{stream}-{invalid.index(usage)}.jsonl'
+                    proxy, fake = self.start(usage=usage)
+                    proxy.ledger.set_phase('api_complete')
+                    status, _ = proxy.post('/hermes/v1/chat/completions', chat(stream=stream))
+                    self.assertEqual(status, 200)
+                    # Response EOF can arrive just before the final fsync.
+                    deadline = time.monotonic() + 1
+                    while proxy.ledger.state()['open_usd'] != '0' and time.monotonic() < deadline:
+                        time.sleep(0.01)
+                    reserve = records(self.ledger_path, 'reserve')[-1]
+                    settle = records(self.ledger_path, 'settle')[-1]
+                    self.assertEqual(settle['basis'], 'reservation')
+                    self.assertEqual(settle['charged_usd'], reserve['reserved_usd'])
+                    restarted = bp.Ledger(self.ledger_path, proxy.ledger.policy)
+                    self.assertEqual(restarted.charged, proxy.ledger.charged)
+
+    def test_settlement_write_failure_preserves_reservation(self):
+        policy = bp.Policy(SHIPPED)
+        ledger = bp.Ledger(self.ledger_path, policy)
+        ledger.set_phase('api_complete')
+        ledger.reserve('test', 'hermes', chat())
+        reserved = ledger.open['test']
+        with patch.object(ledger, '_write', side_effect=OSError('disk failure')):
+            with self.assertRaises(OSError):
+                ledger.settle('test', 'hermes', {'prompt_tokens': 1, 'completion_tokens': 1})
+        self.assertEqual(ledger.open['test'], reserved)
+        self.assertEqual(ledger.charged, 0)
+        self.assertEqual(bp.Ledger(self.ledger_path, policy).charged, reserved)
+
+    def test_embedding_usage_requires_prompt_counter_only(self):
+        policy = bp.Policy(SHIPPED)
+        ledger = bp.Ledger(self.ledger_path, policy)
+        ledger.set_phase('memory')
+        body = json.dumps({'model': 'text-embedding-3-small', 'input': 'hi'}).encode()
+        ledger.reserve('test', 'memory_embeddings', body)
+        ledger.settle('test', 'memory_embeddings', {'prompt_tokens': 1, 'total_tokens': 1})
+        self.assertEqual(ledger.charged, policy.cost('text-embedding-3-small', 1, 0))
+
+    def test_disconnect_interrupts_blocked_upstream_reads(self):
+        for stall in ('headers', 'stream', 'body'):
+            with self.subTest(stall=stall):
+                proxy, fake = self.start(stall=stall, stream_chunks=1)
+                proxy.ledger.set_phase('api_cancel')
+                sock = socket.create_connection(('127.0.0.1', proxy.port), timeout=2)
+                body = chat(stream=stall != 'body')
+                sock.sendall(b'POST /hermes/v1/chat/completions HTTP/1.1\r\nHost: x\r\n'
+                             b'Content-Length: %d\r\n\r\n' % len(body) + body)
+                deadline = time.monotonic() + 1
+                while not fake.requests and time.monotonic() < deadline:
+                    time.sleep(0.01)
+                self.assertTrue(fake.requests)
+                if stall == 'stream':
+                    received = b''
+                    while b'"t0"' not in received:
+                        received += sock.recv(4096)
+                before = len(records(self.ledger_path, 'settle'))
+                sock.close()
+                self.assertTrue(fake.closed.wait(1), 'upstream socket was not closed promptly')
+                deadline = time.monotonic() + 1
+                while len(records(self.ledger_path, 'settle')) == before and time.monotonic() < deadline:
+                    time.sleep(0.01)
+                settle = records(self.ledger_path, 'settle')[-1]
+                self.assertEqual(settle['basis'], 'reservation')
+                self.assertIn('client_disconnected_at', settle)
+                self.assertLess(settle['upstream_closed_at'] - settle['client_disconnected_at'], 1)
 
     def test_restart_replays_spend_and_rejects_policy_change(self):
         policy = bp.Policy(SHIPPED)

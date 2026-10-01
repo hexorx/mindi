@@ -15,6 +15,8 @@ import hashlib
 import http.client
 import json
 import os
+import select
+import socket
 from decimal import Decimal
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
@@ -123,7 +125,7 @@ class Policy:
 
     def worst_call(self, name):
         route = self.routes[name]
-        # A body of N bytes cannot hold more than N/30 messages or N/40 tools.
+        # Admission explicitly enforces these count and rewritten-byte limits.
         size = route['max_body_bytes']
         bound = self.input_bound(name, size, size // 30, size // 40)
         return self.cost(route['model'], bound, self.max_output(name))
@@ -159,7 +161,12 @@ def prepare(policy, name, phase, body):
     messages = data.get('messages')
     if not isinstance(messages, list) or not messages:
         raise Denied(400, 'chat messages required')
+    if len(messages) > route['max_body_bytes'] // 30:
+        raise Denied(413, 'message count exceeds route bound')
     for message in messages:
+        if not isinstance(message, dict) or message.get('role') not in (
+                'system', 'developer', 'user', 'assistant', 'tool', 'function'):
+            raise Denied(400, 'invalid chat message')
         content = message.get('content') if isinstance(message, dict) else None
         if isinstance(content, list) and any(not isinstance(p, dict) or p.get('type') != 'text' for p in content):
             raise Denied(403, 'only text content parts are bounded by request bytes')
@@ -178,9 +185,13 @@ def prepare(policy, name, phase, body):
     stream = data.get('stream') is True
     if stream:
         data['stream_options'] = {'include_usage': True}
-    tools = data.get('tools') if isinstance(data.get('tools'), list) else []
+    tools = data.get('tools', [])
+    if not isinstance(tools, list) or any(not isinstance(t, dict) for t in tools):
+        raise Denied(400, 'invalid tools')
+    if len(tools) > route['max_body_bytes'] // 40:
+        raise Denied(413, 'tool count exceeds route bound')
     forward = json.dumps(data, separators=(',', ':')).encode()
-    if len(forward) > route['max_body_bytes'] + 128:
+    if len(forward) > route['max_body_bytes']:
         raise Denied(413, 'rewritten body exceeds route bound')
     bound = policy.input_bound(name, max(len(body), len(forward)), len(messages), len(tools))
     return forward, bound, data['max_completion_tokens'], stream
@@ -270,18 +281,23 @@ class Ledger:
     def settle(self, entry_id, name, usage, **observed):
         """Charge actual usage if reported, else the full reservation."""
         with self.lock:
-            amount = self.open.pop(entry_id)
+            amount = self.open[entry_id]
             basis, charged = 'reservation', amount
-            if usage is not None:
-                actual = self.policy.cost(self.policy.routes[name]['model'],
-                                          usage.get('prompt_tokens', 0), usage.get('completion_tokens', 0))
+            route = self.policy.routes[name]
+            counters = ('prompt_tokens', 'completion_tokens') if route['kind'] == 'chat' else ('prompt_tokens',)
+            if isinstance(usage, dict) and all(
+                    type(usage.get(k)) is int and usage[k] >= 0 for k in counters):
+                actual = self.policy.cost(route['model'], usage['prompt_tokens'],
+                                          usage['completion_tokens'] if route['kind'] == 'chat' else 0)
                 basis, charged = 'usage', actual
                 if actual > amount:
                     self.frozen = 'usage exceeded reservation'
                     self._write({'event': 'frozen', 'entry_id': entry_id, 'reason': self.frozen})
-            self.charged += charged
+            # Keep the reservation live if validation or durable append fails.
             self._write({'event': 'settle', 'entry_id': entry_id, 'charged_usd': str(charged),
                          'basis': basis, 'usage': usage, **observed})
+            self.charged += charged
+            del self.open[entry_id]
 
     def set_phase(self, phase):
         with self.lock:
@@ -365,15 +381,40 @@ def make_handler(ledger, key, prefixes, upstream=None):
             cls = http.client.HTTPSConnection if upstream.scheme == 'https' else http.client.HTTPConnection
             conn = cls(upstream.hostname, upstream.port, timeout=UPSTREAM_TIMEOUT)
             usage, observed, settled = None, {'stream': stream}, []
+            response = None
+            monitor = None
+            finished = threading.Event()
             path = upstream.path.rstrip('/') + KINDS[policy.routes[name]['kind']]
 
             def settle():
                 if not settled:
-                    settled.append(True)
                     observed['upstream_closed_at'] = time.time()
                     ledger.settle(entry_id, name, None if 'client_disconnected_at' in observed else usage,
                                   **observed)
+                    settled.append(True)
+
+            def watch_client(upstream_socket):
+                while not finished.wait(0.02):
+                    try:
+                        readable, _, _ = select.select([self.connection], [], [], 0)
+                        if not readable:
+                            continue
+                        # This endpoint accepts one request per connection. EOF,
+                        # reset, or extra pipelined bytes all end that request.
+                        self.connection.recv(1, socket.MSG_PEEK)
+                    except OSError:
+                        pass
+                    observed['client_disconnected_at'] = time.time()
+                    try:
+                        upstream_socket.shutdown(socket.SHUT_RDWR)
+                    except OSError:
+                        pass
+                    return
+
             try:
+                conn.connect()
+                monitor = threading.Thread(target=watch_client, args=(conn.sock,), daemon=True)
+                monitor.start()
                 conn.request('POST', path, forward, {'Authorization': 'Bearer ' + key,
                                                      'Content-Type': 'application/json'})
                 response = conn.getresponse()
@@ -392,7 +433,6 @@ def make_handler(ledger, key, prefixes, upstream=None):
                         except (ValueError, AttributeError):
                             found = None
                         usage = found if isinstance(found, dict) else None
-                    settle()
                     self.send_header('Content-Length', str(len(data)))
                     self.end_headers()
                     self.wfile.write(data)
@@ -413,6 +453,11 @@ def make_handler(ledger, key, prefixes, upstream=None):
             except (OSError, http.client.HTTPException, ValueError) as error:
                 observed['error'] = type(error).__name__
             finally:
+                finished.set()
+                if monitor is not None:
+                    monitor.join()
+                if response is not None:
+                    response.close()
                 conn.close()
                 settle()
 
