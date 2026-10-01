@@ -10,7 +10,7 @@ import unittest
 ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT / 'scripts/hermes-release'))
 import smoke
-from smoke_fixtures import fixture, observations, encoded
+from smoke_fixtures import fixture, observations, encoded, invalid_stream_observations
 
 
 class SmokeTests(unittest.TestCase):
@@ -137,6 +137,16 @@ class SmokeTests(unittest.TestCase):
         # Duplicate entered after retry starts and finishes BEFORE retry response.
         trace['calls'].append(dict(request_id='fast-duplicate', run_id='run-1', entered_at=3.1))
         with self.assertRaisesRegex(ValueError, 'additional provider'): smoke.evaluate('api_retry', trace)
+
+    def test_native_delta_payloads(self):
+        for payload, trace in invalid_stream_observations():
+            with self.subTest(payload=payload), self.assertRaises(ValueError):
+                smoke.evaluate('api_stream', trace)
+        # A whitespace token is still a token; native event metadata is optional.
+        trace = observations('api_stream')
+        trace['initial_sse'] = ('id: 1\nevent: message.delta\ndata: {"delta":" "}\n\n'
+                                + trace['replay_sse'])
+        smoke.evaluate('api_stream', trace)
 
     def test_replay_parser(self):
         trace = observations('api_stream')

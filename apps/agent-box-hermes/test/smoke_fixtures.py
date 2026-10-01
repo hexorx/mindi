@@ -12,8 +12,8 @@ def observations(name):
     if name == 'api_stream':
         def frame(i, event, data):
             return f'id: {i}\nevent: {event}\ndata: {json.dumps(data)}\n\n'
-        tail = frame(2, 'run.completed', {'status': 'completed'})
-        return {'initial_sse': frame(1, 'message.delta', {'text': 'hello'}) + tail,
+        tail = frame(2, 'run.completed', {'event': 'run.completed', 'status': 'completed'})
+        return {'initial_sse': frame(1, 'message.delta', {'event': 'message.delta', 'delta': 'hello'}) + tail,
                 'replay_sse': tail, 'after': 1}
     if name == 'api_cancel':
         return dict(run_id='run-1', provider_run_id='run-1', first_token_at=1,
@@ -51,3 +51,17 @@ def fixture(manifest='sha256:' + 'a'*64, source='b'*40, observed='2026-09-30T00:
                             mocked_components=[], dependencies=deps, config=config, evidence=evidence)
     return dict(schema_version=2, kind='smoke', status='pass', source_commit=source,
                 manifest_digest=manifest, observed_at=observed, raw=list(attachments), checks=checks), attachments
+
+
+def invalid_stream_observations():
+    """Keep replay valid while replacing only the first native delta payload."""
+    for payload in ({'delta': ''}, {}, {'unrelated': 'metadata'},
+                    {'delta': None}, {'delta': True}, {'delta': 1},
+                    {'delta': []}, {'delta': {}}, True, 'hello', 1, None, [],
+                    [{'delta': 'hello'}],
+                    {'event': 'run.completed', 'delta': 'hello'},
+                    {'event': None, 'delta': 'hello'}):
+        trace = observations('api_stream')
+        trace['initial_sse'] = ('id: 1\nevent: message.delta\ndata: '
+                                + json.dumps(payload) + '\n\n' + trace['replay_sse'])
+        yield payload, trace

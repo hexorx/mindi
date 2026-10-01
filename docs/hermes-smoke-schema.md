@@ -59,7 +59,10 @@ fixtures demonstrate their serialization (synthetic tests, never qualification).
 - SSE: capture the decoded HTTP response body (`HTTPResponse.read/readline`,
   **never** `response.fp`). Parser handles CR/LF, comments, optional spaces and
   multiline data. Require nonempty ordered unique numeric IDs, a nonempty token
-  event, and terminal run.completed. Replay must equal the entire recorded suffix
+  event with an object payload and a nonempty string `delta`, and terminal
+  run.completed. When payload `event` metadata is present it must match the SSE
+  event field. Scalars, lists, missing/empty/non-string deltas fail; whitespace
+  tokens remain valid. Replay must equal the entire recorded suffix
   after a known cursor, including data and terminal event; empty replay fails.
 - Cancellation: first token before stop, running at stop, final cancelled and
   correlated provider connection abort within five seconds. Retain native run

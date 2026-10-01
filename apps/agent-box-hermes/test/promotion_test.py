@@ -17,7 +17,7 @@ ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT / 'scripts/hermes-release'))
 import gate
 import promote
-from smoke_fixtures import fixture
+from smoke_fixtures import fixture, invalid_stream_observations
 
 
 def encoded(value):
@@ -123,6 +123,20 @@ class GateTests(unittest.TestCase):
 
     def verify(self):
         return gate.verify_candidate(self.c.record, self.data)
+
+    def test_tokenless_native_stream_rejected_with_valid_hashes(self):
+        for payload, trace in invalid_stream_observations():
+            with self.subTest(payload=payload):
+                ref = self.c.reports['smoke']['checks']['api_stream']['evidence']
+                path = self.data / ref['path']
+                evidence = json.loads(path.read_bytes())
+                evidence['observations'] = trace
+                path.write_bytes(encoded(evidence))
+                ref['sha256'] = sha(path.read_bytes())
+                self.c.record['attachments'][path.name] = ref['sha256']
+                self.c.seal()
+                with self.assertRaisesRegex(ValueError, 'native.*(payload|delta)|metadata mismatch'):
+                    self.verify()
 
     def test_valid_index(self):
         self.assertEqual(self.verify()['manifest_digest'], self.c.record['manifest_digest'])

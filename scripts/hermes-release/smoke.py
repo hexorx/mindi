@@ -134,7 +134,15 @@ def evaluate(name, trace):
         require(type(trace['after']) is int and trace['after'] in [f['id'] for f in initial], 'unknown replay cursor')
         require(replay == [f for f in initial if f['id'] > trace['after']], 'replay mismatch')
         require(initial[-1]['event'] == replay[-1]['event'] == 'run.completed', 'terminal replay required')
-        require(any(f['event'] == 'message.delta' and f['data'] for f in initial), 'first token required')
+        for frame in initial:
+            payload = frame['data']
+            require(type(payload) is dict, 'native SSE payload object required')
+            require('event' not in payload or payload['event'] == frame['event'],
+                    'SSE event metadata mismatch')
+            if frame['event'] == 'message.delta':
+                require(type(payload.get('delta')) is str and len(payload['delta']) > 0,
+                        'nonempty native delta required')
+        require(any(f['event'] == 'message.delta' for f in initial), 'first token required')
     elif name == 'api_cancel':
         fields(trace, 'run_id provider_run_id first_token_at stop_at terminal_at provider_closed_at status_at_stop final_status provider_aborted reservation_calls')
         require(text(trace['run_id']) and trace['run_id'] == trace['provider_run_id'], 'uncorrelated cancel')
