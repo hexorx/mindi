@@ -43,6 +43,22 @@ class ReleaseInputsTest(unittest.TestCase):
         self.assertIn('org.opencontainers.image.source="https://github.com/hexorx/mindi"', runtime)
         self.assertNotIn('e624e9fde561e1add9388384012b295fde669ade', runtime)
 
+    def test_companion_pointer_is_versioned_without_image_identity_cycle(self):
+        runtime = (APP / 'Dockerfile').read_text().split('FROM scratch AS runtime', 1)[1]
+        instructions = runtime.replace('\\\n', '').splitlines()
+        labels = {}
+        for instruction in instructions:
+            if instruction.startswith('LABEL '):
+                labels.update(item.split('=', 1) for item in shlex.split(instruction)[1:])
+        pointer = labels['io.hexorx.source-companion.url']
+        for revision in ['a' * 40, '0123456789abcdef' * 2 + '01234567']:
+            expanded = pointer.replace('${SOURCE_REVISION}', revision)
+            self.assertEqual(expanded,
+                             'https://github.com/hexorx/mindi/releases/tag/hermes-source-' + revision)
+        # Label metadata must not enter the assembled filesystem stage.
+        assembled = (APP / 'Dockerfile').read_text().split('FROM scratch AS runtime', 1)[0]
+        self.assertNotIn('source-companion', assembled)
+
     def test_every_local_copy_has_all_of_its_tracked_inputs(self):
         for line in (APP / 'Dockerfile').read_text().splitlines():
             if not line.startswith('COPY ') or '--from=' in line:
