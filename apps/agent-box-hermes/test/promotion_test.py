@@ -29,6 +29,17 @@ def sha(data):
     return hashlib.sha256(data).hexdigest()
 
 
+def empty_secret_policy(test):
+    """Keep synthetic zero-finding candidates independent of shipped pins."""
+    temp = tempfile.TemporaryDirectory()
+    test.addCleanup(temp.cleanup)
+    allowlist = Path(temp.name) / 'secret-allowlist.json'
+    allowlist.write_bytes(encoded({'schema_version': 1, 'entries': []}))
+    policy = patch.object(gate, 'SECRET_ALLOWLIST', allowlist)
+    policy.start()
+    test.addCleanup(policy.stop)
+
+
 class Candidate:
     def __init__(self, root, indexed=True, mutate_statement=None, revision=None, companion_url=None, layer_data=None, layer_media='application/vnd.oci.image.layer.v1.tar'):
         self.root = root
@@ -123,6 +134,7 @@ class GateTests(unittest.TestCase):
         self.data = self.root / 'data'
         self.data.mkdir()
         self.c = Candidate(self.data)
+        empty_secret_policy(self)
 
     def verify(self):
         return gate.verify_candidate(self.c.record, self.data)
@@ -307,6 +319,7 @@ class GateTests(unittest.TestCase):
 
 class TransportTests(unittest.TestCase):
     def setUp(self):
+        empty_secret_policy(self)
         # Publication tests isolate registry behavior; companion networking is
         # exercised separately, while real local companion verification remains.
         fetch = patch.object(promote, 'download_companion', side_effect=lambda record, work, anonymous=False: work / 'source-companion')

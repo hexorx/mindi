@@ -69,6 +69,61 @@ class SecretAllowlistTests(unittest.TestCase):
     def test_exact_native_match_passes(self):
         self.verify()
 
+    def whole_file(self):
+        self.entry.update(rule_id='pkcs12-file', lines=[0])
+        self.write_entries([self.entry])
+        self.native[self.digest] = [dict(File='/opt/sample', RuleID='pkcs12-file',
+                                        StartLine=0, EndLine=0, StartColumn=0, EndColumn=0)]
+        self.rootfs = copy.deepcopy(self.native[self.digest])
+        self.seal()
+
+    def test_whole_file_exact_pin_passes(self):
+        self.whole_file()
+        self.verify()
+
+    def test_whole_file_unpinned_fails(self):
+        self.whole_file()
+        self.write_entries([])
+        with self.assertRaisesRegex(ValueError, 'unmatched finding'):
+            self.verify()
+
+    def test_whole_file_pin_mutations_fail(self):
+        self.whole_file()
+        for field, value in [('file_sha256', sha(b'changed')), ('layer_digest', 'sha256:' + 'f'*64),
+                             ('path', '/other'), ('rule_id', 'other'), ('lines', [1]), ('count', 2)]:
+            with self.subTest(field=field):
+                self.write_entries([{**self.entry, field: value}])
+                with self.assertRaises(ValueError):
+                    self.verify()
+
+    def test_whole_file_invalid_coordinates_fail(self):
+        self.whole_file()
+        for surface in [self.native[self.digest], self.rootfs]:
+            original = dict(surface[0])
+            for field in ['StartLine', 'EndLine', 'StartColumn', 'EndColumn']:
+                for value in [-1, 1, True, '0', None]:
+                    if field == 'StartLine' and value == 1:
+                        continue  # A positive start line remains a text finding.
+                    with self.subTest(surface=surface, field=field, value=value):
+                        surface[0] = {**original, field: value}
+                        self.seal()
+                        with self.assertRaisesRegex(ValueError, 'finding location'):
+                            self.verify()
+                surface[0] = dict(original)
+                del surface[0][field]
+                self.seal()
+                with self.assertRaisesRegex(ValueError, 'finding location'):
+                    self.verify()
+                surface[0] = dict(original)
+
+    def test_whole_file_mixed_or_invalid_allowlist_lines_fail(self):
+        self.whole_file()
+        for lines in [[0, 1], [1, 0], [0, 0], [-1], [False], ['0'], []]:
+            with self.subTest(lines=lines):
+                self.write_entries([{**self.entry, 'lines': lines, 'count': 2}])
+                with self.assertRaises(ValueError):
+                    self.verify()
+
     def test_pin_mutations_fail(self):
         for field, value in [('file_sha256', sha(b'changed bytes')), ('layer_digest', 'sha256:' + 'f'*64),
                              ('rule_id', 'different-rule'), ('path', '/opt/*'), ('reason', '  '),
