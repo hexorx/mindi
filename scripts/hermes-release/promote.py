@@ -11,6 +11,10 @@ import subprocess
 import sys
 import urllib.error
 import urllib.request
+import urllib.parse
+import time
+
+import companion
 
 from gate import COMMIT, DESTINATION, SHA, digest_file, match, read_json, require, unpack_bundle, validate_record, verify_candidate
 
@@ -47,19 +51,97 @@ def check_source(record):
         require(latest['status'] == 'completed' and latest['conclusion'] == 'success', 'exact-head CI failed: ' + name)
 
 
+class AssetRedirect(urllib.request.HTTPRedirectHandler):
+    def redirect_request(self, req, fp, code, msg, headers, newurl):
+        url = urllib.parse.urlsplit(newurl)
+        require(url.scheme == 'https' and url.hostname in {'release-assets.githubusercontent.com', 'objects.githubusercontent.com'}
+                and not url.username and not url.password and url.port in (None, 443), 'untrusted asset redirect')
+        redirected = super().redirect_request(req, fp, code, msg, headers, newurl)
+        redirected.remove_header('Authorization')
+        return redirected
+
+
+def fetch_asset(asset, path, anonymous=False):
+    headers = {'Accept': 'application/octet-stream'}
+    if not anonymous:
+        headers['Authorization'] = 'Bearer ' + os.environ['GH_TOKEN']
+    request = urllib.request.Request('https://api.github.com/repos/' + REPO + '/releases/assets/' + str(asset['id']), headers=headers)
+    opener = urllib.request.build_opener(AssetRedirect())
+    deadline = time.monotonic() + 600
+    h, size = hashlib.sha256(), 0
+    with opener.open(request, timeout=60) as response, path.open('xb') as output:
+        require(response.status == 200, 'asset response status mismatch')
+        length = response.headers.get('Content-Length')
+        require(length is None or length == str(asset['size']), 'asset response size mismatch')
+        while chunk := response.read1(min(1024**2, asset['size'] - size + 1)):
+            size += len(chunk)
+            require(size <= asset['size'] and time.monotonic() <= deadline, 'asset download bound exceeded')
+            h.update(chunk)
+            output.write(chunk)
+    require(size == asset['size'] and h.hexdigest() == asset['sha256'], 'asset digest/size mismatch')
+
+
+def public_github(path):
+    request = urllib.request.Request('https://api.github.com/repos/' + REPO + '/' + path,
+                                     headers={'Accept': 'application/vnd.github+json'})
+    with urllib.request.build_opener(AssetRedirect()).open(request, timeout=60) as response:
+        raw = response.read(companion.META_LIMIT + 1)
+    require(len(raw) <= companion.META_LIMIT, 'release metadata too large')
+    return json.loads(raw, object_pairs_hook=companion.no_duplicates)
+
+
+def release_assets(record, anonymous=False):
+    api = public_github if anonymous else github
+    c = record['source_companion']
+    release = api('releases/' + str(c['release_id']))
+    require(type(release['id']) is int and release['id'] == c['release_id']
+            and release['tag_name'] == 'hermes-source-' + record['source_commit']
+            and release['html_url'] == companion.pointer(record), 'release identity mismatch')
+    require(type(release['draft']) is bool, 'invalid release visibility')
+    if anonymous:
+        require(release['draft'] is False and release.get('published_at'), 'draft staging is not public source delivery')
+        by_tag = api('releases/tags/hermes-source-' + record['source_commit'])
+        require(by_tag['id'] == release['id'] and by_tag['draft'] is False, 'public source pointer mismatch')
+    listed = []
+    for page in (1, 2):
+        batch = api('releases/' + str(c['release_id']) + '/assets?per_page=100&page=' + str(page))
+        require(isinstance(batch, list) and len(batch) <= 100, 'invalid release asset page')
+        listed.extend(batch)
+        if len(batch) < 100:
+            break
+    require(len(listed) < 200, 'release asset inventory too large')
+    expected = record['assets'] + companion.inventory(record)
+    require(len(listed) == len(expected) and {a['id'] for a in listed} == {a['id'] for a in expected}, 'missing/extra/duplicate release assets')
+    for asset in expected:
+        meta = next(a for a in listed if a['id'] == asset['id'])
+        require(type(meta['id']) is int and meta['state'] == 'uploaded' and type(meta['size']) is int
+                and meta['size'] == asset['size'], 'asset metadata mismatch')
+        if 'name' in asset:
+            require(meta['name'] == asset['name'], 'companion asset name mismatch')
+    return listed
+
+
+def download_companion(record, work, anonymous=False):
+    release_assets(record, anonymous)
+    directory = work / ('public-source' if anonymous else 'source-companion')
+    directory.mkdir(mode=0o700)
+    assets = companion.inventory(record)
+    require(shutil.disk_usage(work).free > sum(a['size'] for a in assets) + 1024**3, 'insufficient companion disk')
+    for asset in assets:
+        fetch_asset(asset, directory / asset['name'], anonymous)
+    return directory
+
+
 def download(record, work):
+    release_assets(record)
     bundle = work / 'candidate.zip'
-    # Parts allow large OCI exports while staying below GitHub release asset limits.
     total = sum(a['size'] for a in record['assets'])
-    require(shutil.disk_usage(work).free > total * 5 + 1024**3, 'insufficient staging disk')
+    source_total = sum(a['size'] for a in companion.inventory(record))
+    require(shutil.disk_usage(work).free > total * 5 + source_total * 2 + 1024**3, 'insufficient staging disk')
     with bundle.open('xb') as target:
         for asset in record['assets']:
-            meta = github('releases/assets/' + str(asset['id']))
-            require(meta['id'] == asset['id'] and meta['state'] == 'uploaded' and meta['size'] == asset['size'], 'asset metadata mismatch')
             part = work / ('part-' + str(asset['id']))
-            with part.open('xb') as output:
-                run(['gh', 'api', 'repos/' + REPO + '/releases/assets/' + str(asset['id']), '-H', 'Accept: application/octet-stream'], stdout=output)
-            require(part.stat().st_size == asset['size'] and digest_file(part) == asset['sha256'], 'asset digest/size mismatch')
+            fetch_asset(asset, part)
             with part.open('rb') as source:
                 shutil.copyfileobj(source, target, 1024**2)
     return bundle
@@ -97,6 +179,10 @@ def assert_tag_absent(tag, token, opener=urllib.request.urlopen):
 
 def publish(record, directory, work):
     result = verify_candidate(record, directory)  # Immediately before credentials/push.
+    companion.verify(record, work / 'source-companion', result['config_digest'])
+    public_source = download_companion(record, work, anonymous=True)
+    delivery = companion.verify(record, public_source, result['config_digest'])
+    release_assets(record, anonymous=True)  # Recheck visibility after the full anonymous download.
     token = registry_token()
     for tag in result['tags']:
         assert_tag_absent(tag, token)  # Check BOTH before the first write.
@@ -106,7 +192,7 @@ def publish(record, directory, work):
         json.dump({'auths': {'ghcr.io': {'auth': base64.b64encode((os.environ['GITHUB_ACTOR'] + ':' + os.environ['GHCR_TOKEN']).encode()).decode()}}}, output)
     # No subprocess receives the token in argv or environment; only the 0600 authfile.
     clean_env = {k: v for k, v in os.environ.items() if k not in {'GHCR_TOKEN', 'GH_TOKEN', 'GITHUB_TOKEN'}}
-    receipt = {**result, 'published_tags': [], 'attempted_tags': [], 'anonymous_pull': 'not-run', 'ticket_record': record['ticket_record']}
+    receipt = {**result, 'source_delivery': delivery, 'published_tags': [], 'attempted_tags': [], 'anonymous_pull': 'not-run', 'ticket_record': record['ticket_record']}
     def save():
         (work / 'receipt.json').write_text(json.dumps(receipt, indent=2) + '\n')
     save()
@@ -156,6 +242,8 @@ def main():
     bundle = download(record, work)
     directory = work / 'candidate'
     result = unpack_bundle(record, bundle, directory)
+    source = download_companion(record, work)
+    result['source_companion'] = companion.verify(record, source, result['config_digest'])
     if args.mode == 'promote':
         require(os.environ.get('PROMOTE') == 'true', 'explicit promotion confirmation required')
         trusted_context()  # main must not have changed during qualification/download.
