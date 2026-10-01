@@ -3,7 +3,7 @@
 detected license. Inputs: Syft JSON, upstream-cache.json from classify.py,
 pins.json. Writes reconciliation.tsv and reconciliation-summary.json.
 
-Usage: license_reconcile.py SYFT_JSON UPSTREAM_CACHE PINS OUT_DIR
+Usage: license_reconcile.py SYFT_JSON UPSTREAM_CACHE PINS OUT_DIR EVIDENCE_JSON
 
 Re-run against a replacement image's SBOM after classify.py refreshes the cache.
 BOUND classifications apply only to the exact build they were verified on; any
@@ -14,6 +14,7 @@ import hashlib
 import json
 import re
 import sys
+from pathlib import Path
 
 COPYLEFT = re.compile(r"\b(A?GPL|LGPL|MPL|EPL|CDDL|EUPL|OSL|CeCILL|GNU (Lesser )?General Public)", re.I)
 PERMISSIVE = {"MIT", "Apache-2.0", "BSD-2-Clause", "BSD-3-Clause", "ISC", "Zlib", "Unicode-3.0", "0BSD", "BSL-1.0",
@@ -55,6 +56,17 @@ TS_BINARIES = {
 }
 TS_NOTICE_MAP = "HEX-303 notice-map.json (exact-version texts, inclusion/exclusion per compiled package)"
 
+# Hashes are reviewed constants, never accepted from the evidence input. Requiring
+# the complete closure also binds unlinked go.sum entries and retained module bytes.
+TS_EVIDENCE = {
+    "candidate_index": "5f0521ca42733e5ddd7e217660c95ce68b7fd9d207cdf070b9f9a06bcba4f123",
+    "image_manifest": "b333e4284c0445f55cfaf87f369714652abf5107516128469cc138e40edf1204",
+    "source_tar": "784b023e825e1cca7b146ac6a7aff08b179d60d10839b51019f315dab426c871",
+    "go_mod": "b0ff5cf6556d135a2ab04f5ef4fcc89c3c89519ca7fbafe52502a8341560fda0",
+    "go_sum": "09bcdebaea359c83236f137a023dbcbdcc420f0ef140b32c445cb467dfac9917",
+    "source_closure": "4422144212d928c6c0fae0135fcaa999d54b9447998645e4db8ec7e81471bfab",
+}
+
 BOUND = {
     ("go-module", "tailscale.com", "UNKNOWN"): {
         "license": "BSD-3-Clause AND Apache-2.0 AND 0BSD",
@@ -67,10 +79,11 @@ BOUND = {
         "image": TS_IMAGE, "layer": TS_LAYER, "build": TS_BUILD, "settings": TS_SETTINGS, "binaries": TS_BINARIES,
     },
     ("go-module", "github.com/tailscale/web-client-prebuilt", "v0.0.0-20250124233751-d4cd19a26976"): {
-        "license": "BSD-3-Clause AND MIT AND OFL-1.1",
-        "evidence": ("module LICENSE (Tailscale BSD-3-Clause) h1:UBPHPtv8+nEAy2PD8RyAhOYvau1ek0HDJqLS/Pysi14=; its go:embed "
-                     "build/ bundle contains react/react-dom 18.2.0, scheduler 0.23.0 and classnames 2.3.2 (MIT) and the Inter "
-                     f"variable font (OFL-1.1). Full bundle composition is not proven from the bytes. {TS_NOTICE_MAP}"),
+        "license": "",
+        "unresolved": True,
+        "evidence": ("UNRESOLVED: embedded web-client composition is unproven; scheduler/classnames versions are "
+                     "inferred and the Inter version and candidate OFL notice are unconfirmed. Module h1 and retained "
+                     "source identity do not establish complete embedded notices. Notice delivery is pending."),
         "h1": "h1:UBPHPtv8+nEAy2PD8RyAhOYvau1ek0HDJqLS/Pysi14=",
         "image": TS_IMAGE, "layer": TS_LAYER, "build": TS_BUILD, "binaries": TS_BINARIES,
     },
@@ -79,6 +92,25 @@ BOUND = {
 
 class BindingError(Exception):
     pass
+
+
+def verify_evidence(paths):
+    """Read all retained inputs before classification; never trust supplied hashes."""
+    if not isinstance(paths, dict) or set(paths) != set(TS_EVIDENCE):
+        raise BindingError("evidence must name exactly: " + ", ".join(TS_EVIDENCE))
+    failures = []
+    for name, expected in TS_EVIDENCE.items():
+        try:
+            if not isinstance(paths[name], (str, Path)):
+                raise ValueError("path must be a string")
+            with open(paths[name], "rb") as stream:
+                actual = hashlib.file_digest(stream, "sha256").hexdigest()
+            if actual != expected:
+                failures.append(f"{name}: sha256 {actual} != {expected}")
+        except (OSError, ValueError, TypeError) as exc:
+            failures.append(f"{name}: cannot read evidence: {exc}")
+    if failures:
+        raise BindingError("\n".join(failures))
 
 
 def go_deps_digest(sbom, path):
@@ -169,7 +201,9 @@ def classify(lic):
     return "unclassified"
 
 
-def reconcile(sbom, cache, pins):
+def reconcile(sbom, cache, pins, evidence=None):
+    if any((a["type"], a["name"], a["version"]) in BOUND for a in sbom["artifacts"]):
+        verify_evidence(evidence)
     pinmap = {(p["type"], p["name"], p["version"]): p for p in pins.get("components", [])}
     rows, failures = [], []
     for x in sbom["artifacts"]:
@@ -186,7 +220,9 @@ def reconcile(sbom, cache, pins):
             lic, ev = MANUAL.get(k) or upstream(k, cache)
         cls = classify(lic)
         pin = pinmap.get(k)
-        if pin:
+        if BOUND.get(k, {}).get("unresolved"):
+            disp = "UNRESOLVED"
+        elif pin:
             disp = "source-pinned (" + ", ".join(f"{s['kind']}:{s.get('name') or s.get('repo')}@{s.get('version') or s.get('ref')}" for s in pin["sources"]) + ")"
         elif cls == "permissive":
             disp = "no-source-obligation (permissive; notice only)"
@@ -207,11 +243,18 @@ def load_json(path):
 
 
 def main(argv):
-    syft, cache_path, pins_path, out = argv
-    sbom = load_json(syft)
+    if len(argv) != 5:
+        print("Usage: license_reconcile.py SYFT_JSON UPSTREAM_CACHE PINS OUT_DIR EVIDENCE_JSON", file=sys.stderr)
+        return 2
+    syft, cache_path, pins_path, out, evidence_path = argv
     try:
-        rows = reconcile(sbom, load_json(cache_path), load_json(pins_path))
-    except BindingError as e:
+        sbom = load_json(syft)
+        evidence = load_json(evidence_path)
+        if isinstance(evidence, dict):
+            evidence = {k: str(Path(evidence_path).resolve().parent / v) if isinstance(v, str) else v
+                        for k, v in evidence.items()}
+        rows = reconcile(sbom, load_json(cache_path), load_json(pins_path), evidence)
+    except (BindingError, OSError, ValueError, TypeError, KeyError) as e:
         print(f"FAIL bound classification does not match this SBOM:\n{e}", file=sys.stderr)
         return 2
     cols = ["type", "name", "version", "location", "purl", "license", "class", "disposition", "evidence"]
@@ -222,6 +265,8 @@ def main(argv):
     with open(syft, "rb") as f:
         syft_sha256 = hashlib.sha256(f.read()).hexdigest()
     s = {"syft_sha256": syft_sha256,
+         "evidence_sha256": TS_EVIDENCE if any((r["type"], r["name"], r["version"]) in BOUND for r in rows) else {},
+         "clearance": "NOT GRANTED: reconciliation is not notice completeness or delivery verification",
          "image": (sbom.get("source") or {}).get("metadata", {}).get("manifestDigest"),
          "artifacts": len(rows), "unique": len({(r["type"], r["name"], r["version"]) for r in rows}),
          "by_type": dict(collections.Counter(r["type"] for r in rows)),

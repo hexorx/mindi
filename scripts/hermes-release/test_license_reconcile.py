@@ -1,3 +1,5 @@
+import hashlib
+from unittest import mock
 import copy
 import json
 import os
@@ -23,21 +25,39 @@ def arts(sbom, key, path=None):
             and (path is None or a["locations"][0]["path"] == path)]
 
 
-def run(sbom):
-    return {(r["name"], r["location"]): r for r in lr.reconcile(sbom, {}, {})}
-
-
 class BoundClassification(unittest.TestCase):
+    def setUp(self):
+        # Synthetic bytes exercise the verifier; production pins are never CLI inputs.
+        self.tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(self.tmp.cleanup)
+        self.evidence = {}
+        hashes = {}
+        for name in lr.TS_EVIDENCE:
+            path = os.path.join(self.tmp.name, name)
+            data = (name + " reviewed fixture bytes\n").encode()
+            with open(path, "wb") as f:
+                f.write(data)
+            self.evidence[name] = path
+            hashes[name] = hashlib.sha256(data).hexdigest()
+        patch = mock.patch.dict(lr.TS_EVIDENCE, hashes, clear=True)
+        patch.start()
+        self.addCleanup(patch.stop)
+
+    def run_reconcile(self, sbom, cache=None, pins=None):
+        return {(r["name"], r["location"]): r
+                for r in lr.reconcile(sbom, cache or {}, pins or {}, self.evidence)}
+
     def test_verified_build_gets_bound_licenses(self):
-        rows = run(load())
+        rows = self.run_reconcile(load())
         for path in lr.TS_BINARIES:
             self.assertEqual(rows[("tailscale.com", path)]["license"], "BSD-3-Clause AND Apache-2.0 AND 0BSD")
-            self.assertEqual(rows[(WEB[1], path)]["license"], "BSD-3-Clause AND MIT AND OFL-1.1")
+            self.assertEqual(rows[(WEB[1], path)]["license"], "")
+            self.assertEqual(rows[(WEB[1], path)]["disposition"], "UNRESOLVED")
             self.assertEqual(rows[("tailscale.com", path)]["class"], "permissive")
 
     def assertFailsClosed(self, sbom, needle):
         with self.assertRaises(lr.BindingError) as cm:
-            run(sbom)
+            self.run_reconcile(sbom)
         self.assertIn(needle, str(cm.exception))
 
     def test_review_negative_control(self):
@@ -47,7 +67,7 @@ class BoundClassification(unittest.TestCase):
             a["locations"][0]["path"] = "/opt/unrelated/tailscaled"
             a["metadata"].pop("goBuildSettings")
         with self.assertRaises(lr.BindingError) as cm:
-            run(sbom)
+            self.run_reconcile(sbom)
         msg = str(cm.exception)
         self.assertEqual(len(msg.splitlines()), 4)
         for needle in ("manifestDigest", "'/opt/unrelated/tailscaled' is not a verified binary", "goBuildSettings", WEB[1]):
@@ -124,12 +144,73 @@ class BoundClassification(unittest.TestCase):
         sbom["source"]["metadata"]["manifestDigest"] = "sha256:" + "0" * 64
         with tempfile.TemporaryDirectory() as d:
             paths = []
-            for name, obj in (("syft.json", sbom), ("cache.json", {}), ("pins.json", {})):
+            for name, obj in (("syft.json", sbom), ("cache.json", {}), ("pins.json", {}), ("evidence.json", self.evidence)):
                 paths.append(os.path.join(d, name))
                 with open(paths[-1], "w") as f:
                     json.dump(obj, f)
-            self.assertEqual(lr.main([*paths, d]), 2)
+            self.assertEqual(lr.main([*paths[:3], d, paths[3]]), 2)
             self.assertFalse(os.path.exists(os.path.join(d, "reconciliation.tsv")))
+
+    def test_each_evidence_input_missing_or_changed(self):
+        for name, path in list(self.evidence.items()):
+            with self.subTest(name=name, mutation="missing path"):
+                self.evidence[name] = path + ".missing"
+                self.assertFailsClosed(load(), name)
+            self.evidence[name] = path
+            with open(path, "rb") as f:
+                original = f.read()
+            with self.subTest(name=name, mutation="changed bytes"):
+                with open(path, "ab") as f:
+                    f.write(b"unlinked lock entry or altered retained bytes\n")
+                self.assertFailsClosed(load(), name)
+            with open(path, "wb") as f:
+                f.write(original)
+            with self.subTest(name=name, mutation="omitted input"):
+                self.evidence.pop(name)
+                self.assertFailsClosed(load(), "evidence must name exactly")
+            self.evidence[name] = path
+
+    def test_no_evidence_cannot_classify(self):
+        with self.assertRaises(lr.BindingError):
+            lr.reconcile(load(), {}, {})
+
+    def test_web_cannot_be_resolved_by_cache_pins_or_detected_license(self):
+        sbom = load()
+        for a in arts(sbom, WEB):
+            a["licenses"] = [{"value": "MIT"}]
+        rows = self.run_reconcile(sbom, {"|".join(WEB): {"depsdev": {"licenses": ["MIT"]}}},
+                                  {"components": [{"type": WEB[0], "name": WEB[1], "version": WEB[2], "sources": []}]})
+        for path in lr.TS_BINARIES:
+            self.assertEqual(rows[(WEB[1], path)]["disposition"], "UNRESOLVED")
+            self.assertEqual(rows[(WEB[1], path)]["class"], "unclassified")
+
+    def test_cli_evidence_failure_preserves_existing_output(self):
+        with tempfile.TemporaryDirectory() as d:
+            paths = []
+            for name, data in (("syft", load()), ("cache", {}), ("pins", {}), ("evidence", self.evidence)):
+                path = os.path.join(d, name + ".json")
+                with open(path, "w") as f:
+                    json.dump(data, f)
+                paths.append(path)
+            outputs = [os.path.join(d, n) for n in ("reconciliation.tsv", "reconciliation-summary.json")]
+            for path in outputs:
+                with open(path, "w") as f:
+                    f.write("previous output")
+            for name, path in self.evidence.items():
+                with self.subTest(name=name):
+                    with open(path, "rb") as f:
+                        original = f.read()
+                    with open(path, "ab") as f:
+                        f.write(b"mutation")
+                    self.assertEqual(lr.main([*paths[:3], d, paths[3]]), 2)
+                    for output in outputs:
+                        with open(output) as f:
+                            self.assertEqual(f.read(), "previous output")
+                    with open(path, "wb") as f:
+                        f.write(original)
+
+    def test_cli_requires_evidence_argument(self):
+        self.assertEqual(lr.main(["sbom", "cache", "pins", "out"]), 2)
 
     def test_bound_keys_are_not_also_manual(self):
         self.assertFalse(set(lr.BOUND) & set(lr.MANUAL))
