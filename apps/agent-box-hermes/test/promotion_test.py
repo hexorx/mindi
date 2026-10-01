@@ -17,6 +17,7 @@ ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT / 'scripts/hermes-release'))
 import gate
 import promote
+from smoke_fixtures import fixture, invalid_stream_observations
 
 
 def encoded(value):
@@ -83,7 +84,10 @@ class Candidate:
         self.reports['notices'].update(corresponding_source={'status': 'fulfilled', 'raw': ['raw-evidence.json'], 'components': [{'component': 'fixture', 'status': 'delivered', 'evidence': 'raw-evidence.json'}]}, disclosures={k: 'Fixture disclosure; not release evidence' for k in gate.DISCLOSURES})
         self.reports['secrets'].update(scanner={'name': 'fixture', 'version': '1', 'ruleset': 'fixture'}, content_scan=True, filesystem='pass', config_history='pass', deleted_contents=True, findings=0, errors=[], layers={x['digest']: 'pass' for x in layers})
         self.reports['vulnerabilities'].update(scanner={'name': 'fixture', 'version': '1'}, database={'digest': 'fixture', 'schema': 'fixture', 'updated_at': date(self.now)}, input='oci-archive', archive_sha256=self.record['archive_sha256'], errors=[], unresolved=0, disposition='clean')
-        self.reports['smoke'].update(checks={k: {'status': 'pass', 'mode': 'real', 'evidence': 'raw-evidence.json', 'image_digest_tested': desc['digest'], 'inference_spend': 'none'} for k in gate.SMOKES})
+        self.reports['smoke'], smoke_raw = fixture(desc['digest'], self.source, date(self.now))
+        for name, data in smoke_raw.items():
+            (root / name).write_bytes(data)
+            self.record['attachments'][name] = sha(data)
         self.reports['review'].update(commit='b'*40, author='codi', reviewer='devi', decision='approved', ci='success')
         if indexed:
             raw = self.blobs['blobs/sha256/' + statement['digest'][7:]]
@@ -119,6 +123,20 @@ class GateTests(unittest.TestCase):
 
     def verify(self):
         return gate.verify_candidate(self.c.record, self.data)
+
+    def test_tokenless_native_stream_rejected_with_valid_hashes(self):
+        for payload, trace in invalid_stream_observations():
+            with self.subTest(payload=payload):
+                ref = self.c.reports['smoke']['checks']['api_stream']['evidence']
+                path = self.data / ref['path']
+                evidence = json.loads(path.read_bytes())
+                evidence['observations'] = trace
+                path.write_bytes(encoded(evidence))
+                ref['sha256'] = sha(path.read_bytes())
+                self.c.record['attachments'][path.name] = ref['sha256']
+                self.c.seal()
+                with self.assertRaisesRegex(ValueError, 'native.*(payload|delta)|metadata mismatch'):
+                    self.verify()
 
     def test_valid_index(self):
         self.assertEqual(self.verify()['manifest_digest'], self.c.record['manifest_digest'])
@@ -235,7 +253,7 @@ class GateTests(unittest.TestCase):
         for field, value in [('mode', 'mock'), ('status', 'skipped'), ('image_digest_tested', 'sha256:'+'0'*64)]:
             with self.subTest(field=field):
                 self.c.reports = copy.deepcopy(original)
-                self.c.reports['smoke']['checks']['second_box_isolation'][field] = value
+                self.c.reports['smoke']['checks']['second_box_credentials'][field] = value
                 self.c.seal()
                 with self.assertRaises(ValueError): self.verify()
 

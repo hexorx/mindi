@@ -14,14 +14,13 @@ import stat
 import tarfile
 import zipfile
 
+from smoke import SCHEMA_VERSION, SMOKES, validate_smoke
+
 DESTINATION = 'ghcr.io/hexorx/agent-box-hermes'
 SHA = r'[0-9a-f]{64}'
 COMMIT = r'[0-9a-f]{40}'
 DIGEST = r'sha256:' + SHA
 REPORTS = {'sbom', 'provenance', 'notices', 'secrets', 'vulnerabilities', 'smoke', 'source', 'review'}
-SMOKES = {'no_github_no_tailscale_boot', 'desktop_auth', 'screenshot', 'click', 'type',
-          'memory_recreation', 'second_box_isolation', 'api_stream', 'api_cancel',
-          'api_retry', 'shutdown', 'secret_redaction'}
 DISCLOSURES = {'path_parity', 'args_escaped', 'generic_smoke_skipped', 'agent_browser_absent',
                'font_aliases', 'shared_notice_hashes', 'archive_scan_error',
                'historical_bin_docker_missing', 'declared_only', 'native_static_build_source',
@@ -227,7 +226,7 @@ def verify_candidate(record, directory):
         path = directory / entry['file']
         require(digest_file(path) == entry['sha256'], 'report digest mismatch')
         report = read_json(path)
-        require(report['schema_version'] == 1 and report['kind'] == kind, 'invalid report schema')
+        require(report['schema_version'] == (SCHEMA_VERSION if kind == 'smoke' else 1) and report['kind'] == kind, 'invalid report schema')
         require(report['status'] == 'pass', 'failed/missing evidence gate: ' + kind)
         require(report['source_commit'] == record['source_commit'] and report['manifest_digest'] == record['manifest_digest'], 'evidence subject mismatch')
         observed = timestamp(report['observed_at'])
@@ -263,11 +262,8 @@ def verify_candidate(record, directory):
     if vulnerabilities['disposition'] == 'reviewed-exceptions':
         require(vulnerabilities['exceptions'] and all(x['id'] and x['reason'] and x['approved_by'] and timestamp(x['expires_at']) >= timestamp(record['expires_at']) for x in vulnerabilities['exceptions']), 'invalid vulnerability exceptions')
     smoke = reports['smoke']
-    require(set(smoke['checks']) == SMOKES, 'missing smoke gates')
-    for check in smoke['checks'].values():
-        require(check['image_digest_tested'] == record['manifest_digest'] and (check['inference_spend'] == 'none' or match(r'https://paperclip\.mindi\.stayho\.me/HEX/approvals/[a-z0-9-]+', check['inference_spend'])) and check['status'] == 'pass' and check['mode'] in {'real', 'mock'} and check['evidence'] in record['attachments'], 'failed/missing smoke evidence')
-    # Mock coverage is disclosed but cannot satisfy the release gate.
-    require(all(check['mode'] == 'real' for check in smoke['checks'].values()), 'mock smoke cannot qualify release')
+    validate_smoke(smoke, record['manifest_digest'],
+                   {name: (directory / name).read_bytes() for name in smoke['raw']})
     review = reports['review']
     require(review['commit'] == record['accepted_commit'] and review['reviewer'] != review['author'] and review['reviewer'] and review['author'], 'independent exact-head review required')
     require(review['decision'] == 'approved' and review['ci'] == 'success', 'approval/CI gate failed')

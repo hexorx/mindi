@@ -1,5 +1,5 @@
 {
-  "warning": "SYNTHETIC EXPIRED EXAMPLE. Not release evidence. Hashes/IDs are placeholders, not uploadable assets.",
+  "warning": "SYNTHETIC EXPIRED LEGACY EXAMPLE. Smoke schema 1 is rejected; see hermes-smoke-schema.md. Not release evidence. Hashes/IDs are placeholders, not uploadable assets.",
   "record": {
     "schema_version": 1,
     "destination": "ghcr.io/hexorx/agent-box-hermes",
