@@ -1,0 +1,258 @@
+{
+  "sourceCommit": "7e0cd9f5f54b75d8422b395b5b45795712d60e6c",
+  "sourceEvidenceSha256": "7b071c56225ca597f257945dbe9306ce25786154660f5f628b39a018de139d88",
+  "rows": [
+    {
+      "severity": "Critical",
+      "advisory": "GHSA-23hp-3jrh-7fpw",
+      "package": "tar",
+      "oldVersion": "7.5.16",
+      "path": "/usr/local/lib/node_modules/npm/node_modules/tar/package.json",
+      "targetVersion": "7.5.22",
+      "status": "pending exact-image scan"
+    },
+    {
+      "severity": "High",
+      "advisory": "GHSA-2v37-7h3g-55p8",
+      "package": "nanoid",
+      "oldVersion": "3.3.17",
+      "path": "/opt/hermes/node_modules/sanitize-html/node_modules/nanoid/package.json",
+      "targetVersion": "3.3.18",
+      "status": "pending exact-image scan"
+    },
+    {
+      "severity": "High",
+      "advisory": "GHSA-2v37-7h3g-55p8",
+      "package": "nanoid",
+      "oldVersion": "3.3.17",
+      "path": "/opt/hermes/node_modules/vite/node_modules/nanoid/package.json",
+      "targetVersion": "3.3.18",
+      "status": "pending exact-image scan"
+    },
+    {
+      "severity": "High",
+      "advisory": "GHSA-3jxr-9vmj-r5cp",
+      "package": "brace-expansion",
+      "oldVersion": "5.0.6",
+      "path": "/usr/local/lib/node_modules/npm/node_modules/brace-expansion/package.json",
+      "targetVersion": "5.0.11",
+      "status": "pending exact-image scan"
+    },
+    {
+      "severity": "High",
+      "advisory": "GHSA-4w2j-m93h-cj5j",
+      "package": "quinn-proto",
+      "oldVersion": "0.11.14",
+      "path": "/usr/local/bin/uv",
+      "targetVersion": "0.11.18",
+      "status": "pending exact-image scan"
+    },
+    {
+      "severity": "High",
+      "advisory": "GHSA-4w2j-m93h-cj5j",
+      "package": "quinn-proto",
+      "oldVersion": "0.11.14",
+      "path": "/usr/local/bin/uvx",
+      "targetVersion": "0.11.18",
+      "status": "pending exact-image scan"
+    },
+    {
+      "severity": "High",
+      "advisory": "GHSA-6j4f-fj2g-mc7p",
+      "package": "brace-expansion",
+      "oldVersion": "5.0.6",
+      "path": "/usr/local/lib/node_modules/npm/node_modules/brace-expansion/package.json",
+      "targetVersion": "5.0.11",
+      "status": "pending exact-image scan"
+    },
+    {
+      "severity": "High",
+      "advisory": "GHSA-6j4f-fj2g-mc7p",
+      "package": "brace-expansion",
+      "oldVersion": "5.0.9",
+      "path": "/opt/hermes/node_modules/brace-expansion/package.json",
+      "targetVersion": "5.0.11",
+      "status": "pending exact-image scan"
+    },
+    {
+      "severity": "High",
+      "advisory": "GHSA-73wf-gq98-2v4g",
+      "package": "browserslist",
+      "oldVersion": "4.28.6",
+      "path": "/opt/hermes/node_modules/browserslist/package.json",
+      "targetVersion": "4.28.7",
+      "status": "pending exact-image scan"
+    },
+    {
+      "severity": "High",
+      "advisory": "GHSA-7mj9-2mp8-4m2p",
+      "package": "httpcore2",
+      "oldVersion": "2.7.0",
+      "path": "/opt/hermes/.venv/lib/python3.13/site-packages/httpcore2-2.7.0.dist-info/METADATA",
+      "targetVersion": "2.12.0",
+      "status": "pending exact-image scan"
+    },
+    {
+      "severity": "High",
+      "advisory": "GHSA-7mj9-2mp8-4m2p",
+      "package": "httpx2",
+      "oldVersion": "2.7.0",
+      "path": "/opt/hermes/.venv/lib/python3.13/site-packages/httpx2-2.7.0.dist-info/METADATA",
+      "targetVersion": "2.12.0",
+      "status": "pending exact-image scan"
+    },
+    {
+      "severity": "High",
+      "advisory": "GHSA-82j2-j2ch-gfr8",
+      "package": "rustls-webpki",
+      "oldVersion": "0.103.10",
+      "path": "/usr/local/bin/uv",
+      "targetVersion": "0.103.14",
+      "status": "pending exact-image scan"
+    },
+    {
+      "severity": "High",
+      "advisory": "GHSA-82j2-j2ch-gfr8",
+      "package": "rustls-webpki",
+      "oldVersion": "0.103.10",
+      "path": "/usr/local/bin/uvx",
+      "targetVersion": "0.103.14",
+      "status": "pending exact-image scan"
+    },
+    {
+      "severity": "High",
+      "advisory": "GHSA-8x88-c5mf-7j5w",
+      "package": "tar",
+      "oldVersion": "7.5.16",
+      "path": "/usr/local/lib/node_modules/npm/node_modules/tar/package.json",
+      "targetVersion": "7.5.22",
+      "status": "pending exact-image scan"
+    },
+    {
+      "severity": "High",
+      "advisory": "GHSA-8xx6-hgc6-gc2m",
+      "package": "httpx2",
+      "oldVersion": "2.7.0",
+      "path": "/opt/hermes/.venv/lib/python3.13/site-packages/httpx2-2.7.0.dist-info/METADATA",
+      "targetVersion": "2.12.0",
+      "status": "pending exact-image scan"
+    },
+    {
+      "severity": "High",
+      "advisory": "GHSA-c83g-rgw3-j3cx",
+      "package": "browserslist",
+      "oldVersion": "4.28.6",
+      "path": "/opt/hermes/node_modules/browserslist/package.json",
+      "targetVersion": "4.28.7",
+      "status": "pending exact-image scan"
+    },
+    {
+      "severity": "High",
+      "advisory": "GHSA-mh99-v99m-4gvg",
+      "package": "brace-expansion",
+      "oldVersion": "5.0.6",
+      "path": "/usr/local/lib/node_modules/npm/node_modules/brace-expansion/package.json",
+      "targetVersion": "5.0.11",
+      "status": "pending exact-image scan"
+    },
+    {
+      "severity": "High",
+      "advisory": "GHSA-mpf4-983q-p7j4",
+      "package": "tornado",
+      "oldVersion": "6.5.7",
+      "path": "/opt/hermes/.venv/lib/python3.13/site-packages/tornado-6.5.7.dist-info/METADATA",
+      "targetVersion": "6.5.8",
+      "status": "pending exact-image scan"
+    },
+    {
+      "severity": "High",
+      "advisory": "GHSA-mwp4-54f8-5fhr",
+      "package": "ip-address",
+      "oldVersion": "10.2.0",
+      "path": "/usr/local/lib/node_modules/npm/node_modules/ip-address/package.json",
+      "targetVersion": "10.5.0",
+      "status": "pending exact-image scan"
+    },
+    {
+      "severity": "High",
+      "advisory": "GHSA-qhr7-859c-m2p7",
+      "package": "brace-expansion",
+      "oldVersion": "5.0.6",
+      "path": "/usr/local/lib/node_modules/npm/node_modules/brace-expansion/package.json",
+      "targetVersion": "5.0.11",
+      "status": "pending exact-image scan"
+    },
+    {
+      "severity": "High",
+      "advisory": "GHSA-qhr7-859c-m2p7",
+      "package": "brace-expansion",
+      "oldVersion": "5.0.9",
+      "path": "/opt/hermes/node_modules/brace-expansion/package.json",
+      "targetVersion": "5.0.11",
+      "status": "pending exact-image scan"
+    },
+    {
+      "severity": "High",
+      "advisory": "GHSA-r292-9mhp-454m",
+      "package": "tar",
+      "oldVersion": "7.5.16",
+      "path": "/usr/local/lib/node_modules/npm/node_modules/tar/package.json",
+      "targetVersion": "7.5.22",
+      "status": "pending exact-image scan"
+    },
+    {
+      "severity": "High",
+      "advisory": "GHSA-rfgv-xxqx-mfg5",
+      "package": "undici",
+      "oldVersion": "6.26.0",
+      "path": "/usr/local/lib/node_modules/npm/node_modules/undici/package.json",
+      "targetVersion": "6.28.1",
+      "status": "pending exact-image scan"
+    },
+    {
+      "severity": "High",
+      "advisory": "GHSA-rfgv-xxqx-mfg5",
+      "package": "undici",
+      "oldVersion": "6.28.0",
+      "path": "/opt/hermes/ui-tui/node_modules/undici/package.json",
+      "targetVersion": "6.28.1",
+      "status": "pending exact-image scan"
+    },
+    {
+      "severity": "High",
+      "advisory": "GHSA-rfgv-xxqx-mfg5",
+      "package": "undici",
+      "oldVersion": "7.29.0",
+      "path": "/opt/hermes/plugins/platforms/photon/sidecar/node_modules/undici/package.json",
+      "targetVersion": "7.29.1",
+      "status": "pending exact-image scan"
+    },
+    {
+      "severity": "High",
+      "advisory": "GHSA-rgw5-rvv9-x895",
+      "package": "brace-expansion",
+      "oldVersion": "5.0.6",
+      "path": "/usr/local/lib/node_modules/npm/node_modules/brace-expansion/package.json",
+      "targetVersion": "5.0.11",
+      "status": "pending exact-image scan"
+    },
+    {
+      "severity": "High",
+      "advisory": "GHSA-vxpw-j846-p89q",
+      "package": "undici",
+      "oldVersion": "6.26.0",
+      "path": "/usr/local/lib/node_modules/npm/node_modules/undici/package.json",
+      "targetVersion": "6.28.1",
+      "status": "pending exact-image scan"
+    },
+    {
+      "severity": "High",
+      "advisory": "GHSA-w293-vg96-wgc3",
+      "package": "undici",
+      "oldVersion": "7.29.0",
+      "path": "/opt/hermes/plugins/platforms/photon/sidecar/node_modules/undici/package.json",
+      "targetVersion": "7.29.1",
+      "status": "pending exact-image scan"
+    }
+  ]
+}

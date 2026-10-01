@@ -193,6 +193,12 @@
 !docs/third-party/hex198-build-inputs/chromium-added-sources.tsv
 !docs/third-party/hex198-build-inputs/photon-chain.json
 !docs/third-party/hex198-build-inputs/base-config.json
+!apps/agent-box-hermes/build/apply_node_security.py
+!apps/agent-box-hermes/build/hermes-node-security.json
+!apps/agent-box-hermes/build/verify_node_security.mjs
+!apps/agent-box-hermes/build/verify_python_security.py
+!apps/agent-box-hermes/build/patch_lazy_deps.py
+!docs/third-party/hex232-security-inputs/**
 # Reject credentials and local interpreter state even under allowed directories.
 **/.env
 **/.env.*
