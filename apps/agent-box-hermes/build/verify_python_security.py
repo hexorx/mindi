@@ -11,8 +11,11 @@ import jwt
 import msal
 import tornado.escape
 from cryptography.hazmat.primitives.asymmetric import rsa
+from verify_p9_security import verify
 
-EXPECTED = {'httpx2': '2.12.0', 'httpcore2': '2.12.0', 'tornado': '6.5.8'}
+verify()
+
+EXPECTED = {'urllib3': '2.8.0', 'httpx2': '2.12.0', 'httpcore2': '2.12.0', 'tornado': '6.5.9'}
 for name, version in EXPECTED.items():
     assert metadata.version(name) == version, name
     for text in metadata.requires(name) or []:

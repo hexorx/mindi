@@ -17,6 +17,11 @@ for (const entry of lock.packages) {
       throw new Error(`Unsupported Node version: ${target.path}`);
     }
     const localRequire = createRequire(manifest);
+    if (entry.name === '@grpc/grpc-js') {
+      const grpc = localRequire(target.path);
+      const client = new grpc.Client('127.0.0.1:1', grpc.credentials.createInsecure());
+      client.close(); // No connection/provider call: exercise inherited module closure.
+    }
     for (const [name, range] of Object.entries(installed.dependencies || {})) {
       // Resolve package manifests manually: some packages hide them with exports.
       const dirs = localRequire.resolve.paths(name) || [];

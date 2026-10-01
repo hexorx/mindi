@@ -15,7 +15,7 @@ class SecurityPinsTest(unittest.TestCase):
         overlay = (BUILD / 'hermes-security.lock').read_text()
         for name, version in [('pyjwt', '2.14.0'), ('anyio', '4.14.2'),
                               ('httpx2', '2.12.0'), ('httpcore2', '2.12.0'),
-                              ('tornado', '6.5.8')]:
+                              ('urllib3', '2.8.0'), ('tornado', '6.5.9')]:
             self.assertEqual(packages[name]['version'], version)
             chunk = re.split(r'\n(?=[a-z])', overlay.split(name + '==' + version)[1])[0]
             hashes = re.findall(r'--hash=sha256:([a-f0-9]{64})', chunk)
@@ -25,6 +25,8 @@ class SecurityPinsTest(unittest.TestCase):
                 self.assertIn('sha256:' + digest, {a['hash'] for a in artifacts})
         project = tomllib.loads((BUILD / 'hermes-pyproject.toml').read_text())
         self.assertIn('PyJWT[crypto]==2.14.0', project['project']['dependencies'])
+        self.assertIn('urllib3==2.8.0', project['project']['dependencies'])
+        self.assertIn('tornado==6.5.9', project['tool']['uv']['override-dependencies'])
         self.assertEqual(project['tool']['uv']['exclude-newer'], '2026-09-16T12:10:52Z')
 
     def test_overlay_installs_ignore_inherited_project_config(self):
