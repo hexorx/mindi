@@ -136,7 +136,12 @@ with tempfile.TemporaryDirectory() as local:
     apply(home, rollback=True)
     assert (home / 'AGENTS.md').read_text() == original
 PYTHON
-docker exec --user 1000:1000 "$container" /opt/hermes/.venv/bin/python /opt/agent-box/smoke.py
+# Keep the fixture directory private. Supply its complete redaction corpus via
+# stdin, never argv, environment, logs, or a new container file.
+python3 - "$scratch" <<'PYTHON' | docker exec -i --user 1000:1000 "$container" /opt/hermes/.venv/bin/python /opt/agent-box/smoke.py --diagnostic-secrets-stdin
+import json, pathlib, sys
+json.dump([p.read_text().strip() for p in pathlib.Path(sys.argv[1]).iterdir() if p.is_file()], sys.stdout)
+PYTHON
 docker exec --user 1000:1000 "$container" python3 /test/memory-probe.py retain
 # A process/container restart must preserve data and the box-derived bank.
 docker restart --time 20 "$container" >/dev/null

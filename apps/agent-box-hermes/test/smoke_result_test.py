@@ -35,6 +35,18 @@ class SmokeResultTest(unittest.TestCase):
                 self.assertNotIn(secret, result)
             self.assertLessEqual(len(result), 800)
 
+    def test_private_mount_uses_supplied_fixture_corpus(self):
+        with patch.object(Path, 'iterdir', side_effect=PermissionError):
+            self.assertEqual(smoke.diagnostic('capture failed'), 'diagnostic_unavailable')
+            with self.assertRaisesRegex(RuntimeError, r'capture: unspecified: backend failed: \[redacted\]'):
+                smoke.checked_result({'error': 'backend failed: private-fixture'}, 'capture',
+                                     secret_values=['private-fixture'])
+
+    def test_invalid_supplied_corpus_fails_closed(self):
+        for corpus in ('private-fixture', [None], {'key': 'private-fixture'}):
+            self.assertEqual(smoke.diagnostic('private-fixture', secret_values=corpus),
+                             'diagnostic_unavailable')
+
     def test_does_not_include_tool_content_in_failure(self):
         with self.assertRaises(RuntimeError) as failure:
             smoke.checked_result({'error': 'capture failed', 'content': 'private screenshot'}, 'capture')
