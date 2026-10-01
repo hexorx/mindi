@@ -1,6 +1,20 @@
 # syntax=docker/dockerfile:1.7
 # Adapted from the allowlisted mindi-stack b5ac82d Dockerfile; see docs/extraction-provenance.md.
-FROM tailscale/tailscale:v1.102.4@sha256:2667499ed87ae29218f292556ba062918402dd5e92e93637af14867e4df12dd3 AS tailscale
+# Rebuild the pinned source: the released binary embeds vulnerable x/crypto.
+FROM golang:1.26.8-bookworm@sha256:a688600ca24f8a4d3ca77f95b0dd40704a9fc787c826660eb7ba0b641b8b175d AS tailscale
+WORKDIR /build/tailscale
+RUN curl -fsSL --retry 3 https://github.com/tailscale/tailscale/archive/refs/tags/v1.102.4.tar.gz -o /tmp/tailscale.tar.gz \
+ && echo '784b023e825e1cca7b146ac6a7aff08b179d60d10839b51019f315dab426c871  /tmp/tailscale.tar.gz' | sha256sum -c - \
+ && tar -xzf /tmp/tailscale.tar.gz --strip-components=1
+COPY apps/agent-box-hermes/build/tailscale-go.mod ./go.mod
+COPY apps/agent-box-hermes/build/tailscale-go.sum ./go.sum
+ENV GOTOOLCHAIN=local CGO_ENABLED=0
+RUN go mod download \
+ && go mod verify \
+ && go build -mod=readonly -trimpath -tags=ts_kube,ts_package_container \
+      -ldflags='-X tailscale.com/version.longStamp=1.102.4-hex276 -X tailscale.com/version.shortStamp=1.102.4' \
+      -o /usr/local/bin/ ./cmd/tailscale ./cmd/tailscaled \
+ && go version -m /usr/local/bin/tailscaled | awk '$1 == "dep" && $2 == "golang.org/x/crypto" { if ($3 != "v0.56.0") exit 1; found=1 } END { if (!found) exit 1 }'
 FROM docker:29.8.1-cli@sha256:018edbc908e08fcc9dbf029c812c34251e9b4719e6f71ca0e5eae2a987d014ca AS dockercli
 # pg0 hardcodes localhost in setup and connection URIs; configure every path
 # before the database first starts. Build from verified source, preserving v0.15.2.
@@ -96,6 +110,7 @@ COPY docs/third-party/hex198-build-inputs/ /usr/share/doc/agent-box-hermes/third
 COPY docs/third-party/hex195-provenance-join/ /usr/share/doc/agent-box-hermes/third-party/hex195-provenance-join/
 COPY docs/third-party/hex214-security-inputs/ /usr/share/doc/agent-box-hermes/third-party/hex214-security-inputs/
 COPY docs/third-party/hex232-security-inputs/ /usr/share/doc/agent-box-hermes/third-party/hex232-security-inputs/
+COPY docs/third-party/hex276-security-inputs/ /usr/share/doc/agent-box-hermes/third-party/hex276-security-inputs/
 COPY docs/third-party/hex263-uv-inputs/ /usr/share/doc/agent-box-hermes/third-party/hex263-uv-inputs/
 COPY apps/agent-box-hermes/build/verify_uv_notices.py /opt/build/verify_uv_notices.py
 RUN python3 /opt/build/verify_uv_notices.py /usr/share/doc/agent-box-hermes/third-party/hex263-uv-inputs --bin-dir /usr/local/bin
