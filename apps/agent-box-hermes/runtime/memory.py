@@ -82,7 +82,10 @@ def environment(source, runtime=RUNTIME):
            'HINDSIGHT_API_HOST': '127.0.0.2', 'HINDSIGHT_API_PORT': '8888',
            'HINDSIGHT_API_DATABASE_URL': 'pg0://hindsight',
            'HINDSIGHT_API_RERANKER_PROVIDER': 'rrf',
-           'HINDSIGHT_API_LOG_LEVEL': 'warning'}
+           'HINDSIGHT_API_LOG_LEVEL': 'warning',
+           # Image assets live outside fresh home/memory volumes.
+           'TIKTOKEN_CACHE_DIR': '/opt/agent-box/tiktoken-cache',
+           'LITELLM_LOCAL_MODEL_COST_MAP': 'True'}
     provider = source.get('MEMORY_LLM_PROVIDER') or 'openai'
     if provider not in ('openai', 'anthropic'):
         raise ValueError('memory: MEMORY_LLM_PROVIDER must be openai or anthropic')
