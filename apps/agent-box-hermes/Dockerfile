@@ -67,9 +67,9 @@ RUN uv pip install --no-config --python /opt/hermes/.venv/bin/python --no-deps -
  && (cd /opt/hermes && PYTHONPATH=/opt/build/hermes-build-tools .venv/bin/python -c "from setuptools.build_meta import build_editable; build_editable('/opt/build/hermes-wheel')") \
  && uv pip install --no-config --python /opt/hermes/.venv/bin/python --no-deps --no-index /opt/build/hermes-wheel/*.whl \
  && rm -rf /opt/build/hermes-build-tools /opt/build/hermes-wheel \
- && /opt/hermes/.venv/bin/python -c "import importlib.metadata as m; assert m.version('pyjwt') == '2.14.0'; assert m.version('anyio') == '4.14.2'; assert m.version('httpx2') == '2.12.0'; assert m.version('httpcore2') == '2.12.0'; assert m.version('tornado') == '6.5.8'"
+ && /opt/hermes/.venv/bin/python -c "import importlib.metadata as m; assert m.version('pyjwt') == '2.14.0'; assert m.version('anyio') == '4.14.2'; assert m.version('httpx2') == '2.12.0'; assert m.version('httpcore2') == '2.12.0'; assert m.version('urllib3') == '2.8.0'; assert m.version('tornado') == '6.5.9'"
 # The lazy feature registry carries an independent exact pin; align it too.
-COPY apps/agent-box-hermes/build/patch_lazy_deps.py apps/agent-box-hermes/build/verify_python_security.py /opt/build/
+COPY apps/agent-box-hermes/build/patch_lazy_deps.py apps/agent-box-hermes/build/verify_python_security.py apps/agent-box-hermes/build/verify_p9_security.py /opt/build/
 RUN /opt/hermes/.venv/bin/python /opt/build/patch_lazy_deps.py \
  && /opt/hermes/.venv/bin/python /opt/build/verify_python_security.py
 # Isolated dependency graph; pg0 0.15.2 bundles PostgreSQL and pgvector.
@@ -112,6 +112,7 @@ COPY docs/third-party/hex198-build-inputs/ /usr/share/doc/agent-box-hermes/third
 COPY docs/third-party/hex195-provenance-join/ /usr/share/doc/agent-box-hermes/third-party/hex195-provenance-join/
 COPY docs/third-party/hex214-security-inputs/ /usr/share/doc/agent-box-hermes/third-party/hex214-security-inputs/
 COPY docs/third-party/hex232-security-inputs/ /usr/share/doc/agent-box-hermes/third-party/hex232-security-inputs/
+COPY docs/third-party/hex290-security-inputs/ /usr/share/doc/agent-box-hermes/third-party/hex290-security-inputs/
 COPY docs/third-party/hex276-security-inputs/ /usr/share/doc/agent-box-hermes/third-party/hex276-security-inputs/
 COPY docs/third-party/hex263-uv-inputs/ /usr/share/doc/agent-box-hermes/third-party/hex263-uv-inputs/
 COPY apps/agent-box-hermes/build/verify_uv_notices.py /opt/build/verify_uv_notices.py

@@ -202,6 +202,8 @@
 !apps/agent-box-hermes/build/tailscale-go.mod
 !apps/agent-box-hermes/build/tailscale-go.sum
 !docs/third-party/hex276-security-inputs/**
+!apps/agent-box-hermes/build/verify_p9_security.py
+!docs/third-party/hex290-security-inputs/**
 # Reject credentials and local interpreter state even under allowed directories.
 **/.env
 **/.env.*
