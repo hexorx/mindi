@@ -201,6 +201,7 @@
 !docs/third-party/hex232-security-inputs/**
 !apps/agent-box-hermes/build/tailscale-go.mod
 !apps/agent-box-hermes/build/tailscale-go.sum
+!apps/agent-box-hermes/build/verify_tailscale_no_web.sh
 !docs/third-party/hex276-security-inputs/**
 !apps/agent-box-hermes/build/verify_p9_security.py
 !docs/third-party/hex290-security-inputs/**
