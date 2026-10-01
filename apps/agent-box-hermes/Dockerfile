@@ -25,6 +25,8 @@ ARG TARGETARCH
 COPY apps/agent-box-hermes/build/apt-* /opt/build/apt/
 RUN test "$TARGETARCH" = amd64 \
  && /opt/build/apt/apt-install-locked.sh \
+ && rm -f /etc/chromium.d/apikeys \
+ && test ! -e /etc/chromium.d/apikeys && test ! -L /etc/chromium.d/apikeys \
  && rm -rf /opt/build/apt /var/lib/apt/lists/* /etc/s6-overlay/s6-rc.d /etc/cont-init.d \
  && usermod -u 1000 -d /home/agent hermes && groupmod -g 1000 hermes \
  && install -d -o hermes -g hermes /home/agent
