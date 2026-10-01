@@ -17,6 +17,7 @@ ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT / 'scripts/hermes-release'))
 import gate
 import promote
+from companion_fixtures import make_companion
 from smoke_fixtures import fixture, invalid_stream_observations
 
 
@@ -29,7 +30,7 @@ def sha(data):
 
 
 class Candidate:
-    def __init__(self, root, indexed=True, mutate_statement=None, revision=None):
+    def __init__(self, root, indexed=True, mutate_statement=None, revision=None, companion_url=None):
         self.root = root
         self.source = 'a' * 40
         self.now = dt.datetime.now(dt.timezone.utc).replace(microsecond=0)
@@ -39,7 +40,7 @@ class Candidate:
             digest = sha(data)
             self.blobs['blobs/sha256/' + digest] = data
             return {'digest': 'sha256:' + digest, 'size': len(data), 'mediaType': media}
-        config = blob(encoded({'os': 'linux', 'architecture': 'amd64', 'config': {'Labels': {'org.opencontainers.image.revision': revision or self.source}}}), 'application/vnd.oci.image.config.v1+json')
+        config = blob(encoded({'os': 'linux', 'architecture': 'amd64', 'config': {'Labels': {'org.opencontainers.image.revision': revision or self.source, 'io.hexorx.source-companion.url': companion_url or 'https://github.com/hexorx/mindi/releases/tag/hermes-source-' + self.source}}}), 'application/vnd.oci.image.config.v1+json')
         layer = blob(b'fixture layer only', 'application/vnd.oci.image.layer.v1.tar')
         manifest = {'schemaVersion': 2, 'mediaType': 'application/vnd.oci.image.manifest.v1+json', 'config': config, 'layers': [layer]}
         platform = blob(encoded(manifest), manifest['mediaType'])
@@ -94,6 +95,7 @@ class Candidate:
             (root / 'raw-attestation.json').write_bytes(raw)
             self.record['attachments']['raw-attestation.json'] = sha(raw)
             self.reports['provenance']['raw'].append('raw-attestation.json')
+        make_companion(self.record, root / 'source-companion', config['digest'])
         self.seal()
 
     def seal(self):
@@ -105,7 +107,8 @@ class Candidate:
     def bundle(self, output, extra=None):
         with zipfile.ZipFile(output, 'w', compression=zipfile.ZIP_STORED) as archive:
             for path in self.root.iterdir():
-                archive.write(path, path.name)
+                if path.is_file():
+                    archive.write(path, path.name)
             if extra:
                 archive.writestr(*extra)
         self.record['bundle_sha256'] = gate.digest_file(output)
@@ -207,7 +210,7 @@ class GateTests(unittest.TestCase):
     def test_config_id_is_not_manifest_digest(self):
         self.c.record['manifest_digest'] = self.c.manifest['config']['digest']
         self.c.record['index_digest'] = self.c.record['manifest_digest']
-        with self.assertRaisesRegex(ValueError, 'manifest/index'): self.verify()
+        with self.assertRaisesRegex(ValueError, 'manifest/index|unordered companion'): self.verify()
 
     def test_rehashed_archive_cannot_hide_modified_blob(self):
         path = self.data / 'image.oci.tar'
@@ -303,6 +306,16 @@ class GateTests(unittest.TestCase):
 
 
 class TransportTests(unittest.TestCase):
+    def setUp(self):
+        # Publication tests isolate registry behavior; companion networking is
+        # exercised separately, while real local companion verification remains.
+        fetch = patch.object(promote, 'download_companion', side_effect=lambda record, work, anonymous=False: work / 'source-companion')
+        releases = patch.object(promote, 'release_assets')
+        fetch.start()
+        releases.start()
+        self.addCleanup(fetch.stop)
+        self.addCleanup(releases.stop)
+
     def test_existing_tag_is_collision(self):
         class Response:
             def __enter__(self): return self

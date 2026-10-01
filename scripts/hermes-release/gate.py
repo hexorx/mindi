@@ -52,7 +52,7 @@ def no_duplicates(pairs):
 
 def read_json(path):
     require(Path(path).stat().st_size <= 16 * 1024**2, 'JSON too large')
-    return json.loads(Path(path).read_bytes(), object_pairs_hook=no_duplicates)
+    return json.loads(Path(path).read_bytes(), object_pairs_hook=no_duplicates, parse_constant=lambda _: require(False, 'non-finite JSON'))
 
 
 def timestamp(value):
@@ -84,6 +84,8 @@ def validate_record(record, now=None):
         ids.append(asset['id'])
     require(len(ids) == len(set(ids)), 'duplicate asset id')
     require(sum(a['size'] for a in record['assets']) <= MAX_BYTES, 'bundle too large')
+    from companion import inventory
+    inventory(record)
     files = {'image.oci.tar'}
     for kind, evidence in record['reports'].items():
         require(evidence['file'] == kind + '.json', 'fixed report filename required')
@@ -270,6 +272,8 @@ def verify_candidate(record, directory):
     # Upstream identity remains separate from the final standalone image revision.
     require(match(COMMIT, provenance['upstream_revision']), 'invalid upstream revision')
     require(config.get('config', {}).get('Labels', {}).get('org.opencontainers.image.revision') == record['source_commit'], 'standalone OCI revision mismatch')
+    from companion import pointer
+    require(config.get('config', {}).get('Labels', {}).get('io.hexorx.source-companion.url') == pointer(record), 'source companion label mismatch')
     return {'manifest_digest': record['manifest_digest'], 'index_digest': record['index_digest'], 'platform_manifest_digest': platform_digest, 'config_digest': manifest['config']['digest'],
             'archive_sha256': record['archive_sha256'], 'source_commit': record['source_commit'],
             'tags': ['sha-' + record['source_commit'], record['version']]}

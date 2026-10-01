@@ -58,6 +58,31 @@
     "attachments": {
       "raw-evidence.json": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
       "raw-attestation.json": "efeae2f68879eecd341b0c26b62e4b62f0d0c8ddbcdd257e297376e3c325cb42"
+    },
+    "source_companion": {
+      "repository": "hexorx/mindi",
+      "release_id": 99,
+      "url": "https://github.com/hexorx/mindi/releases/tag/hermes-source-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "assets": [
+        {
+          "id": 100,
+          "name": "source-companion-f720b25d2913.PARTS.json",
+          "size": 1,
+          "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+        },
+        {
+          "id": 101,
+          "name": "source-companion-f720b25d2913.SHA256SUMS",
+          "size": 1,
+          "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+        },
+        {
+          "id": 102,
+          "name": "source-companion-f720b25d2913.tar.part00",
+          "size": 1,
+          "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+        }
+      ]
     }
   },
   "reports": {

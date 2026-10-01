@@ -148,6 +148,7 @@ Record fields:
 | `created_at`, `expires_at` | UTC `Z`, valid now, at most 7 days apart |
 | `ticket_record` | Parent ticket comment/document URL containing the pre-push evidence |
 | `assets` | Ordered `{id, size, sha256}` draft-release asset parts; positive numeric IDs, no duplicates |
+| `source_companion` | Separate pinned repository/release/URL and ordered named asset inventory; see HEX-265 below |
 | `reports` | Exactly `sbom`, `provenance`, `notices`, `secrets`, `vulnerabilities`, `smoke`, `source`, `review`; each `{file: KIND.json, sha256}` |
 | `attachments` | Map of flat raw attachment filenames to SHA256 |
 
@@ -234,3 +235,46 @@ uses synthetic byte graphs and fake registry/network responses only. The project
 suite includes it automatically. Live publication is intentionally not performed
 by this implementation task. Read-only qualification of a real candidate waits
 for its reviewed evidence record; none is included in this PR.
+
+## Separate source transport (HEX-265)
+
+Every record also requires `source_companion` with exactly `repository` (fixed
+`hexorx/mindi`), positive numeric `release_id`, `url` (the source-commit pointer
+above), and ordered `assets`. Each asset has exactly `{id, name, size, sha256}`.
+The order is `source-companion-<index12>.PARTS.json`,
+`source-companion-<index12>.SHA256SUMS`, then `.tar.part00`, `.tar.part01`, etc.
+IDs must be distinct across both transports. Metadata is limited to 16 MiB each;
+parts retain HEX-215's 1,900,000,000-byte limit (all nonfinal parts are full).
+The companion total is limited to 64 GiB. The release's complete asset inventory
+must equal the image and companion inventories; foreign, extra, duplicate,
+missing, renamed, incomplete or changed assets fail closed. Both qualification
+and promotion validate release ID, repository and source-commit tag identity.
+
+Companion bytes are downloaded into a separate directory, never appended to the
+image ZIP. Each response is bounded by its pinned size, a 60-second socket timeout
+and a ten-minute transfer deadline. Redirects permit only GitHub's fixed asset
+hosts and strip authorization. Verification streams the ordered parts without
+extracting or executing source: it checks the combined tar hash/size, PARTS and
+outer checksums, manifest and internal checksums, exact payload inventory, and
+README plus manifest bindings to the actual built source/index/platform/config.
+Only full, delivered source with no unsourced entries or identity errors passes.
+Special files, traversal, duplicate JSON keys/members, unexpected payloads and
+trailing nonzero bytes are refused. Bounded PAX path headers support long source
+paths. Existing `raw-source-companion-*` attachments remain in the evidence ZIP
+and retain their notices/report references and hashes.
+
+Qualification can verify private draft staging but does not claim public source
+delivery. Immediately before acquiring registry credentials, promotion rechecks
+local bytes and anonymously downloads and verifies the entire companion from the
+published release and checks the public tag pointer. A draft, inaccessible source,
+partial transfer or hash mismatch stops before any image write. This workflow has
+no source-release write permission and never publishes, replaces or deletes source
+assets. The authorized coordinator must obtain any required public-source exposure
+approval through Mindi's existing stop-list batch before making source accessible.
+The source must remain accessible to recipients after image publication.
+
+Disk preflight adds twice the companion size to the existing image allowance,
+covering authenticated staging and the independent anonymous download. Immutable
+assets/tags and original evidence are preserved; rollback is a reviewed revert.
+Synthetic companion tests exercise the byte contract only and do not qualify the
+final candidate or establish license/source closure.
