@@ -19,11 +19,14 @@ def make_companion(record, directory, config, mutate=None, extra=None):
     directory.mkdir(exist_ok=True)
     identity = {'index': record['manifest_digest'], 'manifest': record['platform_manifest_digest'],
                 'config': config, 'built_source': record['source_commit']}
+    reconciliation = {'file': 'fixture-license-reconciliation.tsv',
+                      'sha256': sha(b'fixture reconciliation\n'), 'image_index': identity['index']}
     manifest = {'schema': 'hexorx.source-companion/1', 'mode': 'full', 'delivered': True,
-                'unsourced': [], 'inventory': {}, 'image': identity,
+                'unsourced': [], 'inventory': {}, 'image': identity, 'license_reconciliation': reconciliation,
                 'sources': [{'dir': 'sources/example', 'files': [{'name': 'source.txt', 'size': 7, 'sha256': sha(b'source\n')}]}]}
     files = {'README.md': (f"Image: `{identity['index']}` (OCI index digest)\nPlatform manifest: `{identity['manifest']}`\n"
-                          f"Config digest: `{identity['config']}`\nBuilt source: `{identity['built_source']}`\n").encode(),
+                          f"Config digest: `{identity['config']}`\nBuilt source: `{identity['built_source']}`\n"
+                          f"- License reconciliation for those artifacts: `{reconciliation['file']}` sha256 `{reconciliation['sha256']}`\n").encode(),
              'SOURCES.tsv': b'fixture\n', 'COMPONENTS.tsv': b'fixture\n', 'UNSOURCED.tsv': b'fixture\n',
              'sources/example/source.txt': b'source\n'}
     if mutate:

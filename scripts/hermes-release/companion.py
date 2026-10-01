@@ -158,7 +158,18 @@ def verify(record, directory, config_digest):
             and manifest['delivered'] is True and manifest['unsourced'] == []
             and not manifest['inventory'].get('identity_errors'), 'companion source delivery incomplete')
     require(all(manifest['image'].get(k) == v for k, v in identity.items()), 'companion image identity mismatch')
+    reconciliation = manifest.get('license_reconciliation')
+    require(isinstance(reconciliation, dict), 'companion license reconciliation missing/invalid')
+    require(reconciliation.get('image_index') == record['manifest_digest'],
+            'companion license reconciliation image index mismatch')
+    require(isinstance(reconciliation.get('file'), str) and reconciliation['file']
+            and match(SHA, reconciliation.get('sha256')),
+            'companion license reconciliation file/hash missing/invalid')
     readme = metadata['README.md'].decode('utf-8').splitlines()
+    label = '- License reconciliation for those artifacts:'
+    line = f"{label} `{reconciliation['file']}` sha256 `{reconciliation['sha256']}`"
+    require([x for x in readme if x.startswith(label)] == [line],
+            'companion README license reconciliation mismatch')
     for line in (f"Image: `{identity['index']}` (OCI index digest)", f"Platform manifest: `{identity['manifest']}`",
                  f"Config digest: `{identity['config']}`", f"Built source: `{identity['built_source']}`"):
         label = line.split(':', 1)[0] + ':'

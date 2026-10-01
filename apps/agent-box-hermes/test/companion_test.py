@@ -39,6 +39,40 @@ class CompanionTests(unittest.TestCase):
     def test_valid(self):
         self.assertEqual(self.verify()['assets'], 5)
 
+    def test_license_reconciliation_required_fields(self):
+        changes = [lambda m, f: m.pop('license_reconciliation'),
+                   lambda m, f: m.update(license_reconciliation=None)]
+        for key in ('image_index', 'file', 'sha256'):
+            changes.append(lambda m, f, key=key: m['license_reconciliation'].pop(key))
+        for n, change in enumerate(changes):
+            with self.subTest(case=n):
+                make_companion(self.record, self.directory, self.config, mutate=change)
+                with self.assertRaisesRegex(ValueError, 'license reconciliation'):
+                    self.verify()
+
+    def test_license_reconciliation_binds_final_index(self):
+        for digest in ('sha256:' + '0' * 64, self.record['platform_manifest_digest'], self.config):
+            with self.subTest(digest=digest):
+                make_companion(self.record, self.directory, self.config,
+                               mutate=lambda m, f: m['license_reconciliation'].update(image_index=digest))
+                with self.assertRaisesRegex(ValueError, 'license reconciliation image index mismatch'):
+                    self.verify()
+
+    def test_readme_license_reconciliation_matches_manifest(self):
+        for case in ('file', 'sha256', 'missing', 'duplicate'):
+            with self.subTest(case=case):
+                def change(manifest, files):
+                    if case in ('file', 'sha256'):
+                        manifest['license_reconciliation'][case] = 'other.tsv' if case == 'file' else '0' * 64
+                    else:
+                        lines = files['README.md'].splitlines(keepends=True)
+                        line = next(x for x in lines if x.startswith(b'- License reconciliation'))
+                        files['README.md'] = (b''.join(x for x in lines if x != line) if case == 'missing'
+                                              else files['README.md'] + line)
+                make_companion(self.record, self.directory, self.config, mutate=change)
+                with self.assertRaisesRegex(ValueError, 'README license reconciliation mismatch'):
+                    self.verify()
+
     def test_required_sidecar_inventory(self):
         original = copy.deepcopy(self.record)
         for n in (2, 3):
