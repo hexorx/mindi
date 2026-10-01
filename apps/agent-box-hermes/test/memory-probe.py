@@ -40,8 +40,10 @@ for port in (8888, state['port']):
             address, encoded_port = parts[1].split(':')
             if parts[3] == '0A' and int(encoded_port, 16) == port:
                 assert address == '0200007F', 'Memory listener is not on private loopback'
-    for host in ('127.0.0.1', socket.gethostbyname(socket.gethostname())):
-        with socket.socket() as connection:
-            connection.settimeout(1)
-            assert connection.connect_ex((host, port)) != 0
+    # The kernel tables above cover every interface without DNS, including
+    # wildcard and IPv6 binds. A network-none container has no external IP
+    # and its hostname need not resolve. Still probe the forwarded loopback.
+    with socket.socket() as connection:
+        connection.settimeout(1)
+        assert connection.connect_ex(('127.0.0.1', port)) != 0
 print('Real retain/recall, private listeners, volume path and bank isolation passed')
