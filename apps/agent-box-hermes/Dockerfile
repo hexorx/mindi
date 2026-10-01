@@ -8,13 +8,15 @@ RUN curl -fsSL --retry 3 https://github.com/tailscale/tailscale/archive/refs/tag
  && tar -xzf /tmp/tailscale.tar.gz --strip-components=1
 COPY apps/agent-box-hermes/build/tailscale-go.mod ./go.mod
 COPY apps/agent-box-hermes/build/tailscale-go.sum ./go.sum
+COPY apps/agent-box-hermes/build/verify_tailscale_no_web.sh /opt/build/verify_tailscale_no_web.sh
 ENV GOTOOLCHAIN=local CGO_ENABLED=0
 RUN go mod download \
  && go mod verify \
- && go build -mod=readonly -trimpath -tags=ts_kube,ts_package_container \
-      -ldflags='-X tailscale.com/version.longStamp=1.102.4-hex276 -X tailscale.com/version.shortStamp=1.102.4' \
+ && go build -mod=readonly -trimpath -tags=ts_kube,ts_package_container,ts_omit_webclient \
+      -ldflags='-X tailscale.com/version.longStamp=1.102.4-hex315 -X tailscale.com/version.shortStamp=1.102.4' \
       -o /usr/local/bin/ ./cmd/tailscale ./cmd/tailscaled \
- && go version -m /usr/local/bin/tailscaled | awk '$1 == "dep" && $2 == "golang.org/x/crypto" { if ($3 != "v0.56.0") exit 1; found=1 } END { if (!found) exit 1 }'
+ && go version -m /usr/local/bin/tailscaled | awk '$1 == "dep" && $2 == "golang.org/x/crypto" { if ($3 != "v0.56.0") exit 1; found=1 } END { if (!found) exit 1 }' \
+ && sh /opt/build/verify_tailscale_no_web.sh
 FROM docker:29.8.1-cli@sha256:018edbc908e08fcc9dbf029c812c34251e9b4719e6f71ca0e5eae2a987d014ca AS dockercli
 # pg0 hardcodes localhost in setup and connection URIs; configure every path
 # before the database first starts. Build from verified source, preserving v0.15.2.
