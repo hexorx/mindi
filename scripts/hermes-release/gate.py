@@ -215,6 +215,141 @@ def evidence_refs(report, attachments):
     require(all(name in attachments for name in report['raw']), 'raw evidence missing')
 
 
+
+SECRET_ALLOWLIST = Path(__file__).resolve().parents[2] / 'apps/agent-box-hermes/security/secret-allowlist.json'
+
+
+def absolute_path(value):
+    return (isinstance(value, str) and value.startswith('/') and value != '/'
+            and all(part not in {'', '.', '..'} for part in value[1:].split('/')))
+
+
+def secret_entries():
+    document = read_json(SECRET_ALLOWLIST)
+    require(document.get('schema_version') == 1 and isinstance(document.get('entries'), list), 'invalid secret allowlist')
+    entries = {}
+    fields = {'layer_digest', 'path', 'file_sha256', 'rule_id', 'lines', 'count', 'reason'}
+    for entry in document['entries']:
+        require(isinstance(entry, dict) and set(entry) == fields, 'invalid allowlist fields')
+        require(match(DIGEST, entry['layer_digest']) and match(SHA, entry['file_sha256']), 'invalid allowlist digest')
+        require(absolute_path(entry['path']), 'invalid allowlist path')
+        require(isinstance(entry['rule_id'], str) and entry['rule_id'].strip(), 'invalid allowlist rule')
+        require(isinstance(entry['reason'], str) and entry['reason'].strip(), 'empty allowlist reason')
+        lines = entry['lines']
+        require(isinstance(lines, list) and lines and all(type(n) is int and n > 0 for n in lines), 'invalid allowlist lines')
+        require(lines == sorted(set(lines)), 'duplicate/unsorted allowlist lines')
+        require(type(entry['count']) is int and entry['count'] >= len(lines), 'invalid allowlist count')
+        key = (entry['layer_digest'], entry['path'], entry['rule_id'])
+        require(key not in entries, 'duplicate allowlist entry')
+        entries[key] = entry
+    return entries
+
+
+def secret_layer_files(archive_path, layers, wanted):
+    """Read layer bytes without extraction. Apply whiteouts before layer additions.
+
+    A finding on a link/special file is refused, never resolved outside the tar.
+    Only finding paths need hashing; all paths participate in overlay ownership.
+    """
+    hashes, visible = {}, {}
+    with tarfile.open(archive_path, 'r:') as archive:
+        for layer in layers:
+            digest = layer['digest']
+            additions, whiteouts, opaque = {}, [], []
+            with archive.extractfile('blobs/sha256/' + digest[7:]) as blob:
+                # Select the decoder from the descriptor; never auto-detect.
+                modes = {'application/vnd.oci.image.layer.v1.tar': 'r|',
+                         'application/vnd.oci.image.layer.v1.tar+gzip': 'r|gz'}
+                require(layer.get('mediaType') in modes, 'unsupported layer compression')
+                try:
+                    contents = tarfile.open(fileobj=blob, mode=modes[layer['mediaType']])
+                except tarfile.TarError as error:
+                    raise ValueError('layer encoding does not match mediaType') from error
+                with contents:
+                    for member in contents:
+                        name = member.name
+                        while name.startswith('./'):
+                            name = name[2:]
+                        name = '/' + name.lstrip('/').rstrip('/')
+                        if name == '/' and member.isdir():
+                            continue
+                        require(absolute_path(name) and name not in additions, 'unsafe/duplicate layer path')
+                        parent, _, base = name.rpartition('/')
+                        if base == '.wh..wh..opq':
+                            opaque.append(parent + '/')
+                        elif base.startswith('.wh.'):
+                            whiteouts.append(parent + '/' + base[4:])
+                        additions[name] = (digest, member.isdir())
+                        if name in wanted and member.isfile():
+                            with contents.extractfile(member) as source:
+                                hashes[(digest, name)] = hashlib.file_digest(source, 'sha256').hexdigest()
+            for name in list(visible):
+                if any(name == w or name.startswith(w + '/') for w in whiteouts) or any(name.startswith(p) for p in opaque):
+                    del visible[name]
+            for name in wanted:
+                parts = name[1:].split('/')
+                parents = ['/' + '/'.join(parts[:i]) for i in range(1, len(parts))]
+                require(not (name in additions and any(parent in additions and not additions[parent][1] for parent in parents)), 'finding below non-directory layer entry')
+                if any(parent in additions and not additions[parent][1] for parent in parents):
+                    visible.pop(name, None)
+                elif name in additions:
+                    visible[name] = additions[name]
+
+    return hashes, {name: owner[0] for name, owner in visible.items()}
+
+
+def verify_secrets(report, directory, manifest, att_layers):
+    require(report['deleted_contents'] is True and report['errors'] == [], 'secret findings/errors')
+    require(type(report['findings']) is int and report['findings'] >= 0, 'invalid native findings count')
+    entries = secret_entries()
+    # Backwards compatibility is limited to the old zero-finding contract.
+    if 'native' not in report:
+        require(report['findings'] == 0 and not entries, 'native secret evidence required')
+        require(report.get('allowlisted', 0) == report.get('unresolved', 0) == 0, 'secret totals mismatch')
+        return
+    native = report['native']
+    require(isinstance(native, dict) and set(native) == {'layers', 'rootfs', 'metadata'}, 'invalid native secret surfaces')
+    require(isinstance(native['layers'], dict) and set(native['layers']) == {x['digest'] for x in manifest['layers'] + att_layers}, 'native layer evidence missing')
+    refs = list(native['layers'].values()) + [native['rootfs'], native['metadata']]
+    require(all(isinstance(ref, str) and ref in report['raw'] for ref in refs), 'native secret attachment missing')
+    require(len(refs) == len(set(refs)), 'reused native secret attachment')
+    findings = {}
+    for ref in refs:
+        rows = read_json(directory / ref)
+        require(isinstance(rows, list) and all(isinstance(row, dict) for row in rows), 'invalid native Gitleaks JSON')
+        findings[ref] = rows
+    metadata_refs = [native['metadata']] + [native['layers'][x['digest']] for x in att_layers]
+    require(all(not findings[ref] for ref in metadata_refs), 'metadata secret finding forbidden')
+    total = sum(len(rows) for rows in findings.values())
+    require(all(type(report.get(k)) is int for k in ('findings', 'allowlisted', 'unresolved')), 'secret totals required')
+    require(report['findings'] == report['allowlisted'] == total and report['unresolved'] == 0, 'secret totals mismatch')
+    layer_rows, root_rows, wanted = {}, {}, set()
+    def group(rows, target, digest=None, visible=None):
+        for row in rows:
+            path, rule, line = row.get('File'), row.get('RuleID'), row.get('StartLine')
+            require(absolute_path(path) and isinstance(rule, str) and rule and type(line) is int and line > 0, 'invalid native finding location')
+            owner = digest if digest is not None else visible.get(path)
+            require(owner is not None, 'rootfs finding has no layer owner')
+            key = (owner, path, rule)
+            target.setdefault(key, []).append(line)
+            wanted.add(path)
+    for layer in manifest['layers']:
+        group(findings[native['layers'][layer['digest']]], layer_rows, digest=layer['digest'])
+    wanted.update(row.get('File') for row in findings[native['rootfs']] if isinstance(row.get('File'), str))
+    if not total:
+        require(not entries, 'unused allowlist entry')
+        return
+    hashes, visible = secret_layer_files(directory / 'image.oci.tar', manifest['layers'], wanted)
+    group(findings[native['rootfs']], root_rows, visible=visible)
+    require(set(layer_rows) == set(entries), 'unmatched finding or unused allowlist entry')
+    for key, lines in layer_rows.items():
+        entry = entries[key]
+        require(sorted(set(lines)) == entry['lines'] and len(lines) == entry['count'], 'allowlist line/count mismatch')
+        require(hashes.get(key[:2]) == entry['file_sha256'], 'allowlist file hash mismatch')
+    expected_root = {key: sorted(lines) for key, lines in layer_rows.items() if visible.get(key[1]) == key[0]}
+    require({key: sorted(lines) for key, lines in root_rows.items()} == expected_root, 'rootfs findings mismatch')
+
+
 def verify_candidate(record, directory):
     validate_record(record)
     directory = Path(directory)
@@ -253,7 +388,7 @@ def verify_candidate(record, directory):
     secrets = reports['secrets']
     require(secrets['scanner']['name'] and secrets['scanner']['version'] and secrets['scanner']['ruleset'] and secrets['content_scan'] is True, 'secret scanner identity missing')
     require(secrets['filesystem'] == secrets['config_history'] == 'pass', 'incomplete secret surfaces')
-    require(secrets['deleted_contents'] is True and type(secrets['findings']) is int and secrets['findings'] == 0 and secrets['errors'] == [], 'secret findings/errors')
+    verify_secrets(secrets, directory, manifest, att_layers)
     require(secrets['layers'] == {x['digest']: 'pass' for x in manifest['layers'] + att_layers}, 'every layer scan required')
     vulnerabilities = reports['vulnerabilities']
     require(vulnerabilities['scanner']['name'] and vulnerabilities['scanner']['version'] and vulnerabilities['database']['digest'] and vulnerabilities['database']['schema'] and vulnerabilities['input'] == 'oci-archive' and vulnerabilities['archive_sha256'] == record['archive_sha256'], 'vulnerability scanner/database missing')

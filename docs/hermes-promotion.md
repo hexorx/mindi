@@ -175,8 +175,46 @@ Additional per-report fields:
   sufficient and accessible to recipients; source-lock metadata is not delivery.
 - **secrets:** `scanner: {name, version, ruleset}`, `content_scan: true`,
   `filesystem: pass`, `config_history: pass`, `deleted_contents: true`,
-  `findings: 0`, `errors: []`, `layers: {BLOB_DIGEST: pass}` for every image and
-  attestation layer. Native redacted results retain path/rule/hash, never values.
+  `findings` (total native occurrences across all scans), `allowlisted` (same total
+  on pass), `unresolved: 0`, `errors: []`, `layers: {BLOB_DIGEST: pass}` for every
+  image and attestation layer. `native` is exactly `{layers: {BLOB_DIGEST:
+  RAW_FILENAME}, rootfs: RAW_FILENAME, metadata: RAW_FILENAME}`. Each reference
+  names a distinct, hash-bound attachment also listed in `raw`. Attach native
+  Gitleaks JSON arrays (including empty arrays) for every image/attestation layer,
+  the final rootfs, and combined config/history/index/manifest metadata. Redact
+  values before attaching; preserve `File`, `RuleID`, and `StartLine`. Scan paths
+  must be absolute in-image paths, with no host extraction-directory prefix.
+  Metadata and attestation findings can never be allowlisted.
+
+  The gate reads the reviewed repository file
+  `apps/agent-box-hermes/security/secret-allowlist.json`, never a bundled override.
+  It has `schema_version: 1` and an `entries` list. Each entry requires exactly
+  `layer_digest` (`sha256:` plus 64 lowercase hex digits), absolute `path`,
+  `file_sha256` (64 lowercase hex digits), `rule_id`, sorted unique positive
+  `lines`, positive `count`, and a nonempty `reason`. Matching uses literal string
+  equality, including any glob-like characters. `count` counts native occurrences
+  in that layer's scan; `lines` lists distinct start lines. Multiple matches on
+  one line increase `count`. Rootfs occurrences are counted again in report totals
+  but must exactly repeat the surviving layer occurrences. Duplicate JSON keys,
+  duplicate entries, missing fields, stale/unused entries, changed bytes, and
+  line/count mismatches fail closed.
+
+  The gate hashes file bytes directly from verified OCI layer blobs without
+  extracting them, and maps rootfs findings to the top-most path provider after
+  applying whiteouts and opaque directories. Findings on links or special files
+  cannot be excepted. Uncompressed and gzip layer tars are supported; unsupported
+  compression fails closed when content inspection is required. The decoder is selected
+  from the OCI layer mediaType; tar/gzip descriptor and byte mismatches are rejected. A legacy report
+  without `native` remains accepted only with zero findings and an empty reviewed
+  allowlist. New evidence must use the native contract above.
+
+  The initial live allowlist is deliberately empty. After the Chromium key
+  removal is merged, Opi rebuilds on drone, rescans, and submits rebuilt digest and
+  file-hash pins in a separate independently reviewed PR. The pre-rebuild draft
+  from HEX-275 is not valid live data. `/etc/chromium.d/apikeys` is removed directly
+  after apt installation in `assembled`, with an absence assertion before the
+  final scratch-stage copy. The current smoke suite does not reference that file
+  or exercise Google sync/Safe Browsing; LAN browser acceptance follows rebuild.
 - **vulnerabilities:** `scanner: {name, version}`, `database: {digest, schema,
   updated_at}`, `input: oci-archive`, `archive_sha256`, `errors: []`,
   `unresolved: 0`, `disposition: clean|reviewed-exceptions`. Database is at most

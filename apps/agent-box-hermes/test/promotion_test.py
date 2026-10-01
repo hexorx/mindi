@@ -30,7 +30,7 @@ def sha(data):
 
 
 class Candidate:
-    def __init__(self, root, indexed=True, mutate_statement=None, revision=None, companion_url=None):
+    def __init__(self, root, indexed=True, mutate_statement=None, revision=None, companion_url=None, layer_data=None, layer_media='application/vnd.oci.image.layer.v1.tar'):
         self.root = root
         self.source = 'a' * 40
         self.now = dt.datetime.now(dt.timezone.utc).replace(microsecond=0)
@@ -41,7 +41,7 @@ class Candidate:
             self.blobs['blobs/sha256/' + digest] = data
             return {'digest': 'sha256:' + digest, 'size': len(data), 'mediaType': media}
         config = blob(encoded({'os': 'linux', 'architecture': 'amd64', 'config': {'Labels': {'org.opencontainers.image.revision': revision or self.source, 'io.hexorx.source-companion.url': companion_url or 'https://github.com/hexorx/mindi/releases/tag/hermes-source-' + self.source}}}), 'application/vnd.oci.image.config.v1+json')
-        layer = blob(b'fixture layer only', 'application/vnd.oci.image.layer.v1.tar')
+        layer = blob(b'fixture layer only' if layer_data is None else layer_data, layer_media)
         manifest = {'schemaVersion': 2, 'mediaType': 'application/vnd.oci.image.manifest.v1+json', 'config': config, 'layers': [layer]}
         platform = blob(encoded(manifest), manifest['mediaType'])
         self.manifest = manifest
