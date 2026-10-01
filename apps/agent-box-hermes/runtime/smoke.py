@@ -9,6 +9,8 @@ import sys
 import time
 import tempfile
 
+from smoke_result import checked_result
+
 # This program consumes the image itself. Declare native image support in an
 # isolated config so Hermes does not send screenshots to auxiliary inference.
 # Do not change the operator's persistent profile or mock the tool/backend.
@@ -35,11 +37,7 @@ set_approval_callback(lambda action, args, summary: "approve_once")
 
 def call(args):
     result = handle_computer_use(args, session_id=session)
-    result = json.loads(result) if isinstance(result, str) else result
-    if not isinstance(result, dict) or result.get("error") or result.get("ok") is False:
-        code = result.get("code", "unspecified") if isinstance(result, dict) else "invalid_response"
-        raise RuntimeError(f"Hermes computer_use failed for {args['action']}: {code}")
-    return result
+    return checked_result(result, args["action"])
 
 
 try:
