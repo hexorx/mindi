@@ -1,0 +1,41 @@
+{
+  "schema": 1,
+  "built_source": "501f3992423ac2feab3dcf0201f6c493999cfb76",
+  "reviewed_tooling_head": "78dfade53d681f8e39cc5073b8df0d8f22252fa7",
+  "tooling_merge": "6168482c5f1675e90a85adc9a993420bb05fb6cd",
+  "snapshot": "20261001T172817Z",
+  "files": {
+    "InRelease": "c2408a5e4cf8ed6f5315faf9449fdd081fa7761fe940fb2c8cce8a06a770972d",
+    "Packages.xz": "ecb6336949439d5cb135e911a9cda1f5116205ceaa7fb0489e30f1bc51332111",
+    "Sources.xz": "e289801682479062b856c735d943a3b9dc6a40d0995c705711de8a1735bf3476",
+    "advisories.json": "1614a86a77837f7b10b984d3cc825217e05c833e3c1d4cb7723580baea812d81",
+    "baseline-apt-final-inventory.tsv": "b7284c62f488e1ab7bb88c8ae82b6be052f329501253b2e6ef776db8d4a597f3",
+    "baseline-apt-inherited.tsv": "cc7817cdc4e7eaf4d2dc9e8f5dab1ea872d35b5f0656eb8ace84d2f9b727e3f7",
+    "baseline-apt-packages.lock": "a7c58bced31e0933869a02578feb2fe7f25210b236e45c6681eea3553ff9fff1",
+    "binary-records.json": "7ed5dc9aa217f6d9e042b36cd9d312ee81ca700a003e8b869178ba9b469df395",
+    "binary-verification.json": "51ab94561708ff3d120aa2d67217ab9e19f0b6e44c1d5477f70cd9f5ffcbcc8f",
+    "chromium-common-copyright": "10950a2d699c81b4054c0227c19cc80a04bab359c203cf3621c0182deab65f91",
+    "chromium-copyright": "10950a2d699c81b4054c0227c19cc80a04bab359c203cf3621c0182deab65f91",
+    "chromium-source-verification.json": "4ac82dc87fb7a96c842e0d9080cdb33609a7c9c11b0c902fb2bd4af5c33c93e8",
+    "chromium_154.0.8037.92-1~deb13u1.dsc": "c5838ef54aafb5ab925f7acb7b82d41fa599b6dff0f96b80c1862030697afbd7",
+    "expat_2.8.3-1~deb13u1.dsc": "d17f15fe413a553c72185d2d00448b87db72354e0d8fa6099ad19ee19e7117af",
+    "index-verification.json": "40a1963409224a3a2df175faad3b4d68210a9326be3728ec7331df87a3517df6",
+    "libexpat1-copyright": "60919fe1a156395ff14511bb6ff79756c50ade2fff59ac60c9bae1d8a7fe6292",
+    "libexpat1-dev-copyright": "60919fe1a156395ff14511bb6ff79756c50ade2fff59ac60c9bae1d8a7fe6292",
+    "resolver.json": "883d9e9d39db0d49d246614e8ec5941a45298af2fb333264205b1a44d4891fcd",
+    "signature.json": "450947bc86bd5bd1980e496a20bf32afe2297b7d9d5d6cfb019c8dbc3c2d45b6",
+    "source-records.json": "1dbd74f303944fe798db215abdc0cf34b35538d337d0dbc48244b6e964a2e78d",
+    "source-verification.json": "579149aa54c370e999da023bbefa3be176d1ef745474427f165160ba5e2bbaeb"
+  },
+  "unchanged_inputs": {
+    "apps/agent-box-hermes/Dockerfile": "a1cf77c6836d007f77b42ca29c88309e2ba02596ce4d702c1dc5ace61267c032",
+    "apps/agent-box-hermes/build/tailscale-go.mod": "b0ff5cf6556d135a2ab04f5ef4fcc89c3c89519ca7fbafe52502a8341560fda0",
+    "apps/agent-box-hermes/build/tailscale-go.sum": "09bcdebaea359c83236f137a023dbcbdcc420f0ef140b32c445cb467dfac9917",
+    "apps/agent-box-hermes/build/hermes-security.lock": "5310f726d82d05be813e2af458043e29a8fcd56fc6ca30276d5382ee4dca08bd",
+    "apps/agent-box-hermes/build/hermes-uv.lock": "15247b921ae08625c7e7f121bcbebc0242c7481ca87fddf4da655509734559a4",
+    "apps/agent-box-hermes/build/hermes-node-security.json": "6154ed5cec66165e30245e79caccf3984479d62c3ff87a29a66c0b36919bfca8",
+    "pnpm-lock.yaml": "3ededa55ae82944052310ed74f6de9426705d6301e6b6dd36ace735591983479"
+  },
+  "signature_verifier": "sqv 1.3.0 (sequoia-openpgp 2.0.0, using Nettle 3.10 (Cv448: true, OCB: true))",
+  "keyring_sha256": "506b815cbb32d9b6066b4a2aa524071e071761e7e7f68c3ac74f3061ba852017"
+}

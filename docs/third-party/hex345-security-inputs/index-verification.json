@@ -1,0 +1,28 @@
+[
+  {
+    "url": "https://snapshot.debian.org/archive/debian-security/20261001T172817Z/dists/trixie-security/main/binary-amd64/Packages.xz",
+    "http": "200",
+    "exit": 0,
+    "sha256": "ecb6336949439d5cb135e911a9cda1f5116205ceaa7fb0489e30f1bc51332111",
+    "size": 263512,
+    "expected": [
+      "ecb6336949439d5cb135e911a9cda1f5116205ceaa7fb0489e30f1bc51332111",
+      "263512",
+      "main/binary-amd64/Packages.xz"
+    ],
+    "match": true
+  },
+  {
+    "url": "https://snapshot.debian.org/archive/debian-security/20261001T172817Z/dists/trixie-security/main/source/Sources.xz",
+    "http": "200",
+    "exit": 0,
+    "sha256": "e289801682479062b856c735d943a3b9dc6a40d0995c705711de8a1735bf3476",
+    "size": 239008,
+    "expected": [
+      "e289801682479062b856c735d943a3b9dc6a40d0995c705711de8a1735bf3476",
+      "239008",
+      "main/source/Sources.xz"
+    ],
+    "match": true
+  }
+]
