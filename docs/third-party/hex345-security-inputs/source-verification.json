@@ -1,0 +1,74 @@
+[
+  {
+    "source": "chromium",
+    "sha256": "c5838ef54aafb5ab925f7acb7b82d41fa599b6dff0f96b80c1862030697afbd7",
+    "size": 4415,
+    "file": "chromium_154.0.8037.92-1~deb13u1.dsc",
+    "url": "https://snapshot.debian.org/archive/debian-security/20261001T172817Z/pool/updates/main/c/chromium/chromium_154.0.8037.92-1~deb13u1.dsc",
+    "http": "200",
+    "exit": 0,
+    "actual_size": 4415,
+    "actual_sha256": "c5838ef54aafb5ab925f7acb7b82d41fa599b6dff0f96b80c1862030697afbd7",
+    "match": true
+  },
+  {
+    "source": "chromium",
+    "sha256": "d8316f2d3cbe1ab942629b9b1044166f33ca9575478feac814a31463c81e8cbe",
+    "size": 16689032,
+    "file": "chromium_154.0.8037.92.orig-pre-gen.tar.xz",
+    "url": "https://snapshot.debian.org/archive/debian-security/20261001T172817Z/pool/updates/main/c/chromium/chromium_154.0.8037.92.orig-pre-gen.tar.xz",
+    "http": "200",
+    "exit": 0,
+    "actual_size": 16689032,
+    "actual_sha256": "d8316f2d3cbe1ab942629b9b1044166f33ca9575478feac814a31463c81e8cbe",
+    "match": true
+  },
+  {
+    "source": "chromium",
+    "sha256": "e347d1dca5a28add92495339bd528be6c8cbdd771427dd6d5b354c85e8e44909",
+    "size": 575700,
+    "file": "chromium_154.0.8037.92-1~deb13u1.debian.tar.xz",
+    "url": "https://snapshot.debian.org/archive/debian-security/20261001T172817Z/pool/updates/main/c/chromium/chromium_154.0.8037.92-1~deb13u1.debian.tar.xz",
+    "http": "200",
+    "exit": 0,
+    "actual_size": 575700,
+    "actual_sha256": "e347d1dca5a28add92495339bd528be6c8cbdd771427dd6d5b354c85e8e44909",
+    "match": true
+  },
+  {
+    "source": "expat",
+    "sha256": "d17f15fe413a553c72185d2d00448b87db72354e0d8fa6099ad19ee19e7117af",
+    "size": 1638,
+    "file": "expat_2.8.3-1~deb13u1.dsc",
+    "url": "https://snapshot.debian.org/archive/debian-security/20261001T172817Z/pool/updates/main/e/expat/expat_2.8.3-1~deb13u1.dsc",
+    "http": "200",
+    "exit": 0,
+    "actual_size": 1638,
+    "actual_sha256": "d17f15fe413a553c72185d2d00448b87db72354e0d8fa6099ad19ee19e7117af",
+    "match": true
+  },
+  {
+    "source": "expat",
+    "sha256": "533659a16e0184035a99fd8e783f1ad61a887a7bf8586a8681740b9d7ed42389",
+    "size": 8464226,
+    "file": "expat_2.8.3.orig.tar.gz",
+    "url": "https://snapshot.debian.org/archive/debian-security/20261001T172817Z/pool/updates/main/e/expat/expat_2.8.3.orig.tar.gz",
+    "http": "200",
+    "exit": 0,
+    "actual_size": 8464226,
+    "actual_sha256": "533659a16e0184035a99fd8e783f1ad61a887a7bf8586a8681740b9d7ed42389",
+    "match": true
+  },
+  {
+    "source": "expat",
+    "sha256": "4bf2c5c2f189673c66f79f2f8a8727cd8c08636d46b648c896e1c73673562c7b",
+    "size": 14116,
+    "file": "expat_2.8.3-1~deb13u1.debian.tar.xz",
+    "url": "https://snapshot.debian.org/archive/debian-security/20261001T172817Z/pool/updates/main/e/expat/expat_2.8.3-1~deb13u1.debian.tar.xz",
+    "http": "200",
+    "exit": 0,
+    "actual_size": 14116,
+    "actual_sha256": "4bf2c5c2f189673c66f79f2f8a8727cd8c08636d46b648c896e1c73673562c7b",
+    "match": true
+  }
+]

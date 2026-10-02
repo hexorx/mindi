@@ -1,0 +1,13 @@
+{
+  "source": "chromium",
+  "sha256": "d5a37fdb95f8c2d24f505f36824540158367d20101f47623e93670cbda006e7e",
+  "size": 995122080,
+  "file": "chromium_154.0.8037.92.orig.tar.xz",
+  "url": "https://snapshot.debian.org/archive/debian-security/20261001T172817Z/pool/updates/main/c/chromium/chromium_154.0.8037.92.orig.tar.xz",
+  "http": "200",
+  "exit": 0,
+  "actual_size": 995122080,
+  "actual_sha256": "d5a37fdb95f8c2d24f505f36824540158367d20101f47623e93670cbda006e7e",
+  "stderr": "",
+  "match": true
+}
