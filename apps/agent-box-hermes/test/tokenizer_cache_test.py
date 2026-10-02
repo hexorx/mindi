@@ -8,7 +8,6 @@ import unittest
 
 ROOT = Path(__file__).parents[1]
 sys.path.insert(0, str(ROOT / 'runtime'))
-import memory
 spec = importlib.util.spec_from_file_location('bake_tokenizers', ROOT / 'build/bake_tokenizers.py')
 bake = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(bake)
@@ -30,13 +29,3 @@ class TokenizerCacheTest(unittest.TestCase):
             self.assertEqual(cache.stat().st_mode & 0o777, 0o755)
             with self.assertRaisesRegex(ValueError, 'cache key'):
                 bake.install({'encodings': [{**entry, 'url': url + '/changed'}]}, cache, lambda _: b'valid')
-
-    def test_child_environment_uses_image_cache_despite_caller_overrides(self):
-        with tempfile.TemporaryDirectory() as tmp:
-            root = Path(tmp)
-            for name in memory.SECRET_NAMES:
-                (root / name).write_text('fixture')
-            env = memory.environment({'TIKTOKEN_CACHE_DIR': '/empty-volume',
-                                      'LITELLM_LOCAL_MODEL_COST_MAP': 'False'}, root)
-            self.assertEqual(env['TIKTOKEN_CACHE_DIR'], '/opt/agent-box/tiktoken-cache')
-            self.assertEqual(env['LITELLM_LOCAL_MODEL_COST_MAP'], 'True')

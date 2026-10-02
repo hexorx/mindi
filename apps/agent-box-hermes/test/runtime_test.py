@@ -72,7 +72,7 @@ class ConfigurationTest(unittest.TestCase):
 
 
 class ReadinessTest(unittest.TestCase):
-    def test_memory_failure_blocks_readiness_even_with_healthy_desktop(self):
+    def test_api_failure_blocks_readiness_even_with_healthy_desktop(self):
         health = Path(__file__).parents[1] / "runtime/health.py"
         frame = MagicMock(stdout=b"\x89PNG\r\n\x1a\n" + b"x" * 100)
         with patch("subprocess.run", return_value=frame), \
@@ -91,12 +91,11 @@ class ReadinessTest(unittest.TestCase):
              patch("socket.create_connection") as connect, \
              patch("urllib.request.urlopen") as urlopen, \
              patch.dict(os.environ, {"API_SERVER_KEY": "fixture-only-api-key"}), \
-             patch("json.load", side_effect=[{"status": "healthy"}, {"status": "ok"}]):
+             patch("json.load", return_value={"status": "ok"}):
             runpy.run_path(str(health))
             self.assertEqual([call.args[0] for call in connect.call_args_list],
                              [('127.0.0.2', 5900), ('127.0.0.2', 6080), ('127.0.0.1', 8443)])
-            self.assertEqual(urlopen.call_args_list[0].args[0], 'http://127.0.0.2:8888/health')
-            self.assertEqual(urlopen.call_args_list[1].args[0].full_url, 'http://127.0.0.1:8642/health')
+            self.assertEqual(urlopen.call_args_list[0].args[0].full_url, 'http://127.0.0.1:8642/health')
             def fail_ipc(args, **kwargs):
                 if args[0] == "swaymsg":
                     raise subprocess.CalledProcessError(1, args)

@@ -1,3 +1,4 @@
+"""Subscription bootstrap must never need, create, or expose provider API keys."""
 import importlib.util
 import json
 import os
@@ -10,8 +11,6 @@ APP = Path(__file__).parents[1]
 spec = importlib.util.spec_from_file_location('inference', APP / 'runtime/inference.py')
 inference = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(inference)
-ENV = {'HERMES_INFERENCE_PROVIDER': 'zai', 'HERMES_INFERENCE_MODEL': 'glm-5.3-flash',
-       'HERMES_INFERENCE_BASE_URL': 'https://api.z.ai/api/coding/paas/v4'}
 
 
 class InferenceTest(unittest.TestCase):
@@ -19,84 +18,69 @@ class InferenceTest(unittest.TestCase):
         self.tmp = tempfile.TemporaryDirectory()
         self.addCleanup(self.tmp.cleanup)
         self.home = Path(self.tmp.name) / '.hermes'
-        self.key = Path(self.tmp.name) / 'key'
-        self.key.write_text('fixture-only-key\n')
-        self.chown = patch.object(inference.os, 'chown').start()
-        self.fchown = patch.object(inference.os, 'fchown').start()
+        patch.object(inference.os, 'chown').start()
+        patch.object(inference.os, 'fchown').start()
         self.addCleanup(patch.stopall)
 
-    def seed(self, env=None):
-        inference.seed(self.home, ENV if env is None else env, self.key)
+    def test_no_keys_needed_on_first_boot_or_restart(self):
+        inference.seed(self.home, {})
+        path = self.home / 'config.yaml'
+        config = json.loads(path.read_text())
+        self.assertEqual(config['model']['provider'], 'openai-codex')
+        self.assertEqual(config['model']['base_url'], 'https://chatgpt.com/backend-api/codex')
+        self.assertEqual(path.stat().st_mode & 0o777, 0o600)
+        self.assertEqual(self.home.stat().st_mode & 0o777, 0o700)
+        auth = self.home / 'auth.json'
+        auth.write_text('operator subscription state')
+        inference.seed(self.home, {})
+        self.assertEqual(json.loads(path.read_text()), config)
+        self.assertEqual(auth.read_text(), 'operator subscription state')
+        self.assertFalse((self.home / '.env').exists())
 
-    def test_fresh_boot_activation_and_restart_preserve_inference(self):
+    def test_config_activation_and_file_memory_survive_restart(self):
         import sys
         with patch.object(sys, 'path', [str(APP / 'runtime'), *sys.path]):
             import config_sources
-        self.seed()
-        self.assertEqual((self.home / '.env').read_text(),
-                         'GLM_API_KEY=fixture-only-key\nGLM_BASE_URL=' + ENV['HERMES_INFERENCE_BASE_URL'] + '\n')
-        expected = {'provider': 'zai', 'default': 'glm-5.3-flash',
-                    'base_url': ENV['HERMES_INFERENCE_BASE_URL']}
-        for name in ('.env', 'config.yaml'):
-            self.assertEqual((self.home / name).stat().st_mode & 0o777, 0o600)
-        self.assertEqual(self.home.stat().st_mode & 0o777, 0o700)
-        self.chown.assert_called_with(self.home, 1000, 1000)
-        self.assertEqual(self.fchown.call_count, 2)
-        self.assertTrue(all(call.args[1:] == (1000, 1000) for call in self.fchown.call_args_list))
-        config_sources.apply(self.home, defaults=APP / 'defaults')
-        self.key.unlink()
-        self.seed({**ENV, 'HERMES_INFERENCE_MODEL': 'changed'})
-        config_sources.apply(self.home, defaults=APP / 'defaults')
-        self.assertTrue((self.home / 'config.yaml').is_symlink())
-        self.assertEqual(json.loads((self.home / 'config.yaml').read_text())['model'], expected)
-        self.assertIn('fixture-only-key', (self.home / '.env').read_text())
+            import memory
+        inference.seed(self.home, {})
+        for _ in range(2):
+            config_sources.apply(self.home, defaults=APP / 'defaults')
+            memory.configure_builtin(self.home)
+            inference.seed(self.home, {})
+        config = json.loads((self.home / 'config.yaml').read_text())
+        self.assertEqual(config['model']['provider'], 'openai-codex')
+        self.assertEqual(config['memory']['provider'], '')
+        self.assertTrue((self.home / 'memories').is_dir())
+        self.assertFalse((self.home / 'hindsight').exists())
 
-    def test_existing_operator_files_are_unchanged(self):
+    def test_reject_paid_provider_or_custom_endpoint_without_echoing_values(self):
+        for env in ({'HERMES_INFERENCE_PROVIDER': 'openai'},
+                    {'HERMES_INFERENCE_PROVIDER': 'zai'},
+                    {'HERMES_INFERENCE_BASE_URL': 'https://private.invalid'},
+                    {'HERMES_INFERENCE_MODEL': 'bad\nvalue'}):
+            with self.assertRaises(ValueError) as error:
+                inference.seed(self.home, env)
+            self.assertIn('values redacted', str(error.exception))
+            self.assertFalse(self.home.exists())
+
+    def test_preserves_operator_files_and_rejects_unmanaged_links(self):
         self.home.mkdir()
-        (self.home / '.env').write_text('operator-env')
-        (self.home / 'config.yaml').write_text('{"model":"operator"}')
-        self.key.unlink()
-        self.seed()
-        self.assertEqual((self.home / '.env').read_text(), 'operator-env')
-        self.assertEqual((self.home / 'config.yaml').read_text(), '{"model":"operator"}')
-
-    def test_disabled_and_invalid_inputs(self):
-        self.seed({})
-        self.assertFalse(self.home.exists())
-        for env in ({'HERMES_INFERENCE_PROVIDER': 'zai'},
-                    {**ENV, 'HERMES_INFERENCE_PROVIDER': 'openai'},
-                    {**ENV, 'HERMES_INFERENCE_BASE_URL': 'https://user:secret@example.com'},
-                    {**ENV, 'HERMES_INFERENCE_BASE_URL': 'https://example.com/\nEVIL=value'}):
-            with self.assertRaises(ValueError):
-                self.seed(env)
-        self.assertFalse(self.home.exists())
-        for key in ('', 'fixture-secret\nEVIL=value', 'fixture-${TOKEN}', 'x' * 8193):
-            self.key.write_text(key)
-            with self.assertRaisesRegex(ValueError, 'values redacted') as error:
-                self.seed()
-            if key:
-                self.assertNotIn(key, str(error.exception))
-            self.assertFalse((self.home / '.env').exists())
-            self.assertFalse((self.home / 'config.yaml').exists())
-
-    def test_symlinks_rejected_without_modifying_target(self):
-        self.home.symlink_to(Path(self.tmp.name), target_is_directory=True)
+        path = self.home / 'config.yaml'
+        path.write_text('{"model":"operator"}')
+        inference.seed(self.home, {})
+        self.assertEqual(path.read_text(), '{"model":"operator"}')
+        path.unlink()
+        path.symlink_to('/outside')
         with self.assertRaises(ValueError):
-            self.seed()
-        self.home.unlink()
-        self.home.mkdir()
-        (self.home / '.env').symlink_to(self.key)
-        with self.assertRaises(ValueError):
-            self.seed()
-        self.assertEqual(self.key.read_text(), 'fixture-only-key\n')
+            inference.seed(self.home, {})
 
-    def test_failed_publication_is_retryable_and_cleans_private_temporary(self):
-        with patch.object(inference.os, 'link', side_effect=OSError('fixture disk failure')):
-            with self.assertRaises(OSError):
-                self.seed()
-        self.assertEqual(list(self.home.iterdir()), [])
-        self.seed()
-        self.assertTrue((self.home / '.env').exists())
+    def test_bootstrap_does_not_prepare_paid_memory_secrets(self):
+        source = (APP / 'runtime/bootstrap.py').read_text()
+        self.assertNotIn('"prepare"', source)
+        self.assertNotIn('API_KEY', source)
+        for name in ('compose.yaml', 'compose.p7.yaml'):
+            source = (APP.parents[1] / 'stacks/agent-box-hermes' / name).read_text()
+            self.assertNotIn('KEY_FILE', source.replace('DESKTOP_TLS_KEY_FILE', ''))
 
 
 if __name__ == '__main__':

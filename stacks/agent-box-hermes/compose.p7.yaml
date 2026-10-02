@@ -9,15 +9,8 @@ services:
       API_SERVER_KEY: ${API_SERVER_KEY:?Set API_SERVER_KEY}
       PAPERCLIP_CALLBACK_KEY: ${PAPERCLIP_CALLBACK_KEY:?Set PAPERCLIP_CALLBACK_KEY}
       PAPERCLIP_API_URL: ${PAPERCLIP_API_URL:?Set PAPERCLIP_API_URL}
-      HERMES_INFERENCE_PROVIDER: ${HERMES_INFERENCE_PROVIDER:-}
+      HERMES_INFERENCE_PROVIDER: ${HERMES_INFERENCE_PROVIDER:-openai-codex}
       HERMES_INFERENCE_MODEL: ${HERMES_INFERENCE_MODEL:-}
-      HERMES_INFERENCE_BASE_URL: ${HERMES_INFERENCE_BASE_URL:-}
-      MEMORY_LLM_PROVIDER: ${MEMORY_LLM_PROVIDER:-}
-      MEMORY_LLM_MODEL: ${MEMORY_LLM_MODEL:-}
-      MEMORY_LLM_BASE_URL: ${MEMORY_LLM_BASE_URL:-}
-      MEMORY_EMBEDDINGS_PROVIDER: ${MEMORY_EMBEDDINGS_PROVIDER:-}
-      MEMORY_EMBEDDINGS_MODEL: ${MEMORY_EMBEDDINGS_MODEL:-}
-      MEMORY_EMBEDDINGS_BASE_URL: ${MEMORY_EMBEDDINGS_BASE_URL:-}
     platform: linux/amd64
     expose:
       - "8443"
@@ -25,9 +18,6 @@ services:
       - box-home:/home/agent
       - box-memory:/var/lib/agent-box/hindsight
     secrets:
-      - inference_api_key
-      - memory_llm_key
-      - memory_embeddings_key
       - desktop_password
       - desktop_tls_cert
       - desktop_tls_key
@@ -44,12 +34,6 @@ services:
     security_opt:
       - no-new-privileges:true
 secrets:
-  inference_api_key:
-    file: ${INFERENCE_API_KEY_FILE:?Set INFERENCE_API_KEY_FILE}
-  memory_llm_key:
-    file: ${MEMORY_LLM_KEY_FILE:?Set MEMORY_LLM_KEY_FILE}
-  memory_embeddings_key:
-    file: ${MEMORY_EMBEDDINGS_KEY_FILE:?Set MEMORY_EMBEDDINGS_KEY_FILE}
   desktop_password:
     file: ${DESKTOP_PASSWORD_FILE:?Set DESKTOP_PASSWORD_FILE}
   desktop_tls_cert:
