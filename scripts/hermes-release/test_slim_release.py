@@ -15,6 +15,13 @@ import scan_layers
 
 
 class PublicationTests(unittest.TestCase):
+    def test_package_metadata_uses_hexorx_user_namespace(self):
+        with patch.object(publish.subprocess, 'run', return_value=subprocess.CompletedProcess(
+                [], 0, b'{"visibility":"private"}')) as run:
+            publish.package_state()
+        self.assertEqual(run.call_args.args[0],
+                         ['gh', 'api', 'users/hexorx/packages/container/agent-box-hermes'])
+
     def test_existing_tag_and_nonprivate_package_refuse_before_push(self):
         sha = 'a' * 40
         with patch.object(publish, 'package_state', return_value={'visibility': 'private'}), \

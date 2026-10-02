@@ -8,7 +8,7 @@ import re
 import subprocess
 import sys
 
-PACKAGE = 'orgs/hexorx/packages/container/agent-box-hermes'
+PACKAGE = 'users/hexorx/packages/container/agent-box-hermes'
 IMAGE = 'ghcr.io/hexorx/agent-box-hermes'
 
 
