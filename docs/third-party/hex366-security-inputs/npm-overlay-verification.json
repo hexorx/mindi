@@ -1,0 +1,18 @@
+[
+  {
+    "name": "ip-address",
+    "version": "10.7.1",
+    "url": "https://registry.npmjs.org/ip-address/-/ip-address-10.7.1.tgz",
+    "sha256": "7f99ac7abda701afe1fd1e36de462236fb4d1eb8c595d7ae0267bba7d8ee55f8",
+    "integrity": "sha512-4OUAqU9Z1i3vCnS05hzGiFnEMDpQ+62pAD/MVQOp83fYyNC8GleCqaS0QikQBmcWCrKFiUs/B8ztRRiYOAXuCA==",
+    "verified": true
+  },
+  {
+    "name": "brace-expansion",
+    "version": "5.0.12",
+    "url": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-5.0.12.tgz",
+    "sha256": "ef8448ec78f20b692f04fa6d01f39b5ab34c66404bea3429f5a39c6c9e0be8b4",
+    "integrity": "sha512-YovQ3rzhaLMIrDjNDMkNS01tea93qhEhG5xy8f6+R0l+dw3Ki+5sCoIoI942iuLZTHWogWktgwVDhU09iNEimQ==",
+    "verified": true
+  }
+]

@@ -1,0 +1,662 @@
+[
+  {
+    "package": "tar",
+    "target": "/usr/local/lib/node_modules/npm/node_modules/tar",
+    "dependency": "@isaacs/fs-minipass",
+    "range": "^4.0.0",
+    "resolved": {
+      "path": "/usr/local/lib/node_modules/npm/node_modules/@isaacs/fs-minipass/package.json",
+      "version": "4.0.1"
+    },
+    "passed": true
+  },
+  {
+    "package": "tar",
+    "target": "/usr/local/lib/node_modules/npm/node_modules/tar",
+    "dependency": "chownr",
+    "range": "^3.0.0",
+    "resolved": {
+      "path": "/usr/local/lib/node_modules/npm/node_modules/chownr/package.json",
+      "version": "3.0.0"
+    },
+    "passed": true
+  },
+  {
+    "package": "tar",
+    "target": "/usr/local/lib/node_modules/npm/node_modules/tar",
+    "dependency": "minipass",
+    "range": "^7.1.2",
+    "resolved": {
+      "path": "/usr/local/lib/node_modules/npm/node_modules/minipass/package.json",
+      "version": "7.1.3"
+    },
+    "passed": true
+  },
+  {
+    "package": "tar",
+    "target": "/usr/local/lib/node_modules/npm/node_modules/tar",
+    "dependency": "minizlib",
+    "range": "^3.1.0",
+    "resolved": {
+      "path": "/usr/local/lib/node_modules/npm/node_modules/minizlib/package.json",
+      "version": "3.1.0"
+    },
+    "passed": true
+  },
+  {
+    "package": "tar",
+    "target": "/usr/local/lib/node_modules/npm/node_modules/tar",
+    "dependency": "yallist",
+    "range": "^5.0.0",
+    "resolved": {
+      "path": "/usr/local/lib/node_modules/npm/node_modules/yallist/package.json",
+      "version": "5.0.0"
+    },
+    "passed": true
+  },
+  {
+    "package": "brace-expansion",
+    "target": "/usr/local/lib/node_modules/npm/node_modules/brace-expansion",
+    "dependency": "balanced-match",
+    "range": "^4.0.2",
+    "resolved": {
+      "path": "/usr/local/lib/node_modules/npm/node_modules/balanced-match/package.json",
+      "version": "4.0.4"
+    },
+    "passed": true
+  },
+  {
+    "package": "browserslist",
+    "target": "/opt/hermes/node_modules/browserslist",
+    "dependency": "baseline-browser-mapping",
+    "range": "^2.10.44",
+    "resolved": {
+      "path": "/opt/hermes/node_modules/baseline-browser-mapping/package.json",
+      "version": "2.11.0"
+    },
+    "passed": true
+  },
+  {
+    "package": "browserslist",
+    "target": "/opt/hermes/node_modules/browserslist",
+    "dependency": "caniuse-lite",
+    "range": "^1.0.30001806",
+    "resolved": {
+      "path": "/opt/hermes/node_modules/caniuse-lite/package.json",
+      "version": "1.0.30001806"
+    },
+    "passed": true
+  },
+  {
+    "package": "browserslist",
+    "target": "/opt/hermes/node_modules/browserslist",
+    "dependency": "electron-to-chromium",
+    "range": "^1.5.393",
+    "resolved": {
+      "path": "/opt/hermes/node_modules/electron-to-chromium/package.json",
+      "version": "1.5.393"
+    },
+    "passed": true
+  },
+  {
+    "package": "browserslist",
+    "target": "/opt/hermes/node_modules/browserslist",
+    "dependency": "node-releases",
+    "range": "^2.0.51",
+    "resolved": {
+      "path": "/opt/hermes/node_modules/node-releases/package.json",
+      "version": "2.0.51"
+    },
+    "passed": true
+  },
+  {
+    "package": "browserslist",
+    "target": "/opt/hermes/node_modules/browserslist",
+    "dependency": "update-browserslist-db",
+    "range": "^1.2.3",
+    "resolved": {
+      "path": "/opt/hermes/node_modules/update-browserslist-db/package.json",
+      "version": "1.2.3"
+    },
+    "passed": true
+  },
+  {
+    "package": "@grpc/grpc-js",
+    "target": "/opt/hermes/plugins/platforms/photon/sidecar/node_modules/@grpc/grpc-js",
+    "dependency": "@grpc/proto-loader",
+    "range": "^0.8.0",
+    "resolved": {
+      "path": "/opt/hermes/plugins/platforms/photon/sidecar/node_modules/@grpc/proto-loader/package.json",
+      "version": "0.8.1"
+    },
+    "passed": true
+  },
+  {
+    "package": "@grpc/grpc-js",
+    "target": "/opt/hermes/plugins/platforms/photon/sidecar/node_modules/@grpc/grpc-js",
+    "dependency": "@js-sdsl/ordered-map",
+    "range": "^4.4.2",
+    "resolved": {
+      "path": "/opt/hermes/plugins/platforms/photon/sidecar/node_modules/@js-sdsl/ordered-map/package.json",
+      "version": "4.4.2"
+    },
+    "passed": true
+  },
+  {
+    "package": "vitest",
+    "target": "/opt/hermes/node_modules/vitest",
+    "dependency": "es-module-lexer",
+    "range": "^2.0.0",
+    "resolved": {
+      "path": "/opt/hermes/node_modules/es-module-lexer/package.json",
+      "version": "2.3.1"
+    },
+    "passed": true
+  },
+  {
+    "package": "vitest",
+    "target": "/opt/hermes/node_modules/vitest",
+    "dependency": "expect-type",
+    "range": "^1.3.0",
+    "resolved": {
+      "path": "/opt/hermes/node_modules/expect-type/package.json",
+      "version": "1.4.0"
+    },
+    "passed": true
+  },
+  {
+    "package": "vitest",
+    "target": "/opt/hermes/node_modules/vitest",
+    "dependency": "magic-string",
+    "range": "^0.30.21",
+    "resolved": {
+      "path": "/opt/hermes/node_modules/magic-string/package.json",
+      "version": "0.30.21"
+    },
+    "passed": true
+  },
+  {
+    "package": "vitest",
+    "target": "/opt/hermes/node_modules/vitest",
+    "dependency": "obug",
+    "range": "^2.1.1",
+    "resolved": {
+      "path": "/opt/hermes/node_modules/obug/package.json",
+      "version": "2.1.4"
+    },
+    "passed": true
+  },
+  {
+    "package": "vitest",
+    "target": "/opt/hermes/node_modules/vitest",
+    "dependency": "pathe",
+    "range": "^2.0.3",
+    "resolved": {
+      "path": "/opt/hermes/node_modules/pathe/package.json",
+      "version": "2.0.3"
+    },
+    "passed": true
+  },
+  {
+    "package": "vitest",
+    "target": "/opt/hermes/node_modules/vitest",
+    "dependency": "picomatch",
+    "range": "^4.0.3",
+    "resolved": {
+      "path": "/opt/hermes/node_modules/picomatch/package.json",
+      "version": "4.0.5"
+    },
+    "passed": true
+  },
+  {
+    "package": "vitest",
+    "target": "/opt/hermes/node_modules/vitest",
+    "dependency": "std-env",
+    "range": "^4.0.0-rc.1",
+    "resolved": {
+      "path": "/opt/hermes/node_modules/std-env/package.json",
+      "version": "4.2.0"
+    },
+    "passed": true
+  },
+  {
+    "package": "vitest",
+    "target": "/opt/hermes/node_modules/vitest",
+    "dependency": "tinybench",
+    "range": "^2.9.0",
+    "resolved": {
+      "path": "/opt/hermes/node_modules/tinybench/package.json",
+      "version": "2.9.0"
+    },
+    "passed": true
+  },
+  {
+    "package": "vitest",
+    "target": "/opt/hermes/node_modules/vitest",
+    "dependency": "tinyexec",
+    "range": "^1.0.2",
+    "resolved": {
+      "path": "/opt/hermes/node_modules/tinyexec/package.json",
+      "version": "1.2.4"
+    },
+    "passed": true
+  },
+  {
+    "package": "vitest",
+    "target": "/opt/hermes/node_modules/vitest",
+    "dependency": "tinyglobby",
+    "range": "^0.2.15",
+    "resolved": {
+      "path": "/opt/hermes/node_modules/tinyglobby/package.json",
+      "version": "0.2.17"
+    },
+    "passed": true
+  },
+  {
+    "package": "vitest",
+    "target": "/opt/hermes/node_modules/vitest",
+    "dependency": "tinyrainbow",
+    "range": "^3.1.0",
+    "resolved": {
+      "path": "/opt/hermes/node_modules/tinyrainbow/package.json",
+      "version": "3.1.0"
+    },
+    "passed": true
+  },
+  {
+    "package": "vitest",
+    "target": "/opt/hermes/node_modules/vitest",
+    "dependency": "vite",
+    "range": "^6.0.0 || ^7.0.0 || ^8.0.0",
+    "resolved": {
+      "path": "/opt/hermes/node_modules/vite/package.json",
+      "version": "8.2.0"
+    },
+    "passed": true
+  },
+  {
+    "package": "vitest",
+    "target": "/opt/hermes/node_modules/vitest",
+    "dependency": "why-is-node-running",
+    "range": "^2.3.0",
+    "resolved": {
+      "path": "/opt/hermes/node_modules/why-is-node-running/package.json",
+      "version": "2.3.0"
+    },
+    "passed": true
+  },
+  {
+    "package": "vitest",
+    "target": "/opt/hermes/node_modules/vitest",
+    "dependency": "@vitest/expect",
+    "range": "4.1.11",
+    "resolved": {
+      "path": "/opt/hermes/node_modules/@vitest/expect/package.json",
+      "version": "4.1.11"
+    },
+    "passed": true
+  },
+  {
+    "package": "vitest",
+    "target": "/opt/hermes/node_modules/vitest",
+    "dependency": "@vitest/mocker",
+    "range": "4.1.11",
+    "resolved": {
+      "path": "/opt/hermes/node_modules/@vitest/mocker/package.json",
+      "version": "4.1.11"
+    },
+    "passed": true
+  },
+  {
+    "package": "vitest",
+    "target": "/opt/hermes/node_modules/vitest",
+    "dependency": "@vitest/pretty-format",
+    "range": "4.1.11",
+    "resolved": {
+      "path": "/opt/hermes/node_modules/@vitest/pretty-format/package.json",
+      "version": "4.1.11"
+    },
+    "passed": true
+  },
+  {
+    "package": "vitest",
+    "target": "/opt/hermes/node_modules/vitest",
+    "dependency": "@vitest/runner",
+    "range": "4.1.11",
+    "resolved": {
+      "path": "/opt/hermes/node_modules/@vitest/runner/package.json",
+      "version": "4.1.11"
+    },
+    "passed": true
+  },
+  {
+    "package": "vitest",
+    "target": "/opt/hermes/node_modules/vitest",
+    "dependency": "@vitest/spy",
+    "range": "4.1.11",
+    "resolved": {
+      "path": "/opt/hermes/node_modules/@vitest/spy/package.json",
+      "version": "4.1.11"
+    },
+    "passed": true
+  },
+  {
+    "package": "vitest",
+    "target": "/opt/hermes/node_modules/vitest",
+    "dependency": "@vitest/utils",
+    "range": "4.1.11",
+    "resolved": {
+      "path": "/opt/hermes/node_modules/@vitest/utils/package.json",
+      "version": "4.1.11"
+    },
+    "passed": true
+  },
+  {
+    "package": "vitest",
+    "target": "/opt/hermes/node_modules/vitest",
+    "dependency": "@vitest/snapshot",
+    "range": "4.1.11",
+    "resolved": {
+      "path": "/opt/hermes/node_modules/@vitest/snapshot/package.json",
+      "version": "4.1.11"
+    },
+    "passed": true
+  },
+  {
+    "package": "sanitize-html",
+    "target": "/opt/hermes/node_modules/sanitize-html",
+    "dependency": "deepmerge",
+    "range": "^4.2.2",
+    "resolved": {
+      "path": "/opt/hermes/node_modules/deepmerge/package.json",
+      "version": "4.3.1"
+    },
+    "passed": true
+  },
+  {
+    "package": "sanitize-html",
+    "target": "/opt/hermes/node_modules/sanitize-html",
+    "dependency": "escape-string-regexp",
+    "range": "^4.0.0",
+    "resolved": {
+      "path": "/opt/hermes/node_modules/escape-string-regexp/package.json",
+      "version": "4.0.0"
+    },
+    "passed": true
+  },
+  {
+    "package": "sanitize-html",
+    "target": "/opt/hermes/node_modules/sanitize-html",
+    "dependency": "htmlparser2",
+    "range": "^12.0.0",
+    "resolved": {
+      "path": "/opt/hermes/node_modules/htmlparser2/package.json",
+      "version": "12.0.0"
+    },
+    "passed": true
+  },
+  {
+    "package": "sanitize-html",
+    "target": "/opt/hermes/node_modules/sanitize-html",
+    "dependency": "is-plain-object",
+    "range": "^5.0.0",
+    "resolved": {
+      "path": "/opt/hermes/node_modules/is-plain-object/package.json",
+      "version": "5.0.0"
+    },
+    "passed": true
+  },
+  {
+    "package": "sanitize-html",
+    "target": "/opt/hermes/node_modules/sanitize-html",
+    "dependency": "parse-srcset",
+    "range": "^1.0.2",
+    "resolved": {
+      "path": "/opt/hermes/node_modules/parse-srcset/package.json",
+      "version": "1.0.2"
+    },
+    "passed": true
+  },
+  {
+    "package": "sanitize-html",
+    "target": "/opt/hermes/node_modules/sanitize-html",
+    "dependency": "postcss",
+    "range": "^8.3.11",
+    "resolved": {
+      "path": "/opt/hermes/node_modules/sanitize-html/node_modules/postcss/package.json",
+      "version": "8.5.23"
+    },
+    "passed": true
+  },
+  {
+    "package": "sanitize-html",
+    "target": "/opt/hermes/node_modules/sanitize-html",
+    "dependency": "launder",
+    "range": "^1.7.1",
+    "resolved": {
+      "path": "/opt/hermes/node_modules/launder/package.json",
+      "version": "1.7.1"
+    },
+    "passed": true
+  },
+  {
+    "package": "brace-expansion",
+    "target": "/opt/hermes/node_modules/brace-expansion",
+    "dependency": "balanced-match",
+    "range": "^4.0.2",
+    "resolved": {
+      "path": "/opt/hermes/node_modules/balanced-match/package.json",
+      "version": "4.0.4"
+    },
+    "passed": true
+  },
+  {
+    "package": "@vitest/mocker",
+    "target": "/opt/hermes/node_modules/@vitest/mocker",
+    "dependency": "estree-walker",
+    "range": "^3.0.3",
+    "resolved": {
+      "path": "/opt/hermes/node_modules/estree-walker/package.json",
+      "version": "3.0.3"
+    },
+    "passed": true
+  },
+  {
+    "package": "@vitest/mocker",
+    "target": "/opt/hermes/node_modules/@vitest/mocker",
+    "dependency": "magic-string",
+    "range": "^0.30.21",
+    "resolved": {
+      "path": "/opt/hermes/node_modules/magic-string/package.json",
+      "version": "0.30.21"
+    },
+    "passed": true
+  },
+  {
+    "package": "@vitest/mocker",
+    "target": "/opt/hermes/node_modules/@vitest/mocker",
+    "dependency": "@vitest/spy",
+    "range": "4.1.11",
+    "resolved": {
+      "path": "/opt/hermes/node_modules/@vitest/spy/package.json",
+      "version": "4.1.11"
+    },
+    "passed": true
+  },
+  {
+    "package": "@vitest/utils",
+    "target": "/opt/hermes/node_modules/@vitest/utils",
+    "dependency": "convert-source-map",
+    "range": "^2.0.0",
+    "resolved": {
+      "path": "/opt/hermes/node_modules/convert-source-map/package.json",
+      "version": "2.0.0"
+    },
+    "passed": true
+  },
+  {
+    "package": "@vitest/utils",
+    "target": "/opt/hermes/node_modules/@vitest/utils",
+    "dependency": "tinyrainbow",
+    "range": "^3.1.0",
+    "resolved": {
+      "path": "/opt/hermes/node_modules/tinyrainbow/package.json",
+      "version": "3.1.0"
+    },
+    "passed": true
+  },
+  {
+    "package": "@vitest/utils",
+    "target": "/opt/hermes/node_modules/@vitest/utils",
+    "dependency": "@vitest/pretty-format",
+    "range": "4.1.11",
+    "resolved": {
+      "path": "/opt/hermes/node_modules/@vitest/pretty-format/package.json",
+      "version": "4.1.11"
+    },
+    "passed": true
+  },
+  {
+    "package": "@vitest/expect",
+    "target": "/opt/hermes/node_modules/@vitest/expect",
+    "dependency": "@standard-schema/spec",
+    "range": "^1.1.0",
+    "resolved": {
+      "path": "/opt/hermes/node_modules/@standard-schema/spec/package.json",
+      "version": "1.1.0"
+    },
+    "passed": true
+  },
+  {
+    "package": "@vitest/expect",
+    "target": "/opt/hermes/node_modules/@vitest/expect",
+    "dependency": "@types/chai",
+    "range": "^5.2.2",
+    "resolved": {
+      "path": "/opt/hermes/node_modules/@types/chai/package.json",
+      "version": "5.2.3"
+    },
+    "passed": true
+  },
+  {
+    "package": "@vitest/expect",
+    "target": "/opt/hermes/node_modules/@vitest/expect",
+    "dependency": "chai",
+    "range": "^6.2.2",
+    "resolved": {
+      "path": "/opt/hermes/node_modules/chai/package.json",
+      "version": "6.2.2"
+    },
+    "passed": true
+  },
+  {
+    "package": "@vitest/expect",
+    "target": "/opt/hermes/node_modules/@vitest/expect",
+    "dependency": "tinyrainbow",
+    "range": "^3.1.0",
+    "resolved": {
+      "path": "/opt/hermes/node_modules/tinyrainbow/package.json",
+      "version": "3.1.0"
+    },
+    "passed": true
+  },
+  {
+    "package": "@vitest/expect",
+    "target": "/opt/hermes/node_modules/@vitest/expect",
+    "dependency": "@vitest/spy",
+    "range": "4.1.11",
+    "resolved": {
+      "path": "/opt/hermes/node_modules/@vitest/spy/package.json",
+      "version": "4.1.11"
+    },
+    "passed": true
+  },
+  {
+    "package": "@vitest/expect",
+    "target": "/opt/hermes/node_modules/@vitest/expect",
+    "dependency": "@vitest/utils",
+    "range": "4.1.11",
+    "resolved": {
+      "path": "/opt/hermes/node_modules/@vitest/utils/package.json",
+      "version": "4.1.11"
+    },
+    "passed": true
+  },
+  {
+    "package": "@vitest/runner",
+    "target": "/opt/hermes/node_modules/@vitest/runner",
+    "dependency": "pathe",
+    "range": "^2.0.3",
+    "resolved": {
+      "path": "/opt/hermes/node_modules/pathe/package.json",
+      "version": "2.0.3"
+    },
+    "passed": true
+  },
+  {
+    "package": "@vitest/runner",
+    "target": "/opt/hermes/node_modules/@vitest/runner",
+    "dependency": "@vitest/utils",
+    "range": "4.1.11",
+    "resolved": {
+      "path": "/opt/hermes/node_modules/@vitest/utils/package.json",
+      "version": "4.1.11"
+    },
+    "passed": true
+  },
+  {
+    "package": "@vitest/snapshot",
+    "target": "/opt/hermes/node_modules/@vitest/snapshot",
+    "dependency": "magic-string",
+    "range": "^0.30.21",
+    "resolved": {
+      "path": "/opt/hermes/node_modules/magic-string/package.json",
+      "version": "0.30.21"
+    },
+    "passed": true
+  },
+  {
+    "package": "@vitest/snapshot",
+    "target": "/opt/hermes/node_modules/@vitest/snapshot",
+    "dependency": "pathe",
+    "range": "^2.0.3",
+    "resolved": {
+      "path": "/opt/hermes/node_modules/pathe/package.json",
+      "version": "2.0.3"
+    },
+    "passed": true
+  },
+  {
+    "package": "@vitest/snapshot",
+    "target": "/opt/hermes/node_modules/@vitest/snapshot",
+    "dependency": "@vitest/pretty-format",
+    "range": "4.1.11",
+    "resolved": {
+      "path": "/opt/hermes/node_modules/@vitest/pretty-format/package.json",
+      "version": "4.1.11"
+    },
+    "passed": true
+  },
+  {
+    "package": "@vitest/snapshot",
+    "target": "/opt/hermes/node_modules/@vitest/snapshot",
+    "dependency": "@vitest/utils",
+    "range": "4.1.11",
+    "resolved": {
+      "path": "/opt/hermes/node_modules/@vitest/utils/package.json",
+      "version": "4.1.11"
+    },
+    "passed": true
+  },
+  {
+    "package": "@vitest/pretty-format",
+    "target": "/opt/hermes/node_modules/@vitest/pretty-format",
+    "dependency": "tinyrainbow",
+    "range": "^3.1.0",
+    "resolved": {
+      "path": "/opt/hermes/node_modules/tinyrainbow/package.json",
+      "version": "3.1.0"
+    },
+    "passed": true
+  }
+]

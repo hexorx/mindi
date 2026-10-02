@@ -1,0 +1,29 @@
+[
+  {
+    "version": "12.2.0",
+    "url": "https://registry.npmjs.org/npm/-/npm-12.2.0.tgz",
+    "sha256": "6666b48816b39b86c3febac7b51a4ee4de6c5ca589c382ad8004b6b113f86677",
+    "bundled": {
+      "ip-address": "10.5.0",
+      "brace-expansion": "5.0.9"
+    }
+  },
+  {
+    "version": "11.21.0",
+    "url": "https://registry.npmjs.org/npm/-/npm-11.21.0.tgz",
+    "sha256": "783e7c92bf73b442fb800c2d6ef3921e86da8894a700fed45140e37916877482",
+    "bundled": {
+      "ip-address": "10.5.0",
+      "brace-expansion": "5.0.9"
+    }
+  },
+  {
+    "version": "10.9.9",
+    "url": "https://registry.npmjs.org/npm/-/npm-10.9.9.tgz",
+    "sha256": "c80bd097147cce32e31010b791bab8c71a26a5e10668210ec9d2e7f4c7cea2a1",
+    "bundled": {
+      "ip-address": "10.1.0",
+      "brace-expansion": "2.0.2"
+    }
+  }
+]

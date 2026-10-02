@@ -28,7 +28,7 @@ class LockFilesTest(unittest.TestCase):
     def test_closure_counts_match_the_resolved_build(self):
         changes = [row[3] for row in self.lock]
         self.assertEqual(changes.count('added'), 121)
-        self.assertEqual(changes.count('upgraded'), 39)
+        self.assertEqual(changes.count('upgraded'), 54)
         self.assertEqual(len(self.inherited), 432)
         self.assertEqual(len(self.final), 553)
 
@@ -36,6 +36,8 @@ class LockFilesTest(unittest.TestCase):
         for name, version, arch, change, base, suite, url, sha256, size in self.lock:
             archive = 'debian-security' if suite == 'trixie-security' else 'debian'
             stamp = '20261001T172817Z' if name in {'chromium', 'chromium-common', 'libexpat1', 'libexpat1-dev'} else STAMPS[archive]
+            if name in {'mount', 'bsdutils', 'libsrt1.5-gnutls', 'libasound2t64', 'libuuid1', 'libblkid1', 'liblastlog2-2', 'util-linux', 'login', 'libpng16-16t64', 'librabbitmq4', 'sed', 'libasound2-data', 'libmount1', 'libsmartcols1'}:
+                stamp = '20261002T120000Z'
             prefix = f'https://snapshot.debian.org/archive/{archive}/{stamp}/pool/'
             self.assertTrue(url.startswith(prefix), url)
             self.assertTrue(url.endswith(f'_{arch}.deb'), url)
@@ -69,15 +71,21 @@ class LockFilesTest(unittest.TestCase):
         uris = re.findall(r'^URIs: (.+)$', text, re.M)
         self.assertEqual(uris, [f'https://snapshot.debian.org/archive/{a}/{s}'
                                 for a, s in STAMPS.items()] +
-                         ['https://snapshot.debian.org/archive/debian-security/20261001T172817Z'])
-        self.assertEqual(text.count('Signed-By: /usr/share/keyrings/debian-archive-keyring.pgp'), 3)
+                         ['https://snapshot.debian.org/archive/debian-security/20261001T172817Z',
+                          'https://snapshot.debian.org/archive/debian-security/20261002T120000Z',
+                          'https://snapshot.debian.org/archive/debian/20261002T120000Z'])
+        self.assertEqual(text.count('Signed-By: /usr/share/keyrings/debian-archive-keyring.pgp'), 5)
         self.assertNotIn('deb.debian.org', text)
         self.assertNotIn('Trusted:', text)
         pins = [line.split('  ') for line in (BUILD / 'apt-release.sha256').read_text().splitlines()]
-        self.assertEqual(len(pins), 4)
+        self.assertEqual(len(pins), 6)
         for digest, name in pins:
             self.assertRegex(digest, r'^[0-9a-f]{64}$')
             archive = 'debian-security' if 'security' in name else 'debian'
+            if '20261002T120000Z' in name:
+                suite = 'trixie-security' if archive == 'debian-security' else 'trixie'
+                self.assertEqual(name, f'snapshot.debian.org_archive_{archive}_20261002T120000Z_dists_{suite}_InRelease')
+                continue
             if '20261001T172817Z' in name:
                 self.assertEqual(name, 'snapshot.debian.org_archive_debian-security_20261001T172817Z_dists_trixie-security_InRelease')
                 continue
@@ -93,7 +101,8 @@ class LockFilesTest(unittest.TestCase):
             'libmbedcrypto16 libpcre2-8-0 libperl5.40 libpython3.13 libpython3.13-dev '
             'libpython3.13-minimal libpython3.13-stdlib libsqlite3-0 libssh-4 libssh2-1t64 '
             'perl perl-base perl-modules-5.40 python3.13 python3.13-dev python3.13-minimal '
-            'python3.13-venv xserver-common xvfb libexpat1 libexpat1-dev'.split())
+            'python3.13-venv xserver-common xvfb libexpat1 libexpat1-dev '
+            'bsdutils libblkid1 liblastlog2-2 libmount1 libsmartcols1 libuuid1 login mount util-linux libpng16-16t64 libsrt1.5-gnutls librabbitmq4 libasound2t64 libasound2-data sed'.split())
 
     def test_chromium_artifacts_match_retained_build_evidence(self):
         import json

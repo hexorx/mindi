@@ -13,7 +13,7 @@ class SecurityPinsTest(unittest.TestCase):
         lock = tomllib.loads((BUILD / 'hermes-uv.lock').read_text())
         packages = {p['name']: p for p in lock['package']}
         overlay = (BUILD / 'hermes-security.lock').read_text()
-        for name, version in [('pyjwt', '2.14.0'), ('anyio', '4.14.2'),
+        for name, version in [('pyjwt', '2.15.0'), ('anyio', '4.14.2'),
                               ('httpx2', '2.12.0'), ('httpcore2', '2.12.0'),
                               ('urllib3', '2.8.0'), ('tornado', '6.5.9')]:
             self.assertEqual(packages[name]['version'], version)
@@ -24,7 +24,7 @@ class SecurityPinsTest(unittest.TestCase):
             for digest in hashes:
                 self.assertIn('sha256:' + digest, {a['hash'] for a in artifacts})
         project = tomllib.loads((BUILD / 'hermes-pyproject.toml').read_text())
-        self.assertIn('PyJWT[crypto]==2.14.0', project['project']['dependencies'])
+        self.assertIn('PyJWT[crypto]==2.15.0', project['project']['dependencies'])
         self.assertIn('urllib3==2.8.0', project['project']['dependencies'])
         self.assertIn('tornado==6.5.9', project['tool']['uv']['override-dependencies'])
         self.assertEqual(project['tool']['uv']['exclude-newer'], '2026-09-16T12:10:52Z')

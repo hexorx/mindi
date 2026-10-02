@@ -1,0 +1,35 @@
+{
+  "keyring_sha256": "506b815cbb32d9b6066b4a2aa524071e071761e7e7f68c3ac74f3061ba852017",
+  "results": [
+    {
+      "file": "InRelease",
+      "command": [
+        "sqv",
+        "--keyring",
+        "/usr/share/keyrings/debian-archive-keyring.pgp",
+        "--cleartext",
+        "--output",
+        "/tmp/paperclip-run-hex-366-4f9c3992-e9e-R5huZA/verified366-InRelease",
+        "mindi-hex366/docs/third-party/hex366-security-inputs/InRelease"
+      ],
+      "exit": 0,
+      "stdout": "05AB90340C0C5E797F44A8C8254CF3B5AEC0A8F0\n5E04A1E3223A19A20706E20F9904613D4CCE68C6\n",
+      "stderr": ""
+    },
+    {
+      "file": "debian-InRelease",
+      "command": [
+        "sqv",
+        "--keyring",
+        "/usr/share/keyrings/debian-archive-keyring.pgp",
+        "--cleartext",
+        "--output",
+        "/tmp/paperclip-run-hex-366-4f9c3992-e9e-R5huZA/verified366-debian-InRelease",
+        "mindi-hex366/docs/third-party/hex366-security-inputs/debian-InRelease"
+      ],
+      "exit": 0,
+      "stdout": "04B54C3CDCA79751B16BC6B5225629DF75B188BD\n41587F7DB8C774BCCF131416762F67A0B2C39DE4\nB8B80B5B623EAB6AD8775C45B7C5D7D6350947F8\n",
+      "stderr": ""
+    }
+  ]
+}

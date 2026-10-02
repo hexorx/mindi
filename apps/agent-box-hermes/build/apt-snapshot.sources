@@ -26,3 +26,21 @@ Components: main
 Architectures: amd64
 Signed-By: /usr/share/keyrings/debian-archive-keyring.pgp
 Check-Valid-Until: no
+
+# HEX-366 fixed artifacts; older snapshots retain unchanged packages.
+Types: deb
+URIs: https://snapshot.debian.org/archive/debian-security/20261002T120000Z
+Suites: trixie-security
+Components: main
+Architectures: amd64
+Signed-By: /usr/share/keyrings/debian-archive-keyring.pgp
+Check-Valid-Until: no
+
+# HEX-366 fixed artifacts; older snapshots retain unchanged packages.
+Types: deb
+URIs: https://snapshot.debian.org/archive/debian/20261002T120000Z
+Suites: trixie
+Components: main
+Architectures: amd64
+Signed-By: /usr/share/keyrings/debian-archive-keyring.pgp
+Check-Valid-Until: no

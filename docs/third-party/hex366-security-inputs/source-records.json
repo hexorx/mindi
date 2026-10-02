@@ -1,0 +1,154 @@
+[
+  {
+    "source": "util-linux",
+    "version": "2.41.5-0+deb13u1",
+    "file": "util-linux_2.41.5-0+deb13u1.dsc",
+    "sha256": "43e9b2cbebd10fdc598c4ad10217c8202c28de53af6eafc892c8e9b5cbf3a3a5",
+    "size": 4988,
+    "url": "https://snapshot.debian.org/archive/debian-security/20261002T120000Z/pool/updates/main/u/util-linux/util-linux_2.41.5-0+deb13u1.dsc"
+  },
+  {
+    "source": "util-linux",
+    "version": "2.41.5-0+deb13u1",
+    "file": "util-linux_2.41.5.orig.tar.xz",
+    "sha256": "f586e35d320ff537aab3ffeca37e9ecd482ccbe013590db4429a414d8aa6a728",
+    "size": 9474992,
+    "url": "https://snapshot.debian.org/archive/debian-security/20261002T120000Z/pool/updates/main/u/util-linux/util-linux_2.41.5.orig.tar.xz"
+  },
+  {
+    "source": "util-linux",
+    "version": "2.41.5-0+deb13u1",
+    "file": "util-linux_2.41.5-0+deb13u1.debian.tar.xz",
+    "sha256": "5b327ccd22f0f4ed28a389870aa51d04ecedb8693e52a1d122850f2b3188cbf6",
+    "size": 107604,
+    "url": "https://snapshot.debian.org/archive/debian-security/20261002T120000Z/pool/updates/main/u/util-linux/util-linux_2.41.5-0+deb13u1.debian.tar.xz"
+  },
+  {
+    "source": "libpng1.6",
+    "version": "1.6.48-1+deb13u6",
+    "file": "libpng1.6_1.6.48-1+deb13u6.dsc",
+    "sha256": "6eb8e2cb5d3fdaf0b2381058906d0003c1667295eb4b965c9c653336e61872ae",
+    "size": 2286,
+    "url": "https://snapshot.debian.org/archive/debian-security/20261002T120000Z/pool/updates/main/libp/libpng1.6/libpng1.6_1.6.48-1+deb13u6.dsc"
+  },
+  {
+    "source": "libpng1.6",
+    "version": "1.6.48-1+deb13u6",
+    "file": "libpng1.6_1.6.48.orig.tar.gz",
+    "sha256": "b17e99026055727e8cba99160c3a9a7f9af788e9f786daeadded5a42243f1dd0",
+    "size": 1572923,
+    "url": "https://snapshot.debian.org/archive/debian-security/20261002T120000Z/pool/updates/main/libp/libpng1.6/libpng1.6_1.6.48.orig.tar.gz"
+  },
+  {
+    "source": "libpng1.6",
+    "version": "1.6.48-1+deb13u6",
+    "file": "libpng1.6_1.6.48-1+deb13u6.debian.tar.xz",
+    "sha256": "26a8f1c2bed971ad68d3549b7cd9b517e8f2ed2f23f75a7ac348452e25c87133",
+    "size": 53284,
+    "url": "https://snapshot.debian.org/archive/debian-security/20261002T120000Z/pool/updates/main/libp/libpng1.6/libpng1.6_1.6.48-1+deb13u6.debian.tar.xz"
+  },
+  {
+    "source": "srt",
+    "version": "1.5.4-1+deb13u1",
+    "file": "srt_1.5.4-1+deb13u1.dsc",
+    "sha256": "ecee48e6eb461e32ecbb8596892512cf39f1c44070a6c87ecdb39c47d040680c",
+    "size": 2349,
+    "url": "https://snapshot.debian.org/archive/debian-security/20261002T120000Z/pool/updates/main/s/srt/srt_1.5.4-1+deb13u1.dsc"
+  },
+  {
+    "source": "srt",
+    "version": "1.5.4-1+deb13u1",
+    "file": "srt_1.5.4.orig.tar.gz",
+    "sha256": "d0a8b600fe1b4eaaf6277530e3cfc8f15b8ce4035f16af4a5eb5d4b123640cdd",
+    "size": 1743040,
+    "url": "https://snapshot.debian.org/archive/debian-security/20261002T120000Z/pool/updates/main/s/srt/srt_1.5.4.orig.tar.gz"
+  },
+  {
+    "source": "srt",
+    "version": "1.5.4-1+deb13u1",
+    "file": "srt_1.5.4-1+deb13u1.debian.tar.xz",
+    "sha256": "50805bc733bc178d2b98dd8b768db651986819f2f520590060683e8e93d0805a",
+    "size": 30556,
+    "url": "https://snapshot.debian.org/archive/debian-security/20261002T120000Z/pool/updates/main/s/srt/srt_1.5.4-1+deb13u1.debian.tar.xz"
+  },
+  {
+    "source": "librabbitmq",
+    "version": "0.15.0-1+deb13u2",
+    "file": "librabbitmq_0.15.0-1+deb13u2.dsc",
+    "sha256": "773644bd292a0e84116a2e70dbe04470c162a0a1b86c69deee14261801518fe7",
+    "size": 2119,
+    "url": "https://snapshot.debian.org/archive/debian-security/20261002T120000Z/pool/updates/main/libr/librabbitmq/librabbitmq_0.15.0-1+deb13u2.dsc"
+  },
+  {
+    "source": "librabbitmq",
+    "version": "0.15.0-1+deb13u2",
+    "file": "librabbitmq_0.15.0.orig.tar.gz",
+    "sha256": "7b652df52c0de4d19ca36c798ed81378cba7a03a0f0c5d498881ae2d79b241c2",
+    "size": 131818,
+    "url": "https://snapshot.debian.org/archive/debian-security/20261002T120000Z/pool/updates/main/libr/librabbitmq/librabbitmq_0.15.0.orig.tar.gz"
+  },
+  {
+    "source": "librabbitmq",
+    "version": "0.15.0-1+deb13u2",
+    "file": "librabbitmq_0.15.0-1+deb13u2.debian.tar.xz",
+    "sha256": "379c5a83477ee5f09f5d82fcd80d689b683ba5f5e024caa3a8f3cd664c3a72a6",
+    "size": 10560,
+    "url": "https://snapshot.debian.org/archive/debian-security/20261002T120000Z/pool/updates/main/libr/librabbitmq/librabbitmq_0.15.0-1+deb13u2.debian.tar.xz"
+  },
+  {
+    "source": "alsa-lib",
+    "version": "1.2.14-1+deb13u1",
+    "file": "alsa-lib_1.2.14-1+deb13u1.dsc",
+    "sha256": "45f15d45b0329394de2e59c85052d0ac084e4e0ac215346ac5299a09432f515e",
+    "size": 2951,
+    "url": "https://snapshot.debian.org/archive/debian/20261002T120000Z/pool/main/a/alsa-lib/alsa-lib_1.2.14-1+deb13u1.dsc"
+  },
+  {
+    "source": "alsa-lib",
+    "version": "1.2.14-1+deb13u1",
+    "file": "alsa-lib_1.2.14.orig.tar.bz2",
+    "sha256": "be9c88a0b3604367dd74167a2b754a35e142f670292ae47a2fdef27a2ee97a32",
+    "size": 1115517,
+    "url": "https://snapshot.debian.org/archive/debian/20261002T120000Z/pool/main/a/alsa-lib/alsa-lib_1.2.14.orig.tar.bz2"
+  },
+  {
+    "source": "alsa-lib",
+    "version": "1.2.14-1+deb13u1",
+    "file": "alsa-lib_1.2.14.orig.tar.bz2.asc",
+    "sha256": "d4d73561754d9e0956a77aa5edf9c7120f80129bda6832257d98c2010915b3e8",
+    "size": 833,
+    "url": "https://snapshot.debian.org/archive/debian/20261002T120000Z/pool/main/a/alsa-lib/alsa-lib_1.2.14.orig.tar.bz2.asc"
+  },
+  {
+    "source": "alsa-lib",
+    "version": "1.2.14-1+deb13u1",
+    "file": "alsa-lib_1.2.14-1+deb13u1.debian.tar.xz",
+    "sha256": "8c04f2d76c4566f21d044ea52eed39d97bdbf5a5a9cb21582662dd76f2dad38e",
+    "size": 34100,
+    "url": "https://snapshot.debian.org/archive/debian/20261002T120000Z/pool/main/a/alsa-lib/alsa-lib_1.2.14-1+deb13u1.debian.tar.xz"
+  },
+  {
+    "source": "sed",
+    "version": "4.9-2+deb13u1",
+    "file": "sed_4.9-2+deb13u1.dsc",
+    "sha256": "9fcc5dffe5e712b4631757c057228ae57919aec1cca1c91a80e76719167f443b",
+    "size": 2047,
+    "url": "https://snapshot.debian.org/archive/debian/20261002T120000Z/pool/main/s/sed/sed_4.9-2+deb13u1.dsc"
+  },
+  {
+    "source": "sed",
+    "version": "4.9-2+deb13u1",
+    "file": "sed_4.9.orig.tar.xz",
+    "sha256": "6e226b732e1cd739464ad6862bd1a1aba42d7982922da7a53519631d24975181",
+    "size": 1397092,
+    "url": "https://snapshot.debian.org/archive/debian/20261002T120000Z/pool/main/s/sed/sed_4.9.orig.tar.xz"
+  },
+  {
+    "source": "sed",
+    "version": "4.9-2+deb13u1",
+    "file": "sed_4.9-2+deb13u1.debian.tar.xz",
+    "sha256": "9c9aacda91e02802f33fb6a1a6e86f80be1bc67b92a4dae009e78f77e26e130a",
+    "size": 63644,
+    "url": "https://snapshot.debian.org/archive/debian/20261002T120000Z/pool/main/s/sed/sed_4.9-2+deb13u1.debian.tar.xz"
+  }
+]

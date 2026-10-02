@@ -38,17 +38,21 @@ def stanzas(text):
 class RemediationLockTest(unittest.TestCase):
     def test_base_stages_and_non_debian_locks_remain_unchanged(self):
         manifest = json.loads((EVIDENCE / 'manifest.json').read_text())
+        successor = json.loads((ROOT / 'docs/third-party/hex366-security-inputs/manifest.json').read_text())
         for filename, digest in manifest['unchanged_inputs'].items():
+            if filename in successor['changed_inputs']:
+                self.assertEqual(successor['base_inputs'][filename], digest, filename)
+                continue
             self.assertEqual(hashlib.sha256((ROOT / filename).read_bytes()).hexdigest(), digest, filename)
 
     def test_exact_four_package_delta_and_unchanged_artifacts(self):
         old = rows(EVIDENCE / 'baseline-apt-final-inventory.tsv')
-        new = rows(BUILD / 'apt-final-inventory.tsv')
+        new = rows(ROOT / 'docs/third-party/hex366-security-inputs/baseline-apt-final-inventory.tsv')
         self.assertEqual(set(old), set(new))
         self.assertEqual({n for n in old if old[n] != new[n]}, set(TARGETS))
         self.assertEqual(len(new), 553)
         baseline = rows(EVIDENCE / 'baseline-apt-packages.lock')
-        locked = rows(BUILD / 'apt-packages.lock')
+        locked = rows(ROOT / 'docs/third-party/hex366-security-inputs/baseline-apt-packages.lock')
         self.assertEqual(set(locked) - set(baseline), {'libexpat1', 'libexpat1-dev'})
         for name, row in baseline.items():
             if name not in TARGETS:

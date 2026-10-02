@@ -55,9 +55,10 @@ RUN curl -fsSL --retry 3 https://github.com/astral-sh/uv/releases/download/0.12.
  && tar -xzf /tmp/uv.tar.gz -C /usr/local/bin --strip-components=1 uv-x86_64-unknown-linux-gnu/uv uv-x86_64-unknown-linux-gnu/uvx \
  && rm /tmp/uv.tar.gz
 # Fixed installed-tree lock; no lifecycle scripts or floating npm resolution.
-COPY apps/agent-box-hermes/build/hermes-node-security.json apps/agent-box-hermes/build/apply_node_security.py apps/agent-box-hermes/build/verify_node_security.mjs /opt/build/
+COPY apps/agent-box-hermes/build/hermes-node-security.json apps/agent-box-hermes/build/apply_node_security.py apps/agent-box-hermes/build/verify_node_security.mjs apps/agent-box-hermes/build/verify_npm_security.mjs /opt/build/
 RUN python3 /opt/build/apply_node_security.py --lock /opt/build/hermes-node-security.json \
  && node /opt/build/verify_node_security.mjs /opt/build/hermes-node-security.json
+RUN --network=none node /opt/build/verify_npm_security.mjs
 # Keep the inherited project and installed metadata consistent with its relock.
 COPY apps/agent-box-hermes/build/hermes-pyproject.toml /opt/hermes/pyproject.toml
 COPY apps/agent-box-hermes/build/hermes-uv.lock /opt/hermes/uv.lock
@@ -69,7 +70,7 @@ RUN uv pip install --no-config --python /opt/hermes/.venv/bin/python --no-deps -
  && (cd /opt/hermes && PYTHONPATH=/opt/build/hermes-build-tools .venv/bin/python -c "from setuptools.build_meta import build_editable; build_editable('/opt/build/hermes-wheel')") \
  && uv pip install --no-config --python /opt/hermes/.venv/bin/python --no-deps --no-index /opt/build/hermes-wheel/*.whl \
  && rm -rf /opt/build/hermes-build-tools /opt/build/hermes-wheel \
- && /opt/hermes/.venv/bin/python -c "import importlib.metadata as m; assert m.version('pyjwt') == '2.14.0'; assert m.version('anyio') == '4.14.2'; assert m.version('httpx2') == '2.12.0'; assert m.version('httpcore2') == '2.12.0'; assert m.version('urllib3') == '2.8.0'; assert m.version('tornado') == '6.5.9'"
+ && /opt/hermes/.venv/bin/python -c "import importlib.metadata as m; assert m.version('pyjwt') == '2.15.0'; assert m.version('anyio') == '4.14.2'; assert m.version('httpx2') == '2.12.0'; assert m.version('httpcore2') == '2.12.0'; assert m.version('urllib3') == '2.8.0'; assert m.version('tornado') == '6.5.9'"
 # The lazy feature registry carries an independent exact pin; align it too.
 COPY apps/agent-box-hermes/build/patch_lazy_deps.py apps/agent-box-hermes/build/verify_python_security.py apps/agent-box-hermes/build/verify_p9_security.py /opt/build/
 RUN /opt/hermes/.venv/bin/python /opt/build/patch_lazy_deps.py \
@@ -85,6 +86,8 @@ ENV TIKTOKEN_CACHE_DIR=/opt/agent-box/tiktoken-cache LITELLM_LOCAL_MODEL_COST_MA
 RUN python3 -m venv /opt/hindsight \
  && /opt/hindsight/bin/pip install --no-cache-dir --no-index --no-deps --only-binary=:all: --require-hashes -r /opt/build/hindsight-linux-amd64.lock \
  && /opt/hindsight/bin/pip check \
+ && /opt/hindsight/bin/pip uninstall --yes pip \
+ && /opt/hindsight/bin/python -c "import importlib.util; assert importlib.util.find_spec('pip') is None" \
  && /opt/hindsight/bin/python /opt/build/patch_hindsight.py \
  && /opt/hindsight/bin/python -c "from sqlalchemy import create_engine; create_engine('postgresql+psycopg://localhost/hindsight')" \
  && /opt/hindsight/bin/python -c "from sentence_transformers import SentenceTransformer; import torch; assert torch.version.cuda is None"
