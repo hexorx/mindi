@@ -18,21 +18,16 @@ openssl req -x509 -newkey rsa:2048 -nodes -days 1 -subj /CN=localhost \
     -addext subjectAltName=DNS:localhost,IP:127.0.0.1 \
     -keyout "$scratch/desktop_tls_key" -out "$scratch/desktop_tls_cert" >/dev/null 2>&1
 openssl rand -hex 24 > "$scratch/desktop_password"
-printf 'fixture-llm-key' > "$scratch/memory_llm_key"
-printf 'fixture-embedding-key' > "$scratch/memory_embeddings_key"
 docker run -d --name "$container" --network none --shm-size=256m --security-opt=no-new-privileges \
     -e API_SERVER_KEY=fixture-only-api-key-for-smoke \
     -e PAPERCLIP_CALLBACK_KEY=fixture-only-callback-key-for-smoke \
     -e PAPERCLIP_API_URL=http://paperclip.invalid/api \
-    -e MEMORY_LLM_BASE_URL=http://127.0.0.2:9999/v1 \
-    -e MEMORY_EMBEDDINGS_BASE_URL=http://127.0.0.2:9999/v1 \
     --mount "type=volume,src=$container-home,dst=/home/agent" \
     --mount "type=volume,src=$container-memory,dst=/var/lib/agent-box/hindsight" \
     --mount "type=volume,src=$container-data,dst=/opt/data" \
     --mount "type=bind,src=$tests,dst=/test,readonly" \
     --mount "type=bind,src=$scratch,dst=/run/secrets,readonly" "$image" >/dev/null
 [ "$(docker inspect -f '{{.HostConfig.NetworkMode}}' "$container")" = none ]
-docker exec -d --user 1000:1000 "$container" python3 /test/mock-memory-provider.py
 healthy=false
 for _ in $(seq 1 150); do
     state=$(docker inspect -f '{{.State.Status}}' "$container")
@@ -44,15 +39,7 @@ for _ in $(seq 1 150); do
     sleep 2
 done
 [ "$healthy" = true ]
-# Use the actual filtered child environment, not just Docker's global ENV.
-docker exec -i --user 1000:1000 "$container" python3 - <<'PY'
-import os
-import sys
-sys.path.insert(0, '/opt/agent-box')
-from memory import environment
-env = environment(os.environ)
-os.execve('/opt/hindsight/bin/python', ['/opt/hindsight/bin/python', '/test/offline-tokenizer-probe.py'], env)
-PY
-docker exec --user 1000:1000 "$container" python3 /test/memory-probe.py retain
+docker exec --user 1000:1000 "$container" /opt/hermes/.venv/bin/python /test/file-memory-probe.py write
+docker exec --user 1000:1000 "$container" /opt/hermes/.venv/bin/python /test/file-memory-probe.py read
 docker inspect "$container" > "$scratch/container-inspect.json"
-printf 'Fresh-volume first boot, health, cached tokenizers, local cost map and fixture retain passed with --network none.\n'
+printf 'Fresh-volume offline startup, desktop/API health and file memory passed without provider keys.\n'

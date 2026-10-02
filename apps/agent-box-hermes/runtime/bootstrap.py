@@ -22,7 +22,6 @@ def main():
     runtime.mkdir(parents=True, exist_ok=True)
     runtime.chmod(0o700)
     os.chown(runtime, 1000, 1000)
-    subprocess.run(["python3", "/opt/agent-box/memory.py", "prepare"], check=True)
     # /run/secrets is operator-owned; copy secrets only into private ephemeral state.
     for source, target in (("desktop_tls_cert", "tls.crt"), ("desktop_tls_key", "tls.key")):
         path = runtime / target

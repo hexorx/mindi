@@ -26,8 +26,6 @@ p = pathlib.Path(sys.argv[1])
 (p / 'curl.conf').write_text('user = "desktop:' + (p / 'desktop_password').read_text().strip() + '"\n')
 (p / 'curl.conf').chmod(0o600)
 PYTHON
-printf 'fixture-llm-key' > "$scratch/memory_llm_key"
-printf 'fixture-embedding-key' > "$scratch/memory_embeddings_key"
 docker volume create "$home_volume" >/dev/null
 docker volume create "$memory_volume" >/dev/null
 start_container() {
@@ -35,16 +33,10 @@ start_container() {
         -e API_SERVER_KEY=fixture-only-api-key-for-smoke \
         -e PAPERCLIP_CALLBACK_KEY=fixture-only-callback-key-for-smoke \
         -e PAPERCLIP_API_URL=http://paperclip.invalid/api \
-        -e MEMORY_LLM_BASE_URL=http://127.0.0.2:9999/v1 \
-        -e MEMORY_EMBEDDINGS_BASE_URL=http://127.0.0.2:9999/v1 \
         --mount "type=volume,src=$home_volume,dst=/home/agent" \
         --mount "type=volume,src=$1,dst=/var/lib/agent-box/hindsight" \
         --mount "type=bind,src=$tests,dst=/test,readonly" \
         -p 127.0.0.1::8443 --mount "type=bind,src=$scratch,dst=/run/secrets,readonly" "$image" >/dev/null
-    start_fixture
-}
-start_fixture() {
-    docker exec -d --user 1000:1000 "$container" python3 /test/mock-memory-provider.py
 }
 wait_healthy() {
     for _ in $(seq 1 150); do
@@ -78,11 +70,10 @@ docker exec --user 1000:1000 "$container" python3 -c '
 import json, pathlib, socket
 assert json.loads(pathlib.Path("/run/agent-box/network.json").read_text()) == {"status": "disabled", "code": "disabled"}
 assert not any(p.read_text().strip() == "tailscaled" for p in pathlib.Path("/proc").glob("[0-9]*/comm"))
-pg0 = json.loads(pathlib.Path("/var/lib/agent-box/hindsight/.pg0/instances/hindsight/instance.json").read_text())
-for port in (5900, 6080, 8888, pg0["port"]):
+for port in (5900, 6080):
     with socket.create_connection(("127.0.0.2", port), timeout=1):
         pass
-for port in (5900, 6080, 1055, 1056, 8888, pg0["port"]):
+for port in (5900, 6080, 1055, 1056, 8888):
     with socket.socket() as s:
         s.settimeout(1)
         assert s.connect_ex(("127.0.0.1", port)) != 0, port
@@ -142,45 +133,13 @@ python3 - "$scratch" <<'PYTHON' | docker exec -i --user 1000:1000 "$container" /
 import json, pathlib, sys
 json.dump([p.read_text().strip() for p in pathlib.Path(sys.argv[1]).iterdir() if p.is_file()], sys.stdout)
 PYTHON
-docker exec --user 1000:1000 "$container" python3 /test/memory-probe.py retain
-# A process/container restart must preserve data and the box-derived bank.
+# Built-in memory persists in the home; no database or embedding provider starts.
+docker exec --user 1000:1000 "$container" /opt/hermes/.venv/bin/python /test/file-memory-probe.py write
 docker restart --time 20 "$container" >/dev/null
-start_fixture
 wait_healthy
-docker exec --user 1000:1000 "$container" python3 /test/memory-probe.py recall
-# PID 1 is s6; SIGTERM must stop its children before Docker's kill deadline.
+docker exec --user 1000:1000 "$container" /opt/hermes/.venv/bin/python /test/file-memory-probe.py read
 start=$SECONDS
 docker stop --time 20 "$container" >/dev/null
 [ $((SECONDS - start)) -lt 20 ]
 [ "$(docker inspect -f '{{.State.ExitCode}}' "$container")" = 0 ]
-# Back up only after the complete container has cleanly stopped.
-"$tests/../scripts/memory-volume.sh" backup "$container" "$scratch/memory.tar.gz"
-docker volume create "$restore_volume" >/dev/null
-"$tests/../scripts/memory-volume.sh" restore "$container" "$scratch/memory.tar.gz" "$restore_volume"
-docker rm "$container" >/dev/null
-start_container "$memory_volume"
-wait_healthy
-docker exec --user 1000:1000 "$container" python3 /test/memory-probe.py recall
-docker stop --time 20 "$container" >/dev/null
-docker rm "$container" >/dev/null
-start_container "$restore_volume"
-wait_healthy
-docker exec --user 1000:1000 "$container" python3 /test/memory-probe.py recall
-docker stop --time 20 "$container" >/dev/null
-[ "$(docker inspect -f '{{.State.ExitCode}}' "$container")" = 0 ]
-docker rm "$container" >/dev/null
-# Missing inference credentials must fail clearly, without echoing values.
-mkdir "$scratch/missing"
-cp "$scratch"/desktop_* "$scratch/missing/"
-docker run -d --name "$container" \
-    -e API_SERVER_KEY=fixture-only-api-key-for-smoke \
-    -e PAPERCLIP_CALLBACK_KEY=fixture-only-callback-key-for-smoke \
-    -e PAPERCLIP_API_URL=http://paperclip.invalid/api \
-    --mount "type=bind,src=$scratch/missing,dst=/run/secrets,readonly" "$image" >/dev/null
-for _ in $(seq 1 30); do
-    [ "$(docker inspect -f '{{.State.Status}}' "$container")" != exited ] || break
-    sleep 1
-done
-[ "$(docker inspect -f '{{.State.Status}}' "$container")" = exited ]
-docker logs "$container" 2>&1 | grep -F 'memory: missing runtime secret memory_llm_key'
-printf 'Desktop, real Hindsight retain/recall, restart, recreation, offline restore and missing-key diagnostic passed.\n'
+printf 'Desktop, computer use, key-free file memory, restart and graceful stop passed.\n'

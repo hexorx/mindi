@@ -1,23 +1,9 @@
-"""Embedded Hindsight lifecycle; only the service receives inference credentials."""
+"""Persistent built-in memory and box identity; no provider keys or database."""
 import json
 import os
 from pathlib import Path
 import sys
 import uuid
-
-DATA = Path('/var/lib/agent-box/hindsight')
-RUNTIME = Path('/run/user/1000/memory')
-SECRET_NAMES = ('memory_llm_key', 'memory_embeddings_key')
-
-
-def secret(path, name):
-    try:
-        value = path.read_text().rstrip('\r\n')
-    except OSError:
-        raise ValueError(f'memory: missing runtime secret {name}') from None
-    if not value or len(value) > 8192 or any(c in value for c in '\r\n\0'):
-        raise ValueError(f'memory: invalid runtime secret {name}')
-    return value
 
 
 def private_dir(path):
@@ -40,96 +26,28 @@ def write_private(path, value):
         temporary.unlink(missing_ok=True)
 
 
-def prepare(data=DATA, runtime=RUNTIME, secrets=Path('/run/secrets')):
-    # Validate all credentials before changing persistent state. No generated shell.
-    values = {name: secret(secrets / name, name) for name in SECRET_NAMES}
-    for path in (data, runtime):
-        private_dir(path)
-        os.chown(path, 1000, 1000)
-    for name, value in values.items():
-        target = runtime / name
-        write_private(target, value)
-        os.chown(target, 1000, 1000)
-
-
-def configure(home, data=DATA):
-    identity_dir = Path(home).parent / '.agent-box'
+def configure_builtin(home):
+    """Keep the stable box identity; leave every Hindsight database untouched."""
+    root = Path(home)
+    identity_dir = root.parent / '.agent-box'
     private_dir(identity_dir)
     identity = identity_dir / 'identity.json'
     if identity.is_symlink():
         raise ValueError('memory: identity must not be a symlink')
     if not identity.exists():
         write_private(identity, json.dumps({'schemaVersion': 1, 'boxId': str(uuid.uuid4()), 'name': 'helper'}))
-    box_id = str(uuid.UUID(json.loads(identity.read_text())['boxId']))
-    binding = data / 'box-id'
-    if binding.is_symlink():
-        raise ValueError('memory: volume binding must not be a symlink')
-    if binding.exists() and binding.read_text() != box_id:
-        raise ValueError('memory: volume belongs to a different box; restore its matching home volume')
-    if not binding.exists():
-        write_private(binding, box_id)
-    root = Path(home) / 'hindsight'
-    private_dir(root)
-    write_private(root / 'config.json', json.dumps({
-        'mode': 'local_external', 'api_url': 'http://127.0.0.2:8888', 'bank_id': 'box-' + box_id,
-    }, indent=2) + '\n')
-
-
-def environment(source, runtime=RUNTIME):
-    # Deliberately do not inherit HINDSIGHT_API_* overrides, credentials or dotenv.
-    env = {'PATH': '/opt/hindsight/bin:/usr/local/bin:/usr/bin:/bin',
-           'HOME': str(DATA), 'USER': 'hermes', 'LANG': 'C.UTF-8',
-           'HINDSIGHT_API_HOST': '127.0.0.2', 'HINDSIGHT_API_PORT': '8888',
-           'HINDSIGHT_API_DATABASE_URL': 'pg0://hindsight',
-           'HINDSIGHT_API_RERANKER_PROVIDER': 'rrf',
-           'HINDSIGHT_API_LOG_LEVEL': 'warning',
-           # Image assets live outside fresh home/memory volumes.
-           'TIKTOKEN_CACHE_DIR': '/opt/agent-box/tiktoken-cache',
-           'LITELLM_LOCAL_MODEL_COST_MAP': 'True'}
-    provider = source.get('MEMORY_LLM_PROVIDER') or 'openai'
-    if provider not in ('openai', 'anthropic'):
-        raise ValueError('memory: MEMORY_LLM_PROVIDER must be openai or anthropic')
-    env['HINDSIGHT_API_LLM_PROVIDER'] = provider
-    env['HINDSIGHT_API_LLM_MODEL'] = source.get('MEMORY_LLM_MODEL') or ('gpt-4o-mini' if provider == 'openai' else 'claude-sonnet-4-20250514')
-    env['HINDSIGHT_API_LLM_API_KEY'] = secret(runtime / SECRET_NAMES[0], SECRET_NAMES[0])
-    embeddings = source.get('MEMORY_EMBEDDINGS_PROVIDER') or 'openai'
-    if embeddings not in ('openai', 'local'):
-        raise ValueError('memory: MEMORY_EMBEDDINGS_PROVIDER must be openai or local')
-    env['HINDSIGHT_API_EMBEDDINGS_PROVIDER'] = embeddings
-    if embeddings == 'local':
-        # Download once to the persistent memory volume, with no remote model code.
-        env.update(HF_HOME=str(DATA / 'huggingface'),
-                   HINDSIGHT_API_EMBEDDINGS_LOCAL_FORCE_CPU='true',
-                   HINDSIGHT_API_EMBEDDINGS_LOCAL_TRUST_REMOTE_CODE='false',
-                   HINDSIGHT_API_EMBEDDINGS_LOCAL_MODEL=source.get('MEMORY_EMBEDDINGS_MODEL') or 'BAAI/bge-small-en-v1.5')
-    else:
-        env['HINDSIGHT_API_EMBEDDINGS_OPENAI_API_KEY'] = secret(runtime / SECRET_NAMES[1], SECRET_NAMES[1])
-        for source_key, target in (
-            ('MEMORY_EMBEDDINGS_BASE_URL', 'HINDSIGHT_API_EMBEDDINGS_OPENAI_BASE_URL'),
-            ('MEMORY_EMBEDDINGS_MODEL', 'HINDSIGHT_API_EMBEDDINGS_OPENAI_MODEL'),
-        ):
-            if source.get(source_key):
-                env[target] = source[source_key]
-    if source.get('MEMORY_LLM_BASE_URL'):
-        env['HINDSIGHT_API_LLM_BASE_URL'] = source['MEMORY_LLM_BASE_URL']
-    return env
+    uuid.UUID(json.loads(identity.read_text())['boxId'])
+    private_dir(root / 'memories')
 
 
 if __name__ == '__main__':
     try:
-        if sys.argv[1] == 'prepare':
-            prepare()
-        elif sys.argv[1] == 'configure':
-            configure(os.environ['HERMES_HOME'])
+        if sys.argv[1] == 'configure':
+            configure_builtin(os.environ['HERMES_HOME'])
         elif sys.argv[1] == 'run':
-            env = environment(os.environ)
-            os.chdir('/opt/hindsight')  # no dotenv from an agent-writable profile
-            os.execve('/opt/hindsight/bin/hindsight-api', ['hindsight-api'], env)
+            # Preserve the s6 service name without starting or migrating pg0.
+            os.execv('/command/s6-pause', ['s6-pause'])
         else:
             raise ValueError('memory: unknown lifecycle command')
-    except ValueError as error:
-        # Only our fixed diagnostics; UUID/JSON parsing errors can contain input.
-        message = str(error)
-        raise SystemExit(message if message.startswith('memory:') else 'memory: invalid persisted configuration (values redacted)')
-    except (OSError, KeyError, TypeError):
-        raise SystemExit('memory: lifecycle failed; check volume permissions and runtime secret files (values redacted)')
+    except (OSError, ValueError, KeyError, TypeError):
+        raise SystemExit('memory: invalid file-memory state (values redacted)')

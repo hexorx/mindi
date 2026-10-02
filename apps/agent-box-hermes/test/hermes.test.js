@@ -9,7 +9,7 @@ const defaults = JSON.parse(readFileSync(new URL('../defaults/agent-box.json', i
 test('packaged defaults need no GitHub source, credentials or Tailscale', () => {
   const config = parseHermesConfig(defaults);
   assert.equal(config.network.tailscale, false);
-  assert.equal(config.memory.mode, 'embedded');
+  assert.equal(config.memory.mode, 'file');
   assert.equal(config.identity.name, 'helper');
   assert.ok(readFileSync(new URL(`../defaults/${config.persona.instructionsFile}`, import.meta.url), 'utf8').length);
 });
