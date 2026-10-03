@@ -61,17 +61,57 @@ class HomeMigrationTest(unittest.TestCase):
                 self.assertEqual((outside.stat().st_uid, outside.stat().st_gid), (10000, 10000))
                 self.assertEqual((unrelated.stat().st_uid, unrelated.stat().st_gid), (12345, 12346))
 
-    def test_hardlink_refuses_before_changing_any_owner(self):
+    def test_internal_npm_hardlinks_upgrade_and_rollback(self):
         with tempfile.TemporaryDirectory() as directory:
-            home = Path(directory)
+            home = Path(directory) / 'home'
+            home.mkdir()
+            modules = home / '.local/share/mindi-tools/npm-fixture/node_modules'
+            binary = modules / '@anthropic-ai/claude-code-linux-x64/claude'
+            alias = modules / '@anthropic-ai/claude-code/bin/claude.exe'
+            binary.parent.mkdir(parents=True)
+            alias.parent.mkdir(parents=True)
+            binary.write_bytes(b'synthetic npm executable')
+            binary.chmod(0o755)
+            os.link(binary, alias)
+            # Metadata-based counting must also handle whitespace/newlines.
+            odd = home / 'another link \nwith whitespace'
+            odd.write_bytes(b'whitespace hardlink fixture')
+            os.link(odd, home / 'whitespace-alias')
+            for path in [home, *home.rglob('*')]:
+                os.chown(path, 10000, 10000)
+            before = (binary.read_bytes(), binary.stat().st_mode, binary.stat().st_mtime_ns)
+            for old, new in ((10000, 1000), (1000, 10000)):
+                for _ in range(2):
+                    self.migrate(home, old, new)
+                for path in [home, *home.rglob('*')]:
+                    self.assertEqual((path.stat().st_uid, path.stat().st_gid), (new, new))
+                for path in (binary, alias):
+                    self.assertEqual(path.stat().st_ino, binary.stat().st_ino)
+                    self.assertEqual(path.stat().st_nlink, 2)
+                    self.assertEqual((path.read_bytes(), path.stat().st_mode,
+                                      path.stat().st_mtime_ns), before)
+
+    def test_outside_hardlink_refuses_before_changing_any_owner(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            home = root / 'home'
+            home.mkdir()
             state = home / 'state'
             state.write_text('synthetic state')
-            os.link(state, home / 'second-name')
-            os.chown(home, 10000, 10000)
-            os.chown(state, 10000, 10000)
-            self.assertNotEqual(self.migrate(home, 10000, 1000, check=False).returncode, 0)
-            self.assertEqual(home.stat().st_uid, 10000)
-            self.assertEqual(state.stat().st_uid, 10000)
+            internal = home / 'second-name'
+            external = root / 'outside-name'
+            os.link(state, internal)
+            os.link(state, external)
+            ordinary = home / 'ordinary'
+            ordinary.write_text('ordinary state')
+            for old, new in ((10000, 1000), (1000, 10000)):
+                for path in (home, state, ordinary):
+                    os.chown(path, old, old)
+                result = self.migrate(home, old, new, check=False)
+                self.assertNotEqual(result.returncode, 0)
+                self.assertIn(b'links outside HOME_ROOT', result.stderr)
+                for path in (home, state, internal, external, ordinary):
+                    self.assertEqual((path.stat().st_uid, path.stat().st_gid), (old, old))
 
 
 if __name__ == '__main__':
