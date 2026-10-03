@@ -107,7 +107,8 @@ def main():
             '--mount', f'type=bind,src={scratch},dst=/run/backend-example,readonly',
             '-e', 'MINDI_BACKEND_CONFIG=/run/backend-example/backend.json',
             '-e', 'MINDI_BACKEND_TOKEN_FILE=/run/backend-example/token',
-            '-e', 'HINDSIGHT_ENABLED=0']
+            '-e', 'HINDSIGHT_ENABLED=0',
+            '-e', 'AGENT_BOX_RUN_DIR=/tmp/agent-box']
     if not subscription:
         args += ['--network=none']
     run([*args, image])
@@ -115,12 +116,17 @@ def main():
         run(['docker', 'start', name])
         wait_desktop(name)
         verify_backend_identity(name)
+        # Login stores must be writable by the same account that runs agents.
+        run(['docker', 'exec', '--user', 'hermes', name, 'sh', '-ec',
+             'test -w /home/agent/.hermes/config.yaml; '
+             'test -w /home/agent/.omp; '
+             'test -f /tmp/agent-box/waiting-hindsight'])
         # Both binaries must be available; never invoke a paid provider.
-        run(['docker', 'exec', '--user', '1000:1000', name, 'claude', '--version'])
-        run(['docker', 'exec', '--user', '1000:1000', name, 'hermes', '--help'])
+        run(['docker', 'exec', '--user', 'hermes', name, 'claude', '--version'])
+        run(['docker', 'exec', '--user', 'hermes', name, 'hermes', '--help'])
         if auth is not None:
             writer = "import os,sys; p='/home/agent/.hermes/auth.json'; fd=os.open(p,os.O_WRONLY|os.O_CREAT|os.O_EXCL,0o600); data=sys.stdin.buffer.read(); f=os.fdopen(fd,'wb'); f.write(data); f.close()"
-            run(['docker', 'exec', '-i', '--user', '1000:1000', name,
+            run(['docker', 'exec', '-i', '--user', 'hermes', name,
                  'python3', '-c', writer], input=auth)
         # Same home survives normal restart, including the subscription login.
         run(['docker', 'restart', '--time', '20', name])
@@ -128,7 +134,7 @@ def main():
         verify_backend_identity(name)
         if auth is not None:
             challenge = 'HERMES_OK_' + secrets.token_hex(12)
-            answer = run(['docker', 'exec', '--user', '1000:1000', name,
+            answer = run(['docker', 'exec', '--user', 'hermes', name,
                           'hermes', 'chat', '--provider', 'openai-codex', '--quiet',
                           '--query', 'Reply with exactly ' + challenge + ' and nothing else.'],
                          timeout=180).stdout.decode().strip()

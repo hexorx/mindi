@@ -25,43 +25,57 @@ class PublicationTests(unittest.TestCase):
         self.assertIn('apps/agent-box/test/smoke.py hermes-release:local', workflow)
         self.assertIn('scripts/hermes-release/publish.py publish', workflow)
 
-    def test_package_metadata_uses_hexorx_user_namespace(self):
-        with patch.object(publish.subprocess, 'run', return_value=subprocess.CompletedProcess(
-                [], 0, b'{"visibility":"private"}')) as run:
-            publish.package_state()
-        self.assertEqual(run.call_args.args[0],
-                         ['gh', 'api', 'users/hexorx/packages/container/agent-box-hermes'])
+    def test_public_preflight_checks_all_tag_pages_and_manifest(self):
+        with patch.object(publish, 'anonymous_token', return_value='anonymous'), \
+             patch.object(publish, 'registry_get', side_effect=[
+                 (b'{"tags":["old"]}', '</v2/hexorx/agent-box-hermes/tags/list?n=100&last=old>; rel="next"'),
+                 (b'{"tags":["new"]}', None)]) as get, \
+             patch.object(publish, 'public_manifest') as manifest:
+            self.assertEqual(publish.preflight('a' * 40), 'sha-' + 'a' * 40)
+            self.assertEqual(get.call_count, 2)
+            manifest.assert_called_once_with('new', 'anonymous')
 
-    def test_existing_tag_and_nonprivate_package_refuse_before_push(self):
-        sha = 'a' * 40
-        with patch.object(publish, 'package_state', return_value={'visibility': 'private'}), \
-             patch.object(publish, 'run', return_value=subprocess.CompletedProcess([], 0, json.dumps(
-                 [[{'metadata': {'container': {'tags': ['sha-' + sha]}}}]]).encode())):
+    def test_existing_tag_on_later_page_refuses(self):
+        with patch.object(publish, 'anonymous_token', return_value='anonymous'), \
+             patch.object(publish, 'registry_get', side_effect=[
+                 (b'{"tags":["old"]}', '<?last=old>; rel="next"'),
+                 (json.dumps({'tags': ['sha-' + 'a' * 40]}).encode(), None)]):
             with self.assertRaisesRegex(ValueError, 'already exists'):
-                publish.preflight(sha)
-        for visibility in ('public', 'internal'):
-            with patch.object(publish.subprocess, 'run', return_value=subprocess.CompletedProcess(
-                    [], 0, json.dumps({'visibility': visibility}).encode())):
-                with self.assertRaisesRegex(ValueError, 'non-private'):
-                    publish.package_state()
+                publish.preflight('a' * 40)
 
-    def test_only_404_allows_new_private_package(self):
-        with patch.object(publish.subprocess, 'run', return_value=subprocess.CompletedProcess(
-                [], 1, b'', b'gh: Not Found (HTTP 404)')):
-            self.assertIsNone(publish.package_state(allow_missing=True))
-            with self.assertRaises(ValueError):
-                publish.package_state()
-        for error in (b'Forbidden (HTTP 403)', b'Unauthorized (HTTP 401)', b'connection refused'):
-            with patch.object(publish.subprocess, 'run', return_value=subprocess.CompletedProcess([], 1, b'', error)):
+    def test_registry_errors_fail_closed(self):
+        from urllib.error import HTTPError, URLError
+        for error in [HTTPError(publish.REGISTRY, code, 'denied', {}, None) for code in (401, 403, 404)] + [URLError('transport')]:
+            for stage in ('anonymous_token', 'registry_get', 'public_manifest'):
+                with self.subTest(stage=stage, error=error), \
+                     patch.object(publish, 'anonymous_token', return_value='anonymous') as token, \
+                     patch.object(publish, 'registry_get', return_value=(b'{"tags":["old"]}', None)) as get, \
+                     patch.object(publish, 'public_manifest') as manifest:
+                    {'anonymous_token': token, 'registry_get': get, 'public_manifest': manifest}[stage].side_effect = error
+                    with self.assertRaises((HTTPError, URLError)):
+                        publish.preflight('a' * 40)
+
+    def test_token_request_is_anonymous(self):
+        with patch.object(publish, 'urlopen') as get:
+            get.return_value.__enter__.return_value = io.BytesIO(b'{"token":"anonymous"}')
+            self.assertEqual(publish.anonymous_token(), 'anonymous')
+            self.assertIsInstance(get.call_args.args[0], str)
+            self.assertIn('scope=repository:hexorx/agent-box-hermes:pull', get.call_args.args[0])
+
+    def test_bad_pagination_and_empty_package_refuse(self):
+        for raw, link in [(b'{"tags":[]}', None), (b'{}', None),
+                          (b'{"tags":["old"]}', '<https://other.invalid/>; rel="next"')]:
+            with patch.object(publish, 'anonymous_token', return_value='anonymous'), \
+                 patch.object(publish, 'registry_get', return_value=(raw, link)):
                 with self.assertRaises(ValueError):
-                    publish.package_state(allow_missing=True)
+                    publish.preflight('a' * 40)
 
     def test_preserve_digest_and_verify_remote_before_success_receipt(self):
         with tempfile.TemporaryDirectory() as tmp:
             receipt = Path(tmp) / 'receipt.json'
             sha = 'a' * 40
             with patch.object(publish, 'preflight', return_value='sha-' + sha), \
-                 patch.object(publish, 'package_state'), patch.dict(os.environ, {'REGISTRY_AUTH_FILE': '/private/auth'}), \
+                 patch.object(publish, 'public_manifest'), patch.dict(os.environ, {'REGISTRY_AUTH_FILE': '/private/auth'}), \
                  patch.object(publish, 'run', side_effect=[
                      subprocess.CompletedProcess([], 0, b'manifest'),
                      subprocess.CompletedProcess([], 0, b''),
@@ -70,6 +84,27 @@ class PublicationTests(unittest.TestCase):
                     publish.publish(sha, Path('image.oci.tar'), receipt)
                 self.assertIn('--preserve-digests', run.call_args_list[1].args[0])
                 self.assertEqual(json.loads(receipt.read_text())['status'], 'prepared')
+
+    def test_success_requires_matching_anonymous_manifest(self):
+        raw = b'{"schemaVersion":2}'
+        for public, succeeds in ((raw, True), (b'{"schemaVersion":2,"changed":true}', False)):
+            with tempfile.TemporaryDirectory() as tmp:
+                receipt = Path(tmp) / 'receipt.json'
+                with patch.object(publish, 'preflight', return_value='sha-' + 'a' * 40), \
+                     patch.object(publish, 'public_manifest', return_value=public) as manifest, \
+                     patch.dict(os.environ, {'REGISTRY_AUTH_FILE': '/private/auth'}), \
+                     patch.object(publish, 'run', side_effect=[
+                         subprocess.CompletedProcess([], 0, raw),
+                         subprocess.CompletedProcess([], 0, b''),
+                         subprocess.CompletedProcess([], 0, raw)]):
+                    if succeeds:
+                        publish.publish('a' * 40, Path('image.oci.tar'), receipt)
+                        self.assertEqual(json.loads(receipt.read_text())['visibility'], 'public')
+                    else:
+                        with self.assertRaisesRegex(ValueError, 'Public digest mismatch'):
+                            publish.publish('a' * 40, Path('image.oci.tar'), receipt)
+                        self.assertEqual(json.loads(receipt.read_text())['status'], 'prepared')
+                    manifest.assert_called_once_with('sha-' + 'a' * 40)
 
 
 class SecretTests(unittest.TestCase):
