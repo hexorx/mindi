@@ -5,12 +5,13 @@ services:
     environment:
       MINDI_BACKEND_CONFIG: /run/backend-example/backend.json
       MINDI_BACKEND_TOKEN_FILE: /run/backend-token
+      AGENT_BOX_RUN_DIR: /tmp/agent-box
       HINDSIGHT_ENABLED: "0"
     volumes:
       - home:/home/agent
       - ./example:/run/backend-example:ro
       - ${BACKEND_TOKEN_FILE:?Set an absolute path to the operator token}:/run/backend-token:ro
     ports:
-      - "127.0.0.1:65005:65005"
+      - "127.0.0.1:${AGENT_BOX_PORT:-65005}:65005"
 volumes:
   home:

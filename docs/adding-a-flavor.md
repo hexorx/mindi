@@ -40,7 +40,8 @@ own it.
    root [README](../README.md#adding-an-app-or-package).
 2. Depend on `@mindi/agent-box-core` with `workspace:*` and validate the box
    configuration with `AgentBoxConfigSchema` (extended with your flavor's keys).
-3. Run one agent per container as UID 1000, with persistent state under
+3. Run one agent per container as a documented non-root user (the published
+   backend box uses `hermes`, UID/GID 10000), with persistent state under
    `/home/agent`. No Docker socket, host network, privileged mode or host home
    mount.
 4. Take credentials only as runtime files or a login stored in the home volume.
