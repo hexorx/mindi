@@ -7,8 +7,10 @@ from pathlib import Path
 import re
 import subprocess
 import sys
+from urllib.parse import quote, urljoin
+from urllib.request import Request, urlopen
 
-PACKAGE = 'users/hexorx/packages/container/agent-box-hermes'
+REGISTRY = 'https://ghcr.io/v2/hexorx/agent-box-hermes/'
 IMAGE = 'ghcr.io/hexorx/agent-box-hermes'
 
 
@@ -16,30 +18,62 @@ def run(args, **kwargs):
     return subprocess.run(args, check=True, capture_output=True, **kwargs)
 
 
-def package_state(allow_missing=False):
-    result = subprocess.run(['gh', 'api', PACKAGE], capture_output=True)
-    if result.returncode:
-        # GHCR creates new packages private. Do not swallow 401/403/transport errors.
-        if allow_missing and b'(HTTP 404)' in result.stderr:
-            return None
-        raise ValueError('Private package metadata unavailable')
-    value = json.loads(result.stdout)
-    if value.get('visibility') != 'private':
-        raise ValueError('Refusing a non-private package')
-    return value
+def anonymous_token():
+    # No account credentials: GHCR issues pull tokens for public repositories.
+    with urlopen('https://ghcr.io/token?service=ghcr.io&scope=repository:hexorx/agent-box-hermes:pull', timeout=30) as response:
+        return json.load(response)['token']
+
+
+def registry_get(url, token):
+    request = Request(url, headers={
+        'Authorization': 'Bearer ' + token,
+        'Accept': ', '.join(('application/vnd.oci.image.manifest.v1+json',
+                            'application/vnd.oci.image.index.v1+json',
+                            'application/vnd.docker.distribution.manifest.v2+json',
+                            'application/vnd.docker.distribution.manifest.list.v2+json')),
+    })
+    with urlopen(request, timeout=30) as response:
+        return response.read(), response.headers.get('Link')
+
+
+def public_manifest(reference, token=None):
+    raw, _ = registry_get(REGISTRY + 'manifests/' + quote(reference, safe=':'),
+                          token if token is not None else anonymous_token())
+    if json.loads(raw).get('schemaVersion') != 2:
+        raise ValueError('Invalid public manifest')
+    return raw
 
 
 def preflight(sha):
     if not re.fullmatch('[0-9a-f]{40}', sha):
         raise ValueError('Expected full source SHA')
-    state = package_state(allow_missing=True)
-    if state is None:
-        return 'sha-' + sha
-    pages = json.loads(run(['gh', 'api', '--paginate', '--slurp', PACKAGE + '/versions?per_page=100']).stdout)
+    token = anonymous_token()
     tag = 'sha-' + sha
-    if any(tag in row.get('metadata', {}).get('container', {}).get('tags', [])
-           for page in pages for row in page):
-        raise ValueError('Immutable source tag already exists; refusing overwrite')
+    url = REGISTRY + 'tags/list?n=100'
+    seen = set()
+    public_tag = None
+    while url:
+        if url in seen or not url.startswith(REGISTRY + 'tags/list?'):
+            raise ValueError('Invalid registry pagination')
+        seen.add(url)
+        raw, link = registry_get(url, token)
+        tags = json.loads(raw).get('tags')
+        if not isinstance(tags, list) or any(not isinstance(t, str) for t in tags):
+            raise ValueError('Invalid registry tags')
+        if tag in tags:
+            raise ValueError('Immutable source tag already exists; refusing overwrite')
+        if tags:
+            public_tag = tags[0]
+        if link:
+            match = re.fullmatch(r'<([^>]+)>;\s*rel="next"', link)
+            if not match:
+                raise ValueError('Invalid registry pagination')
+            url = urljoin(url, match[1])
+        else:
+            url = None
+    if public_tag is None:
+        raise ValueError('No existing public image to verify')
+    public_manifest(public_tag, token)
     return tag
 
 
@@ -55,9 +89,10 @@ def publish(sha, archive, receipt):
                                            'docker://' + IMAGE + ':' + tag]).stdout).hexdigest()
     if actual != digest:
         raise ValueError('Published digest mismatch')
-    package_state()
+    if hashlib.sha256(public_manifest(tag)).hexdigest() != digest.removeprefix('sha256:'):
+        raise ValueError('Public digest mismatch')
     receipt.write_text(json.dumps({'source': sha, 'tag': IMAGE + ':' + tag,
-                                   'image': IMAGE + '@' + digest, 'visibility': 'private'}, indent=2) + '\n')
+                                   'image': IMAGE + '@' + digest, 'visibility': 'public'}, indent=2) + '\n')
 
 
 if __name__ == '__main__':
@@ -67,4 +102,4 @@ if __name__ == '__main__':
         else:
             publish(os.environ['GITHUB_SHA'], Path(sys.argv[2]), Path(sys.argv[3]))
     except Exception:
-        raise SystemExit('Publication refused or incomplete; preserve artifacts and inspect package metadata (details redacted)') from None
+        raise SystemExit('Publication refused or incomplete; preserve artifacts and inspect registry evidence (details redacted)') from None
