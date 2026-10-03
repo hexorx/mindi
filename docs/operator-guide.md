@@ -190,7 +190,9 @@ This release uses 1000:1000. The previous `sha-ae732472…` image uses
 10000:10000. Startup repairs `.omp` and Hermes `config.yaml`/`auth.json`, but
 **does not migrate the whole home**: nested `.hermes` state, `.claude`, `.local`
 and `backend-state` can remain unwritable. Migrate the stopped home before
-starting the target image, in either direction. Keep the volume backup.
+starting the target image, in either direction. For a rollback to 10000:10000,
+use the verified `sha256:22cbf26f…` target in the rollback checklist below.
+Keep the volume backup.
 
 Set `AGENT_BOX_IMAGE` to the target digest and `HOME_VOLUME` to the existing
 Compose home volume name (for example `hex411-agent-box_home` for the disposable
@@ -203,7 +205,7 @@ when upgrading from `sha-ae732472…`, or 1000 and 1000 when leaving this releas
 ```sh
 set -eu
 docker compose stop
-# Query the target image, including when rolling back to sha256:f4c6a32e….
+# Query the target image, including the recommended sha256:22cbf26f… rollback.
 NEW_UID=$(docker run --network=none --entrypoint id "$AGENT_BOX_IMAGE" -u hermes)
 NEW_GID=$(docker run --network=none --entrypoint id "$AGENT_BOX_IMAGE" -g hermes)
 docker run --network=none --user root --entrypoint sh \
@@ -218,6 +220,10 @@ docker compose up -d
 
 The helper changes only entries owned by the old UID **and** GID, including
 nested files and directories; it keeps bytes and ordinary permission modes.
+`chown` can clear setuid/setgid bits: the acceptance run observed a
+Hermes-owned `chrome-sandbox` change from 4755 to 755. That bit did not grant
+root privileges because its owner was Hermes; do not restore special bits
+indiscriminately.
 It does not follow symlinks, cross filesystem boundaries or change unrelated
 owners. Hardlinked regular files migrate when every link is inside the home
 on the same filesystem. Links outside that boundary stop the migration before
@@ -261,11 +267,22 @@ docker compose exec --user hermes agent-box sh -ec '
 
 ## Rollback checklist
 
-The prior rollback image is
-`ghcr.io/hexorx/agent-box-hermes:sha-fb54b6e50d405520d20f419fea41a11136e2e515`,
-at digest `sha256:f4c6a32ef74f88ab55b3696a28f29fc258d1b4932bd619cf338b6d44ea8c37f0`.
-Use `ghcr.io/hexorx/agent-box-hermes@sha256:f4c6a32ef74f88ab55b3696a28f29fc258d1b4932bd619cf338b6d44ea8c37f0`
-with its backed-up compose and configuration when restoring that release.
+The recommended UID 10000 rollback target is
+`ghcr.io/hexorx/agent-box-hermes@sha256:22cbf26f780c11c1bf2b84c1f103599af08de3bd849f988d51c24732f50e275b`.
+Use it with its backed-up compose and configuration. The HEX-427 pass 2
+acceptance run on a disposable home volume verified the 1000 → 10000 migration
+and post-start deep writes in `.hermes`, `.omp`, `.claude`, `.local` and
+`backend-state`, with no permission errors. Token authentication and saved
+threads/personas also passed.
+
+Do **not** use the former rollback target
+`sha256:f4c6a32ef74f88ab55b3696a28f29fc258d1b4932bd619cf338b6d44ea8c37f0`
+(`sha-fb54b6e50d405520d20f419fea41a11136e2e515`) with this procedure.
+Its Hermes account is 10000:10000, but startup re-owns the mode-700 `.hermes`
+directory to 1000:1000 and locks that account out. Setting `HERMES_UID=10000`
+and `HERMES_GID=10000` in a Compose override also failed acceptance. A healthy
+backend does not prove the harness home is writable; the stopped-home migration
+alone cannot correct this image's startup behavior.
 
 - [ ] Pause anything that sends work to the box (Paperclip wakes, routines,
       connectors).
@@ -273,11 +290,12 @@ with its backed-up compose and configuration when restoring that release.
 - [ ] Restore the previous image digest and the backed-up compose, environment
       and configuration.
 - [ ] Query the rollback image's UID/GID, migrate ownership from the failed
-      image's UID/GID and re-own the token using the procedure above. This also
-      applies to `sha256:f4c6a32e…`; do not assume its UID from the image tag.
+      image's UID/GID and re-own the token using the procedure above. The
+      recommended `sha256:22cbf26f…` target uses 10000:10000; confirm with `id`.
 - [ ] Start with the **same** home volume. If the failure corrupted state, stop
       the box and restore the home volume backup instead.
-- [ ] Re-run the health, profile and login checks.
+- [ ] Run the post-start write checks above as Hermes, then re-run the health,
+      profile and login checks.
 - [ ] Keep the failed digest, its volumes and all backups until recovery is
       confirmed. Deleting images, volumes or backups needs Josh's approval.
 
