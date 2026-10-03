@@ -45,6 +45,8 @@ jobs:
       - run: python3 -B -m unittest discover -s apps/agent-box/test -p 'test_*.py' -v
       - name: Verify persistent-home ownership upgrade as root
         run: sudo python3 -B -m unittest discover -s apps/agent-box/test -p 'test_subscription.py' -v
+      - name: Verify operator home UID upgrade and rollback as root
+        run: sudo python3 -B -m unittest discover -s apps/agent-box/test -p 'test_home_migration.py' -v
       - run: pnpm install --frozen-lockfile --ignore-scripts
         working-directory: apps/agent-box/backend
       - run: pnpm exec turbo run build lint --filter=@mindi/backend...
