@@ -28,6 +28,14 @@ FROM ${AGENT_BOX_IMAGE}
 ARG SOURCE_REVISION=""
 LABEL org.opencontainers.image.revision=$SOURCE_REVISION
 USER root
+# /init bypasses the upstream UID remapper. Fix the service identity in the
+# image, before any runtime bind mounts exist; never chown operator mounts.
+RUN old_uid="$(id -u hermes)" && old_gid="$(id -g hermes)" \
+    && groupmod -g 1000 hermes \
+    && usermod -u 1000 -g 1000 hermes \
+    && find /opt /home -xdev -uid "$old_uid" -exec chown -h 1000 {} + \
+    && find /opt /home -xdev -gid "$old_gid" -exec chgrp -h 1000 {} + \
+    && test "$(id -u hermes):$(id -g hermes)" = 1000:1000
 ARG TARGETARCH
 RUN case "$TARGETARCH" in \
       amd64) asset=omp-linux-x64; checksum=040c254ddeb30f6d592be67d1469dc67fcac14e933fa04dbf690f42820ffd820 ;; \

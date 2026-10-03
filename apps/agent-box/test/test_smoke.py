@@ -18,17 +18,22 @@ class LegacySmokeTest(unittest.TestCase):
     def test_same_volume_verified_as_hermes_after_desktop_and_restart(self):
         events = []
         with patch.object(smoke, 'run', side_effect=lambda args, **kw: events.append(args)), \
-             patch.object(smoke, 'wait_desktop', side_effect=lambda name: events.append(['ready', name])):
-            smoke.legacy_home_smoke('image', Path('/fixture/test'), ['docker', 'create', '--name', 'test'])
+             patch.object(smoke, 'wait_desktop', side_effect=lambda name: events.append(['ready', name])), \
+             patch.object(smoke, 'verify_backend_identity', side_effect=lambda name: events.append(['identity', name])):
+            smoke.legacy_home_smoke('image', Path('/fixture/test'), ['docker', 'create', '--name', 'test',
+                '--mount', 'type=bind,src=/fixture/test,dst=/run/backend-example,readonly'])
         seed = next(command for command in events if command[:2] == ['docker', 'run'])
         create = next(command for command in events if command[:2] == ['docker', 'create'])
         self.assertEqual(seed[seed.index('-v') + 1], create[create.index('-v') + 1])
         self.assertIn('--network=none', seed)
         self.assertIn('--network=none', create)
+        self.assertIn('type=bind,src=/fixture/test,dst=/run/backend-example,readonly', create)
+        self.assertFalse(any(command[:2] == ['docker', 'cp'] for command in events))
         verifies = [i for i, command in enumerate(events) if command[:2] == ['docker', 'exec']]
         self.assertEqual(len(verifies), 2)
         for index in verifies:
-            self.assertEqual(events[index - 1], ['ready', 'test-legacy'])
+            self.assertEqual(events[index - 2], ['ready', 'test-legacy'])
+            self.assertEqual(events[index - 1], ['identity', 'test-legacy'])
             self.assertEqual(events[index][3:5], ['--user', 'hermes'])
         self.assertEqual(sum(command[:2] == ['docker', 'restart'] for command in events), 1)
 

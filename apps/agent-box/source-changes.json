@@ -8,8 +8,8 @@
   {
     "path": "backend/infra/backend-box/Dockerfile",
     "original_sha256": "eba22cd0217dcd21b0b5e6002c23464f7d03a534de45dfc782d5beda7ca56c12",
-    "imported_sha256": "38212eb3ea79d6666647ee9c141eb2e707467f583bfc7e17c3650a11a7dc0ed6",
-    "reason": "auth bootstrap COPY and release revision metadata"
+    "imported_sha256": "133231b9e6c4229604346008b18dbdd1a2a6295dbd7e6deb9d50246b864b0b46",
+    "reason": "auth bootstrap COPY and release revision metadata; fix backend service UID/GID to 1000:1000 at build time and transfer inherited /opt and /home ownership"
   },
   {
     "path": "backend/infra/backend-box/README.md",

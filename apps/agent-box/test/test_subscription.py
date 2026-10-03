@@ -145,6 +145,17 @@ class SubscriptionTest(unittest.TestCase):
         raw = '{"providers":{"openai-codex":{"fixture":true}}}'
         self.assertEqual(smoke.subscription_document(raw), raw.encode())
 
+    @unittest.skipUnless(os.getuid() == 1000 and os.getgid() == 1000, 'fixture owner is UID/GID 1000')
+    def test_smoke_token_matches_restricted_operator_mount(self):
+        with tempfile.TemporaryDirectory() as directory:
+            scratch = Path(directory)
+            smoke.prepare_fixture(scratch)
+            token = scratch / 'token'
+            stat = token.stat()
+            self.assertEqual((stat.st_uid, stat.st_gid, stat.st_mode & 0o777), (1000, 1000, 0o400))
+            self.assertEqual(len(token.read_text()), 64)
+            self.assertEqual((scratch / 'backend.json').stat().st_mode & 0o777, 0o644)
+
     def test_active_init_executes_subscription_setup(self):
         recipe = (APP / 'backend/infra/backend-box/Dockerfile').read_text()
         self.assertIn('ENTRYPOINT ["/init"]', recipe)

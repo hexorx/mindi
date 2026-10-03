@@ -27,7 +27,7 @@ request=urllib.request.Request('http://127.0.0.1:65005'+payload['path'],
 print(urllib.request.urlopen(request,timeout=10).read().decode())
 '''
     payload = json.dumps({'path': path, 'method': method, 'body': body})
-    return json.loads(run(['docker', 'exec', '-e', 'SMOKE_REQUEST=' + payload,
+    return json.loads(run(['docker', 'exec', '--user', '1000:1000', '-e', 'SMOKE_REQUEST=' + payload,
                           name, 'python3', '-c', program]).stdout)
 
 
@@ -59,6 +59,40 @@ def subscription_document(raw):
             document.get('credential_pool', {}).get('openai-codex')):
         raise ValueError('Codex subscription login missing')
     return raw.encode()
+
+
+def prepare_fixture(scratch):
+    for filename in ('backend.json', 'SOUL.md'):
+        (scratch / filename).write_bytes((APP / 'example' / filename).read_bytes())
+        (scratch / filename).chmod(0o644)
+    token = scratch / 'token'
+    token.write_text(secrets.token_hex(32))
+    token.chmod(0o400)
+    if (token.stat().st_uid, token.stat().st_gid) != (1000, 1000):
+        run(['sudo', '-n', 'chown', '1000:1000', str(token)])
+    stat = token.stat()
+    if (stat.st_uid, stat.st_gid, stat.st_mode & 0o777) != (1000, 1000, 0o400):
+        raise ValueError('Token fixture must be 1000:1000 mode 0400')
+
+
+def verify_backend_identity(name):
+    program = """from pathlib import Path
+matches = []
+for proc in Path('/proc').glob('[0-9]*'):
+    try:
+        if b'/opt/mindi-backend/dist/main.js' not in (proc/'cmdline').read_bytes().split(b'\\0'):
+            continue
+        status = dict(line.split(':', 1) for line in (proc/'status').read_text().splitlines() if ':' in line)
+        assert status['Uid'].split() == ['1000'] * 4
+        assert status['Gid'].split() == ['1000'] * 4
+        matches.append(proc.name)
+    except FileNotFoundError:
+        continue
+assert len(matches) == 1
+"""
+    run(['docker', 'exec', name, 'python3', '-c', program])
+    mounts = json.loads(run(['docker', 'inspect', name]).stdout)[0]['Mounts']
+    assert any(m['Destination'] == '/run/backend-example' and not m['RW'] for m in mounts)
 
 
 # Valid JSON is also YAML; these fixtures contain no usable provider credentials.
@@ -116,12 +150,12 @@ def legacy_home_smoke(image, scratch, args):
         legacy_args.append('--network=none')
     run([*legacy_args, '-v', volume + ':/home/agent', image])
     try:
-        run(['docker', 'cp', str(scratch), name + ':/run/backend-example'])
         run(['docker', 'start', name])
         for boot in range(2):
             if boot:
                 run(['docker', 'restart', '--time', '20', name])
             wait_desktop(name)
+            verify_backend_identity(name)
             run(['docker', 'exec', '-i', '--user', 'hermes', name,
                  'python3', '-c', LEGACY_VERIFY], input=fixture)
     finally:
@@ -135,13 +169,10 @@ def main():
     auth = subscription_document(os.environ.get('HERMES_SUBSCRIPTION_AUTH_JSON', '')) if subscription else None
     scratch = Path(os.environ['RUNNER_TEMP']) / ('original-box-' + secrets.token_hex(6))
     scratch.mkdir(mode=0o755)
-    for filename in ('backend.json', 'SOUL.md'):
-        (scratch / filename).write_bytes((APP / 'example' / filename).read_bytes())
-    (scratch / 'token').write_text(secrets.token_hex(32))
-    for path in scratch.iterdir():
-        path.chmod(0o644)  # Synthetic fixture inputs must be readable by the hermes user.
+    prepare_fixture(scratch)
     name = scratch.name
     args = ['docker', 'create', '--name', name, '--shm-size=256m',
+            '--mount', f'type=bind,src={scratch},dst=/run/backend-example,readonly',
             '-e', 'MINDI_BACKEND_CONFIG=/run/backend-example/backend.json',
             '-e', 'MINDI_BACKEND_TOKEN_FILE=/run/backend-example/token',
             '-e', 'HINDSIGHT_ENABLED=0',
@@ -151,9 +182,9 @@ def main():
     legacy_home_smoke(image, scratch, args)
     run([*args, image])
     try:
-        run(['docker', 'cp', str(scratch), name + ':/run/backend-example'])
         run(['docker', 'start', name])
         wait_desktop(name)
+        verify_backend_identity(name)
         # Login stores must be writable by the same account that runs agents.
         run(['docker', 'exec', '--user', 'hermes', name, 'sh', '-ec',
              'test -w /home/agent/.hermes/config.yaml; '
@@ -169,6 +200,7 @@ def main():
         # Same home survives normal restart, including the subscription login.
         run(['docker', 'restart', '--time', '20', name])
         wait_desktop(name)
+        verify_backend_identity(name)
         if auth is not None:
             challenge = 'HERMES_OK_' + secrets.token_hex(12)
             answer = run(['docker', 'exec', '--user', 'hermes', name,
@@ -177,7 +209,7 @@ def main():
                          timeout=180).stdout.decode().strip()
             if answer != challenge:
                 raise ValueError('Subscription answer did not match')
-        print('Backend and two persona desktops ready across restart; ' +
+        print('Backend UID/GID 1000:1000; read-only 0400 token; two persona desktops ready across restart; ' +
               ('Hermes subscription answer passed.' if subscription else 'offline startup passed.'))
     finally:
         # Preserve containers/volumes and credentials; no cleanup deletes or log uploads.
