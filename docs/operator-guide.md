@@ -8,13 +8,13 @@ Paperclip, and roll it out or back. It needs no GitHub account and no Tailscale.
 | Item | Value |
 |---|---|
 | Image | `ghcr.io/hexorx/agent-box-hermes` |
-| Release tag | `sha-ae732472d18c4ec784bce87a95b7d5e727ff70c6` |
-| Digest | `sha256:22cbf26f780c11c1bf2b84c1f103599af08de3bd849f988d51c24732f50e275b` |
+| Release tag | `sha-d4ebfebee7e9c3eac5f6891dbc67a53a0fb29c97` |
+| Digest | `sha256:40fa31069f255c35132056eb8014eb7e36a33331b2e41110d8b14ba6f36f2eec` |
 | Built from | `apps/agent-box` (the original backend box) by `.github/workflows/hermes-promote.yml` |
 | Platform | linux/amd64 |
 
-Published from commit `ae732472d18c4ec784bce87a95b7d5e727ff70c6` in
-[release run 37094366548](https://github.com/hexorx/mindi/actions/runs/37094366548).
+Published from commit `d4ebfebee7e9c3eac5f6891dbc67a53a0fb29c97` in
+[release run 37109028666](https://github.com/hexorx/mindi/actions/runs/37109028666).
 The release receipt confirms the digest above and public visibility.
 
 Always deploy by digest. Tags are immutable, but a digest is what you roll back to.
@@ -25,9 +25,10 @@ backend starts a Sway desktop for a persona only after that persona's desktop is
 enabled through the authenticated desktop settings API or client; none runs by
 default. The box does **not** start the Hermes gateway, the Hermes dashboard or
 Hindsight.
-Agent processes run as the `hermes` user, UID and GID 10000; `/init` starts
-as root to prepare the persistent home and supervise services. The Hermes CLI, OMP and Claude Code are installed and
-each keeps its own login in the home volume.
+Agent processes run as the `hermes` user, UID and GID 1000; `/init` starts
+as root to prepare the persistent home and supervise services. The Hermes CLI and OMP are installed. Claude Code and Chrome are installed
+into the home volume on first start with network access; an offline fresh home
+cannot use them. Each harness keeps its own login in the home volume.
 
 `apps/agent-box-hermes` is a separate, unpublished extraction that does run the
 Hermes API on port 8443 (see [its README](../apps/agent-box-hermes/README.md)
@@ -63,19 +64,19 @@ a clone of the public `hexorx/mindi` repository.
    the container. `example/SOUL.md` is the shared persona text. Edit both to suit.
 
 2. Create the backend operator token. It must be at least 32 characters and
-   readable by the box's `hermes` user (UID 10000). It authenticates clients to the backend; it is not a
+   readable by the box's `hermes` user (UID 1000). It authenticates clients to the backend; it is not a
    model key.
 
    ```sh
    umask 077
    openssl rand -hex 32 > ~/agent-box/backend-token
-   sudo chown 10000:10000 ~/agent-box/backend-token
+   sudo chown 1000:1000 ~/agent-box/backend-token
    ```
 
 3. Start the box by digest:
 
    ```sh
-   export AGENT_BOX_IMAGE=ghcr.io/hexorx/agent-box-hermes@sha256:22cbf26f780c11c1bf2b84c1f103599af08de3bd849f988d51c24732f50e275b
+   export AGENT_BOX_IMAGE=ghcr.io/hexorx/agent-box-hermes@sha256:40fa31069f255c35132056eb8014eb7e36a33331b2e41110d8b14ba6f36f2eec
    export BACKEND_TOKEN_FILE="$HOME/agent-box/backend-token"
    export AGENT_BOX_PORT=65005
    docker compose up -d
@@ -99,8 +100,9 @@ a clone of the public `hexorx/mindi` repository.
    The first call returns health and protocol version; the second lists the
    configured profiles. If the container exits, read `docker compose logs`; a
    missing or unreadable token or configuration file stops the backend at start;
-   `Backend token file is not readable` in the logs means the token is not owned
-   by UID 10000.
+   `Backend token file is not readable` in the logs means the token is not readable
+   by the target image's `hermes` UID (1000 for this release). Check its owner,
+   mode and mount path; rerun step 2's `chown` for this release.
 
 For remote access, keep the port on loopback and put an operator-owned HTTPS
 reverse proxy (for example Dokploy/Traefik) in front of it. The native Mindi
@@ -182,6 +184,58 @@ A Hermes roster entry may omit `box.adapterType`; it resolves to
 `hermes_gateway`. The full request format is in the
 [admin README](../packages/agent-box-admin/README.md).
 
+## Moving home volumes between UID 10000 and UID 1000 images
+
+This release uses 1000:1000. The previous `sha-ae732472…` image uses
+10000:10000. Startup repairs `.omp` and Hermes `config.yaml`/`auth.json`, but
+**does not migrate the whole home**: nested `.hermes` state, `.claude`, `.local`
+and `backend-state` can remain unwritable. Migrate the stopped home before
+starting the target image, in either direction. Keep the volume backup.
+
+Set `AGENT_BOX_IMAGE` to the target digest and `HOME_VOLUME` to the existing
+Compose home volume name (for example `hex411-agent-box_home` for the disposable
+HEX-411 test). Confirm the name with `docker volume inspect "$HOME_VOLUME"`;
+do not use the live `mindi-agent-box` volume for testing. Set `MIGRATION_SCRIPT`
+to the absolute path of `apps/agent-box/migrate-home-owner.sh` in your checkout.
+Set `OLD_UID` and `OLD_GID` from the image you are leaving; use 10000 and 10000
+when upgrading from `sha-ae732472…`, or 1000 and 1000 when leaving this release.
+
+```sh
+set -eu
+docker compose stop
+# Query the target image, including when rolling back to sha256:f4c6a32e….
+NEW_UID=$(docker run --network=none --entrypoint id "$AGENT_BOX_IMAGE" -u hermes)
+NEW_GID=$(docker run --network=none --entrypoint id "$AGENT_BOX_IMAGE" -g hermes)
+docker run --network=none --user root --entrypoint sh \
+  -e OLD_UID="$OLD_UID" -e OLD_GID="$OLD_GID" \
+  -e NEW_UID="$NEW_UID" -e NEW_GID="$NEW_GID" \
+  --mount "type=volume,src=$HOME_VOLUME,dst=/home/agent" \
+  --mount "type=bind,src=$MIGRATION_SCRIPT,dst=/migrate-home-owner.sh,readonly" \
+  "$AGENT_BOX_IMAGE" /migrate-home-owner.sh
+sudo chown "$NEW_UID:$NEW_GID" "$BACKEND_TOKEN_FILE"
+docker compose up -d
+```
+
+The helper changes only entries owned by the old UID **and** GID, including
+nested files and directories; it keeps bytes and ordinary permission modes.
+It does not follow symlinks, cross filesystem boundaries or change unrelated
+owners. Hardlinked regular files stop the migration before any ownership change;
+inspect them separately. Mixed ownership also needs inspection. These commands
+retain their stopped helper containers; deleting them needs Josh's approval.
+
+After startup, check actual writes as the target account (each test file is
+retained as evidence), then rerun step 4 and the harness checks. Keep the
+existing token; change its owner rather than generating a replacement:
+
+```sh
+docker compose exec --user hermes agent-box sh -ec '
+  for dir in .hermes .omp .claude .local backend-state; do
+    test -d "/home/agent/$dir"
+    touch "/home/agent/$dir/uid-migration-check-$(date +%s)"
+  done
+'
+```
+
 ## Rollout checklist
 
 - [ ] Record the current image digest, compose file and backend configuration.
@@ -191,6 +245,10 @@ A Hermes roster entry may omit `box.adapterType`; it resolves to
       cannot recreate.
 - [ ] Confirm no secrets or API keys remain in the compose or environment that
       the new image does not need.
+- [ ] When changing between UID 10000 and 1000 images, run the stopped-home
+      migration above and re-own the read-only token for the target UID/GID.
+      Record the source/target owners and volume name; use the same procedure
+      in reverse during rollback.
 - [ ] Deploy the new digest to one box first, with the same home volume.
 - [ ] Check `/health` and `/profiles` with the backend token.
 - [ ] Log in, or confirm existing logins, for each harness you rely on, and get
@@ -213,6 +271,9 @@ with its backed-up compose and configuration when restoring that release.
 - [ ] Stop the failed container. Do not delete its volumes.
 - [ ] Restore the previous image digest and the backed-up compose, environment
       and configuration.
+- [ ] Query the rollback image's UID/GID, migrate ownership from the failed
+      image's UID/GID and re-own the token using the procedure above. This also
+      applies to `sha256:f4c6a32e…`; do not assume its UID from the image tag.
 - [ ] Start with the **same** home volume. If the failure corrupted state, stop
       the box and restore the home volume backup instead.
 - [ ] Re-run the health, profile and login checks.
