@@ -1,8 +1,7 @@
 # Agent box operator guide
 
 How to run the published agent box, log in with a subscription, connect it to
-Paperclip, and roll it out or back. Runtime configuration needs no GitHub
-account and no Tailscale; pulling the private image requires registry access.
+Paperclip, and roll it out or back. It needs no GitHub account and no Tailscale.
 
 ## What is published
 
@@ -36,13 +35,11 @@ or environment with the published image.
 - Subscription accounts for the harnesses you plan to use: ChatGPT (Codex) for
   Hermes and OMP, and Claude for Claude Code. No model API key is used.
 
-## Run it (local configuration, no Tailscale)
+## Run it (no GitHub, no Tailscale)
 
-This example uses only Docker networking and a loopback port. The release
-workflow publishes a private GHCR package: authenticate Docker with an account
-authorized to pull it before starting. Obtain the example files below from an
-authorized checkout or an operator-provided copy. Registry credentials belong
-to the host credential store, not the container or its configuration.
+This example uses only Docker networking and a loopback port. The GHCR package
+is public, so `docker pull` needs no registry login. The example files come from
+a clone of the public `hexorx/mindi` repository.
 
 1. Create an operator directory outside any Git checkout and copy the example
    backend configuration into it:
@@ -137,24 +134,18 @@ not fetch remote configuration.
 
 ## Register in Paperclip
 
-**Gap: the published image has no supported Paperclip registration path yet.**
+**The published image is not registered with Paperclip.** It does not start the
+Hermes API server, and Paperclip has no adapter for the Mindi backend protocol
+on port 65005. Use it for desktop and human work.
 
-Paperclip drives Hermes boxes with the `hermes_gateway` adapter, which talks to
-the Hermes API server. That path was accepted on the P7 test box (agent
-`hermes-p7-test`, built from `apps/agent-box-hermes`). The published image does
-not start the Hermes API server, and Paperclip has no adapter for the Mindi
-backend protocol on port 65005. The registration CLI in
-[`packages/agent-box-admin`](../packages/agent-box-admin/README.md) also only
-registers `hermes` boxes through `hermes_gateway`.
+For Paperclip work, run a box built from `apps/agent-box-hermes` and register it
+with the `hermes_gateway` adapter. This is the path accepted on the P7 test box
+(agent `hermes-p7-test`). That box serves the Hermes API through HTTPS port 8443;
+use `https://<private-box-name>:8443` as the endpoint. Build, runtime inputs and
+rollback are in the [P7 handoff](../apps/agent-box-hermes/P7.md). There is no
+published image for this flavor: build it from source on the deployment host.
 
-Until that is resolved, registering a published box means one of:
-
-- running a box built from `apps/agent-box-hermes` (Hermes API on 8443) and
-  registering it with `agent-box-admin`, as in the P7 handoff; or
-- adding a Paperclip adapter or a gateway service for the published image, which
-  is new code and needs its own ticket.
-
-When a supported path exists, registration follows the admin CLI:
+Register it with the admin CLI:
 
 ```sh
 pnpm install --frozen-lockfile
@@ -170,6 +161,9 @@ The request is secret-free: the box credential is a Paperclip secret UUID
 Paperclip's approval-aware `agent-hires` endpoint; a pending approval is left
 pending, never activated by a status change. After a timeout or an `uncertain`
 result (exit code 2), run `reconcile` before trying `register` again.
+A Hermes roster entry may omit `box.adapterType`; it resolves to
+`hermes_gateway`. The full request format is in the
+[admin README](../packages/agent-box-admin/README.md).
 
 ## Rollout checklist
 

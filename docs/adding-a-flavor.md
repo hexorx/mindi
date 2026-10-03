@@ -2,8 +2,8 @@
 
 A flavor is one kind of agent box: a container image plus the runtime that makes
 it an agent. `apps/agent-box-hermes` is the first extracted flavor. This page
-covers what a new flavor provides, what it shares, and what is still tied to
-Hermes today.
+covers what a new flavor provides, what it shares, and how it registers in
+Paperclip without any Hermes code.
 
 ## Layout
 
@@ -11,7 +11,7 @@ Hermes today.
 apps/agent-box-<flavor>/   Dockerfile, s6 services, desktop, runtime, defaults, tests
 stacks/agent-box-<flavor>/ compose files for that flavor only
 packages/agent-box-core/   flavor-neutral config, roster, identity, redaction, health
-packages/agent-box-admin/  registration CLI (currently Hermes-only, see below)
+packages/agent-box-admin/  flavor-neutral registration CLI
 ```
 
 Keep Dockerfiles, shell scripts, s6 definitions and harness-specific
@@ -29,7 +29,8 @@ own it.
   endpoint) and `network.tailscale`. Flavors extend it with their own settings;
   runtime secrets, executable hooks and environment maps never go in it.
 - `RosterBoxSchema`: a secret-free roster entry (box ID, flavor, HTTPS endpoint,
-  image digest, config revision, credential reference, declared capabilities).
+  image digest, config revision, credential reference, declared capabilities)
+  plus an optional `adapterType`, the Paperclip adapter that drives the box.
 - Identity, redaction and health contracts.
 
 ## Checklist for a new flavor
@@ -53,18 +54,31 @@ own it.
 8. Document run, login, rollout and rollback for the flavor, in the shape of the
    [operator guide](operator-guide.md).
 
-## Still tied to Hermes
+## Registering a new flavor in Paperclip
 
-These must change before a non-Hermes flavor can be registered in Paperclip.
-They are code changes, not documentation:
+`agent-box-admin` reads the adapter from the roster, so a new flavor needs no
+admin or Hermes code changes. Set `box.adapterType` to the Paperclip adapter
+installed for the flavor, for example:
 
-- `packages/agent-box-admin` rejects any roster entry whose flavor is not
-  `hermes` (`unsupported_flavor`), hard-codes the `hermes_gateway` adapter in
-  the hire payload and environment test, and checks for that adapter type when
-  reconciling existing agents. A second flavor needs a flavor-to-adapter mapping
-  there.
-- The published image `ghcr.io/hexorx/agent-box-hermes` is built from
-  `apps/agent-box`, the imported original backend box. It runs the Mindi backend,
-  not the Hermes gateway, so it is effectively a different flavor already. See
-  the [operator guide](operator-guide.md#register-in-paperclip) for the
-  registration gap this creates.
+```json
+{ "flavor": "example", "adapterType": "example_gateway" }
+```
+
+The adapter identifier matches `^[a-z][a-z0-9_-]{0,63}$`. Admin uses it for the
+hire, the adapter environment test and the ownership checks during reconcile.
+The adapter and box must implement the shared gateway contract:
+
+- The adapter accepts `apiBaseUrl`, an `apiKey` secret reference,
+  `sessionKeyStrategy: "issue"` and `paperclipApiUrl`.
+- The box serves an authenticated `/health` endpoint at that base URL.
+
+Adapters with a different configuration shape are not supported by this CLI.
+Hermes rosters may omit `adapterType`: a compatibility default resolves
+`hermes` to `hermes_gateway`, and no other flavor has a default. Keep the field
+unchanged when resuming an operation, because it is part of the request
+fingerprint. Details are in the
+[admin README](../packages/agent-box-admin/README.md#flavor-adapter-contract).
+
+The published image `ghcr.io/hexorx/agent-box-hermes` is built from
+`apps/agent-box`, the original backend box, and is not registered with Paperclip;
+see the [operator guide](operator-guide.md#register-in-paperclip).
