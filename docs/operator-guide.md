@@ -21,7 +21,8 @@ backend starts a Sway desktop for a persona only after that persona's desktop is
 enabled through the authenticated desktop settings API or client; none runs by
 default. The box does **not** start the Hermes gateway, the Hermes dashboard or
 Hindsight.
-Everything in the box runs as the `hermes` user, UID and GID 10000. The Hermes CLI, OMP and Claude Code are installed and
+Agent processes run as the `hermes` user, UID and GID 10000; `/init` starts
+as root to prepare the persistent home and supervise services. The Hermes CLI, OMP and Claude Code are installed and
 each keeps its own login in the home volume.
 
 `apps/agent-box-hermes` is a separate, unpublished extraction that does run the

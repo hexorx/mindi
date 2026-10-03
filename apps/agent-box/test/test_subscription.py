@@ -2,6 +2,7 @@ import importlib.util
 import json
 from pathlib import Path
 import tempfile
+from types import SimpleNamespace
 import unittest
 from unittest.mock import patch
 
@@ -15,6 +16,19 @@ spec.loader.exec_module(smoke)
 
 
 class SubscriptionTest(unittest.TestCase):
+    def setUp(self):
+        account = patch.object(subscription.pwd, "getpwnam", return_value=SimpleNamespace(pw_uid=10000, pw_gid=10001))
+        self.account = account.start()
+        self.addCleanup(account.stop)
+
+    def test_seed_uses_runtime_account_uid_and_gid(self):
+        with tempfile.TemporaryDirectory() as directory, patch.object(subscription.os, "chown") as chown, patch.object(subscription.os, "fchown") as fchown:
+            home = Path(directory) / ".hermes"
+            subscription.seed(home, {})
+            self.account.assert_called_once_with("hermes")
+            chown.assert_called_once_with(home, 10000, 10001)
+            self.assertEqual(fchown.call_args.args[1:], (10000, 10001))
+
     def test_fresh_home_and_restart_preserve_logins_and_operator_config(self):
         with tempfile.TemporaryDirectory() as directory, patch.object(subscription.os, 'chown'), patch.object(subscription.os, 'fchown'):
             home = Path(directory) / '.hermes'

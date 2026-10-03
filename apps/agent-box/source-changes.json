@@ -20,8 +20,8 @@
   {
     "path": "backend/infra/backend-box/prepare-home.sh",
     "original_sha256": "1c8f910084c247eef8487f0d892e712dd74740bd6408fd4dfd357f93ef718148",
-    "imported_sha256": "e7f19ee540cb55037aacf6d0cf16fabd823eeab0859f8934894b253c5581378e",
-    "reason": "run subscription config seeding in active /init startup"
+    "imported_sha256": "c0a18aa26a72de2cae7225d4bf46409dce7b0e6afda29650b25e50ce793913fb",
+    "reason": "run subscription config seeding in active /init startup; repair persistent OMP ownership for the runtime hermes account"
   },
   {
     "path": "backend/packages/herdr/README.md",

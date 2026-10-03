@@ -24,16 +24,16 @@ docker build --build-arg AGENT_BOX_IMAGE=agent-box-base:local \
 
 Run `compose.yaml` with `AGENT_BOX_IMAGE` set to the published digest and
 `BACKEND_TOKEN_FILE` pointing to an existing, nonempty operator token file outside
-Git (at least 32 characters, readable by UID 1000). This is backend authentication,
+Git (at least 32 characters, readable by the `hermes` user (UID 10000)). This is backend authentication,
 not a model API key. The example restricts host access to loopback. The five
 personas retain the original native desktop implementation. Enable a persona's
 desktop through the authenticated backend desktop settings API/client.
 
 ## Log in with your subscription
-1. Keep the named home volume mounted at `/home/agent`; use UID 1000 for login commands.
-2. For Claude Code, run `docker compose exec --user 1000:1000 agent-box claude auth login` and choose the subscription account.
-3. For Hermes, mount/copy your existing Codex subscription `auth.json` into `/home/agent/.hermes/auth.json` (owner 1000, mode 0600).
-4. For native backend OMP conversations, use its own subscription login in `docker compose exec --user 1000:1000 agent-box omp`; preserve its home credential store too.
+1. Keep the named home volume mounted at `/home/agent`; use the `hermes` user (UID 10000) for login commands.
+2. For Claude Code, run `docker compose exec --user hermes agent-box claude auth login` and choose the subscription account.
+3. For Hermes, mount/copy your existing Codex subscription `auth.json` into `/home/agent/.hermes/auth.json` (owner 10000:10000, mode 0600).
+4. For native backend OMP conversations, use its own subscription login in `docker compose exec --user hermes agent-box omp`; preserve its home credential store too.
 5. Restart with the same home volume; never put login files in a build context, image layer, Git, or CI output.
 
 Hermes CLI uses the `openai-codex` subscription configuration reused from PR #41.

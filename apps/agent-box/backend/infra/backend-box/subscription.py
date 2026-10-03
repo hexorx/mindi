@@ -1,12 +1,13 @@
 """Seed subscription inference settings without API keys."""
 import json
 import os
+import pwd
 from pathlib import Path
 import re
 import tempfile
 
 
-def publish_missing(path, value):
+def publish_missing(path, value, uid, gid):
     """Publish a complete private file without replacing operator-owned state."""
     fd, temporary = tempfile.mkstemp(prefix='.inference-', dir=path.parent)
     try:
@@ -14,7 +15,7 @@ def publish_missing(path, value):
             stream.write(value)
             stream.flush()
             os.fsync(stream.fileno())
-            os.fchown(stream.fileno(), 1000, 1000)
+            os.fchown(stream.fileno(), uid, gid)
         try:
             os.link(temporary, path)
         except FileExistsError:
@@ -35,7 +36,8 @@ def seed(home, env):
         raise ValueError('Invalid inference home')
     root.mkdir(mode=0o700, parents=True, exist_ok=True)
     root.chmod(0o700)
-    os.chown(root, 1000, 1000)
+    owner = pwd.getpwnam("hermes")
+    os.chown(root, owner.pw_uid, owner.pw_gid)
     config = root / 'config.yaml'
     if config.is_symlink():
         if os.readlink(config) != '.agent-box/current/config.yaml':
@@ -45,7 +47,7 @@ def seed(home, env):
         publish_missing(config, json.dumps({'model': {
             'provider': provider, 'default': model,
             'base_url': 'https://chatgpt.com/backend-api/codex',
-        }}) + '\n')
+        }}) + '\n', owner.pw_uid, owner.pw_gid)
 
 
 if __name__ == "__main__":
