@@ -51,7 +51,9 @@ class SubscriptionTest(unittest.TestCase):
         self.assertIn('ENTRYPOINT ["/init"]', recipe)
         self.assertIn('COPY infra/backend-box/subscription.py /out/opt/subscription.py', recipe)
         self.assertIn('python3 /opt/subscription.py', (APP / 'backend/infra/backend-box/prepare-home.sh').read_text())
-        self.assertNotIn('ssh-keygen -A', (APP / 'base/infra/agent-box/Dockerfile').read_text())
+        base_recipe = (APP / 'base/infra/agent-box/Dockerfile').read_text()
+        self.assertNotIn('ssh-keygen -A', base_recipe)
+        self.assertIn('&& rm -f /etc/ssh/ssh_host_*_key /etc/ssh/ssh_host_*_key.pub', base_recipe)
         self.assertNotIn('API_KEY', (APP / 'compose.yaml').read_text())
 
 
