@@ -8,10 +8,14 @@ Paperclip, and roll it out or back. It needs no GitHub account and no Tailscale.
 | Item | Value |
 |---|---|
 | Image | `ghcr.io/hexorx/agent-box-hermes` |
-| First release | `sha-fb54b6e50d405520d20f419fea41a11136e2e515` |
-| Digest | `sha256:f4c6a32ef74f88ab55b3696a28f29fc258d1b4932bd619cf338b6d44ea8c37f0` |
+| Release tag | `sha-ae732472d18c4ec784bce87a95b7d5e727ff70c6` |
+| Digest | `sha256:22cbf26f780c11c1bf2b84c1f103599af08de3bd849f988d51c24732f50e275b` |
 | Built from | `apps/agent-box` (the original backend box) by `.github/workflows/hermes-promote.yml` |
 | Platform | linux/amd64 |
+
+Published from commit `ae732472d18c4ec784bce87a95b7d5e727ff70c6` in
+[release run 37094366548](https://github.com/hexorx/mindi/actions/runs/37094366548).
+The release receipt confirms the digest above and public visibility.
 
 Always deploy by digest. Tags are immutable, but a digest is what you roll back to.
 
@@ -71,7 +75,7 @@ a clone of the public `hexorx/mindi` repository.
 3. Start the box by digest:
 
    ```sh
-   export AGENT_BOX_IMAGE=ghcr.io/hexorx/agent-box-hermes@sha256:f4c6a32ef74f88ab55b3696a28f29fc258d1b4932bd619cf338b6d44ea8c37f0
+   export AGENT_BOX_IMAGE=ghcr.io/hexorx/agent-box-hermes@sha256:22cbf26f780c11c1bf2b84c1f103599af08de3bd849f988d51c24732f50e275b
    export BACKEND_TOKEN_FILE="$HOME/agent-box/backend-token"
    export AGENT_BOX_PORT=65005
    docker compose up -d
@@ -197,6 +201,12 @@ A Hermes roster entry may omit `box.adapterType`; it resolves to
       rollout ticket.
 
 ## Rollback checklist
+
+The prior rollback image is
+`ghcr.io/hexorx/agent-box-hermes:sha-fb54b6e50d405520d20f419fea41a11136e2e515`,
+at digest `sha256:f4c6a32ef74f88ab55b3696a28f29fc258d1b4932bd619cf338b6d44ea8c37f0`.
+Use `ghcr.io/hexorx/agent-box-hermes@sha256:f4c6a32ef74f88ab55b3696a28f29fc258d1b4932bd619cf338b6d44ea8c37f0`
+with its backed-up compose and configuration when restoring that release.
 
 - [ ] Pause anything that sends work to the box (Paperclip wakes, routines,
       connectors).
