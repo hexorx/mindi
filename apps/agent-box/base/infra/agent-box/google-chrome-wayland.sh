@@ -1,5 +1,5 @@
 #!/bin/sh
-exec /usr/bin/google-chrome-stable \
+exec /home/agent/.local/share/mindi-tools/chrome/opt/google/chrome/chrome \
     --ozone-platform=wayland \
     --enable-features=UseOzonePlatform \
     --disable-dev-shm-usage \

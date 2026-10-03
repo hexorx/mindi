@@ -4,6 +4,7 @@ import { connect } from "node:net";
 import { setTimeout as delay } from "node:timers/promises";
 import { randomUUID, createHash } from "node:crypto";
 import {
+  access,
   lstat,
   mkdir,
   open,
@@ -14,6 +15,7 @@ import {
   writeFile,
 } from "node:fs/promises";
 import { isAbsolute, join, resolve } from "node:path";
+import { constants } from "node:fs";
 
 const execute = promisify(execFile);
 
@@ -463,7 +465,19 @@ export async function launchWaylandDesktop(
         if (bytes.length < 12) reject(new Error("VNC closed before ready"));
       });
     });
-    if (options.browser !== false) {
+    const browserCommand =
+      "/home/agent/.local/share/mindi-tools/chrome/opt/google/chrome/chrome";
+    const browserInstalled = await access(browserCommand, constants.X_OK)
+      .then(() => true)
+      .catch((error: NodeJS.ErrnoException) => {
+        if (error.code === "ENOENT") return false;
+        throw error;
+      });
+    if (options.browser !== false && !browserInstalled)
+      await log.write(
+        "Chrome runtime install unavailable; desktop starting without browser\n",
+      );
+    if (options.browser !== false && browserInstalled) {
       const browserPath = environment.MINDI_CHROME_USER_DATA_DIR!;
       for (const directory of [join(profileHome, ".config"), browserPath]) {
         try {
@@ -483,7 +497,7 @@ export async function launchWaylandDesktop(
             "Browser profile must be a private owned canonical directory",
           );
       }
-      const browser = launch("/usr/bin/google-chrome-stable", [
+      const browser = launch(browserCommand, [
         "--ozone-platform=wayland",
         "--no-sandbox",
         "--disable-setuid-sandbox",

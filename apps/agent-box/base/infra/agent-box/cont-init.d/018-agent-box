@@ -58,3 +58,4 @@ as_hermes() {
 
 as_hermes /opt/identity.sh || echo "identity: bootstrap failed (continuing)" >&2
 as_hermes /opt/configure-agent-box.sh || echo "hermes: configure skipped" >&2
+as_hermes /opt/install-runtime-tools.sh || echo "runtime tools: install failed; continuing" >&2

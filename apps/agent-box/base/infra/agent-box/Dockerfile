@@ -132,6 +132,9 @@ ENV PATH="/opt/hermes/bin:/opt/hermes/.venv/bin:/home/agent/.local/bin:${PATH}"
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
         wget unzip jq less gnupg sudo \
+        fonts-liberation libasound2t64 libcups2t64 libcurl4t64 libgbm1 \
+        libnspr4 libnss3 libvulkan1 libxcomposite1 libxdamage1 libxfixes3 \
+        libxrandr2 xdg-utils \
         zsh dbus dbus-user-session openssh-server \
         sway grim wtype wl-clipboard thunar mousepad wofi waybar \
         libadwaita-1-0 libegl1 libgl1-mesa-dri libgtk-4-1 libgtk4-layer-shell0 \
@@ -176,19 +179,12 @@ RUN mkdir -p /etc/apt/keyrings \
     && apt-get install -y --no-install-recommends gh \
     && rm -rf /var/lib/apt/lists/*
 
-# Google's apt repo is amd64-only. Worker hosts that run agent boxes are amd64.
-RUN curl -fsSL https://dl.google.com/linux/linux_signing_key.pub \
-        | gpg --dearmor -o /etc/apt/keyrings/google-chrome.gpg \
-    && echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/google-chrome.gpg] https://dl.google.com/linux/chrome/deb/ stable main" \
-        > /etc/apt/sources.list.d/google-chrome.list \
-    && apt-get update -qq \
-    && apt-get install -y --no-install-recommends google-chrome-stable \
-    && rm -rf /var/lib/apt/lists/*
-
 COPY --from=ghostty-builder /out/usr/ /usr/
 
-COPY infra/agent-box/google-chrome-wayland.sh /usr/local/bin/google-chrome
-RUN chmod 755 /usr/local/bin/google-chrome
+COPY infra/agent-box/google-chrome-wayland.sh /opt/runtime-browser-launcher
+COPY infra/agent-box/install-runtime-tools.sh /opt/install-runtime-tools.sh
+COPY infra/agent-box/runtime-tools/ /opt/runtime-tools/
+RUN chmod 755 /opt/runtime-browser-launcher /opt/install-runtime-tools.sh
 
 RUN sh -c "$(curl -fsLS get.chezmoi.io)" -- -b /usr/local/bin \
     && curl -fsSL https://mise.run | MISE_INSTALL_PATH=/usr/local/bin/mise sh

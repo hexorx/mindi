@@ -28,6 +28,8 @@ jobs:
           version: v0.75.0
       - name: Install registry transport
         run: sudo apt-get update && sudo apt-get install --no-install-recommends -y skopeo
+      - name: Verify assembled license and notices inputs
+        run: python3 -B apps/agent-box/backend/infra/backend-box/licenses/assemble.py --check
       - name: Build once without model credentials
         run: |
           docker build --platform linux/amd64 -t agent-box-base:local -f apps/agent-box/base/infra/agent-box/Dockerfile apps/agent-box/base
@@ -35,8 +37,12 @@ jobs:
           test "$(docker image inspect --format '{{ index .Config.Labels "org.opencontainers.image.revision" }}' hermes-release:local)" = "$GITHUB_SHA"
           docker save hermes-release:local -o "$RUNNER_TEMP/image.tar"
           skopeo copy "docker-archive:$RUNNER_TEMP/image.tar" "oci-archive:$RUNNER_TEMP/image.oci.tar:sha-$GITHUB_SHA"
+      - name: Verify vendor tools are absent from every image layer
+        run: python3 -B apps/agent-box/test/check_unbundled.py hermes-release:local "$RUNNER_TEMP/image.tar"
       - name: Scan every layer and config/history for secrets
         run: python3 -B scripts/hermes-release/scan_layers.py "$RUNNER_TEMP/image.tar" "$RUNNER_TEMP/secrets-summary.json"
+      - name: Verify required license and third-party notices in exact publication archive
+        run: python3 -B scripts/hermes-release/license_gate.py "$RUNNER_TEMP/image.oci.tar" "$GITHUB_SHA" "$RUNNER_TEMP/license-summary.json"
       - name: Basic offline startup and desktop smoke
         run: python3 -B apps/agent-box/test/smoke.py hermes-release:local
       - name: Informational SBOM
@@ -59,6 +65,7 @@ jobs:
         with:
           name: hermes-release-${{ github.sha }}
           path: |
+            ${{ runner.temp }}/license-summary.json
             ${{ runner.temp }}/secrets-summary.json
             ${{ runner.temp }}/sbom.cdx.json
             ${{ runner.temp }}/vulnerabilities.json

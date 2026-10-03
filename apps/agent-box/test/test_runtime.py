@@ -19,7 +19,7 @@ class RuntimeTest(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             log = root / 'commands'
-            for name in ('mkdir', 'chown', 'python3'):
+            for name in ('mkdir', 'chown', 'python3', 's6-setuidgid'):
                 command = root / name
                 command.write_text('#!/bin/sh\nprintf "%s" "${0##*/}" >> "$COMMAND_LOG"\n'
                                    'printf " <%s>" "$@" >> "$COMMAND_LOG"\nprintf "\\n" >> "$COMMAND_LOG"\n')
@@ -31,6 +31,7 @@ class RuntimeTest(unittest.TestCase):
                 'chown <hermes:hermes> </home/agent>',
                 'chown <-R> <hermes:hermes> </home/agent/.omp>',
                 'python3 </opt/subscription.py>',
+                's6-setuidgid <hermes> </opt/install-runtime-tools.sh>',
             ])
 
 

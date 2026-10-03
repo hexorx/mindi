@@ -16,11 +16,13 @@ RUN pnpm install --frozen-lockfile --ignore-scripts \
 # COPY layer, including executable modes, rather than one layer per file.
 COPY infra/agent-box/start-backend.sh /out/opt/start-backend.sh
 COPY infra/agent-box/start-hindsight.sh /out/opt/start-hindsight.sh
-COPY infra/backend-box/google-chrome-wayland.sh /out/usr/local/bin/google-chrome
+COPY infra/backend-box/google-chrome-wayland.sh /out/opt/runtime-browser-launcher
 COPY infra/backend-box/s6-rc.d/ /out/etc/s6-overlay/s6-rc.d/
 COPY infra/backend-box/subscription.py /out/opt/subscription.py
 COPY infra/backend-box/prepare-home.sh /out/etc/cont-init.d/10-backend-home
-RUN chmod 755 /out/opt/start-backend.sh /out/usr/local/bin/google-chrome \
+COPY infra/backend-box/licenses/LICENSE infra/backend-box/licenses/THIRD-PARTY-NOTICES \
+     /out/usr/share/doc/agent-box-hermes/
+RUN chmod 755 /out/opt/start-backend.sh /out/opt/runtime-browser-launcher \
     /out/etc/cont-init.d/10-backend-home /out/etc/s6-overlay/s6-rc.d/backend/run \
     /out/opt/start-hindsight.sh /out/etc/s6-overlay/s6-rc.d/hindsight/run
 
@@ -46,14 +48,12 @@ RUN case "$TARGETARCH" in \
     && printf '%s  %s\n' "$checksum" /usr/local/bin/omp | sha256sum -c - \
     && chmod 755 /usr/local/bin/omp \
     && test "$(omp --version)" = "omp/18.1.17"
-RUN npm install --prefix /opt/mindi-native --omit=dev \
-      @agentclientprotocol/claude-agent-acp@0.75.1 @anthropic-ai/claude-code@2.1.266
-ENV PATH="/opt/mindi-native/node_modules/.bin:${PATH}"
+ENV PATH="/home/agent/.local/bin:${PATH}"
 ENV TIKTOKEN_CACHE_DIR=/opt/hindsight-assets/tiktoken
 RUN mkdir -p "$TIKTOKEN_CACHE_DIR" \
     && /opt/hindsight/bin/python -c "import tiktoken; tiktoken.get_encoding('cl100k_base'); tiktoken.get_encoding('o200k_base')" \
     && chmod -R a+rX /opt/hindsight-assets
-ENV MINDI_CLAUDE_ACP_COMMAND=/opt/mindi-native/node_modules/.bin/claude-agent-acp
+ENV MINDI_CLAUDE_ACP_COMMAND=/home/agent/.local/bin/claude-agent-acp
 # Replace product service definitions; s6-overlay's own base services are retained
 # by /init. No Hermes bootstrap or profile dispatcher executes in this target.
 RUN rm -rf /etc/cont-init.d /etc/services.d /etc/s6-overlay/s6-rc.d \

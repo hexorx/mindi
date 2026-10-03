@@ -29,14 +29,13 @@ container does not change its status report.
 
 Runtime files and executable permissions are assembled in the build stage and
 copied together to keep the final image below overlay2's layer depth limit.
-The public `google-chrome` launcher uses `/usr/bin/google-chrome-stable` with
+The public `google-chrome` launcher uses `/home/agent/.local/share/mindi-tools/chrome/opt/google/chrome/chrome` with
 the incoming managed Wayland environment and container/accessibility flags.
 It does not consult Hermes configuration. When `MINDI_CHROME_USER_DATA_DIR` is
 set, it must be an absolute, non-empty path; the launcher injects that exact
 directory and rejects caller `--user-data-dir` flags. The desktop runtime owns
 creation and private-directory validation. With the variable unset, ordinary
-Chrome profile selection remains available. The legacy agent-box launcher is
-unchanged.
+Chrome profile selection remains available. Both image variants install the runtime tools as the `hermes` user.
 
 The packaging acceptance inspects the built image and allows at most 126 layers,
 reserving room for container layers. Run it alongside the boot acceptance when
@@ -114,3 +113,19 @@ packaged backend on the test host, including invalid-token rejection, discovery,
 thread creation/read, and recovery of the same thread after container restart.
 The native transport test does not prove rendered UI behavior or provide
 automatic SSH connection management.
+
+## First-start tools
+
+Chrome 154.0.8037.97 (SHA256-verified vendor .deb), Claude Code 2.1.266,
+and Claude ACP 0.75.1 are downloaded on first start, never at image build.
+The npm dependency tree is pinned by `base/infra/agent-box/runtime-tools/package-lock.json`.
+All downloads, caches and installed files live under the persisted `/home/agent`;
+launchers are in `.local/bin`. Completed versions skip network access on restart.
+Each install is bounded to 120 seconds; failures log a warning and leave the box
+running without that tool. Failed installs retry on next start. The two tools
+install independently. Chrome currently supports amd64 hosts only.
+Updating a pin requires updating its checksum/lock and rebuilding the image.
+Existing successful versions remain on the volume; no runtime deletion or apt
+registration is performed. Network access to npm and dl.google.com is required
+only when installing. The offline smoke deliberately verifies startup without
+these optional tools; online image acceptance verifies installation and reuse.
