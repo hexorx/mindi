@@ -15,6 +15,16 @@ import scan_layers
 
 
 class PublicationTests(unittest.TestCase):
+    def test_release_needs_no_subscription_credentials(self):
+        workflow = (Path(__file__).resolve().parents[2] /
+                    '.github/workflows/hermes-promote.yml').read_text()
+        self.assertNotIn('HERMES_SUBSCRIPTION_AUTH_JSON', workflow)
+        self.assertNotIn('--subscription', workflow)
+        self.assertIn('scripts/hermes-release/publish.py preflight', workflow)
+        self.assertIn('scripts/hermes-release/scan_layers.py', workflow)
+        self.assertIn('apps/agent-box/test/smoke.py hermes-release:local', workflow)
+        self.assertIn('scripts/hermes-release/publish.py publish', workflow)
+
     def test_package_metadata_uses_hexorx_user_namespace(self):
         with patch.object(publish.subprocess, 'run', return_value=subprocess.CompletedProcess(
                 [], 0, b'{"visibility":"private"}')) as run:
