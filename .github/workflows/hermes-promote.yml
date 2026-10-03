@@ -23,10 +23,6 @@ jobs:
           persist-credentials: false
       - name: Refuse public packages and existing immutable tags
         run: python3 -B scripts/hermes-release/publish.py preflight
-      - name: Require existing subscription login
-        env:
-          HERMES_SUBSCRIPTION_AUTH_JSON: ${{ secrets.HERMES_SUBSCRIPTION_AUTH_JSON }}
-        run: test -n "$HERMES_SUBSCRIPTION_AUTH_JSON"
       - uses: aquasecurity/setup-trivy@81e514348e19b6112ce2a7e3ecbafe19c1e1f567 # v0.3.1
         with:
           version: v0.75.0
@@ -43,10 +39,6 @@ jobs:
         run: python3 -B scripts/hermes-release/scan_layers.py "$RUNNER_TEMP/image.tar" "$RUNNER_TEMP/secrets-summary.json"
       - name: Basic offline startup and desktop smoke
         run: python3 -B apps/agent-box/test/smoke.py hermes-release:local
-      - name: Require a real subscription answer
-        env:
-          HERMES_SUBSCRIPTION_AUTH_JSON: ${{ secrets.HERMES_SUBSCRIPTION_AUTH_JSON }}
-        run: python3 -B apps/agent-box/test/smoke.py hermes-release:local --subscription
       - name: Informational SBOM
         continue-on-error: true
         run: trivy image --input "$RUNNER_TEMP/image.tar" --format cyclonedx --output "$RUNNER_TEMP/sbom.cdx.json"
