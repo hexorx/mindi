@@ -15,6 +15,12 @@ import scan_layers
 
 
 class PublicationTests(unittest.TestCase):
+    def setUp(self):
+        gate = patch.object(publish.license_gate, "check", return_value={
+            "manifest_digest": "sha256:" + hashlib.sha256(b"manifest").hexdigest()})
+        self.license_check = gate.start()
+        self.addCleanup(gate.stop)
+
     def test_release_needs_no_subscription_credentials(self):
         workflow = (Path(__file__).resolve().parents[2] /
                     '.github/workflows/hermes-promote.yml').read_text()
@@ -87,6 +93,7 @@ class PublicationTests(unittest.TestCase):
 
     def test_success_requires_matching_anonymous_manifest(self):
         raw = b'{"schemaVersion":2}'
+        self.license_check.return_value = {'manifest_digest': 'sha256:' + hashlib.sha256(raw).hexdigest()}
         for public, succeeds in ((raw, True), (b'{"schemaVersion":2,"changed":true}', False)):
             with tempfile.TemporaryDirectory() as tmp:
                 receipt = Path(tmp) / 'receipt.json'

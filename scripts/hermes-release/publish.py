@@ -7,8 +7,11 @@ from pathlib import Path
 import re
 import subprocess
 import sys
+
 from urllib.parse import quote, urljoin
 from urllib.request import Request, urlopen
+
+import license_gate
 
 REGISTRY = 'https://ghcr.io/v2/hexorx/agent-box-hermes/'
 IMAGE = 'ghcr.io/hexorx/agent-box-hermes'
@@ -78,9 +81,13 @@ def preflight(sha):
 
 
 def publish(sha, archive, receipt):
+    # Recheck the exact archive here too: direct CLI use cannot skip this gate.
+    licensing = license_gate.check(archive, sha, receipt.with_name("license-summary.json"))
     tag = preflight(sha)
     digest = 'sha256:' + hashlib.sha256(run(['skopeo', 'inspect', '--raw', 'oci-archive:' + str(archive)]).stdout).hexdigest()
-    receipt.write_text(json.dumps({'source': sha, 'tag': IMAGE + ':' + tag,
+    if digest != licensing['manifest_digest']:
+        raise ValueError('License-checked manifest differs from publication manifest')
+    receipt.write_text(json.dumps({'source': sha, 'workflow_sha': sha, 'built_source_sha': sha, 'tag': IMAGE + ':' + tag,
                                    'expected_image': IMAGE + '@' + digest, 'status': 'prepared'}) + '\n')
     # Auth comes from a private runtime auth file, never argv or image content.
     run(['skopeo', 'copy', '--preserve-digests', '--authfile', os.environ['REGISTRY_AUTH_FILE'],
@@ -91,7 +98,7 @@ def publish(sha, archive, receipt):
         raise ValueError('Published digest mismatch')
     if hashlib.sha256(public_manifest(tag)).hexdigest() != digest.removeprefix('sha256:'):
         raise ValueError('Public digest mismatch')
-    receipt.write_text(json.dumps({'source': sha, 'tag': IMAGE + ':' + tag,
+    receipt.write_text(json.dumps({'source': sha, 'workflow_sha': sha, 'built_source_sha': sha, 'tag': IMAGE + ':' + tag,
                                    'image': IMAGE + '@' + digest, 'visibility': 'public'}, indent=2) + '\n')
 
 

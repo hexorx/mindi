@@ -166,6 +166,7 @@ def legacy_home_smoke(image, scratch, args):
 def main():
     image = sys.argv[1]
     subscription = '--subscription' in sys.argv[2:]
+    runtime_tools = '--runtime-tools' in sys.argv[2:]
     auth = subscription_document(os.environ.get('HERMES_SUBSCRIPTION_AUTH_JSON', '')) if subscription else None
     scratch = Path(os.environ['RUNNER_TEMP']) / ('original-box-' + secrets.token_hex(6))
     scratch.mkdir(mode=0o755)
@@ -177,7 +178,7 @@ def main():
             '-e', 'MINDI_BACKEND_TOKEN_FILE=/run/backend-example/token',
             '-e', 'HINDSIGHT_ENABLED=0',
             '-e', 'AGENT_BOX_RUN_DIR=/tmp/agent-box']
-    if not subscription:
+    if not subscription and not runtime_tools:
         args += ['--network=none']
     legacy_home_smoke(image, scratch, args)
     run([*args, image])
@@ -190,17 +191,29 @@ def main():
              'test -w /home/agent/.hermes/config.yaml; '
              'test -w /home/agent/.omp; '
              'test -f /tmp/agent-box/waiting-hindsight'])
-        # Both binaries must be available; never invoke a paid provider.
-        run(['docker', 'exec', '--user', 'hermes', name, 'claude', '--version'])
+        # Runtime-only tools are unavailable on a fresh offline home.
+        if not subscription and not runtime_tools:
+            run(['docker', 'exec', name, 'sh', '-c',
+                 'test ! -e /opt/mindi-native && ! command -v claude'])
         run(['docker', 'exec', '--user', 'hermes', name, 'hermes', '--help'])
         if auth is not None:
             writer = "import os,sys; p='/home/agent/.hermes/auth.json'; fd=os.open(p,os.O_WRONLY|os.O_CREAT|os.O_EXCL,0o600); data=sys.stdin.buffer.read(); f=os.fdopen(fd,'wb'); f.write(data); f.close()"
             run(['docker', 'exec', '-i', '--user', 'hermes', name,
                  'python3', '-c', writer], input=auth)
+        if runtime_tools:
+            run(['docker', 'exec', '--user', 'hermes', name, 'sh', '-ec',
+                 'test "$(claude --version)" = "2.1.266 (Claude Code)"; '
+                 'test "$(/home/agent/.local/share/mindi-tools/chrome/opt/google/chrome/chrome --version)" = "Google Chrome 154.0.8037.97 "; '
+                 'test -x /home/agent/.local/bin/claude-agent-acp'])
         # Same home survives normal restart, including the subscription login.
         run(['docker', 'restart', '--time', '20', name])
         wait_desktop(name)
         verify_backend_identity(name)
+        if runtime_tools:
+            logs = run(['docker', 'logs', name]).stdout.decode()
+            if logs.count('already installed; skipping') < 2:
+                raise ValueError('Restart did not reuse both pinned tools')
+            print('Runtime tools: both pinned versions installed at first boot; restart skipped installs.')
         if auth is not None:
             challenge = 'HERMES_OK_' + secrets.token_hex(12)
             answer = run(['docker', 'exec', '--user', 'hermes', name,
