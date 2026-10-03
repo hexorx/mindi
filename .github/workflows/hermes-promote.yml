@@ -16,7 +16,6 @@ jobs:
       packages: write
     env:
       GH_TOKEN: ${{ github.token }}
-      REGISTRY_AUTH_FILE: ${{ runner.temp }}/registry-auth.json
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
@@ -57,6 +56,7 @@ jobs:
       - name: Push exact digest to private package
         env:
           GHCR_TOKEN: ${{ github.token }}
+          REGISTRY_AUTH_FILE: ${{ runner.temp }}/registry-auth.json
         run: |
           printf '%s' "$GHCR_TOKEN" | skopeo login --authfile "$REGISTRY_AUTH_FILE" --username "$GITHUB_ACTOR" --password-stdin ghcr.io
           python3 -B scripts/hermes-release/publish.py publish "$RUNNER_TEMP/image.oci.tar" "$RUNNER_TEMP/receipt.json"

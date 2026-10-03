@@ -150,3 +150,9 @@ vite.config.ts.timestamp-*
 !/docs/third-party/hex195-provenance-join/opi-evidence/volume/facts/probe.log
 !/docs/third-party/hex195-provenance-join/opi-evidence/volume/run/debfetch.log
 !/docs/third-party/hex195-provenance-join/opi-evidence/volume/run/status.log
+
+# These two dashboard bundles are original image inputs, not local build output.
+!apps/agent-box/base/infra/agent-box/plugins/mindi-box/dashboard/dist/
+!apps/agent-box/base/infra/agent-box/plugins/mindi-box/dashboard/dist/index.js
+!apps/agent-box/base/infra/agent-box/plugins/mindi-desktop/dashboard/dist/
+!apps/agent-box/base/infra/agent-box/plugins/mindi-desktop/dashboard/dist/index.js
