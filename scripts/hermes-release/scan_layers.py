@@ -32,6 +32,9 @@ def scan(directory, allowlist):
         raise ValueError('Invalid scanner report')
     findings = []
     for item in report.get('Results', []):
+        # Package-only results use descriptive Targets, not file paths.
+        if not item.get('Secrets'):
+            continue
         target = Path(item['Target'])
         if target.is_absolute():
             target = target.relative_to(directory)

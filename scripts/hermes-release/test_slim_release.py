@@ -90,6 +90,35 @@ class SecretTests(unittest.TestCase):
                 self.assertNotIn('never-emit', json.dumps(findings))
                 self.assertNotIn('changed', json.dumps(findings))
 
+    def test_package_results_do_not_hide_secret_findings(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            (root / 'fixture.txt').write_text('synthetic fixture')
+            packages = [
+                {'Class': 'os-pkgs', 'Target': '/private/scan/1 (none )'},
+                {'Class': 'lang-pkgs', 'Target': 'Python', 'Secrets': []},
+            ]
+            finding = {'RuleID': 'fixture', 'StartLine': 1, 'Match': 'never-emit'}
+            for results, expected in (
+                    (packages, []),
+                    (packages + [{'Target': str(root / 'fixture.txt'), 'Secrets': [finding]}],
+                     [{'path': '/fixture.txt', 'rule': 'fixture', 'line': 1}])):
+                with self.subTest(results=results), patch.object(
+                        scan_layers.subprocess, 'run', return_value=subprocess.CompletedProcess(
+                            [], 0, json.dumps({'SchemaVersion': 2, 'Results': results}).encode())):
+                    self.assertEqual(scan_layers.scan(root, []), expected)
+
+    def test_unsafe_secret_targets_still_fail_closed(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            for target in ('/outside', '../outside', 'a/../../outside'):
+                report = {'SchemaVersion': 2, 'Results': [{'Target': target, 'Secrets': [
+                    {'RuleID': 'fixture', 'StartLine': 1}]}]}
+                with self.subTest(target=target), patch.object(
+                        scan_layers.subprocess, 'run', return_value=subprocess.CompletedProcess(
+                            [], 0, json.dumps(report).encode())):
+                    with self.assertRaises(ValueError):
+                        scan_layers.scan(Path(tmp), [])
+
     def test_deleted_file_is_scanned_in_earlier_layer(self):
         def tar_bytes(files):
             result = io.BytesIO()
