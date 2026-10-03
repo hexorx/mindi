@@ -1,0 +1,158 @@
+[
+  {
+    "name": "colord",
+    "version": "2.9.4",
+    "url": "https://registry.npmjs.org/colord/-/colord-2.9.4.tgz",
+    "sha256": "3316a7f397a88ba8e97dcfeb9e26cd1a2de8c37584ee0acd3839705ce8de1c00",
+    "size": 35520,
+    "integrity": "sha512-z0nTt5300AIviCn9FTEL4G2DzPkfEDfghx6Do0ZfM3u0rOINBtfw2H8lD4VXyZF/o8HTzzyiCztaG2X/+IMeZA==",
+    "verified": true,
+    "engines": null,
+    "peerDependencies": {}
+  },
+  {
+    "name": "baseline-browser-mapping",
+    "version": "2.11.0",
+    "url": "https://registry.npmjs.org/baseline-browser-mapping/-/baseline-browser-mapping-2.11.0.tgz",
+    "sha256": "b21cb70735b59eba424dd8efd7749321c4a83118b5143b85d9d7172535fe9294",
+    "size": 41061,
+    "integrity": "sha512-oCu2wfipvX3AePSgmOuKkIywOu+8n9psz7hXYmk56ghpu3+7KzNIBopaOs4c9BrtdnTtW30unG9GTfHo7EwERQ==",
+    "verified": true,
+    "engines": {
+      "node": ">=6.0.0"
+    },
+    "peerDependencies": {}
+  },
+  {
+    "name": "vitest",
+    "version": "4.1.11",
+    "url": "https://registry.npmjs.org/vitest/-/vitest-4.1.11.tgz",
+    "sha256": "81875725211b8c43a30213579456954603d471d022587ce0e6842d44d9ed162b",
+    "size": 475397,
+    "integrity": "sha512-fhACrNXUidIbGSBr5FlbuBkO7VWC1ZyLl0DO4CU2DrQoAPxX84Ysxs+HeGQpii5lZWV1Q4gBZTTu49mF+A6Edw==",
+    "verified": true,
+    "engines": {
+      "node": "^20.0.0 || ^22.0.0 || >=24.0.0"
+    },
+    "peerDependencies": {
+      "@edge-runtime/vm": "*",
+      "@opentelemetry/api": "^1.9.0",
+      "@types/node": "^20.0.0 || ^22.0.0 || >=24.0.0",
+      "happy-dom": "*",
+      "jsdom": "*",
+      "vite": "^6.0.0 || ^7.0.0 || ^8.0.0",
+      "@vitest/browser-playwright": "4.1.11",
+      "@vitest/browser-preview": "4.1.11",
+      "@vitest/browser-webdriverio": "4.1.11",
+      "@vitest/coverage-v8": "4.1.11",
+      "@vitest/coverage-istanbul": "4.1.11",
+      "@vitest/ui": "4.1.11"
+    }
+  },
+  {
+    "name": "sanitize-html",
+    "version": "2.17.7",
+    "url": "https://registry.npmjs.org/sanitize-html/-/sanitize-html-2.17.7.tgz",
+    "sha256": "0fd2546f4239c01423578816ca48f17c81e9e1fb81f83c284ac053260be5a8b4",
+    "size": 22475,
+    "integrity": "sha512-PGtEkc9cbnedU3s9TmzDbpsZ8w086g/0Q8k8/oIO1NLNU3i5k9yn835CrjJSajp1KMmkisbO1qPXxNKO3welAg==",
+    "verified": true,
+    "engines": {
+      "node": ">=22.12.0"
+    },
+    "peerDependencies": {}
+  },
+  {
+    "name": "brace-expansion",
+    "version": "5.0.12",
+    "url": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-5.0.12.tgz",
+    "sha256": "ef8448ec78f20b692f04fa6d01f39b5ab34c66404bea3429f5a39c6c9e0be8b4",
+    "size": 12620,
+    "integrity": "sha512-YovQ3rzhaLMIrDjNDMkNS01tea93qhEhG5xy8f6+R0l+dw3Ki+5sCoIoI942iuLZTHWogWktgwVDhU09iNEimQ==",
+    "verified": true,
+    "engines": {
+      "node": "20 || >=22"
+    },
+    "peerDependencies": {}
+  },
+  {
+    "name": "@vitest/mocker",
+    "version": "4.1.11",
+    "url": "https://registry.npmjs.org/@vitest/mocker/-/mocker-4.1.11.tgz",
+    "sha256": "5f42c3959636909c506885ef643f4a4e4d024bd7939934465f280c42164eb142",
+    "size": 56516,
+    "integrity": "sha512-2XJVD55d1o5AZous5CCGKS74g/riOj9odEt2bQpCVZeblHyHdnMeFl4jl0XjU21stf4mbjUkew2eXQZt65g5CQ==",
+    "verified": true,
+    "engines": null,
+    "peerDependencies": {
+      "msw": "^2.4.9",
+      "vite": "^6.0.0 || ^7.0.0 || ^8.0.0"
+    }
+  },
+  {
+    "name": "@vitest/spy",
+    "version": "4.1.11",
+    "url": "https://registry.npmjs.org/@vitest/spy/-/spy-4.1.11.tgz",
+    "sha256": "9b15875da96e769a19b3c9e2c316459528c57b9c20168c5abaa1ce050b7c8490",
+    "size": 9566,
+    "integrity": "sha512-apNa/prQy2qCeywhnixOHPRCgGNhvg7T4Dapfl1GahLp/R+uhBm5cPyFoNVyqsNd2h1nJxL6BqqdIjiABL60YA==",
+    "verified": true,
+    "engines": null,
+    "peerDependencies": {}
+  },
+  {
+    "name": "@vitest/utils",
+    "version": "4.1.11",
+    "url": "https://registry.npmjs.org/@vitest/utils/-/utils-4.1.11.tgz",
+    "sha256": "ac1150697c2b1b5b14322f3ac85de74a405228291de1265f2e453c6db9544ee6",
+    "size": 45447,
+    "integrity": "sha512-zTCVGpyFsGWBhllOyKlTw/vnr6D9qxsfSDyfbyZmTyjHw5N/VuvzHpHoQjm2ZJzn4RJgx5w4r7V0er69CmLgPQ==",
+    "verified": true,
+    "engines": null,
+    "peerDependencies": {}
+  },
+  {
+    "name": "@vitest/expect",
+    "version": "4.1.11",
+    "url": "https://registry.npmjs.org/@vitest/expect/-/expect-4.1.11.tgz",
+    "sha256": "503d668851ce760fb60bb2b4681452089d8658a5fbd2b1f626dece4c1fbcc57f",
+    "size": 24924,
+    "integrity": "sha512-VX2x5vNJXET47KAFzwERI+KRMtTTCSWTfSMKsW7JsUsXV4psq++e3DvZpuTDOpHcxytiDs6p2nhVb2tVDiiUYw==",
+    "verified": true,
+    "engines": null,
+    "peerDependencies": {}
+  },
+  {
+    "name": "@vitest/runner",
+    "version": "4.1.11",
+    "url": "https://registry.npmjs.org/@vitest/runner/-/runner-4.1.11.tgz",
+    "sha256": "335051b85fce0ad3788c67b84b7949835b5eeeb20b785d8e3741eb396fc23d58",
+    "size": 48456,
+    "integrity": "sha512-LztvUgdwMNJMIkj3hQnnxiC2Xy1zNxq928W/xhjCLaNCzqTZOudjwbQf6v9IntZGPw132i2Lq2rgTRZHD3JHNw==",
+    "verified": true,
+    "engines": null,
+    "peerDependencies": {}
+  },
+  {
+    "name": "@vitest/snapshot",
+    "version": "4.1.11",
+    "url": "https://registry.npmjs.org/@vitest/snapshot/-/snapshot-4.1.11.tgz",
+    "sha256": "6893221f95ccea0c56dfbcc6e95ae2198fd086e6de5e11caf12baf1cf2b0c605",
+    "size": 17411,
+    "integrity": "sha512-pN7ikn1ON7h8ee4gIAp4AzyK+zBtJPzVbqOgu5LCEh4VaJVbPQcgYQYJIMGQPXVeJJq1fnfazis7a5pFNPahog==",
+    "verified": true,
+    "engines": null,
+    "peerDependencies": {}
+  },
+  {
+    "name": "@vitest/pretty-format",
+    "version": "4.1.11",
+    "url": "https://registry.npmjs.org/@vitest/pretty-format/-/pretty-format-4.1.11.tgz",
+    "sha256": "4eff485284e6338a567b63be5f6a74c0b42b9e30e0164a8006d832c26130e51b",
+    "size": 12888,
+    "integrity": "sha512-yiZzPbGTS9Sr/JpFl8zHrcIkAofNbFV6k21vIgQN/cY/oxZeXhJv5sc/MBJ5jFKWmWs+oJHw0UXLZjmf931+Vw==",
+    "verified": true,
+    "engines": null,
+    "peerDependencies": {}
+  }
+]

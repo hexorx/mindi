@@ -1,0 +1,1347 @@
+[
+  {
+    "native_sha256": "271aa33c3e480b617f244aa20bcfac335656b3060a124dd70f65a36dcbc1728d",
+    "class": "F2",
+    "package": "colord",
+    "version": "2.9.3",
+    "vulnerability": "GHSA-2wm5-q62r-hmrv",
+    "paths": [
+      "/opt/hermes/node_modules/colord/package.json"
+    ],
+    "target": "2.9.4",
+    "status": "source prepared; new-image rescan required"
+  },
+  {
+    "native_sha256": "f544a0ce87dda2b3eddc6eaf756ccc695f7ff5937854787446f207761bde9eca",
+    "class": "F2",
+    "package": "baseline-browser-mapping",
+    "version": "2.10.44",
+    "vulnerability": "GHSA-w5vr-8v7q-w6rv",
+    "paths": [
+      "/opt/hermes/node_modules/baseline-browser-mapping/package.json"
+    ],
+    "target": "2.11.0",
+    "status": "source prepared; new-image rescan required"
+  },
+  {
+    "native_sha256": "8dde0494cda041673d6984ac8a8ac037ef7fe3217241f28ac186611d5c66f1ed",
+    "class": "F2",
+    "package": "@vitest/mocker",
+    "version": "4.1.10",
+    "vulnerability": "GHSA-82fw-gwwq-j7x9",
+    "paths": [
+      "/opt/hermes/node_modules/@vitest/mocker/package.json"
+    ],
+    "target": "4.1.11",
+    "status": "source prepared; new-image rescan required"
+  },
+  {
+    "native_sha256": "8f41ea3f5a6e815c1663f67ed1628974c9e4cc1b9ebf72a406528c64d761ae24",
+    "class": "F2",
+    "package": "vitest",
+    "version": "4.1.10",
+    "vulnerability": "GHSA-82fw-gwwq-j7x9",
+    "paths": [
+      "/opt/hermes/node_modules/vitest/package.json"
+    ],
+    "target": "4.1.11",
+    "status": "source prepared; new-image rescan required"
+  },
+  {
+    "native_sha256": "14d9ef6282e5e345184c5aebc6c92461c36c5edc01898399508b81b6921a4a18",
+    "class": "F4",
+    "package": "pip",
+    "version": "25.1.1",
+    "vulnerability": "GHSA-wf93-45jw-7689",
+    "paths": [
+      "/opt/hindsight/lib/python3.13/site-packages/pip-25.1.1.dist-info/METADATA",
+      "/opt/hindsight/lib/python3.13/site-packages/pip-25.1.1.dist-info/RECORD",
+      "/opt/hindsight/lib/python3.13/site-packages/pip-25.1.1.dist-info/top_level.txt"
+    ],
+    "target": "removed from runtime venv",
+    "status": "source prepared; new-image rescan required"
+  },
+  {
+    "native_sha256": "1e26dceda9cbe75bd3bd2bc511f884c875dac11dd8ef9b93c00e78dfc5593ba0",
+    "class": "F4",
+    "package": "pip",
+    "version": "25.1.1",
+    "vulnerability": "GHSA-4xh5-x5gv-qwph",
+    "paths": [
+      "/opt/hindsight/lib/python3.13/site-packages/pip-25.1.1.dist-info/METADATA",
+      "/opt/hindsight/lib/python3.13/site-packages/pip-25.1.1.dist-info/RECORD",
+      "/opt/hindsight/lib/python3.13/site-packages/pip-25.1.1.dist-info/top_level.txt"
+    ],
+    "target": "removed from runtime venv",
+    "status": "source prepared; new-image rescan required"
+  },
+  {
+    "native_sha256": "069befc7af9100d6586a864d3070f952feaa87b1f3405c59cb02e46340ecf43b",
+    "class": "F3",
+    "package": "ip-address",
+    "version": "10.5.0",
+    "vulnerability": "GHSA-2vr4-cq9g-pvrc",
+    "paths": [
+      "/usr/local/lib/node_modules/npm/node_modules/ip-address/package.json"
+    ],
+    "target": "10.7.1",
+    "status": "source prepared via hash-locked npm overlay; new-image rescan required"
+  },
+  {
+    "native_sha256": "eef9b080193ccb9386eba7bdda343143a0026e32de75999a8cf24d1fe17a3096",
+    "class": "F3",
+    "package": "ip-address",
+    "version": "10.5.0",
+    "vulnerability": "GHSA-rpw4-54j3-4h4q",
+    "paths": [
+      "/usr/local/lib/node_modules/npm/node_modules/ip-address/package.json"
+    ],
+    "target": "10.7.1",
+    "status": "source prepared via hash-locked npm overlay; new-image rescan required"
+  },
+  {
+    "native_sha256": "44b48b78a23ead5a00fe543a7c07b8845d7bbc41e9122fd9424b9fe05a2bf0b2",
+    "class": "F3",
+    "package": "ip-address",
+    "version": "10.5.0",
+    "vulnerability": "GHSA-j6r3-76f7-8jcv",
+    "paths": [
+      "/usr/local/lib/node_modules/npm/node_modules/ip-address/package.json"
+    ],
+    "target": "10.7.1",
+    "status": "source prepared via hash-locked npm overlay; new-image rescan required"
+  },
+  {
+    "native_sha256": "2d98a87132f32983c2c65e7bd87eb6b3c2e58d6b493e5a54734f76791ccd7ee5",
+    "class": "F3",
+    "package": "ip-address",
+    "version": "10.5.0",
+    "vulnerability": "GHSA-h3mg-xc3c-68pw",
+    "paths": [
+      "/usr/local/lib/node_modules/npm/node_modules/ip-address/package.json"
+    ],
+    "target": "10.7.1",
+    "status": "source prepared via hash-locked npm overlay; new-image rescan required"
+  },
+  {
+    "native_sha256": "51de491d0b74ff20a146428b598d6ae3924324dcc3e54506b97538e1185d8a63",
+    "class": "F3",
+    "package": "brace-expansion",
+    "version": "5.0.11",
+    "vulnerability": "GHSA-q2hr-2g5m-vwhr",
+    "paths": [
+      "/usr/local/lib/node_modules/npm/node_modules/brace-expansion/package.json"
+    ],
+    "target": "5.0.12",
+    "status": "source prepared via hash-locked npm overlay; new-image rescan required"
+  },
+  {
+    "native_sha256": "ece9283a41fbe5a5b47e0117f68c737bab3117a536f95f239fdf5197a7a758c1",
+    "class": "F2",
+    "package": "brace-expansion",
+    "version": "5.0.11",
+    "vulnerability": "GHSA-q2hr-2g5m-vwhr",
+    "paths": [
+      "/opt/hermes/node_modules/brace-expansion/package.json"
+    ],
+    "target": "5.0.12",
+    "status": "source prepared; new-image rescan required"
+  },
+  {
+    "native_sha256": "f674577acc923564156dea47337adc1cc8ea1893144f7857fdf683b42ae3ffab",
+    "class": "F2",
+    "package": "sanitize-html",
+    "version": "2.17.6",
+    "vulnerability": "GHSA-g8qq-57p8-ggw5",
+    "paths": [
+      "/opt/hermes/node_modules/sanitize-html/package.json"
+    ],
+    "target": "2.17.7",
+    "status": "source prepared; new-image rescan required"
+  },
+  {
+    "native_sha256": "bcee5719a27fbcfbfdbd93564c87cac84abfbdf7f1d140db9f07aeca81f0a652",
+    "class": "F4",
+    "package": "pip",
+    "version": "25.1.1",
+    "vulnerability": "GHSA-qwm4-qh6w-59xr",
+    "paths": [
+      "/opt/hindsight/lib/python3.13/site-packages/pip-25.1.1.dist-info/METADATA",
+      "/opt/hindsight/lib/python3.13/site-packages/pip-25.1.1.dist-info/RECORD",
+      "/opt/hindsight/lib/python3.13/site-packages/pip-25.1.1.dist-info/top_level.txt"
+    ],
+    "target": "removed from runtime venv",
+    "status": "source prepared; new-image rescan required"
+  },
+  {
+    "native_sha256": "06fbca79dbde83194f94a5338dab0c8ed0147f962ba965e6f46542d5c467fe74",
+    "class": "F4",
+    "package": "pyjwt",
+    "version": "2.14.0",
+    "vulnerability": "GHSA-42vr-xj54-vc7v",
+    "paths": [
+      "/opt/hermes/.venv/lib/python3.13/site-packages/pyjwt-2.14.0.dist-info/METADATA",
+      "/opt/hermes/.venv/lib/python3.13/site-packages/pyjwt-2.14.0.dist-info/RECORD",
+      "/opt/hermes/.venv/lib/python3.13/site-packages/pyjwt-2.14.0.dist-info/top_level.txt"
+    ],
+    "target": "2.15.0",
+    "status": "source prepared; new-image rescan required"
+  },
+  {
+    "native_sha256": "7716c5f6cef37f2828dcb94839ddd5c7088f905ec392194b8031e8cd712a7262",
+    "class": "F4",
+    "package": "pip",
+    "version": "25.1.1",
+    "vulnerability": "GHSA-6vgw-5pg2-w6jp",
+    "paths": [
+      "/opt/hindsight/lib/python3.13/site-packages/pip-25.1.1.dist-info/METADATA",
+      "/opt/hindsight/lib/python3.13/site-packages/pip-25.1.1.dist-info/RECORD",
+      "/opt/hindsight/lib/python3.13/site-packages/pip-25.1.1.dist-info/top_level.txt"
+    ],
+    "target": "removed from runtime venv",
+    "status": "source prepared; new-image rescan required"
+  },
+  {
+    "native_sha256": "dffc1c3204dd86f0f4fa0f53e050f03c3bb384e0e6e3f5468fdfb1e9bc94693e",
+    "class": "F1",
+    "package": "libasound2-data",
+    "version": "1.2.14-1",
+    "vulnerability": "CVE-2026-25068",
+    "paths": [
+      "/usr/share/doc/libasound2-data/copyright",
+      "/var/lib/dpkg/info/libasound2-data.list",
+      "/var/lib/dpkg/info/libasound2-data.md5sums",
+      "/var/lib/dpkg/status"
+    ],
+    "target": "1.2.14-1+deb13u1",
+    "status": "source prepared; new-image rescan required"
+  },
+  {
+    "native_sha256": "21d89b987b850beb7571f33262dffcff27431fe206e1cce860dceef9a5ea6492",
+    "class": "F1",
+    "package": "libasound2t64",
+    "version": "1.2.14-1",
+    "vulnerability": "CVE-2026-25068",
+    "paths": [
+      "/usr/share/doc/libasound2t64/copyright",
+      "/var/lib/dpkg/info/libasound2t64:amd64.md5sums",
+      "/var/lib/dpkg/status"
+    ],
+    "target": "1.2.14-1+deb13u1",
+    "status": "source prepared; new-image rescan required"
+  },
+  {
+    "native_sha256": "f1d6e4dfa95ba386436a1d33dd8e7a26ed4588915a40fb8982d862c35a4f33b9",
+    "class": "F4",
+    "package": "pip",
+    "version": "25.1.1",
+    "vulnerability": "GHSA-jp4c-xjxw-mgf9",
+    "paths": [
+      "/opt/hindsight/lib/python3.13/site-packages/pip-25.1.1.dist-info/METADATA",
+      "/opt/hindsight/lib/python3.13/site-packages/pip-25.1.1.dist-info/RECORD",
+      "/opt/hindsight/lib/python3.13/site-packages/pip-25.1.1.dist-info/top_level.txt"
+    ],
+    "target": "removed from runtime venv",
+    "status": "source prepared; new-image rescan required"
+  },
+  {
+    "native_sha256": "bf98a964339da9e253f88f0a88d953f01aa2fe555faafa9ba894727e9eac257c",
+    "class": "F1",
+    "package": "bsdutils",
+    "version": "1:2.41-5",
+    "vulnerability": "CVE-2026-13595",
+    "paths": [
+      "/usr/share/doc/bsdutils/copyright",
+      "/var/lib/dpkg/info/bsdutils.list",
+      "/var/lib/dpkg/info/bsdutils.md5sums",
+      "/var/lib/dpkg/status"
+    ],
+    "target": "1:2.41.5-0+deb13u1",
+    "status": "source prepared; new-image rescan required"
+  },
+  {
+    "native_sha256": "41777185aa2c071385afab8548962e5819430d7b99ed0ec50f8ec22ea0073076",
+    "class": "F1",
+    "package": "libblkid1",
+    "version": "2.41-5",
+    "vulnerability": "CVE-2026-13595",
+    "paths": [
+      "/usr/share/doc/libblkid1/copyright",
+      "/var/lib/dpkg/info/libblkid1:amd64.md5sums",
+      "/var/lib/dpkg/status"
+    ],
+    "target": "2.41.5-0+deb13u1",
+    "status": "source prepared; new-image rescan required"
+  },
+  {
+    "native_sha256": "2637e86e9a0d24006ddbdf426fdf283301e714cd951404a936b85d5b1935f48b",
+    "class": "F1",
+    "package": "liblastlog2-2",
+    "version": "2.41-5",
+    "vulnerability": "CVE-2026-13595",
+    "paths": [
+      "/usr/share/doc/liblastlog2-2/copyright",
+      "/var/lib/dpkg/info/liblastlog2-2:amd64.md5sums",
+      "/var/lib/dpkg/status"
+    ],
+    "target": "2.41.5-0+deb13u1",
+    "status": "source prepared; new-image rescan required"
+  },
+  {
+    "native_sha256": "291a37ccd72f909da2b7fc52c5f5d780134624b476c2762486888d1ffaad6d5f",
+    "class": "F1",
+    "package": "libmount1",
+    "version": "2.41-5",
+    "vulnerability": "CVE-2026-13595",
+    "paths": [
+      "/usr/share/doc/libmount1/copyright",
+      "/var/lib/dpkg/info/libmount1:amd64.md5sums",
+      "/var/lib/dpkg/status"
+    ],
+    "target": "2.41.5-0+deb13u1",
+    "status": "source prepared; new-image rescan required"
+  },
+  {
+    "native_sha256": "08d3efb3f9c137c67ff93b5e0d1f81b45d2318ff15c8d830b9b889df58ff1b7b",
+    "class": "F1",
+    "package": "libsmartcols1",
+    "version": "2.41-5",
+    "vulnerability": "CVE-2026-13595",
+    "paths": [
+      "/usr/share/doc/libsmartcols1/copyright",
+      "/var/lib/dpkg/info/libsmartcols1:amd64.md5sums",
+      "/var/lib/dpkg/status"
+    ],
+    "target": "2.41.5-0+deb13u1",
+    "status": "source prepared; new-image rescan required"
+  },
+  {
+    "native_sha256": "9b7f91123bf7dd381cbf92e6609cd4dc24cce6db1410146f6d4e3d26b477bf91",
+    "class": "F1",
+    "package": "libuuid1",
+    "version": "2.41-5",
+    "vulnerability": "CVE-2026-13595",
+    "paths": [
+      "/usr/share/doc/libuuid1/copyright",
+      "/var/lib/dpkg/info/libuuid1:amd64.md5sums",
+      "/var/lib/dpkg/status"
+    ],
+    "target": "2.41.5-0+deb13u1",
+    "status": "source prepared; new-image rescan required"
+  },
+  {
+    "native_sha256": "f926617686ec766f2cb162ae0812e5bca456a23140b2f7581b239b91ca58ea35",
+    "class": "F1",
+    "package": "login",
+    "version": "1:4.16.0-2+really2.41-5",
+    "vulnerability": "CVE-2026-13595",
+    "paths": [
+      "/usr/share/doc/login/copyright",
+      "/var/lib/dpkg/info/login.conffiles",
+      "/var/lib/dpkg/info/login.defs.conffiles",
+      "/var/lib/dpkg/info/login.defs.list",
+      "/var/lib/dpkg/info/login.defs.md5sums",
+      "/var/lib/dpkg/info/login.defs.postinst",
+      "/var/lib/dpkg/info/login.list",
+      "/var/lib/dpkg/info/login.md5sums",
+      "/var/lib/dpkg/info/login.postinst",
+      "/var/lib/dpkg/info/login.postrm",
+      "/var/lib/dpkg/info/login.preinst",
+      "/var/lib/dpkg/info/login.prerm",
+      "/var/lib/dpkg/status"
+    ],
+    "target": "1:4.16.0-2+really2.41.5-0+deb13u1",
+    "status": "source prepared; new-image rescan required"
+  },
+  {
+    "native_sha256": "0a7fcd475a0a363228c485b14f48a5b6a28e1cf17990a8a50c617941d84b89f4",
+    "class": "F1",
+    "package": "mount",
+    "version": "2.41-5",
+    "vulnerability": "CVE-2026-13595",
+    "paths": [
+      "/usr/share/doc/mount/copyright",
+      "/var/lib/dpkg/info/mount.list",
+      "/var/lib/dpkg/info/mount.md5sums",
+      "/var/lib/dpkg/status"
+    ],
+    "target": "2.41.5-0+deb13u1",
+    "status": "source prepared; new-image rescan required"
+  },
+  {
+    "native_sha256": "2b373e9c3b936631be4d98c927855427121a195e715b068b6d0c1e1bfd1c8eee",
+    "class": "F1",
+    "package": "util-linux",
+    "version": "2.41-5",
+    "vulnerability": "CVE-2026-13595",
+    "paths": [
+      "/usr/share/doc/util-linux/copyright",
+      "/var/lib/dpkg/info/util-linux.conffiles",
+      "/var/lib/dpkg/info/util-linux.list",
+      "/var/lib/dpkg/info/util-linux.md5sums",
+      "/var/lib/dpkg/info/util-linux.postinst",
+      "/var/lib/dpkg/info/util-linux.postrm",
+      "/var/lib/dpkg/info/util-linux.prerm",
+      "/var/lib/dpkg/status"
+    ],
+    "target": "2.41.5-0+deb13u1",
+    "status": "source prepared; new-image rescan required"
+  },
+  {
+    "native_sha256": "76ba67fb798c63ff677de131f21221e1cb53ba88d801772dadd6eb1477303d93",
+    "class": "F4",
+    "package": "pip",
+    "version": "25.1.1",
+    "vulnerability": "GHSA-58qw-9mgm-455v",
+    "paths": [
+      "/opt/hindsight/lib/python3.13/site-packages/pip-25.1.1.dist-info/METADATA",
+      "/opt/hindsight/lib/python3.13/site-packages/pip-25.1.1.dist-info/RECORD",
+      "/opt/hindsight/lib/python3.13/site-packages/pip-25.1.1.dist-info/top_level.txt"
+    ],
+    "target": "removed from runtime venv",
+    "status": "source prepared; new-image rescan required"
+  },
+  {
+    "native_sha256": "b5d4ee3731d294339ca29fb666a27ae62afbdc508f249c2db76dc79563c18641",
+    "class": "F1",
+    "package": "bsdutils",
+    "version": "1:2.41-5",
+    "vulnerability": "CVE-2026-27456",
+    "paths": [
+      "/usr/share/doc/bsdutils/copyright",
+      "/var/lib/dpkg/info/bsdutils.list",
+      "/var/lib/dpkg/info/bsdutils.md5sums",
+      "/var/lib/dpkg/status"
+    ],
+    "target": "1:2.41.5-0+deb13u1",
+    "status": "source prepared; new-image rescan required"
+  },
+  {
+    "native_sha256": "308b54a04c8453aaa4fd9723fe57e67a70a22fd4f4ec7f966abc4353495ee308",
+    "class": "F1",
+    "package": "libblkid1",
+    "version": "2.41-5",
+    "vulnerability": "CVE-2026-27456",
+    "paths": [
+      "/usr/share/doc/libblkid1/copyright",
+      "/var/lib/dpkg/info/libblkid1:amd64.md5sums",
+      "/var/lib/dpkg/status"
+    ],
+    "target": "2.41.5-0+deb13u1",
+    "status": "source prepared; new-image rescan required"
+  },
+  {
+    "native_sha256": "d350e45d503f39c80684490a79f9856a24b79194b72de8f42eb5d8fd1d41a2b8",
+    "class": "F1",
+    "package": "liblastlog2-2",
+    "version": "2.41-5",
+    "vulnerability": "CVE-2026-27456",
+    "paths": [
+      "/usr/share/doc/liblastlog2-2/copyright",
+      "/var/lib/dpkg/info/liblastlog2-2:amd64.md5sums",
+      "/var/lib/dpkg/status"
+    ],
+    "target": "2.41.5-0+deb13u1",
+    "status": "source prepared; new-image rescan required"
+  },
+  {
+    "native_sha256": "f4804ea03a24a6c1a3d3fb0f21ba1d96c5eebba42efcf6ccc05aa3ece681d765",
+    "class": "F1",
+    "package": "libmount1",
+    "version": "2.41-5",
+    "vulnerability": "CVE-2026-27456",
+    "paths": [
+      "/usr/share/doc/libmount1/copyright",
+      "/var/lib/dpkg/info/libmount1:amd64.md5sums",
+      "/var/lib/dpkg/status"
+    ],
+    "target": "2.41.5-0+deb13u1",
+    "status": "source prepared; new-image rescan required"
+  },
+  {
+    "native_sha256": "0e399134195f1c910fdd473dfad022711ec010c6756d71a5621ed2483a32f670",
+    "class": "F1",
+    "package": "libsmartcols1",
+    "version": "2.41-5",
+    "vulnerability": "CVE-2026-27456",
+    "paths": [
+      "/usr/share/doc/libsmartcols1/copyright",
+      "/var/lib/dpkg/info/libsmartcols1:amd64.md5sums",
+      "/var/lib/dpkg/status"
+    ],
+    "target": "2.41.5-0+deb13u1",
+    "status": "source prepared; new-image rescan required"
+  },
+  {
+    "native_sha256": "6dbccb1cedf4cdef89efccff321413289f00f384848971dcf398b1de59df6c25",
+    "class": "F1",
+    "package": "libuuid1",
+    "version": "2.41-5",
+    "vulnerability": "CVE-2026-27456",
+    "paths": [
+      "/usr/share/doc/libuuid1/copyright",
+      "/var/lib/dpkg/info/libuuid1:amd64.md5sums",
+      "/var/lib/dpkg/status"
+    ],
+    "target": "2.41.5-0+deb13u1",
+    "status": "source prepared; new-image rescan required"
+  },
+  {
+    "native_sha256": "088aca45c6d83167fb1c5e9925150296b944989e6fe5f92d7d2a6b1036e09750",
+    "class": "F1",
+    "package": "login",
+    "version": "1:4.16.0-2+really2.41-5",
+    "vulnerability": "CVE-2026-27456",
+    "paths": [
+      "/usr/share/doc/login/copyright",
+      "/var/lib/dpkg/info/login.conffiles",
+      "/var/lib/dpkg/info/login.defs.conffiles",
+      "/var/lib/dpkg/info/login.defs.list",
+      "/var/lib/dpkg/info/login.defs.md5sums",
+      "/var/lib/dpkg/info/login.defs.postinst",
+      "/var/lib/dpkg/info/login.list",
+      "/var/lib/dpkg/info/login.md5sums",
+      "/var/lib/dpkg/info/login.postinst",
+      "/var/lib/dpkg/info/login.postrm",
+      "/var/lib/dpkg/info/login.preinst",
+      "/var/lib/dpkg/info/login.prerm",
+      "/var/lib/dpkg/status"
+    ],
+    "target": "1:4.16.0-2+really2.41.5-0+deb13u1",
+    "status": "source prepared; new-image rescan required"
+  },
+  {
+    "native_sha256": "eac4183e2b388b3ffd0d5b8fb5fd896781483ccae32eb60b78325e74ecf02244",
+    "class": "F1",
+    "package": "mount",
+    "version": "2.41-5",
+    "vulnerability": "CVE-2026-27456",
+    "paths": [
+      "/usr/share/doc/mount/copyright",
+      "/var/lib/dpkg/info/mount.list",
+      "/var/lib/dpkg/info/mount.md5sums",
+      "/var/lib/dpkg/status"
+    ],
+    "target": "2.41.5-0+deb13u1",
+    "status": "source prepared; new-image rescan required"
+  },
+  {
+    "native_sha256": "cf511ee461ee6f1f5af5caba44c0a0ef1591dbbc698d292b0c6e4e7ef4cbab40",
+    "class": "F1",
+    "package": "util-linux",
+    "version": "2.41-5",
+    "vulnerability": "CVE-2026-27456",
+    "paths": [
+      "/usr/share/doc/util-linux/copyright",
+      "/var/lib/dpkg/info/util-linux.conffiles",
+      "/var/lib/dpkg/info/util-linux.list",
+      "/var/lib/dpkg/info/util-linux.md5sums",
+      "/var/lib/dpkg/info/util-linux.postinst",
+      "/var/lib/dpkg/info/util-linux.postrm",
+      "/var/lib/dpkg/info/util-linux.prerm",
+      "/var/lib/dpkg/status"
+    ],
+    "target": "2.41.5-0+deb13u1",
+    "status": "source prepared; new-image rescan required"
+  },
+  {
+    "native_sha256": "fe0102fe2dea1ceff4a9055e189ac9e3003d68442dc2551ac6e3cca526e56c6c",
+    "class": "F1",
+    "package": "sed",
+    "version": "4.9-2",
+    "vulnerability": "CVE-2026-5958",
+    "paths": [
+      "/usr/share/doc/sed/copyright",
+      "/var/lib/dpkg/info/sed.list",
+      "/var/lib/dpkg/info/sed.md5sums",
+      "/var/lib/dpkg/status"
+    ],
+    "target": "4.9-2+deb13u1",
+    "status": "source prepared; new-image rescan required"
+  },
+  {
+    "native_sha256": "cbfb940d9cb06f9e551cdd5eebd9d3cbca67ed937fe6d608a9afede78ba7db4d",
+    "class": "F1",
+    "package": "bsdutils",
+    "version": "1:2.41-5",
+    "vulnerability": "CVE-2025-14104",
+    "paths": [
+      "/usr/share/doc/bsdutils/copyright",
+      "/var/lib/dpkg/info/bsdutils.list",
+      "/var/lib/dpkg/info/bsdutils.md5sums",
+      "/var/lib/dpkg/status"
+    ],
+    "target": "1:2.41.5-0+deb13u1",
+    "status": "source prepared; new-image rescan required"
+  },
+  {
+    "native_sha256": "85334207b341c613c1d02ed0e80b26e0d458cba04e275840365a2deb65acc6ae",
+    "class": "F1",
+    "package": "libblkid1",
+    "version": "2.41-5",
+    "vulnerability": "CVE-2025-14104",
+    "paths": [
+      "/usr/share/doc/libblkid1/copyright",
+      "/var/lib/dpkg/info/libblkid1:amd64.md5sums",
+      "/var/lib/dpkg/status"
+    ],
+    "target": "2.41.5-0+deb13u1",
+    "status": "source prepared; new-image rescan required"
+  },
+  {
+    "native_sha256": "8c82a62d1eb8c08e06a59843c68f48902e76bc26b8e50af8d1f108a4609f2a0b",
+    "class": "F1",
+    "package": "liblastlog2-2",
+    "version": "2.41-5",
+    "vulnerability": "CVE-2025-14104",
+    "paths": [
+      "/usr/share/doc/liblastlog2-2/copyright",
+      "/var/lib/dpkg/info/liblastlog2-2:amd64.md5sums",
+      "/var/lib/dpkg/status"
+    ],
+    "target": "2.41.5-0+deb13u1",
+    "status": "source prepared; new-image rescan required"
+  },
+  {
+    "native_sha256": "5c091c82152586385eba3b55fe9dc81bba2b9031153cfcd7d22639856051bc19",
+    "class": "F1",
+    "package": "libmount1",
+    "version": "2.41-5",
+    "vulnerability": "CVE-2025-14104",
+    "paths": [
+      "/usr/share/doc/libmount1/copyright",
+      "/var/lib/dpkg/info/libmount1:amd64.md5sums",
+      "/var/lib/dpkg/status"
+    ],
+    "target": "2.41.5-0+deb13u1",
+    "status": "source prepared; new-image rescan required"
+  },
+  {
+    "native_sha256": "cdf31893a735d74fe4f4636ea90a206823964e0489883759783e70806b0b1b59",
+    "class": "F1",
+    "package": "libsmartcols1",
+    "version": "2.41-5",
+    "vulnerability": "CVE-2025-14104",
+    "paths": [
+      "/usr/share/doc/libsmartcols1/copyright",
+      "/var/lib/dpkg/info/libsmartcols1:amd64.md5sums",
+      "/var/lib/dpkg/status"
+    ],
+    "target": "2.41.5-0+deb13u1",
+    "status": "source prepared; new-image rescan required"
+  },
+  {
+    "native_sha256": "425e4d7031b5bbb40687564f95d7772e7871d175b7e66eaa941d92d8fad518af",
+    "class": "F1",
+    "package": "libuuid1",
+    "version": "2.41-5",
+    "vulnerability": "CVE-2025-14104",
+    "paths": [
+      "/usr/share/doc/libuuid1/copyright",
+      "/var/lib/dpkg/info/libuuid1:amd64.md5sums",
+      "/var/lib/dpkg/status"
+    ],
+    "target": "2.41.5-0+deb13u1",
+    "status": "source prepared; new-image rescan required"
+  },
+  {
+    "native_sha256": "49623fb24b0ec240bc26c418e4b15116ab0099d80aaa16acb9492037d6aa777b",
+    "class": "F1",
+    "package": "login",
+    "version": "1:4.16.0-2+really2.41-5",
+    "vulnerability": "CVE-2025-14104",
+    "paths": [
+      "/usr/share/doc/login/copyright",
+      "/var/lib/dpkg/info/login.conffiles",
+      "/var/lib/dpkg/info/login.defs.conffiles",
+      "/var/lib/dpkg/info/login.defs.list",
+      "/var/lib/dpkg/info/login.defs.md5sums",
+      "/var/lib/dpkg/info/login.defs.postinst",
+      "/var/lib/dpkg/info/login.list",
+      "/var/lib/dpkg/info/login.md5sums",
+      "/var/lib/dpkg/info/login.postinst",
+      "/var/lib/dpkg/info/login.postrm",
+      "/var/lib/dpkg/info/login.preinst",
+      "/var/lib/dpkg/info/login.prerm",
+      "/var/lib/dpkg/status"
+    ],
+    "target": "1:4.16.0-2+really2.41.5-0+deb13u1",
+    "status": "source prepared; new-image rescan required"
+  },
+  {
+    "native_sha256": "c2f474818365d114c9c04b1a9508e836609ce56baee7918dfe3aef5c0b484f66",
+    "class": "F1",
+    "package": "mount",
+    "version": "2.41-5",
+    "vulnerability": "CVE-2025-14104",
+    "paths": [
+      "/usr/share/doc/mount/copyright",
+      "/var/lib/dpkg/info/mount.list",
+      "/var/lib/dpkg/info/mount.md5sums",
+      "/var/lib/dpkg/status"
+    ],
+    "target": "2.41.5-0+deb13u1",
+    "status": "source prepared; new-image rescan required"
+  },
+  {
+    "native_sha256": "0ef5d2200b605eeac9fd300625d748d7e7f3ddc623a3436094bb6ecb1b6e07f1",
+    "class": "F1",
+    "package": "util-linux",
+    "version": "2.41-5",
+    "vulnerability": "CVE-2025-14104",
+    "paths": [
+      "/usr/share/doc/util-linux/copyright",
+      "/var/lib/dpkg/info/util-linux.conffiles",
+      "/var/lib/dpkg/info/util-linux.list",
+      "/var/lib/dpkg/info/util-linux.md5sums",
+      "/var/lib/dpkg/info/util-linux.postinst",
+      "/var/lib/dpkg/info/util-linux.postrm",
+      "/var/lib/dpkg/info/util-linux.prerm",
+      "/var/lib/dpkg/status"
+    ],
+    "target": "2.41.5-0+deb13u1",
+    "status": "source prepared; new-image rescan required"
+  },
+  {
+    "native_sha256": "bef7524e90f33f73696925b952342ad0b242cdbebf11a2b54535dff1e02334a0",
+    "class": "F1",
+    "package": "bsdutils",
+    "version": "1:2.41-5",
+    "vulnerability": "CVE-2026-53612",
+    "paths": [
+      "/usr/share/doc/bsdutils/copyright",
+      "/var/lib/dpkg/info/bsdutils.list",
+      "/var/lib/dpkg/info/bsdutils.md5sums",
+      "/var/lib/dpkg/status"
+    ],
+    "target": "1:2.41.5-0+deb13u1",
+    "status": "source prepared; new-image rescan required"
+  },
+  {
+    "native_sha256": "b9460de2c38fe1a9b998aca948af06830c73e745119c65b59426fda797182669",
+    "class": "F1",
+    "package": "bsdutils",
+    "version": "1:2.41-5",
+    "vulnerability": "CVE-2026-53613",
+    "paths": [
+      "/usr/share/doc/bsdutils/copyright",
+      "/var/lib/dpkg/info/bsdutils.list",
+      "/var/lib/dpkg/info/bsdutils.md5sums",
+      "/var/lib/dpkg/status"
+    ],
+    "target": "1:2.41.5-0+deb13u1",
+    "status": "source prepared; new-image rescan required"
+  },
+  {
+    "native_sha256": "e6e2c958c5930f8ee4feec8ac3b25d0dd74dcb9716a020c701cc6dda14b8c9d7",
+    "class": "F1",
+    "package": "bsdutils",
+    "version": "1:2.41-5",
+    "vulnerability": "CVE-2026-53614",
+    "paths": [
+      "/usr/share/doc/bsdutils/copyright",
+      "/var/lib/dpkg/info/bsdutils.list",
+      "/var/lib/dpkg/info/bsdutils.md5sums",
+      "/var/lib/dpkg/status"
+    ],
+    "target": "1:2.41.5-0+deb13u1",
+    "status": "source prepared; new-image rescan required"
+  },
+  {
+    "native_sha256": "92bee84c7646353010f1f4d215501413c69f5e7a0a35653ceb660d1adad5084d",
+    "class": "F1",
+    "package": "bsdutils",
+    "version": "1:2.41-5",
+    "vulnerability": "CVE-2026-53615",
+    "paths": [
+      "/usr/share/doc/bsdutils/copyright",
+      "/var/lib/dpkg/info/bsdutils.list",
+      "/var/lib/dpkg/info/bsdutils.md5sums",
+      "/var/lib/dpkg/status"
+    ],
+    "target": "1:2.41.5-0+deb13u1",
+    "status": "source prepared; new-image rescan required"
+  },
+  {
+    "native_sha256": "375013bafbfd99bf05e8121fb337641c348573708c82e59f2381c43d19bfde39",
+    "class": "F1",
+    "package": "libblkid1",
+    "version": "2.41-5",
+    "vulnerability": "CVE-2026-53612",
+    "paths": [
+      "/usr/share/doc/libblkid1/copyright",
+      "/var/lib/dpkg/info/libblkid1:amd64.md5sums",
+      "/var/lib/dpkg/status"
+    ],
+    "target": "2.41.5-0+deb13u1",
+    "status": "source prepared; new-image rescan required"
+  },
+  {
+    "native_sha256": "20cca2d6d7eb7e373632c0c8c7a31c3b2f3ce95ac1afa1f463fa0ab200fed32c",
+    "class": "F1",
+    "package": "libblkid1",
+    "version": "2.41-5",
+    "vulnerability": "CVE-2026-53613",
+    "paths": [
+      "/usr/share/doc/libblkid1/copyright",
+      "/var/lib/dpkg/info/libblkid1:amd64.md5sums",
+      "/var/lib/dpkg/status"
+    ],
+    "target": "2.41.5-0+deb13u1",
+    "status": "source prepared; new-image rescan required"
+  },
+  {
+    "native_sha256": "76ea329a43eb59029cbfde77d89c3f20d7f7889f9834a7ea8ce37ba63e50d379",
+    "class": "F1",
+    "package": "libblkid1",
+    "version": "2.41-5",
+    "vulnerability": "CVE-2026-53614",
+    "paths": [
+      "/usr/share/doc/libblkid1/copyright",
+      "/var/lib/dpkg/info/libblkid1:amd64.md5sums",
+      "/var/lib/dpkg/status"
+    ],
+    "target": "2.41.5-0+deb13u1",
+    "status": "source prepared; new-image rescan required"
+  },
+  {
+    "native_sha256": "9e8cd4f5dd2ef5675bf4b45b0eb5d0360c5e3aa77b2ae18f92637ad418ee8c02",
+    "class": "F1",
+    "package": "libblkid1",
+    "version": "2.41-5",
+    "vulnerability": "CVE-2026-53615",
+    "paths": [
+      "/usr/share/doc/libblkid1/copyright",
+      "/var/lib/dpkg/info/libblkid1:amd64.md5sums",
+      "/var/lib/dpkg/status"
+    ],
+    "target": "2.41.5-0+deb13u1",
+    "status": "source prepared; new-image rescan required"
+  },
+  {
+    "native_sha256": "5f972212fde377b621d8aa972f089882c7b3e3db84edcaf183b345cffeebe7fa",
+    "class": "F1",
+    "package": "liblastlog2-2",
+    "version": "2.41-5",
+    "vulnerability": "CVE-2026-53612",
+    "paths": [
+      "/usr/share/doc/liblastlog2-2/copyright",
+      "/var/lib/dpkg/info/liblastlog2-2:amd64.md5sums",
+      "/var/lib/dpkg/status"
+    ],
+    "target": "2.41.5-0+deb13u1",
+    "status": "source prepared; new-image rescan required"
+  },
+  {
+    "native_sha256": "830057dce0fa5bdeb7a08b9b7759f497a5545e0d2c7c276eca3a747076deb8f6",
+    "class": "F1",
+    "package": "liblastlog2-2",
+    "version": "2.41-5",
+    "vulnerability": "CVE-2026-53613",
+    "paths": [
+      "/usr/share/doc/liblastlog2-2/copyright",
+      "/var/lib/dpkg/info/liblastlog2-2:amd64.md5sums",
+      "/var/lib/dpkg/status"
+    ],
+    "target": "2.41.5-0+deb13u1",
+    "status": "source prepared; new-image rescan required"
+  },
+  {
+    "native_sha256": "184894990f4da7480965bb3cc635fae2dd8c154df2288e78a230ff43c8302be2",
+    "class": "F1",
+    "package": "liblastlog2-2",
+    "version": "2.41-5",
+    "vulnerability": "CVE-2026-53614",
+    "paths": [
+      "/usr/share/doc/liblastlog2-2/copyright",
+      "/var/lib/dpkg/info/liblastlog2-2:amd64.md5sums",
+      "/var/lib/dpkg/status"
+    ],
+    "target": "2.41.5-0+deb13u1",
+    "status": "source prepared; new-image rescan required"
+  },
+  {
+    "native_sha256": "417cba835b80114761b29aa42ea2243efe201b8edb6644f5af3a5ecbea3b486f",
+    "class": "F1",
+    "package": "liblastlog2-2",
+    "version": "2.41-5",
+    "vulnerability": "CVE-2026-53615",
+    "paths": [
+      "/usr/share/doc/liblastlog2-2/copyright",
+      "/var/lib/dpkg/info/liblastlog2-2:amd64.md5sums",
+      "/var/lib/dpkg/status"
+    ],
+    "target": "2.41.5-0+deb13u1",
+    "status": "source prepared; new-image rescan required"
+  },
+  {
+    "native_sha256": "32cf01e9a5663f5d5d1faa38c30e8c4481d196459e7831ba4ecf7d43c41e544d",
+    "class": "F1",
+    "package": "libmount1",
+    "version": "2.41-5",
+    "vulnerability": "CVE-2026-53612",
+    "paths": [
+      "/usr/share/doc/libmount1/copyright",
+      "/var/lib/dpkg/info/libmount1:amd64.md5sums",
+      "/var/lib/dpkg/status"
+    ],
+    "target": "2.41.5-0+deb13u1",
+    "status": "source prepared; new-image rescan required"
+  },
+  {
+    "native_sha256": "7e59e1bc824738ff97d877f646d7f6cc91c55e423d79168db87334079789981a",
+    "class": "F1",
+    "package": "libmount1",
+    "version": "2.41-5",
+    "vulnerability": "CVE-2026-53613",
+    "paths": [
+      "/usr/share/doc/libmount1/copyright",
+      "/var/lib/dpkg/info/libmount1:amd64.md5sums",
+      "/var/lib/dpkg/status"
+    ],
+    "target": "2.41.5-0+deb13u1",
+    "status": "source prepared; new-image rescan required"
+  },
+  {
+    "native_sha256": "2a012e3e34af340a3091a6c5221fde3ee1ace69debfcbd96f9dbf1f5a3da00cc",
+    "class": "F1",
+    "package": "libmount1",
+    "version": "2.41-5",
+    "vulnerability": "CVE-2026-53614",
+    "paths": [
+      "/usr/share/doc/libmount1/copyright",
+      "/var/lib/dpkg/info/libmount1:amd64.md5sums",
+      "/var/lib/dpkg/status"
+    ],
+    "target": "2.41.5-0+deb13u1",
+    "status": "source prepared; new-image rescan required"
+  },
+  {
+    "native_sha256": "74eb2a4f8ca8059151a63cdfcfe53944cc50a1b2dc8dffff9cb5d9dc4846856d",
+    "class": "F1",
+    "package": "libmount1",
+    "version": "2.41-5",
+    "vulnerability": "CVE-2026-53615",
+    "paths": [
+      "/usr/share/doc/libmount1/copyright",
+      "/var/lib/dpkg/info/libmount1:amd64.md5sums",
+      "/var/lib/dpkg/status"
+    ],
+    "target": "2.41.5-0+deb13u1",
+    "status": "source prepared; new-image rescan required"
+  },
+  {
+    "native_sha256": "9fc03e7448e020b02313cb8936cc70ee12dc19da4c91e043ceeb38b1bd5398a0",
+    "class": "F1",
+    "package": "libpng16-16t64",
+    "version": "1.6.48-1+deb13u5",
+    "vulnerability": "CVE-2026-46675",
+    "paths": [
+      "/usr/share/doc/libpng16-16t64/copyright",
+      "/var/lib/dpkg/info/libpng16-16t64:amd64.md5sums",
+      "/var/lib/dpkg/status"
+    ],
+    "target": "1.6.48-1+deb13u6",
+    "status": "source prepared; new-image rescan required"
+  },
+  {
+    "native_sha256": "6afa36edcf73fd037d1ead422c9bc4896fe582ae97d77b4e3f3805a970300925",
+    "class": "F1",
+    "package": "librabbitmq4",
+    "version": "0.15.0-1+deb13u1",
+    "vulnerability": "CVE-2026-59986",
+    "paths": [
+      "/usr/share/doc/librabbitmq4/copyright",
+      "/var/lib/dpkg/info/librabbitmq4:amd64.md5sums",
+      "/var/lib/dpkg/status"
+    ],
+    "target": "0.15.0-1+deb13u2",
+    "status": "source prepared; new-image rescan required"
+  },
+  {
+    "native_sha256": "319be1194f6ea4e4a8cd9be5a3344b01c541323f4fe39463a82c23d7784b0588",
+    "class": "F1",
+    "package": "librabbitmq4",
+    "version": "0.15.0-1+deb13u1",
+    "vulnerability": "CVE-2026-61547",
+    "paths": [
+      "/usr/share/doc/librabbitmq4/copyright",
+      "/var/lib/dpkg/info/librabbitmq4:amd64.md5sums",
+      "/var/lib/dpkg/status"
+    ],
+    "target": "0.15.0-1+deb13u2",
+    "status": "source prepared; new-image rescan required"
+  },
+  {
+    "native_sha256": "1a6e7af75274a0f016d24b53342adf2efcd3eb8d35465e7310900d592f113cc4",
+    "class": "F1",
+    "package": "libsmartcols1",
+    "version": "2.41-5",
+    "vulnerability": "CVE-2026-53612",
+    "paths": [
+      "/usr/share/doc/libsmartcols1/copyright",
+      "/var/lib/dpkg/info/libsmartcols1:amd64.md5sums",
+      "/var/lib/dpkg/status"
+    ],
+    "target": "2.41.5-0+deb13u1",
+    "status": "source prepared; new-image rescan required"
+  },
+  {
+    "native_sha256": "6ddc4c1e7653d1a5f11a5ed3822f20a33b0dc86218d6f21c1d302235c8deec29",
+    "class": "F1",
+    "package": "libsmartcols1",
+    "version": "2.41-5",
+    "vulnerability": "CVE-2026-53613",
+    "paths": [
+      "/usr/share/doc/libsmartcols1/copyright",
+      "/var/lib/dpkg/info/libsmartcols1:amd64.md5sums",
+      "/var/lib/dpkg/status"
+    ],
+    "target": "2.41.5-0+deb13u1",
+    "status": "source prepared; new-image rescan required"
+  },
+  {
+    "native_sha256": "3c669d814bfd1d50bb2c31c1656972e407868b9eda38850c8917cc3611f038d2",
+    "class": "F1",
+    "package": "libsmartcols1",
+    "version": "2.41-5",
+    "vulnerability": "CVE-2026-53614",
+    "paths": [
+      "/usr/share/doc/libsmartcols1/copyright",
+      "/var/lib/dpkg/info/libsmartcols1:amd64.md5sums",
+      "/var/lib/dpkg/status"
+    ],
+    "target": "2.41.5-0+deb13u1",
+    "status": "source prepared; new-image rescan required"
+  },
+  {
+    "native_sha256": "05bee4be794978210903cd5f563c91b0f0771e322d4314b0096f3700330023cb",
+    "class": "F1",
+    "package": "libsmartcols1",
+    "version": "2.41-5",
+    "vulnerability": "CVE-2026-53615",
+    "paths": [
+      "/usr/share/doc/libsmartcols1/copyright",
+      "/var/lib/dpkg/info/libsmartcols1:amd64.md5sums",
+      "/var/lib/dpkg/status"
+    ],
+    "target": "2.41.5-0+deb13u1",
+    "status": "source prepared; new-image rescan required"
+  },
+  {
+    "native_sha256": "a27c3c0591deb671a04968621010b3cbb111b731b48b694dfdc1d9b0ae24456a",
+    "class": "F1",
+    "package": "libsrt1.5-gnutls",
+    "version": "1.5.4-1",
+    "vulnerability": "CVE-2026-55868",
+    "paths": [
+      "/usr/share/doc/libsrt1.5-gnutls/copyright",
+      "/var/lib/dpkg/info/libsrt1.5-gnutls:amd64.md5sums",
+      "/var/lib/dpkg/status"
+    ],
+    "target": "1.5.4-1+deb13u1",
+    "status": "source prepared; new-image rescan required"
+  },
+  {
+    "native_sha256": "758249c4756d7db6725c48e138986ef751cf7d3c3be1c17753ec01f8279119e0",
+    "class": "F1",
+    "package": "libsrt1.5-gnutls",
+    "version": "1.5.4-1",
+    "vulnerability": "CVE-2026-55869",
+    "paths": [
+      "/usr/share/doc/libsrt1.5-gnutls/copyright",
+      "/var/lib/dpkg/info/libsrt1.5-gnutls:amd64.md5sums",
+      "/var/lib/dpkg/status"
+    ],
+    "target": "1.5.4-1+deb13u1",
+    "status": "source prepared; new-image rescan required"
+  },
+  {
+    "native_sha256": "ff5d94dabb5a835795e989d3c79fbc6d7b67c0cc44a02d0d6d75e98f5f47ca25",
+    "class": "F1",
+    "package": "libuuid1",
+    "version": "2.41-5",
+    "vulnerability": "CVE-2026-53612",
+    "paths": [
+      "/usr/share/doc/libuuid1/copyright",
+      "/var/lib/dpkg/info/libuuid1:amd64.md5sums",
+      "/var/lib/dpkg/status"
+    ],
+    "target": "2.41.5-0+deb13u1",
+    "status": "source prepared; new-image rescan required"
+  },
+  {
+    "native_sha256": "877c752f572a1f1f9a603ae3f0bea373dd91ad953424d7920f65b9698ac032a5",
+    "class": "F1",
+    "package": "libuuid1",
+    "version": "2.41-5",
+    "vulnerability": "CVE-2026-53613",
+    "paths": [
+      "/usr/share/doc/libuuid1/copyright",
+      "/var/lib/dpkg/info/libuuid1:amd64.md5sums",
+      "/var/lib/dpkg/status"
+    ],
+    "target": "2.41.5-0+deb13u1",
+    "status": "source prepared; new-image rescan required"
+  },
+  {
+    "native_sha256": "9db0e37ff85858a42c59f2803dee5a14c2590e50c614c57d055b7579106b98e2",
+    "class": "F1",
+    "package": "libuuid1",
+    "version": "2.41-5",
+    "vulnerability": "CVE-2026-53614",
+    "paths": [
+      "/usr/share/doc/libuuid1/copyright",
+      "/var/lib/dpkg/info/libuuid1:amd64.md5sums",
+      "/var/lib/dpkg/status"
+    ],
+    "target": "2.41.5-0+deb13u1",
+    "status": "source prepared; new-image rescan required"
+  },
+  {
+    "native_sha256": "e93c5b52e603b08745f595c71c29d5bdcf6f322a59b111da46fc09c68ac1c405",
+    "class": "F1",
+    "package": "libuuid1",
+    "version": "2.41-5",
+    "vulnerability": "CVE-2026-53615",
+    "paths": [
+      "/usr/share/doc/libuuid1/copyright",
+      "/var/lib/dpkg/info/libuuid1:amd64.md5sums",
+      "/var/lib/dpkg/status"
+    ],
+    "target": "2.41.5-0+deb13u1",
+    "status": "source prepared; new-image rescan required"
+  },
+  {
+    "native_sha256": "e50be178db7a73577fc551a16e682bae516056dc88ab408b9f984cc467fa2d1e",
+    "class": "F1",
+    "package": "login",
+    "version": "1:4.16.0-2+really2.41-5",
+    "vulnerability": "CVE-2026-53612",
+    "paths": [
+      "/usr/share/doc/login/copyright",
+      "/var/lib/dpkg/info/login.conffiles",
+      "/var/lib/dpkg/info/login.defs.conffiles",
+      "/var/lib/dpkg/info/login.defs.list",
+      "/var/lib/dpkg/info/login.defs.md5sums",
+      "/var/lib/dpkg/info/login.defs.postinst",
+      "/var/lib/dpkg/info/login.list",
+      "/var/lib/dpkg/info/login.md5sums",
+      "/var/lib/dpkg/info/login.postinst",
+      "/var/lib/dpkg/info/login.postrm",
+      "/var/lib/dpkg/info/login.preinst",
+      "/var/lib/dpkg/info/login.prerm",
+      "/var/lib/dpkg/status"
+    ],
+    "target": "1:4.16.0-2+really2.41.5-0+deb13u1",
+    "status": "source prepared; new-image rescan required"
+  },
+  {
+    "native_sha256": "70362d75b3cda2bbd4cb4346d16fbda3c3e3e2f7d3adffa25265d369d292282b",
+    "class": "F1",
+    "package": "login",
+    "version": "1:4.16.0-2+really2.41-5",
+    "vulnerability": "CVE-2026-53613",
+    "paths": [
+      "/usr/share/doc/login/copyright",
+      "/var/lib/dpkg/info/login.conffiles",
+      "/var/lib/dpkg/info/login.defs.conffiles",
+      "/var/lib/dpkg/info/login.defs.list",
+      "/var/lib/dpkg/info/login.defs.md5sums",
+      "/var/lib/dpkg/info/login.defs.postinst",
+      "/var/lib/dpkg/info/login.list",
+      "/var/lib/dpkg/info/login.md5sums",
+      "/var/lib/dpkg/info/login.postinst",
+      "/var/lib/dpkg/info/login.postrm",
+      "/var/lib/dpkg/info/login.preinst",
+      "/var/lib/dpkg/info/login.prerm",
+      "/var/lib/dpkg/status"
+    ],
+    "target": "1:4.16.0-2+really2.41.5-0+deb13u1",
+    "status": "source prepared; new-image rescan required"
+  },
+  {
+    "native_sha256": "9a046c4b234a8735fdabffc5a0d1022ace16df57a3dc5bbd0225ccce5c62a6ad",
+    "class": "F1",
+    "package": "login",
+    "version": "1:4.16.0-2+really2.41-5",
+    "vulnerability": "CVE-2026-53614",
+    "paths": [
+      "/usr/share/doc/login/copyright",
+      "/var/lib/dpkg/info/login.conffiles",
+      "/var/lib/dpkg/info/login.defs.conffiles",
+      "/var/lib/dpkg/info/login.defs.list",
+      "/var/lib/dpkg/info/login.defs.md5sums",
+      "/var/lib/dpkg/info/login.defs.postinst",
+      "/var/lib/dpkg/info/login.list",
+      "/var/lib/dpkg/info/login.md5sums",
+      "/var/lib/dpkg/info/login.postinst",
+      "/var/lib/dpkg/info/login.postrm",
+      "/var/lib/dpkg/info/login.preinst",
+      "/var/lib/dpkg/info/login.prerm",
+      "/var/lib/dpkg/status"
+    ],
+    "target": "1:4.16.0-2+really2.41.5-0+deb13u1",
+    "status": "source prepared; new-image rescan required"
+  },
+  {
+    "native_sha256": "5cf258b24d8790e5d7774b7f97d85b1f27fdae8549656a487bd8d29a3ad87d82",
+    "class": "F1",
+    "package": "login",
+    "version": "1:4.16.0-2+really2.41-5",
+    "vulnerability": "CVE-2026-53615",
+    "paths": [
+      "/usr/share/doc/login/copyright",
+      "/var/lib/dpkg/info/login.conffiles",
+      "/var/lib/dpkg/info/login.defs.conffiles",
+      "/var/lib/dpkg/info/login.defs.list",
+      "/var/lib/dpkg/info/login.defs.md5sums",
+      "/var/lib/dpkg/info/login.defs.postinst",
+      "/var/lib/dpkg/info/login.list",
+      "/var/lib/dpkg/info/login.md5sums",
+      "/var/lib/dpkg/info/login.postinst",
+      "/var/lib/dpkg/info/login.postrm",
+      "/var/lib/dpkg/info/login.preinst",
+      "/var/lib/dpkg/info/login.prerm",
+      "/var/lib/dpkg/status"
+    ],
+    "target": "1:4.16.0-2+really2.41.5-0+deb13u1",
+    "status": "source prepared; new-image rescan required"
+  },
+  {
+    "native_sha256": "8bd5d315eee6ce857fff7f3be3e7192d1b62467250cceeb71b0ef6bf7712523c",
+    "class": "F1",
+    "package": "mount",
+    "version": "2.41-5",
+    "vulnerability": "CVE-2026-53612",
+    "paths": [
+      "/usr/share/doc/mount/copyright",
+      "/var/lib/dpkg/info/mount.list",
+      "/var/lib/dpkg/info/mount.md5sums",
+      "/var/lib/dpkg/status"
+    ],
+    "target": "2.41.5-0+deb13u1",
+    "status": "source prepared; new-image rescan required"
+  },
+  {
+    "native_sha256": "3b2342af700227c7f4e7eab6082f68e00b4cc1fa50252090d9f2ac76ada2ca4e",
+    "class": "F1",
+    "package": "mount",
+    "version": "2.41-5",
+    "vulnerability": "CVE-2026-53613",
+    "paths": [
+      "/usr/share/doc/mount/copyright",
+      "/var/lib/dpkg/info/mount.list",
+      "/var/lib/dpkg/info/mount.md5sums",
+      "/var/lib/dpkg/status"
+    ],
+    "target": "2.41.5-0+deb13u1",
+    "status": "source prepared; new-image rescan required"
+  },
+  {
+    "native_sha256": "3e0f9f2c6a8473e6757f6206e3b0890ad5f5984f0ee29998d869decb213c0488",
+    "class": "F1",
+    "package": "mount",
+    "version": "2.41-5",
+    "vulnerability": "CVE-2026-53614",
+    "paths": [
+      "/usr/share/doc/mount/copyright",
+      "/var/lib/dpkg/info/mount.list",
+      "/var/lib/dpkg/info/mount.md5sums",
+      "/var/lib/dpkg/status"
+    ],
+    "target": "2.41.5-0+deb13u1",
+    "status": "source prepared; new-image rescan required"
+  },
+  {
+    "native_sha256": "55b1c4691bf26d2a95f789e499826f75b6afa1e8d3aa560698db7ec92e90f740",
+    "class": "F1",
+    "package": "mount",
+    "version": "2.41-5",
+    "vulnerability": "CVE-2026-53615",
+    "paths": [
+      "/usr/share/doc/mount/copyright",
+      "/var/lib/dpkg/info/mount.list",
+      "/var/lib/dpkg/info/mount.md5sums",
+      "/var/lib/dpkg/status"
+    ],
+    "target": "2.41.5-0+deb13u1",
+    "status": "source prepared; new-image rescan required"
+  },
+  {
+    "native_sha256": "565e9fd0e300c352d27a3aab3321f5711e9d40d242fa6eb7d895bdabfa693024",
+    "class": "F1",
+    "package": "util-linux",
+    "version": "2.41-5",
+    "vulnerability": "CVE-2026-53612",
+    "paths": [
+      "/usr/share/doc/util-linux/copyright",
+      "/var/lib/dpkg/info/util-linux.conffiles",
+      "/var/lib/dpkg/info/util-linux.list",
+      "/var/lib/dpkg/info/util-linux.md5sums",
+      "/var/lib/dpkg/info/util-linux.postinst",
+      "/var/lib/dpkg/info/util-linux.postrm",
+      "/var/lib/dpkg/info/util-linux.prerm",
+      "/var/lib/dpkg/status"
+    ],
+    "target": "2.41.5-0+deb13u1",
+    "status": "source prepared; new-image rescan required"
+  },
+  {
+    "native_sha256": "a84405fd372d8f6f218b012cad00f4b0ea7d74f883818030250aa0700b8d2ff1",
+    "class": "F1",
+    "package": "util-linux",
+    "version": "2.41-5",
+    "vulnerability": "CVE-2026-53613",
+    "paths": [
+      "/usr/share/doc/util-linux/copyright",
+      "/var/lib/dpkg/info/util-linux.conffiles",
+      "/var/lib/dpkg/info/util-linux.list",
+      "/var/lib/dpkg/info/util-linux.md5sums",
+      "/var/lib/dpkg/info/util-linux.postinst",
+      "/var/lib/dpkg/info/util-linux.postrm",
+      "/var/lib/dpkg/info/util-linux.prerm",
+      "/var/lib/dpkg/status"
+    ],
+    "target": "2.41.5-0+deb13u1",
+    "status": "source prepared; new-image rescan required"
+  },
+  {
+    "native_sha256": "b226a2b05ac13c567985b553cd23600e368e7956f733049a9a5e53bca209c8ca",
+    "class": "F1",
+    "package": "util-linux",
+    "version": "2.41-5",
+    "vulnerability": "CVE-2026-53614",
+    "paths": [
+      "/usr/share/doc/util-linux/copyright",
+      "/var/lib/dpkg/info/util-linux.conffiles",
+      "/var/lib/dpkg/info/util-linux.list",
+      "/var/lib/dpkg/info/util-linux.md5sums",
+      "/var/lib/dpkg/info/util-linux.postinst",
+      "/var/lib/dpkg/info/util-linux.postrm",
+      "/var/lib/dpkg/info/util-linux.prerm",
+      "/var/lib/dpkg/status"
+    ],
+    "target": "2.41.5-0+deb13u1",
+    "status": "source prepared; new-image rescan required"
+  },
+  {
+    "native_sha256": "b807a9b9e0d6b2f805464ff4c78144ea1c4daf7d87e40603c291a6e73a7baa89",
+    "class": "F1",
+    "package": "util-linux",
+    "version": "2.41-5",
+    "vulnerability": "CVE-2026-53615",
+    "paths": [
+      "/usr/share/doc/util-linux/copyright",
+      "/var/lib/dpkg/info/util-linux.conffiles",
+      "/var/lib/dpkg/info/util-linux.list",
+      "/var/lib/dpkg/info/util-linux.md5sums",
+      "/var/lib/dpkg/info/util-linux.postinst",
+      "/var/lib/dpkg/info/util-linux.postrm",
+      "/var/lib/dpkg/info/util-linux.prerm",
+      "/var/lib/dpkg/status"
+    ],
+    "target": "2.41.5-0+deb13u1",
+    "status": "source prepared; new-image rescan required"
+  }
+]

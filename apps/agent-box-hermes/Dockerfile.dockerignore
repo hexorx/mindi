@@ -196,6 +196,7 @@
 !apps/agent-box-hermes/build/apply_node_security.py
 !apps/agent-box-hermes/build/hermes-node-security.json
 !apps/agent-box-hermes/build/verify_node_security.mjs
+!apps/agent-box-hermes/build/verify_npm_security.mjs
 !apps/agent-box-hermes/build/verify_python_security.py
 !apps/agent-box-hermes/build/patch_lazy_deps.py
 !docs/third-party/hex232-security-inputs/**

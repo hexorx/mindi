@@ -1,0 +1,40 @@
+{
+  "base": "1d10342a3a027fed532fb46be4cbb7437fd7a2ef",
+  "snapshot": "20261002T120000Z",
+  "base_inputs": {
+    "apps/agent-box-hermes/Dockerfile": "a1cf77c6836d007f77b42ca29c88309e2ba02596ce4d702c1dc5ace61267c032",
+    "apps/agent-box-hermes/build/apt-final-inventory.tsv": "4d8722aac2a944e09a56d18d2e2c48757c1b9cc7d911e63fe659c6f8ad019594",
+    "apps/agent-box-hermes/build/apt-inherited.tsv": "b584320bb1add838e2e19518cacd12d5facefc12921996b98ae9cfd4c16f04d5",
+    "apps/agent-box-hermes/build/apt-packages.lock": "db0bfc4c54b397e110894b46731fe81c20cfd34cd6d04721b1059a702f06b05a",
+    "apps/agent-box-hermes/build/apt-release.sha256": "3ab0dcaddd72e02942e592669d971979f7d325ee88b657c0f006e04889cafc9d",
+    "apps/agent-box-hermes/build/apt-requested.list": "1648cfda448f55899bbe427c938a7ef1c68dd321e8b7a1ddaaf7598003a5a8e1",
+    "apps/agent-box-hermes/build/apt-snapshot.sources": "ba45806b39ab77ad76ff9626fa2acfb40c3727a0ff18ef763a87bbaa97420c30",
+    "apps/agent-box-hermes/build/hermes-node-security.json": "6154ed5cec66165e30245e79caccf3984479d62c3ff87a29a66c0b36919bfca8",
+    "apps/agent-box-hermes/build/hermes-pyproject.toml": "8c91b1841da209eaf47de89d794db65ad1b033ab23d8adf0e1535fbf5dff074d",
+    "apps/agent-box-hermes/build/hermes-security.lock": "5310f726d82d05be813e2af458043e29a8fcd56fc6ca30276d5382ee4dca08bd",
+    "apps/agent-box-hermes/build/hermes-uv.lock": "15247b921ae08625c7e7f121bcbebc0242c7481ca87fddf4da655509734559a4"
+  },
+  "changed_inputs": {
+    "apps/agent-box-hermes/Dockerfile": "31b394f5d9ae990c4cf99655702bb8cac24b12dcabac11ac6726ede00c080c9f",
+    "apps/agent-box-hermes/build/apt-final-inventory.tsv": "5a920aed6121b76ba757662f723c46d58e90301d90569d620725c328beb777a8",
+    "apps/agent-box-hermes/build/apt-inherited.tsv": "31ca2bc6cb39fa4933d871ee0e8ecbc66063484e4375c34dbb4cb5150d395080",
+    "apps/agent-box-hermes/build/apt-packages.lock": "93830a19c782d2248dd1908033f39ef3401e9559f96d24d51d10973c10705fa7",
+    "apps/agent-box-hermes/build/apt-release.sha256": "9ca19162605c1496ff6ca34e9bdd7a4a012e9d312df03577af28103ea1025e88",
+    "apps/agent-box-hermes/build/apt-requested.list": "f80abce2e6d57d6c7d514325c7af3548ff711a57ba0205c0d03cf6292f850aab",
+    "apps/agent-box-hermes/build/apt-snapshot.sources": "cdcb3c945c5e51b39f544abde4e8797262003b966816d0bf145279820556f35a",
+    "apps/agent-box-hermes/build/hermes-node-security.json": "5d6cf2da4c8e4dcd8639c844a7fdd5e77e5b6687429c05d98ac84b3d679d4c38",
+    "apps/agent-box-hermes/build/hermes-pyproject.toml": "e47c999a6888f6a0795862b274ae6d217cf6e8b891426518cebe028cfe938599",
+    "apps/agent-box-hermes/build/hermes-security.lock": "49dbeb1947b69b5e2f805d06efb0a21eff6a1cb269fed5c5dfca71b5f787ab04",
+    "apps/agent-box-hermes/build/hermes-uv.lock": "43b98a0e6d99ff4f8db11f5b09203caf547085cac4c23fac49d0c46ad26214ca",
+    "apps/agent-box-hermes/build/verify_npm_security.mjs": "08b5797d4c802ea7b46e2abf52a0b7576e4c85720d72c0c78325d9e9526f8d91",
+    "apps/agent-box-hermes/Dockerfile.dockerignore": "bbdd762901fe21a45649c6fa954624c0ab3dc8e10ada18894b98656f6c00459f"
+  },
+  "unchanged_inputs": {
+    "scripts/hermes-release/gate.py": "76de8ca7f724ec9521987ffd0622f88493913135f11fd0f9ed488a08bea9d602",
+    "scripts/hermes-release/promote.py": "8e7c2a37ce240469074c1e0dcb93455ac60963dc017b755587f4a227582cfee7",
+    "apps/agent-box-hermes/build/tailscale-go.mod": "b0ff5cf6556d135a2ab04f5ef4fcc89c3c89519ca7fbafe52502a8341560fda0",
+    "apps/agent-box-hermes/build/tailscale-go.sum": "09bcdebaea359c83236f137a023dbcbdcc420f0ef140b32c445cb467dfac9917",
+    "pnpm-lock.yaml": "3ededa55ae82944052310ed74f6de9426705d6301e6b6dd36ace735591983479"
+  },
+  "f3_status": "Mindi approved hash-locked overlay: ip-address 10.7.1, brace-expansion 5.0.12; exact-head review and new-image rescan required"
+}

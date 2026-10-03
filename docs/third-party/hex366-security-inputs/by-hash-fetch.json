@@ -1,0 +1,10 @@
+[
+  {
+    "url": "https://snapshot.debian.org/archive/debian-security/20261002T120000Z/dists/trixie-security/main/binary-amd64/by-hash/SHA256/ccec1667443a165d6989e8c531fa168c0b8b2ac1f7a2c35c4aa28d0f094ccd26",
+    "verified": true
+  },
+  {
+    "url": "https://snapshot.debian.org/archive/debian-security/20261002T120000Z/dists/trixie-security/main/source/by-hash/SHA256/29f54a0ec145c71762d81e158862fa3f1848c8a44a207741ebe34a3c32bb83cb",
+    "verified": true
+  }
+]

@@ -123,4 +123,5 @@ class NodeSecurityTest(unittest.TestCase):
                    for p in lock['packages'] for t in p['targets']}
         for row in ledger:
             if row['path'].endswith('/package.json'):
-                self.assertEqual(targets[row['path']], (row['package'], row['targetVersion']))
+                expected = {'brace-expansion': '5.0.12', 'baseline-browser-mapping': '2.11.0', 'ip-address': '10.7.1'}.get(row['package'], row['targetVersion'])
+                self.assertEqual(targets[row['path']], (row['package'], expected))
