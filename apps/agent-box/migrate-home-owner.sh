@@ -10,10 +10,16 @@ for value in "$OLD_UID" "$OLD_GID" "$NEW_UID" "$NEW_GID"; do
   case "$value" in ''|*[!0-9]*) echo 'UIDs and GIDs must be numeric' >&2; exit 1 ;; esac
 done
 # Do not follow links, cross filesystems, or re-own unrelated users' files.
-# Refuse hardlinked regular files before making any changes: another path may
-# sit outside this volume. The operator must inspect those separately.
-if [ -n "$(find -P "$HOME_ROOT" -xdev -type f -uid "$OLD_UID" -gid "$OLD_GID" -links +1 -print -quit)" ]; then
-  echo 'Home contains hardlinked state; inspect before migration' >&2
+# Count paths by device/inode, using numeric metadata rather than filenames.
+# All names for an inode share ownership and link count. Refuse outside links
+# before any chown; internal npm hardlinks are safe to migrate together.
+hardlinks=$(find -P "$HOME_ROOT" -xdev -type f -uid "$OLD_UID" -gid "$OLD_GID" \
+  -links +1 -printf '%D %i %n\n')
+if ! printf '%s\n' "$hardlinks" | awk '
+  NF { key = $1 ":" $2; paths[key]++; links[key] = $3 }
+  END { for (key in paths) if (paths[key] != links[key]) exit 1 }
+'; then
+  echo 'Home contains hardlinked state with links outside HOME_ROOT; inspect before migration' >&2
   exit 1
 fi
 find -P "$HOME_ROOT" -xdev -uid "$OLD_UID" -gid "$OLD_GID" \

@@ -219,9 +219,10 @@ docker compose up -d
 The helper changes only entries owned by the old UID **and** GID, including
 nested files and directories; it keeps bytes and ordinary permission modes.
 It does not follow symlinks, cross filesystem boundaries or change unrelated
-owners. Hardlinked regular files stop the migration before any ownership change;
-inspect them separately. Mixed ownership also needs inspection. These commands
-retain their stopped helper containers; deleting them needs Josh's approval.
+owners. Hardlinked regular files migrate when every link is inside the home
+on the same filesystem. Links outside that boundary stop the migration before
+any ownership change; inspect them separately. Mixed ownership also needs
+inspection. These commands retain their stopped helper containers; deleting them needs Josh's approval.
 
 After startup, check actual writes as the target account (each test file is
 retained as evidence), then rerun step 4 and the harness checks. Keep the
