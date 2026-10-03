@@ -1,0 +1,30 @@
+{
+  "name": "@mindi/herdr",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.13"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./viewer": {
+      "types": "./dist/viewer.d.ts",
+      "default": "./dist/viewer.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "lint": "eslint ."
+  },
+  "devDependencies": {
+    "@mindi/eslint-config": "workspace:*",
+    "@mindi/typescript-config": "workspace:*",
+    "@types/node": "^22.15.3",
+    "eslint": "^9.28.0",
+    "typescript": "^5.8.3"
+  }
+}

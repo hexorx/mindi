@@ -1,0 +1,16 @@
+services:
+  agent-box:
+    image: ${AGENT_BOX_IMAGE:?Set the published ghcr.io/hexorx/agent-box-hermes@sha256 digest}
+    shm_size: 256m
+    environment:
+      MINDI_BACKEND_CONFIG: /run/backend-example/backend.json
+      MINDI_BACKEND_TOKEN_FILE: /run/backend-token
+      HINDSIGHT_ENABLED: "0"
+    volumes:
+      - home:/home/agent
+      - ./example:/run/backend-example:ro
+      - ${BACKEND_TOKEN_FILE:?Set an absolute path to the operator token}:/run/backend-token:ro
+    ports:
+      - "127.0.0.1:65005:65005"
+volumes:
+  home:

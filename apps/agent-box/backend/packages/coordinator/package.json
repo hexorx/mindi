@@ -1,0 +1,38 @@
+{
+  "name": "@mindi/coordinator",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.13"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "lint": "eslint src"
+  },
+  "dependencies": {
+    "@earendil-works/pi-agent-core": "0.85.1",
+    "@earendil-works/pi-ai": "0.85.1",
+    "@mindi/agent-runtime": "workspace:*",
+    "@mindi/agent-tools": "workspace:*",
+    "@mindi/desktop": "workspace:*",
+    "@oh-my-pi/snapcompact": "18.1.19",
+    "proper-lockfile": "4.1.2",
+    "typebox": "1.3.7",
+    "@mindi/omp": "workspace:*"
+  },
+  "devDependencies": {
+    "@mindi/eslint-config": "workspace:*",
+    "@mindi/typescript-config": "workspace:*",
+    "@types/node": "^22.15.3",
+    "@types/proper-lockfile": "4.1.4",
+    "eslint": "^9.28.0",
+    "typescript": "^5.8.3"
+  }
+}

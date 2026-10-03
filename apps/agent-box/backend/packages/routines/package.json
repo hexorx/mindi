@@ -1,0 +1,41 @@
+{
+  "name": "@mindi/routines",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.13"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./delivery-routing": {
+      "types": "./dist/delivery-registry.d.ts",
+      "default": "./dist/delivery-registry.js"
+    },
+    "./schedule": {
+      "types": "./dist/schedule.d.ts",
+      "default": "./dist/schedule.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "lint": "eslint ."
+  },
+  "devDependencies": {
+    "@mindi/typescript-config": "workspace:*",
+    "@mindi/eslint-config": "workspace:*",
+    "@types/node": "^22.15.3",
+    "typescript": "^5.8.3",
+    "eslint": "^9.28.0"
+  },
+  "dependencies": {
+    "@mindi/agent-runtime": "workspace:*",
+    "@mindi/tasks": "workspace:*",
+    "@mindi/task-runner": "workspace:*",
+    "cron-parser": "5.10.0",
+    "@mindi/messaging": "workspace:*"
+  }
+}

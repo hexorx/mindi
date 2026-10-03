@@ -1,0 +1,53 @@
+{
+  "stateRoot": "/home/agent/backend-state",
+  "workspace": "/home/agent",
+  "port": 65005,
+  "host": "0.0.0.0",
+  "profiles": [
+    {
+      "id": "mindi",
+      "instructionsFile": "./SOUL.md",
+      "modelIds": [
+        "openai-codex/gpt-6-astra"
+      ],
+      "defaultModelId": "openai-codex/gpt-6-astra",
+      "tools": []
+    },
+    {
+      "id": "codi",
+      "instructionsFile": "./SOUL.md",
+      "modelIds": [
+        "openai-codex/gpt-6-astra"
+      ],
+      "defaultModelId": "openai-codex/gpt-6-astra",
+      "tools": []
+    },
+    {
+      "id": "archi",
+      "instructionsFile": "./SOUL.md",
+      "modelIds": [
+        "openai-codex/gpt-6-astra"
+      ],
+      "defaultModelId": "openai-codex/gpt-6-astra",
+      "tools": []
+    },
+    {
+      "id": "qai",
+      "instructionsFile": "./SOUL.md",
+      "modelIds": [
+        "openai-codex/gpt-6-astra"
+      ],
+      "defaultModelId": "openai-codex/gpt-6-astra",
+      "tools": []
+    },
+    {
+      "id": "rai",
+      "instructionsFile": "./SOUL.md",
+      "modelIds": [
+        "openai-codex/gpt-6-astra"
+      ],
+      "defaultModelId": "openai-codex/gpt-6-astra",
+      "tools": []
+    }
+  ]
+}

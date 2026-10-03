@@ -1,0 +1,51 @@
+{
+  "name": "@mindi/backend",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.13"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/http.d.ts",
+      "default": "./dist/http.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "lint": "eslint .",
+    "start": "node dist/main.js",
+    "acceptance:live": "node dist/live-acceptance.js",
+    "acceptance:interactions": "node dist/interaction-acceptance.js",
+    "acceptance:triage": "node dist/triage-acceptance.js",
+    "acceptance:tasks": "node dist/task-acceptance.js",
+    "acceptance:routines": "node dist/routine-acceptance.js",
+    "acceptance:agent-tools": "node dist/agent-tools-acceptance.js",
+    "acceptance:messages": "node dist/message-acceptance.js",
+    "acceptance:agent-messages": "node dist/agent-message-acceptance.js",
+    "acceptance:channel-branches": "node dist/channel-branch-acceptance.js"
+  },
+  "devDependencies": {
+    "@mindi/typescript-config": "workspace:*",
+    "@mindi/eslint-config": "workspace:*",
+    "@types/node": "^22.15.3",
+    "typescript": "^5.8.3",
+    "eslint": "^9.28.0",
+    "@types/ws": "^8.18.1"
+  },
+  "dependencies": {
+    "@mindi/desktop": "workspace:*",
+    "@mindi/message-runner": "workspace:*",
+    "@mindi/messaging": "workspace:*",
+    "@mindi/agent-tools": "workspace:*",
+    "@mindi/routines": "workspace:*",
+    "@mindi/agent-runtime": "workspace:*",
+    "@mindi/omp": "workspace:*",
+    "@mindi/tasks": "workspace:*",
+    "@mindi/task-runner": "workspace:*",
+    "@mindi/herdr": "workspace:*",
+    "ws": "8.21.3",
+    "@mindi/coordinator": "workspace:*"
+  }
+}
