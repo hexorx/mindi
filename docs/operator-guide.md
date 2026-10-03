@@ -1,7 +1,8 @@
 # Agent box operator guide
 
 How to run the published agent box, log in with a subscription, connect it to
-Paperclip, and roll it out or back. It needs no GitHub account and no Tailscale.
+Paperclip, and roll it out or back. Runtime configuration needs no GitHub
+account and no Tailscale; pulling the private image requires registry access.
 
 ## What is published
 
@@ -35,9 +36,13 @@ or environment with the published image.
 - Subscription accounts for the harnesses you plan to use: ChatGPT (Codex) for
   Hermes and OMP, and Claude for Claude Code. No model API key is used.
 
-## Run it (no GitHub, no Tailscale)
+## Run it (local configuration, no Tailscale)
 
-This example uses only Docker networking and a loopback port.
+This example uses only Docker networking and a loopback port. The release
+workflow publishes a private GHCR package: authenticate Docker with an account
+authorized to pull it before starting. Obtain the example files below from an
+authorized checkout or an operator-provided copy. Registry credentials belong
+to the host credential store, not the container or its configuration.
 
 1. Create an operator directory outside any Git checkout and copy the example
    backend configuration into it:
@@ -106,7 +111,8 @@ volume is kept. Never copy login files into a build context, image, Git or CI.
 
 On first start, `/opt/subscription.py` writes `~/.hermes/config.yaml` for the
 `openai-codex` provider if it does not already exist. Set
-`HERMES_INFERENCE_MODEL` before the first start to choose the model; any other
+`HERMES_INFERENCE_MODEL` in the Compose service's `environment` before the
+first start to choose the model (a host export alone is not forwarded); any other
 provider or a custom base URL is refused. An existing `config.yaml` is never
 overwritten.
 
