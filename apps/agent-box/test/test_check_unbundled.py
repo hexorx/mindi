@@ -60,6 +60,30 @@ class CheckUnbundledTest(unittest.TestCase):
             self.assertIn('usr/bin/google-chrome-stable', message)
             self.assertNotIn('usr/bin/chromium', message)
 
+    def test_hermes_claude_code_guide_is_not_package_payload(self):
+        self.assertFalse(check_unbundled.is_vendor_payload_path(
+            'opt/hermes/skills/autonomous-ai-agents/claude-code/SKILL.md'
+        ))
+
+    def test_claude_code_npm_payload_fails_closed(self):
+        self.assertTrue(check_unbundled.is_vendor_payload_path(
+            'home/agent/node_modules/@anthropic-ai/claude-code-linux-x64/claude'
+        ))
+
+    def test_google_chrome_payload_fails_closed(self):
+        for path in (
+            'opt/google/chrome/chrome',
+            'usr/bin/google-chrome-stable',
+            'usr/share/applications/google-chrome.desktop',
+        ):
+            with self.subTest(path=path):
+                self.assertTrue(check_unbundled.is_vendor_payload_path(path))
+
+    def test_runtime_launcher_name_is_not_chrome_payload(self):
+        self.assertFalse(check_unbundled.is_vendor_payload_path(
+            'opt/runtime-browser-launcher'
+        ))
+
 
 if __name__ == '__main__':
     unittest.main()

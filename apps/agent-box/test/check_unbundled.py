@@ -5,9 +5,24 @@ import subprocess
 import sys
 import tarfile
 
+
+def is_vendor_payload_path(path):
+    """Match installed vendor payloads without rejecting unrelated documentation."""
+    normalized = '/' + path.lstrip('./').lstrip('/')
+    filename = normalized.rsplit('/', 1)[-1]
+    return (
+        '/node_modules/@anthropic-ai/claude-code' in normalized
+        or normalized == '/opt/google/chrome'
+        or normalized.startswith('/opt/google/chrome/')
+        or filename.startswith('google-chrome')
+    )
+
+
 FILESYSTEM_CHECK = r'''packages="$(dpkg-query -W -f='${Package} ${db:Status-Status}\n' |
     awk '$1 ~ /^google-chrome/ && $2 == "installed" {print}')"
-paths="$(find / -xdev \( -path '*claude-code*' -o -name 'google-chrome*' \) -print 2>/dev/null)"
+paths="$(find / -xdev \( -path '*/node_modules/@anthropic-ai/claude-code*' \
+    -o -path '/opt/google/chrome' -o -path '/opt/google/chrome/*' \
+    -o -name 'google-chrome*' \) -print 2>/dev/null)"
 bad=0
 if [ -n "$packages" ]; then
     printf 'Bundled vendor packages:\n%s\n' "$packages"
@@ -50,8 +65,7 @@ def check_layers(archive):
             with tarfile.open(fileobj=layer_file, mode='r|*') as inner:
                 for member in inner:
                     name = member.name
-                    if ('claude-code' in name or
-                            name.rsplit('/', 1)[-1].startswith('google-chrome')):
+                    if is_vendor_payload_path(name):
                         violations.append(f'Bundled vendor file in {layer}: {name}')
     if violations:
         raise SystemExit('\n'.join(violations))
