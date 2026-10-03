@@ -1,6 +1,6 @@
 # Resumable roster registration
 
-Node 24 CLI for registering an **existing** Hermes box through Paperclip's
+Node 24 CLI for registering an **existing** agent box through Paperclip's
 approval-aware `agent-hires` endpoint. No deployment, box configuration writes,
 status activation, callback-key creation, smoke wakes, or cleanup are performed.
 `registered` means the mapping exists and the agent is active/idle/running; it
@@ -50,6 +50,24 @@ Example `registration.json` (replace IDs and digest with real, verified values):
   }
 }
 ```
+
+### Flavor adapter contract
+
+Set `box.adapterType` to the flavor's installed Paperclip adapter identifier
+(for example, `"example_gateway"` for flavor `"example"`). Admin uses it for the
+hire, environment test, and ownership checks during reconciliation. Identifiers
+must start with a lowercase letter and contain only lowercase letters, digits,
+underscores or hyphens (at most 64 characters). The adapter must accept
+`apiBaseUrl`, a secret-reference `apiKey`, `sessionKeyStrategy: "issue"`, and
+`paperclipApiUrl`; the box must implement the authenticated `/health` contract.
+This is the shared gateway registration contract, not support for arbitrary
+Paperclip adapters with unrelated configuration shapes.
+
+Existing Hermes rosters may omit the field: the compatibility registry resolves
+`hermes` to `hermes_gateway`. Other flavors must supply it and require no admin
+or Hermes code changes. The explicit field is included in the durable request
+fingerprint: keep it unchanged when resuming an operation, including leaving it
+absent for an existing Hermes operation.
 
 The request embeds one `RosterBoxSchema` entry selected from a verified roster.
 JSON is the CLI input format. Unknown fields and inline credential fields are

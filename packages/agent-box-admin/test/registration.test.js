@@ -250,3 +250,51 @@ test('adapter warnings prevent registration', async (t) => {
   await assert.rejects(runRegistration(input, 'register', api, store), /adapter_environment_failed/);
   assert.equal(state.hires, 0);
 });
+
+test('second flavor registers, recovers approval after timeout, and resumes with its adapter', async (t) => {
+  const { api, state, store } = fixture(t);
+  const request = structuredClone(input);
+  request.box.flavor = 'example';
+  request.box.adapterType = 'example_gateway';
+  request.box.capabilities = ['example-api'];
+  state.approval = approval();
+  state.timeout = true;
+  const preview = await runRegistration(request, 'register', api, undefined, true);
+  assert.equal(preview.hire.adapterType, 'example_gateway');
+  assert.equal((await runRegistration(request, 'register', api, store)).phase, 'pending_approval');
+  state.approval.status = 'approved';
+  state.agents[0].status = 'idle';
+  assert.equal((await runRegistration(request, 'reconcile', api, store)).phase, 'registered');
+  assert.equal((await runRegistration(request, 'register', api, store)).phase, 'registered');
+  assert.equal(state.agents[0].adapterType, 'example_gateway');
+  assert.ok(state.calls.some(([, path]) => path === `/companies/${companyId}/adapters/example_gateway/test-environment`));
+  assert.ok(state.calls.every(([, path]) => !path.includes('hermes')));
+  assert.equal(state.hires, 1);
+  state.agents[0].adapterType = 'wrong_gateway';
+  await assert.rejects(runRegistration(request, 'reconcile', api, store), /agent_ownership_conflict/);
+  await assert.rejects(runRegistration({ ...request, box: { ...request.box, adapterType: 'other_gateway' } },
+    'register', api, store), /operation_input_changed/);
+  assert.equal(state.hires, 1);
+});
+
+test('missing or unsafe adapter types fail before API access', async (t) => {
+  for (const adapterType of [undefined, '', '../agent-hires', 'x/y', 'x?y', 'x#y', 'A', 'a'.repeat(65)]) {
+    const { api, state, store } = fixture(t);
+    const request = { ...input, box: { ...input.box, flavor: 'example', adapterType } };
+    await assert.rejects(runRegistration(request, 'register', api, store));
+    assert.deepEqual(state.calls, []);
+  }
+});
+
+test('legacy Hermes payload and adapter route remain unchanged', async (t) => {
+  const { api, state, store } = fixture(t);
+  assert.equal(hirePayload(input).adapterType, 'hermes_gateway');
+  await runRegistration(input, 'register', api, store);
+  assert.ok(state.calls.some(([, path]) => path === `/companies/${companyId}/adapters/hermes_gateway/test-environment`));
+  assert.equal(state.agents[0].adapterType, 'hermes_gateway');
+  assert.deepEqual(state.agents[0].adapterConfig, {
+    apiBaseUrl: input.box.endpoint,
+    apiKey: { type: 'secret_ref', secretId: input.apiSecretId, version: 'latest' },
+    sessionKeyStrategy: 'issue', paperclipApiUrl: input.paperclipApiUrl,
+  });
+});
