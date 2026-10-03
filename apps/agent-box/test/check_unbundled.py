@@ -12,6 +12,7 @@ def is_vendor_payload_path(path):
     filename = normalized.rsplit('/', 1)[-1]
     return (
         '/node_modules/@anthropic-ai/claude-code' in normalized
+        or '/claude_agent_sdk/_bundled' in normalized
         or normalized == '/opt/google/chrome'
         or normalized.startswith('/opt/google/chrome/')
         or filename.startswith('google-chrome')
@@ -21,6 +22,7 @@ def is_vendor_payload_path(path):
 FILESYSTEM_CHECK = r'''packages="$(dpkg-query -W -f='${Package} ${db:Status-Status}\n' |
     awk '$1 ~ /^google-chrome/ && $2 == "installed" {print}')"
 paths="$(find / -xdev \( -path '*/node_modules/@anthropic-ai/claude-code*' \
+    -o -path '*/claude_agent_sdk/_bundled*' \
     -o -path '/opt/google/chrome' -o -path '/opt/google/chrome/*' \
     -o -name 'google-chrome*' \) -print 2>/dev/null)"
 bad=0

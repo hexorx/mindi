@@ -256,9 +256,13 @@ RUN mkdir -p /opt/cua-driver \
          bash -s -- --bin-dir /usr/local/bin --no-modify-path \
     && chmod 755 /usr/local/bin/cua-driver \
     && chown -R hermes:hermes /opt/cua-driver /home/agent
+# The Python SDK also ships Claude Code. Exclude it in the installing RUN
+# (pip cache is disabled) so no final image layer retains the vendor binary.
+# SDK callers resolve the runtime-installed claude from PATH.
 RUN python3 -m venv /opt/hindsight \
     && /opt/hindsight/bin/pip install --no-cache-dir \
         "hindsight-api-slim[embedded-db]==0.6.1" \
+    && rm -rf /opt/hindsight/lib/python*/site-packages/claude_agent_sdk/_bundled \
     && chown -R hermes:hermes /opt/hindsight /opt/mindi-plugins
 EXPOSE 9119 6080 22
 VOLUME ["/home/agent"]
