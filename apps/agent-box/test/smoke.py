@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Original backend/desktop smoke; credentials only enter a fresh runtime home."""
+"""Backend/desktop smoke for fresh and legacy homes; synthetic upgrade fixtures."""
 import json
 import os
 from pathlib import Path
@@ -61,6 +61,74 @@ def subscription_document(raw):
     return raw.encode()
 
 
+# Valid JSON is also YAML; these fixtures contain no usable provider credentials.
+LEGACY_FILES = {
+    'config.yaml': '{"model":{"provider":"openai-codex","default":"gpt-5"}}\n',
+    'auth.json': '{"providers":{},"credential_pool":{}}\n',
+}
+LEGACY_SEED = """import json,os,pathlib,sys
+home=pathlib.Path('/home/agent')
+private=home/'.hermes'
+private.mkdir(exist_ok=True)
+os.chown(private,1000,1000)
+for name,content in json.load(sys.stdin).items():
+    path=private/name
+    with path.open('xb') as stream:
+        stream.write(content.encode())
+    os.chown(path,1000,1000)
+    path.chmod(0o600)
+unrelated=home/'legacy-unrelated'
+unrelated.write_bytes(b'unrelated fixture\\n')
+os.chown(unrelated,12345,12346)
+unrelated.chmod(0o644)
+"""
+LEGACY_VERIFY = """import hashlib,json,os,pathlib,pwd,stat,sys
+account=pwd.getpwnam('hermes')
+assert os.geteuid()==account.pw_uid and os.geteuid()!=0
+home=pathlib.Path('/home/agent')
+for name,content in json.load(sys.stdin).items():
+    path=home/'.hermes'/name
+    actual=path.read_bytes()
+    expected=content.encode()
+    assert actual==expected, name+' bytes changed'
+    assert hashlib.sha256(actual).digest()==hashlib.sha256(expected).digest(), name+' digest changed'
+    info=path.stat()
+    assert stat.S_IMODE(info.st_mode)==0o600, name+' mode changed'
+    assert (info.st_uid,info.st_gid)==(account.pw_uid,account.pw_gid), name+' owner not repaired'
+info=(home/'legacy-unrelated').stat()
+assert (info.st_uid,info.st_gid)==(12345,12346), 'unrelated owner changed'
+"""
+
+
+def legacy_home_smoke(image, scratch, args):
+    name = scratch.name + '-legacy'
+    volume = name + '-home'
+    fixture = json.dumps(LEGACY_FILES).encode()
+    run(['docker', 'volume', 'create', volume])
+    # Seed the volume as root without invoking startup, then boot the actual image.
+    # Keep the stopped seed container and volume, matching the no-delete policy.
+    run(['docker', 'run', '--name', name + '-seed', '--network=none',
+         '--user', 'root', '--entrypoint', 'python3', '-i',
+         '-v', volume + ':/home/agent', image, '-c', LEGACY_SEED], input=fixture)
+    legacy_args = list(args)
+    legacy_args[legacy_args.index('--name') + 1] = name
+    if '--network=none' not in legacy_args:
+        legacy_args.append('--network=none')
+    run([*legacy_args, '-v', volume + ':/home/agent', image])
+    try:
+        run(['docker', 'cp', str(scratch), name + ':/run/backend-example'])
+        run(['docker', 'start', name])
+        for boot in range(2):
+            if boot:
+                run(['docker', 'restart', '--time', '20', name])
+            wait_desktop(name)
+            run(['docker', 'exec', '-i', '--user', 'hermes', name,
+                 'python3', '-c', LEGACY_VERIFY], input=fixture)
+    finally:
+        run(['docker', 'stop', '--time', '20', name])
+    print('Legacy home: private bytes, SHA-256, modes and unrelated owner preserved across restart.')
+
+
 def main():
     image = sys.argv[1]
     subscription = '--subscription' in sys.argv[2:]
@@ -80,6 +148,7 @@ def main():
             '-e', 'AGENT_BOX_RUN_DIR=/tmp/agent-box']
     if not subscription:
         args += ['--network=none']
+    legacy_home_smoke(image, scratch, args)
     run([*args, image])
     try:
         run(['docker', 'cp', str(scratch), name + ':/run/backend-example'])
