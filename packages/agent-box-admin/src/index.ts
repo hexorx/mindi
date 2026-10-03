@@ -5,6 +5,8 @@ import { DatabaseSync } from 'node:sqlite';
 import { z } from 'zod';
 import { RosterBoxSchema, HttpsEndpointSchema } from '@mindi/agent-box-core';
 
+import { legacyFlavorAdapters } from './flavors.js';
+
 const uuid = z.uuid().transform((v) => v.toLowerCase());
 export const RequestSchema = z.strictObject({
   companyId: uuid,
@@ -97,9 +99,12 @@ function mapping(agent: Agent): Record<string, unknown> | undefined {
   const value = agent.metadata?.agentBoxRegistration;
   return value && typeof value === 'object' && !Array.isArray(value) ? value as Record<string, unknown> : undefined;
 }
+function adapterType(r: RegistrationRequest): string {
+  return r.box.adapterType ?? legacyFlavorAdapters.get(r.box.flavor) ?? fail('unsupported_flavor');
+}
 function validateAgent(agent: Agent, r: RegistrationRequest): void {
   const meta = mapping(agent);
-  if (agent.companyId !== r.companyId || agent.adapterType !== 'hermes_gateway' ||
+  if (agent.companyId !== r.companyId || agent.adapterType !== adapterType(r) ||
       meta?.boxId !== r.box.boxId || meta?.operationKey !== key(r) ||
       meta?.companyId !== r.companyId ||
       typeof agent.adapterConfig?.apiBaseUrl !== 'string' ||
@@ -144,7 +149,7 @@ async function reconcileServer(r: RegistrationRequest, op: Operation, api: Trans
 export function hirePayload(r: RegistrationRequest) {
   return {
     name: r.name, role: r.role, reportsTo: r.reportsTo, sourceIssueId: r.sourceIssueId,
-    budgetMonthlyCents: r.budgetMonthlyCents, adapterType: 'hermes_gateway',
+    budgetMonthlyCents: r.budgetMonthlyCents, adapterType: adapterType(r),
     adapterConfig: { apiBaseUrl: endpoint(r.box.endpoint),
       apiKey: { type: 'secret_ref', secretId: r.apiSecretId, version: 'latest' },
       sessionKeyStrategy: 'issue', paperclipApiUrl: r.paperclipApiUrl },
@@ -156,7 +161,7 @@ export function hirePayload(r: RegistrationRequest) {
 export async function runRegistration(input: unknown, command: 'register' | 'reconcile',
   api: Transport, store?: OperationStore, dryRun = false): Promise<unknown> {
   const r = RequestSchema.parse(input);
-  if (r.box.flavor !== 'hermes') fail('unsupported_flavor');
+  adapterType(r); // Resolve before any API access or state reservation.
   if (r.box.registration && r.box.registration.companyId !== r.companyId) fail('company_mismatch');
   // Authenticated principal, not caller-supplied company scope.
   const principal = z.object({ companyId: uuid }).parse(await api.request('GET', '/agents/me'));
@@ -179,7 +184,7 @@ export async function runRegistration(input: unknown, command: 'register' | 'rec
     if (issue.id !== r.sourceIssueId || issue.companyId !== r.companyId) fail('company_mismatch');
     await api.probe(r.box);
     const environment = z.object({ status: z.literal('pass') }).safeParse(await api.request('POST',
-      `/companies/${r.companyId}/adapters/hermes_gateway/test-environment`, { adapterConfig: hirePayload(r).adapterConfig }));
+      `/companies/${r.companyId}/adapters/${adapterType(r)}/test-environment`, { adapterConfig: hirePayload(r).adapterConfig }));
     if (!environment.success) fail('adapter_environment_failed');
     // Commit intent BEFORE dispatch. Neither timeouts nor process crashes grant
     // permission to submit another hire, even if the first list is still empty.
