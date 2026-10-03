@@ -1,0 +1,22 @@
+#!/bin/sh
+# Always-on Hindsight API (pg0 under $HOME). Safe to exec from s6.
+set -e
+set -a
+[ -f /run/agent-box.env ] && . /run/agent-box.env
+set +a
+export HOME="${HOME:-/home/agent}"
+export USER="${USER:-hermes}"
+export HINDSIGHT_API_HOST="${HINDSIGHT_API_HOST:-127.0.0.1}"
+export HINDSIGHT_API_PORT="${HINDSIGHT_API_PORT:-8888}"
+export HINDSIGHT_API_BASE_PATH="${HINDSIGHT_API_BASE_PATH:-/api}"
+export HINDSIGHT_API_RUN_MIGRATIONS_ON_STARTUP="${HINDSIGHT_API_RUN_MIGRATIONS_ON_STARTUP:-true}"
+export HINDSIGHT_API_DATABASE_URL="${HINDSIGHT_API_DATABASE_URL:-pg0}"
+export HINDSIGHT_API_EMBEDDINGS_PROVIDER="${HINDSIGHT_API_EMBEDDINGS_PROVIDER:-openai}"
+export HINDSIGHT_API_RERANKER_PROVIDER="${HINDSIGHT_API_RERANKER_PROVIDER:-rrf}"
+if [ -z "${HINDSIGHT_API_EMBEDDINGS_OPENAI_API_KEY:-}" ] && [ -n "${HINDSIGHT_API_LLM_API_KEY:-}" ]; then
+    export HINDSIGHT_API_EMBEDDINGS_OPENAI_API_KEY="${HINDSIGHT_API_LLM_API_KEY}"
+fi
+if [ -z "${HINDSIGHT_API_LLM_BASE_URL:-}" ]; then
+    unset HINDSIGHT_API_LLM_BASE_URL
+fi
+exec /opt/hindsight/bin/hindsight-api

@@ -1,0 +1,13 @@
+{
+  "name": "mindi-box",
+  "label": "Box",
+  "description": "Agent-box status and GitHub sign-in",
+  "icon": "Terminal",
+  "version": "1.0.0",
+  "tab": {
+    "path": "/box",
+    "position": "end"
+  },
+  "entry": "dist/index.js",
+  "api": "plugin_api.py"
+}

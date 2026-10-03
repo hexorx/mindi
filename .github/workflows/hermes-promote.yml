@@ -16,7 +16,6 @@ jobs:
       packages: write
     env:
       GH_TOKEN: ${{ github.token }}
-      REGISTRY_AUTH_FILE: ${{ runner.temp }}/registry-auth.json
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
@@ -28,7 +27,6 @@ jobs:
         env:
           HERMES_SUBSCRIPTION_AUTH_JSON: ${{ secrets.HERMES_SUBSCRIPTION_AUTH_JSON }}
         run: test -n "$HERMES_SUBSCRIPTION_AUTH_JSON"
-      - uses: docker/setup-buildx-action@v3
       - uses: aquasecurity/setup-trivy@81e514348e19b6112ce2a7e3ecbafe19c1e1f567 # v0.3.1
         with:
           version: v0.75.0
@@ -36,18 +34,19 @@ jobs:
         run: sudo apt-get update && sudo apt-get install --no-install-recommends -y skopeo
       - name: Build once without model credentials
         run: |
-          docker buildx build --platform linux/amd64 --build-arg SOURCE_REVISION="$GITHUB_SHA" --load -t hermes-release:local -f apps/agent-box-hermes/Dockerfile .
+          docker build --platform linux/amd64 -t agent-box-base:local -f apps/agent-box/base/infra/agent-box/Dockerfile apps/agent-box/base
+          docker build --platform linux/amd64 --build-arg AGENT_BOX_IMAGE=agent-box-base:local --build-arg SOURCE_REVISION="$GITHUB_SHA" -t hermes-release:local -f apps/agent-box/backend/infra/backend-box/Dockerfile apps/agent-box/backend
           test "$(docker image inspect --format '{{ index .Config.Labels "org.opencontainers.image.revision" }}' hermes-release:local)" = "$GITHUB_SHA"
           docker save hermes-release:local -o "$RUNNER_TEMP/image.tar"
           skopeo copy "docker-archive:$RUNNER_TEMP/image.tar" "oci-archive:$RUNNER_TEMP/image.oci.tar:sha-$GITHUB_SHA"
       - name: Scan every layer and config/history for secrets
         run: python3 -B scripts/hermes-release/scan_layers.py "$RUNNER_TEMP/image.tar" "$RUNNER_TEMP/secrets-summary.json"
       - name: Basic offline startup and desktop smoke
-        run: bash apps/agent-box-hermes/test/offline-startup-smoke.sh hermes-release:local
+        run: python3 -B apps/agent-box/test/smoke.py hermes-release:local
       - name: Require a real subscription answer
         env:
           HERMES_SUBSCRIPTION_AUTH_JSON: ${{ secrets.HERMES_SUBSCRIPTION_AUTH_JSON }}
-        run: python3 -B apps/agent-box-hermes/test/subscription-smoke.py hermes-release:local
+        run: python3 -B apps/agent-box/test/smoke.py hermes-release:local --subscription
       - name: Informational SBOM
         continue-on-error: true
         run: trivy image --input "$RUNNER_TEMP/image.tar" --format cyclonedx --output "$RUNNER_TEMP/sbom.cdx.json"
@@ -57,6 +56,7 @@ jobs:
       - name: Push exact digest to private package
         env:
           GHCR_TOKEN: ${{ github.token }}
+          REGISTRY_AUTH_FILE: ${{ runner.temp }}/registry-auth.json
         run: |
           printf '%s' "$GHCR_TOKEN" | skopeo login --authfile "$REGISTRY_AUTH_FILE" --username "$GITHUB_ACTOR" --password-stdin ghcr.io
           python3 -B scripts/hermes-release/publish.py publish "$RUNNER_TEMP/image.oci.tar" "$RUNNER_TEMP/receipt.json"

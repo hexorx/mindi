@@ -1,0 +1,37 @@
+* {
+  font-family: "DejaVu Sans", sans-serif;
+  font-size: 13px;
+  border: none;
+  border-radius: 0;
+  min-height: 0;
+}
+
+window#waybar {
+  background: #1a1b2e;
+  color: #e9ecef;
+}
+
+#custom-launcher,
+#custom-terminal,
+#custom-chrome,
+#clock,
+#workspaces button {
+  padding: 0 14px;
+  margin: 4px 2px;
+  background: #2b2d42;
+  color: #e9ecef;
+  border-radius: 4px;
+}
+
+#custom-launcher:hover,
+#custom-terminal:hover,
+#custom-chrome:hover,
+#workspaces button:hover {
+  background: #4c6ef5;
+  color: #ffffff;
+}
+
+#workspaces button.focused {
+  background: #4c6ef5;
+  color: #ffffff;
+}

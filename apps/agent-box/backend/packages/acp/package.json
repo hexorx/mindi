@@ -1,0 +1,26 @@
+{
+  "name": "@mindi/acp",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.13"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "lint": "eslint src"
+  },
+  "devDependencies": {
+    "@mindi/typescript-config": "workspace:*",
+    "@mindi/eslint-config": "workspace:*",
+    "@types/node": "^22.15.3",
+    "typescript": "^5.8.3",
+    "eslint": "^9.28.0"
+  }
+}

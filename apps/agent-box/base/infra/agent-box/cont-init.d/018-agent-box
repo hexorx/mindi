@@ -1,0 +1,60 @@
+#!/command/with-contenv sh
+# shellcheck shell=sh
+# After Hermes stage2 UID remap, before 02-reconcile-profiles.
+set -eu
+
+if [ -f /run/agent-box.env ]; then
+    set -a
+    # shellcheck disable=SC1091
+    . /run/agent-box.env
+    set +a
+fi
+
+export HOME="${HOME:-/home/agent}"
+export HERMES_HOME="${HERMES_HOME:-$HOME/.hermes}"
+export USER="${USER:-hermes}"
+export XDG_RUNTIME_DIR="${XDG_RUNTIME_DIR:-/run/user/1000}"
+
+mkdir -p "$HOME" "$HERMES_HOME" "$HOME/.ssh" "$HOME/.config/wayvnc" "$XDG_RUNTIME_DIR"
+chmod 700 "$XDG_RUNTIME_DIR" "$HOME/.ssh"
+
+hermes_uid=$(id -u hermes)
+hermes_gid=$(id -g hermes)
+if ! getent passwd agent >/dev/null 2>&1; then
+    useradd -o -u "$hermes_uid" -g "$hermes_gid" -d /home/agent -s /bin/zsh agent \
+        || echo "identity: agent login alias skipped" >&2
+fi
+
+if [ -f /run/agent-box.env ]; then
+    chown hermes:hermes /run/agent-box.env
+    chmod 600 /run/agent-box.env
+fi
+
+# Entrypoint writes these as root before HERMES_UID remap. Do not chown -R
+# $HOME — $HERMES_HOME/home may be a symlink back to $HOME.
+chown hermes:hermes "$HOME" || true
+for path in "$HOME/.ssh" "$HOME/.config" "$HOME/.secrets" "$HOME/.local" \
+        "$XDG_RUNTIME_DIR" /opt/cua-driver; do
+    if [ -e "$path" ]; then
+        chown -R hermes:hermes "$path" || true
+    fi
+done
+
+if [ -d "$HERMES_HOME/home" ] && [ -z "$(ls -A "$HERMES_HOME/home" 2>/dev/null || true)" ]; then
+    rmdir "$HERMES_HOME/home" || true
+fi
+if [ ! -e "$HERMES_HOME/home" ]; then
+    ln -s "$HOME" "$HERMES_HOME/home" || true
+    chown -h hermes:hermes "$HERMES_HOME/home" || true
+fi
+
+as_hermes() {
+    if [ "$(id -u)" = 0 ]; then
+        s6-setuidgid hermes "$@"
+    else
+        "$@"
+    fi
+}
+
+as_hermes /opt/identity.sh || echo "identity: bootstrap failed (continuing)" >&2
+as_hermes /opt/configure-agent-box.sh || echo "hermes: configure skipped" >&2
