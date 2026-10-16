@@ -6,7 +6,7 @@ import { mkdtempSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { spawnSync } from 'node:child_process';
-import { OperationStore, runRegistration, hirePayload } from '../dist/index.js';
+import { OperationStore, runRegistration, runHire, cleanupHire, hirePayload } from '../dist/index.js';
 import { HttpTransport, requestJson } from '../dist/http.js';
 
 const companyId = '10000000-0000-4000-8000-000000000001';
@@ -249,4 +249,52 @@ test('adapter warnings prevent registration', async (t) => {
     { status: 'warn' } : original(method, path, body);
   await assert.rejects(runRegistration(input, 'register', api, store), /adapter_environment_failed/);
   assert.equal(state.hires, 0);
+});
+
+test('hire persists deployment timeout and recovers without deploying twice', async (t) => {
+  const { api, state, store, directory } = fixture(t);
+  let deploys = 0, recoveries = 0;
+  const handoff = {
+    async deploy() { deploys++; throw new Error('handoff timeout'); },
+    async recover() { recoveries++; return { deploymentId: 'drone-42', box: input.box }; },
+    async cleanup() {},
+  };
+  assert.equal((await runHire(input, api, store, handoff)).phase, 'deployment_uncertain');
+  const reopened = new OperationStore(directory);
+  try {
+    const result = await runHire(input, api, reopened, handoff);
+    assert.equal(result.phase, 'registered');
+    assert.equal(deploys, 1);
+    assert.equal(recoveries, 1);
+    assert.equal(state.hires, 1);
+  } finally { reopened.close(); }
+});
+
+test('hire health gate prevents agent hire; cleanup explicitly preserves volumes', async (t) => {
+  const { api, state, store } = fixture(t);
+  api.probe = async () => { throw new Error('unhealthy'); };
+  let cleanupOptions;
+  const handoff = {
+    async deploy() { return { deploymentId: 'drone-43', box: input.box }; },
+    async recover() { return undefined; },
+    async cleanup(_id, options) { cleanupOptions = options; },
+  };
+  await assert.rejects(runHire(input, api, store, handoff), /unhealthy/);
+  assert.equal(state.hires, 0);
+  const op = { key: 'k', fingerprint: 'f', phase: 'inactive', deploymentId: 'drone-43' };
+  await cleanupHire(op, handoff);
+  assert.deepEqual(cleanupOptions, { preserveVolumes: true });
+});
+
+test('hire rejection remains durable and a repeated run never creates a replacement', async (t) => {
+  const { api, state, store } = fixture(t);
+  state.approval = approval();
+  const handoff = {
+    async deploy() { return { deploymentId: 'drone-44', box: input.box }; },
+    async recover() { return undefined; }, async cleanup() {},
+  };
+  assert.equal((await runHire(input, api, store, handoff)).phase, 'pending_approval');
+  state.approval.status = 'rejected';
+  assert.equal((await runHire(input, api, store, handoff)).phase, 'rejected');
+  assert.equal(state.hires, 1);
 });

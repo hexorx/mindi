@@ -1,8 +1,19 @@
-# Resumable roster registration
+# Resumable hire orchestration and roster registration
 
-Node 24 CLI for registering an **existing** Hermes box through Paperclip's
-approval-aware `agent-hires` endpoint. No deployment, box configuration writes,
-status activation, callback-key creation, smoke wakes, or cleanup are performed.
+Node 24 package for Opi's deploy-then-register handoff and for registering an
+**existing** Hermes box through Paperclip's approval-aware `agent-hires`
+endpoint. `runHire` records durable deployment and registration phases in the
+same protected operation store. It invokes the Opi-owned `DeploymentHandoff`
+adapter, waits for its deployment result, then uses the existing health-gated
+registration flow. An ambiguous deploy is recovered by handoff key and is never
+blindly dispatched a second time. `cleanupHire` always passes
+`preserveVolumes: true` to Opi. The deployment adapter and actual deploy/cleanup
+operations remain Opi-owned.
+
+No box configuration writes, status activation, callback-key creation, or smoke
+wakes are performed. `registered` means the mapping exists and the agent is
+active/idle/running; it is not a claim that a smoke wake or full
+desktop/memory qualification passed.
 `registered` means the mapping exists and the agent is active/idle/running; it
 is not a claim that a smoke wake or full desktop/memory qualification passed.
 
@@ -15,6 +26,13 @@ node packages/agent-box-admin/dist/cli.js register --request registration.json -
 node packages/agent-box-admin/dist/cli.js register --request registration.json --state /operator/roster-state
 node packages/agent-box-admin/dist/cli.js reconcile --request registration.json --state /operator/roster-state
 ```
+
+The `register` and `reconcile` CLI commands cover an existing deployment.
+Orchestration callers use `runHire(request, api, store, opiHandoff)` with the
+`DeploymentHandoff` interface from the package. Deployment adapter tests should
+prove that `recover` is idempotent by handoff key and that cleanup preserves
+volumes. Do not implement Dokploy credentials or deployment mutations in this
+package.
 
 Use an agent-scoped `PAPERCLIP_API_KEY` with hiring, agent-read and adapter-test
 permissions. `PAPERCLIP_API_URL` must be HTTPS and may end in `/api`.
