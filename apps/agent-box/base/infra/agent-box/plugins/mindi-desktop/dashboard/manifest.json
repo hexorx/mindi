@@ -1,0 +1,12 @@
+{
+  "name": "mindi-desktop",
+  "label": "Desktop",
+  "description": "Wayland desktop via noVNC",
+  "icon": "Monitor",
+  "version": "1.0.0",
+  "tab": {
+    "path": "/desktop",
+    "position": "start"
+  },
+  "entry": "dist/index.js"
+}

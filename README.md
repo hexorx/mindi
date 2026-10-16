@@ -47,8 +47,13 @@ accidental package publication.
    declare that dependency with `workspace:*` so Turbo orders builds correctly.
 4. Run `pnpm install` and the checks above; commit the updated lockfile.
 
-`apps/agent-box` comes next in [HEX-85](/HEX/issues/HEX-85)
-and is intentionally outside this scaffold.
+## Agent boxes
+
+- [Operator guide](docs/operator-guide.md): run the published
+  `ghcr.io/hexorx/agent-box-hermes` image without GitHub or Tailscale, log in
+  with a subscription, register in Paperclip, and roll out or back.
+- [Adding a flavor](docs/adding-a-flavor.md): what a new agent box flavor
+  provides and what is still tied to Hermes.
 
 Never commit secrets or `.env` files. CI needs no application secrets.
 

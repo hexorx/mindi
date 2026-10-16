@@ -46,6 +46,13 @@ if [ "$#" -gt 0 ]; then
 fi
 mapfile -t requested < "$work/requested"
 
+# Pin the entire expected final inventory. A newer security snapshot must not
+# broaden this transaction or change inherited packages implicitly.
+rows "$lock_dir/apt-final-inventory.tsv" | awk -F'\t' '
+    { sub(/:.*/, "", $1); printf "Package: %s\nPin: version %s\nPin-Priority: 1001\n\n", $1, $2 }
+    END { print "Package: *\nPin: version *\nPin-Priority: -1" }' > "$work/preferences"
+opts+=(-o "Dir::Etc::Preferences=$work/preferences" -o "Dir::Etc::PreferencesParts=-")
+
 rows "$lock_dir/apt-inherited.tsv" | cut -f1-3 | sort > "$work/expected-base"
 inventory > "$work/base"
 diff -u "$work/expected-base" "$work/base" >&2 \

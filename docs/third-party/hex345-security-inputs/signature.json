@@ -1,0 +1,15 @@
+{
+  "command": [
+    "sqv",
+    "--verbose",
+    "--keyring",
+    "/usr/share/keyrings/debian-archive-keyring.gpg",
+    "--output",
+    "hex345-input-readiness/snapshot-release.verified",
+    "--cleartext",
+    "hex345-input-readiness/snapshot-inrelease.body"
+  ],
+  "exit": 0,
+  "stdout": "05AB90340C0C5E797F44A8C8254CF3B5AEC0A8F0\n5E04A1E3223A19A20706E20F9904613D4CCE68C6\n",
+  "stderr": "2 of 2 signatures are valid (threshold is: 1).\n"
+}

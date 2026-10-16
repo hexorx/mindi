@@ -1,0 +1,20 @@
+[
+  {
+    "file": "grpc-js-1.14.5-LICENSE",
+    "url": "https://registry.npmjs.org/@grpc/grpc-js/-/grpc-js-1.14.5.tgz",
+    "sha256": "e03ba41d7fab20700769fe4118bab50d800cb74f990353a05d2f5fff1c228363",
+    "archiveSha256": "7619fe0a86a59de7ff47f12cb7416d024d51a1356a260a50b72df6fd0ed34b54"
+  },
+  {
+    "file": "tornado-6.5.9--tornado-6.5.9.dist-info__licenses__LICENSE",
+    "url": "https://files.pythonhosted.org/packages/9e/0f/38f8d16011de3b1ce2babb4c3bcefb126d2dc47d04878ae3ad5c39a00caa/tornado-6.5.9-cp39-abi3-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl",
+    "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "archiveSha256": "0cc0876a58eee9143476f24901b1b8eb4d52443283ade2b6bca650dd1da04f84"
+  },
+  {
+    "file": "urllib3-2.8.0--urllib3-2.8.0.dist-info__licenses__LICENSE.txt",
+    "url": "https://files.pythonhosted.org/packages/92/9d/c4e665119135114480843e7ab388fa94d8480650450e6f8e26b70d323a4c/urllib3-2.8.0-py3-none-any.whl",
+    "sha256": "130e3a64d5fdd5d096a752694634a7d9df284469de86e5732100268041e3d686",
+    "archiveSha256": "0cf3cae568d36aa9576b28dfb35f11328f1cb974ca7647d9475ebb86c75ac6e3"
+  }
+]

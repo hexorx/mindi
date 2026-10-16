@@ -1,0 +1,16 @@
+#!/command/with-contenv sh
+# shellcheck shell=sh
+set -e
+[ -f /run/agent-box.env ] && set -a && . /run/agent-box.env && set +a
+export HOME="${HOME:-/home/agent}"
+export USER="${USER:-hermes}"
+export XDG_RUNTIME_DIR="${XDG_RUNTIME_DIR:-/run/user/1000}"
+export XDG_SESSION_TYPE="${XDG_SESSION_TYPE:-wayland}"
+export WAYLAND_DISPLAY="${WAYLAND_DISPLAY:-wayland-1}"
+export WLR_BACKENDS="${WLR_BACKENDS:-headless}"
+export WLR_HEADLESS_OUTPUTS="${WLR_HEADLESS_OUTPUTS:-1}"
+export WLR_LIBINPUT_NO_DEVICES="${WLR_LIBINPUT_NO_DEVICES:-1}"
+export WLR_RENDERER="${WLR_RENDERER:-pixman}"
+export DISPLAY="${DISPLAY:-:0}"
+export DBUS_SESSION_BUS_ADDRESS="${DBUS_SESSION_BUS_ADDRESS:-unix:path=$XDG_RUNTIME_DIR/bus}"
+exec s6-setuidgid hermes /usr/bin/sway --config /etc/agent-box/sway/config

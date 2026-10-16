@@ -15,11 +15,12 @@ import companion
 import gate
 import promote
 from companion_fixtures import make_companion, sha
-from promotion_test import Candidate
+from promotion_test import Candidate, empty_secret_policy
 
 
 class CompanionTests(unittest.TestCase):
     def setUp(self):
+        empty_secret_policy(self)
         self.temp = tempfile.TemporaryDirectory()
         self.addCleanup(self.temp.cleanup)
         self.root = Path(self.temp.name)

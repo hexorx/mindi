@@ -16,8 +16,6 @@ services:
       - box-home:/home/agent
       - box-memory:/var/lib/agent-box/hindsight
     secrets:
-      - memory_llm_key
-      - memory_embeddings_key
       - desktop_password
       - desktop_tls_cert
       - desktop_tls_key
@@ -26,10 +24,6 @@ services:
     security_opt:
       - no-new-privileges:true
 secrets:
-  memory_llm_key:
-    file: ${MEMORY_LLM_KEY_FILE:?Set MEMORY_LLM_KEY_FILE}
-  memory_embeddings_key:
-    file: ${MEMORY_EMBEDDINGS_KEY_FILE:?Set MEMORY_EMBEDDINGS_KEY_FILE}
   desktop_password:
     file: ${DESKTOP_PASSWORD_FILE:?Set DESKTOP_PASSWORD_FILE}
   desktop_tls_cert:

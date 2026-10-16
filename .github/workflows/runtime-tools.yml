@@ -1,0 +1,27 @@
+name: Runtime-only vendor tools
+on:
+  pull_request:
+    paths:
+      - 'apps/agent-box/**'
+      - '.github/workflows/runtime-tools.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  image-acceptance:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build published image recipes without publication
+        run: |
+          docker build --platform linux/amd64 -t agent-box-base:local -f apps/agent-box/base/infra/agent-box/Dockerfile apps/agent-box/base
+          docker build --platform linux/amd64 --build-arg AGENT_BOX_IMAGE=agent-box-base:local --build-arg SOURCE_REVISION="$GITHUB_SHA" -t hermes-test:local -f apps/agent-box/backend/infra/backend-box/Dockerfile apps/agent-box/backend
+      - name: Verify no vendor payload in any image layer
+        run: |
+          docker save hermes-test:local -o "$RUNNER_TEMP/image.tar"
+          python3 -B apps/agent-box/test/check_unbundled.py hermes-test:local "$RUNNER_TEMP/image.tar"
+      - name: Fresh online boot installs pinned tools and restart skips
+        run: python3 -B apps/agent-box/test/smoke.py hermes-test:local --runtime-tools
+      - name: Fresh offline boot remains usable without optional tools
+        run: python3 -B apps/agent-box/test/smoke.py hermes-test:local

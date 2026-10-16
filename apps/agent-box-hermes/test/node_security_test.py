@@ -87,6 +87,25 @@ class NodeSecurityTest(unittest.TestCase):
             module.apply(self.root, {'schemaVersion': 1, 'packages': [self.entry, bad]}, lambda url: self.raw)
         self.assertTrue((self.target / 'obsolete.js').exists())
 
+    def test_photon_grpc_targets_the_inherited_sidecar_and_matches_provenance(self):
+        lock = json.loads((BUILD / 'hermes-node-security.json').read_text())
+        grpc, = [entry for entry in lock['packages'] if entry['name'] == '@grpc/grpc-js']
+        self.assertEqual(grpc['version'], '1.14.5')
+        self.assertEqual(grpc['targets'], [{
+            'path': '/opt/hermes/plugins/platforms/photon/sidecar/node_modules/@grpc/grpc-js',
+            'expectedVersion': '1.14.4',
+        }])
+        provenance = BUILD.parents[2] / 'docs/third-party/hex290-security-inputs'
+        registry = json.loads((provenance / 'grpc-js-1.14.5-registry.json').read_text())
+        self.assertEqual(grpc['dependencies'], registry['dependencies'])
+        self.assertEqual(grpc['url'], registry['dist']['tarball'])
+        records = json.loads((provenance / 'sources.json').read_text())
+        for record in records:
+            self.assertEqual(hashlib.sha256((provenance / record['file']).read_bytes()).hexdigest(),
+                             record['sha256'])
+        license_record, = [r for r in records if r['file'] == 'grpc-js-1.14.5-LICENSE']
+        self.assertEqual(grpc['sha256'], license_record['archiveSha256'])
+
     def test_all_28_original_finding_paths_are_accounted_for(self):
         root = BUILD.parents[2]
         ledger = json.loads((root / 'docs/security-hex232-rows.json').read_text())['rows']

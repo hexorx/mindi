@@ -168,17 +168,8 @@ for _ in $(seq 1 15); do
     sleep 2
 done
 [ -n "$reached" ] || fail "peer could not reach the authenticated desktop origin"
-# Discover the actual pg0 port; never assume the allocator chose 5432.
-# Positive local probes ensure an absent memory service cannot pass isolation.
-pg0_port=$(docker exec "$box" python3 -c '
-import json, pathlib, socket
-port = json.loads(pathlib.Path("/var/lib/agent-box/hindsight/.pg0/instances/hindsight/instance.json").read_text())["port"]
-for private_port in (8888, port):
-    with socket.create_connection(("127.0.0.2", private_port), timeout=2):
-        pass
-print(port)
-')
-for port in 5900 6080 1055 1056 8888 9999 "$pg0_port"; do
+# Hindsight is dormant in file-memory mode; its old port stays unreachable.
+for port in 5900 6080 1055 1056 8888 9999; do
     result=$(probe "$port")
     case "$result" in
         200\ *) fail "tailnet peer reached loopback port $port" ;;

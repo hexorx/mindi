@@ -1,0 +1,8 @@
+#!/command/with-contenv sh
+# shellcheck shell=sh
+set -e
+[ -f /run/agent-box.env ] && set -a && . /run/agent-box.env && set +a
+export HOME="${HOME:-/home/agent}"
+export XDG_RUNTIME_DIR="${XDG_RUNTIME_DIR:-/run/user/1000}"
+exec s6-setuidgid hermes /usr/bin/dbus-daemon --session \
+    --address="unix:path=${XDG_RUNTIME_DIR}/bus" --nofork --nopidfile --syslog-only

@@ -5,6 +5,8 @@ export const RegistrationSchema = z.strictObject({ companyId: z.uuid().transform
 export const RosterBoxSchema = z.strictObject({
   boxId: BoxIdSchema,
   flavor: FlavorSchema,
+  // Paperclip adapter implementing the agent-box gateway contract.
+  adapterType: z.string().regex(/^[a-z][a-z0-9_-]{0,63}$/).optional(),
   endpoint: HttpsEndpointSchema,
   imageDigest: ImageDigestSchema,
   // Resolved Git commit or content hash for local/packaged configuration.

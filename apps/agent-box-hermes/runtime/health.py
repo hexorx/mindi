@@ -13,9 +13,6 @@ try:
                            timeout=3, check=True).stdout
     if not frame.startswith(b"\x89PNG\r\n\x1a\n") or len(frame) < 100:
         raise ValueError("No frame")
-    with urllib.request.urlopen('http://127.0.0.2:8888/health', timeout=2) as response:
-        if json.load(response).get('status') != 'healthy':
-            raise ValueError('Memory database unavailable')
     request = urllib.request.Request('http://127.0.0.1:8642/health',
                                      headers={'Authorization': 'Bearer ' + os.environ['API_SERVER_KEY']})
     with urllib.request.urlopen(request, timeout=2) as response:

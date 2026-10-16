@@ -1,0 +1,32 @@
+{
+  "command": [
+    "apt-get",
+    "-s",
+    "-o",
+    "Debug::NoLocking=true",
+    "-o",
+    "Dir::Etc::sourcelist=/dev/null",
+    "-o",
+    "Dir::Etc::sourceparts=-",
+    "-o",
+    "Dir::State::status=/paperclip/instances/default/projects/a9e3b786-cbba-4862-a0b0-504044cda9b5/b1603b63-8e6c-4d15-876f-c8956f9abcf9/_default/hex315-final/in/new/hex317-evidence-b9e211a20de3/inventory/dpkg/status",
+    "-o",
+    "Dir::State::lists=/paperclip/instances/default/projects/a9e3b786-cbba-4862-a0b0-504044cda9b5/b1603b63-8e6c-4d15-876f-c8956f9abcf9/_default/hex345-input-readiness/resolver-lists",
+    "-o",
+    "Dir::Cache=/paperclip/instances/default/projects/a9e3b786-cbba-4862-a0b0-504044cda9b5/b1603b63-8e6c-4d15-876f-c8956f9abcf9/_default/hex345-input-readiness/resolver-cache",
+    "-o",
+    "APT::Install-Recommends=false",
+    "-o",
+    "APT::Install-Suggests=false",
+    "install",
+    "/paperclip/instances/default/projects/a9e3b786-cbba-4862-a0b0-504044cda9b5/b1603b63-8e6c-4d15-876f-c8956f9abcf9/_default/hex345-input-readiness/chromium_154.0.8037.92-1~deb13u1_amd64.deb",
+    "/paperclip/instances/default/projects/a9e3b786-cbba-4862-a0b0-504044cda9b5/b1603b63-8e6c-4d15-876f-c8956f9abcf9/_default/hex345-input-readiness/chromium-common_154.0.8037.92-1~deb13u1_amd64.deb",
+    "/paperclip/instances/default/projects/a9e3b786-cbba-4862-a0b0-504044cda9b5/b1603b63-8e6c-4d15-876f-c8956f9abcf9/_default/hex345-input-readiness/libexpat1_2.8.3-1~deb13u1_amd64.deb",
+    "/paperclip/instances/default/projects/a9e3b786-cbba-4862-a0b0-504044cda9b5/b1603b63-8e6c-4d15-876f-c8956f9abcf9/_default/hex345-input-readiness/libexpat1-dev_2.8.3-1~deb13u1_amd64.deb"
+  ],
+  "status_sha256": "3f72990e138ea54fa43870171d7fbf0898561d3d69e99f51a00645e28b273c2e",
+  "baseline_inventory_matches": true,
+  "exit": 0,
+  "stdout": "NOTE: This is only a simulation!\n      apt-get needs root privileges for real execution.\n      Keep also in mind that locking is deactivated,\n      so don't depend on the relevance to the real current situation!\nReading package lists...\nBuilding dependency tree...\nReading state information...\nThe following packages will be upgraded:\n  chromium chromium-common libexpat1 libexpat1-dev\n4 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.\nInst libexpat1-dev [2.8.2-1~deb13u1] (2.8.3-1~deb13u1 local-deb [amd64]) []\nInst libexpat1 [2.8.2-1~deb13u1] (2.8.3-1~deb13u1 local-deb [amd64])\nInst chromium [154.0.8037.57-1~deb13u1] (154.0.8037.92-1~deb13u1 local-deb [amd64]) []\nInst chromium-common [154.0.8037.57-1~deb13u1] (154.0.8037.92-1~deb13u1 local-deb [amd64])\nConf libexpat1-dev (2.8.3-1~deb13u1 local-deb [amd64])\nConf libexpat1 (2.8.3-1~deb13u1 local-deb [amd64])\nConf chromium (154.0.8037.92-1~deb13u1 local-deb [amd64])\nConf chromium-common (154.0.8037.92-1~deb13u1 local-deb [amd64])\n",
+  "stderr": "W: Unable to read /etc/apt/-/ - DirectoryExists (2: No such file or directory)\nW: Unable to read /dev/null - RealFileExists (2: No such file or directory)\n"
+}

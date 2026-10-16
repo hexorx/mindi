@@ -1,0 +1,3124 @@
+{
+ "_comment": "Subset of the Syft 1.52.0 SBOM (sha256 7659ff5a7d26f7336ca3fa1bb4e4cf39532b27a4f04f363201f6660f746f0803) for image index sha256:5f0521ca42733e5ddd7e217660c95ce68b7fd9d207cdf070b9f9a06bcba4f123: go-module artifacts and file digests of /usr/local/bin/tailscale and tailscaled.",
+ "artifacts": [
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscale"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:crnVqOiS4jqYleHd9vaKZ+HKtHfllngJIiOpNpoJsjo=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "filippo.io/edwards25519",
+   "purl": "pkg:golang/filippo.io/edwards25519@v1.2.0",
+   "type": "go-module",
+   "version": "v1.2.0"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscaled"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:crnVqOiS4jqYleHd9vaKZ+HKtHfllngJIiOpNpoJsjo=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "filippo.io/edwards25519",
+   "purl": "pkg:golang/filippo.io/edwards25519@v1.2.0",
+   "type": "go-module",
+   "version": "v1.2.0"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscale"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:km4PIleGtbbF1oxmFQuO93CyNCldwuRTPB8WlzNWNZs=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "fyne.io/systray",
+   "purl": "pkg:golang/fyne.io/systray@v1.11.1-0.20250812065214-4856ac3adc3c",
+   "type": "go-module",
+   "version": "v1.11.1-0.20250812065214-4856ac3adc3c"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscale"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:1ltqoej5GtaWF8jaiA49HwsZD459jqm9YFz9ZtMFpQA=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/Kodeworks/golang-image-ico",
+   "purl": "pkg:golang/github.com/Kodeworks/golang-image-ico@v0.0.0-20141118225523-73f0f4cfade9",
+   "type": "go-module",
+   "version": "v0.0.0-20141118225523-73f0f4cfade9"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscaled"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:9AeTilPcZAjCFIImctFaOjnTIavg87rW78vTPkQqLI8=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/anmitsu/go-shlex",
+   "purl": "pkg:golang/github.com/anmitsu/go-shlex@v0.0.0-20200514113438-38f4b401e2be",
+   "type": "go-module",
+   "version": "v0.0.0-20200514113438-38f4b401e2be"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscale"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:EH0zSVneZPSuFR11BlR9YppQTVDbh5+16AmcJi4g1z4=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/atotto/clipboard",
+   "purl": "pkg:golang/github.com/atotto/clipboard@v0.1.4",
+   "type": "go-module",
+   "version": "v0.1.4"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscale"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:9eOTgu1z/dVtYpNZ3/8/XbbaX0x/BqE3HUzAzs6K0ek=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/aws/aws-sdk-go-v2",
+   "purl": "pkg:golang/github.com/aws/aws-sdk-go-v2@v1.42.1",
+   "type": "go-module",
+   "version": "v1.42.1"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscaled"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:9eOTgu1z/dVtYpNZ3/8/XbbaX0x/BqE3HUzAzs6K0ek=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/aws/aws-sdk-go-v2",
+   "purl": "pkg:golang/github.com/aws/aws-sdk-go-v2@v1.42.1",
+   "type": "go-module",
+   "version": "v1.42.1"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscale"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:FpL4/758/diKwqbytU0prpuiu60fgXKUWCpDJtApclU=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/aws/aws-sdk-go-v2/config",
+   "purl": "pkg:golang/github.com/aws/aws-sdk-go-v2/config@v1.32.17",
+   "type": "go-module",
+   "version": "v1.32.17"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscaled"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:FpL4/758/diKwqbytU0prpuiu60fgXKUWCpDJtApclU=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/aws/aws-sdk-go-v2/config",
+   "purl": "pkg:golang/github.com/aws/aws-sdk-go-v2/config@v1.32.17",
+   "type": "go-module",
+   "version": "v1.32.17"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscale"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:r3RJBuU7X9ibt8RHbMjWE6y60QbKBiII6wSrXnapxSU=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/aws/aws-sdk-go-v2/credentials",
+   "purl": "pkg:golang/github.com/aws/aws-sdk-go-v2/credentials@v1.19.16",
+   "type": "go-module",
+   "version": "v1.19.16"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscaled"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:r3RJBuU7X9ibt8RHbMjWE6y60QbKBiII6wSrXnapxSU=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/aws/aws-sdk-go-v2/credentials",
+   "purl": "pkg:golang/github.com/aws/aws-sdk-go-v2/credentials@v1.19.16",
+   "type": "go-module",
+   "version": "v1.19.16"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscale"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:UuSfcORqNSz/ey3VPRS8TcVH2Ikf0/sC+Hdj400QI6U=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/aws/aws-sdk-go-v2/feature/ec2/imds",
+   "purl": "pkg:golang/github.com/aws/aws-sdk-go-v2/feature/ec2/imds@v1.18.23",
+   "type": "go-module",
+   "version": "v1.18.23"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscaled"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:UuSfcORqNSz/ey3VPRS8TcVH2Ikf0/sC+Hdj400QI6U=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/aws/aws-sdk-go-v2/feature/ec2/imds",
+   "purl": "pkg:golang/github.com/aws/aws-sdk-go-v2/feature/ec2/imds@v1.18.23",
+   "type": "go-module",
+   "version": "v1.18.23"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscale"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:xM/Is9cKMHa8Jj8zkvWhvrFkZsXJV9E+BB4g0HW0duQ=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/aws/aws-sdk-go-v2/internal/configsources",
+   "purl": "pkg:golang/github.com/aws/aws-sdk-go-v2/internal/configsources@v1.4.30",
+   "type": "go-module",
+   "version": "v1.4.30"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscaled"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:xM/Is9cKMHa8Jj8zkvWhvrFkZsXJV9E+BB4g0HW0duQ=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/aws/aws-sdk-go-v2/internal/configsources",
+   "purl": "pkg:golang/github.com/aws/aws-sdk-go-v2/internal/configsources@v1.4.30",
+   "type": "go-module",
+   "version": "v1.4.30"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscale"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:jn46zC9LdsVR/ZpMIJqMqb8hHv31BlLx3ulVqNspUOk=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/aws/aws-sdk-go-v2/internal/endpoints/v2",
+   "purl": "pkg:golang/github.com/aws/aws-sdk-go-v2/internal/endpoints/v2@v2.7.30",
+   "type": "go-module",
+   "version": "v2.7.30"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscaled"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:jn46zC9LdsVR/ZpMIJqMqb8hHv31BlLx3ulVqNspUOk=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/aws/aws-sdk-go-v2/internal/endpoints/v2",
+   "purl": "pkg:golang/github.com/aws/aws-sdk-go-v2/internal/endpoints/v2@v2.7.30",
+   "type": "go-module",
+   "version": "v2.7.30"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscale"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:OQqn11BtaYv1WLUowvcA30MpzIu8Ti4pcLPIIyoKZrA=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/aws/aws-sdk-go-v2/internal/v4a",
+   "purl": "pkg:golang/github.com/aws/aws-sdk-go-v2/internal/v4a@v1.4.24",
+   "type": "go-module",
+   "version": "v1.4.24"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscaled"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:OQqn11BtaYv1WLUowvcA30MpzIu8Ti4pcLPIIyoKZrA=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/aws/aws-sdk-go-v2/internal/v4a",
+   "purl": "pkg:golang/github.com/aws/aws-sdk-go-v2/internal/v4a@v1.4.24",
+   "type": "go-module",
+   "version": "v1.4.24"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscale"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:mbRIur/BiHK6SKPjoBIXSE/hJ6g6JGRLuxQy1jGjlN4=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/aws/aws-sdk-go-v2/service/internal/accept-encoding",
+   "purl": "pkg:golang/github.com/aws/aws-sdk-go-v2/service/internal/accept-encoding@v1.13.13",
+   "type": "go-module",
+   "version": "v1.13.13"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscaled"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:mbRIur/BiHK6SKPjoBIXSE/hJ6g6JGRLuxQy1jGjlN4=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/aws/aws-sdk-go-v2/service/internal/accept-encoding",
+   "purl": "pkg:golang/github.com/aws/aws-sdk-go-v2/service/internal/accept-encoding@v1.13.13",
+   "type": "go-module",
+   "version": "v1.13.13"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscale"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:/Z5jmNrKsSD7EmDjzAPsm/3L9IuOkzaynklJZ1qX7S4=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/aws/aws-sdk-go-v2/service/internal/presigned-url",
+   "purl": "pkg:golang/github.com/aws/aws-sdk-go-v2/service/internal/presigned-url@v1.13.30",
+   "type": "go-module",
+   "version": "v1.13.30"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscaled"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:/Z5jmNrKsSD7EmDjzAPsm/3L9IuOkzaynklJZ1qX7S4=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/aws/aws-sdk-go-v2/service/internal/presigned-url",
+   "purl": "pkg:golang/github.com/aws/aws-sdk-go-v2/service/internal/presigned-url@v1.13.30",
+   "type": "go-module",
+   "version": "v1.13.30"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscale"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:TdJ+HdzOBhU8+iVAOGUTU63VXopcumCOF1paFulHWZc=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/aws/aws-sdk-go-v2/service/signin",
+   "purl": "pkg:golang/github.com/aws/aws-sdk-go-v2/service/signin@v1.0.11",
+   "type": "go-module",
+   "version": "v1.0.11"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscaled"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:TdJ+HdzOBhU8+iVAOGUTU63VXopcumCOF1paFulHWZc=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/aws/aws-sdk-go-v2/service/signin",
+   "purl": "pkg:golang/github.com/aws/aws-sdk-go-v2/service/signin@v1.0.11",
+   "type": "go-module",
+   "version": "v1.0.11"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscale"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:IOdss+igJDFdic9w3WKwxGCmHqUxydvIhJOm9LJ32Dk=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/aws/aws-sdk-go-v2/service/ssm",
+   "purl": "pkg:golang/github.com/aws/aws-sdk-go-v2/service/ssm@v1.45.0",
+   "type": "go-module",
+   "version": "v1.45.0"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscaled"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:IOdss+igJDFdic9w3WKwxGCmHqUxydvIhJOm9LJ32Dk=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/aws/aws-sdk-go-v2/service/ssm",
+   "purl": "pkg:golang/github.com/aws/aws-sdk-go-v2/service/ssm@v1.45.0",
+   "type": "go-module",
+   "version": "v1.45.0"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscale"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:7byT8HUWrgoRp6sXjxtZwgOKfhss5fW6SkLBtqzgRoE=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/aws/aws-sdk-go-v2/service/sso",
+   "purl": "pkg:golang/github.com/aws/aws-sdk-go-v2/service/sso@v1.30.17",
+   "type": "go-module",
+   "version": "v1.30.17"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscaled"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:7byT8HUWrgoRp6sXjxtZwgOKfhss5fW6SkLBtqzgRoE=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/aws/aws-sdk-go-v2/service/sso",
+   "purl": "pkg:golang/github.com/aws/aws-sdk-go-v2/service/sso@v1.30.17",
+   "type": "go-module",
+   "version": "v1.30.17"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscale"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:+1Kl1zx6bWi4X7cKi3VYh29h8BvsCoHQEQ6ST9X8w7w=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/aws/aws-sdk-go-v2/service/ssooidc",
+   "purl": "pkg:golang/github.com/aws/aws-sdk-go-v2/service/ssooidc@v1.35.21",
+   "type": "go-module",
+   "version": "v1.35.21"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscaled"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:+1Kl1zx6bWi4X7cKi3VYh29h8BvsCoHQEQ6ST9X8w7w=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/aws/aws-sdk-go-v2/service/ssooidc",
+   "purl": "pkg:golang/github.com/aws/aws-sdk-go-v2/service/ssooidc@v1.35.21",
+   "type": "go-module",
+   "version": "v1.35.21"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscale"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:F/M5Y9I3nwr2IEpshZgh1GeHpOItExNM9L1euNuh/fk=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/aws/aws-sdk-go-v2/service/sts",
+   "purl": "pkg:golang/github.com/aws/aws-sdk-go-v2/service/sts@v1.42.1",
+   "type": "go-module",
+   "version": "v1.42.1"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscaled"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:F/M5Y9I3nwr2IEpshZgh1GeHpOItExNM9L1euNuh/fk=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/aws/aws-sdk-go-v2/service/sts",
+   "purl": "pkg:golang/github.com/aws/aws-sdk-go-v2/service/sts@v1.42.1",
+   "type": "go-module",
+   "version": "v1.42.1"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscale"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:F3Zb497UhhskkfpJmfkXswyo+t0sh9OTBnIHjogWbVY=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/aws/smithy-go",
+   "purl": "pkg:golang/github.com/aws/smithy-go@v1.27.3",
+   "type": "go-module",
+   "version": "v1.27.3"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscaled"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:F3Zb497UhhskkfpJmfkXswyo+t0sh9OTBnIHjogWbVY=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/aws/smithy-go",
+   "purl": "pkg:golang/github.com/aws/smithy-go@v1.27.3",
+   "type": "go-module",
+   "version": "v1.27.3"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscale"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:voy0korWbg2e1gsJpBZ8/OBhVL8evXeUwbCZcA1PWv8=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/bradfitz/monogok",
+   "purl": "pkg:golang/github.com/bradfitz/monogok@v0.0.0-20260630033929-b1eef977b41f",
+   "type": "go-module",
+   "version": "v0.0.0-20260630033929-b1eef977b41f"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscale"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:9L0p0iKiNOibykf283eHkKUHHrpG7f65OE3BhhO7v9g=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/coder/websocket",
+   "purl": "pkg:golang/github.com/coder/websocket@v1.8.14",
+   "type": "go-module",
+   "version": "v1.8.14"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscaled"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:9L0p0iKiNOibykf283eHkKUHHrpG7f65OE3BhhO7v9g=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/coder/websocket",
+   "purl": "pkg:golang/github.com/coder/websocket@v1.8.14",
+   "type": "go-module",
+   "version": "v1.8.14"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscaled"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:8h5+bWd7R6AYUslN6c6iuZWTKsKxUFDlpnmilO6R2n0=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/coreos/go-iptables",
+   "purl": "pkg:golang/github.com/coreos/go-iptables@v0.7.1-0.20240112124308-65c67c9f46e6",
+   "type": "go-module",
+   "version": "v0.7.1-0.20240112124308-65c67c9f46e6"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscaled"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:QRd8si3qZ2Q4TaDL7tS/MG/lFE3YND7U7J9fy42eAFM=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/creachadair/msync",
+   "purl": "pkg:golang/github.com/creachadair/msync@v0.8.1",
+   "type": "go-module",
+   "version": "v0.8.1"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscaled"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:bJrF4RRfyJnbTJqzRLHzcGaZK1NeM5kTC9jGgovnR1s=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/creack/pty",
+   "purl": "pkg:golang/github.com/creack/pty@v1.1.24",
+   "type": "go-module",
+   "version": "v1.1.24"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscaled"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:vUmf0yezR0y7jJ5pceLHthLaYf4bA5T14B6q39S4q2Q=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/digitalocean/go-smbios",
+   "purl": "pkg:golang/github.com/digitalocean/go-smbios@v0.0.0-20180907143718-390a4f403a8e",
+   "type": "go-module",
+   "version": "v0.0.0-20180907143718-390a4f403a8e"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscale"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:cLciNCeZ4QAXVxyPJDr1ZJ9N9CCG3rQlQ/z/Cs/cNDM=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/diskfs/go-diskfs",
+   "purl": "pkg:golang/github.com/diskfs/go-diskfs@v1.9.3",
+   "type": "go-module",
+   "version": "v1.9.3"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscaled"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:w2ctJ92J8fBvWPxugmXIv7Nz7Q3iDMKNx9v5ocVH20c=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/djherbis/times",
+   "purl": "pkg:golang/github.com/djherbis/times@v1.6.0",
+   "type": "go-module",
+   "version": "v1.6.0"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscale"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:/7zJX8F6AaYQc57WQCyN9cAIz+4bCJGO9B+dyW29am8=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/fogleman/gg",
+   "purl": "pkg:golang/github.com/fogleman/gg@v1.3.0",
+   "type": "go-module",
+   "version": "v1.3.0"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscale"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:NpKPmjDBgUfBms6tr6JZkTHtfFGcMKsw3eGcmD/sapM=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/fxamacker/cbor/v2",
+   "purl": "pkg:golang/github.com/fxamacker/cbor/v2@v2.9.0",
+   "type": "go-module",
+   "version": "v2.9.0"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscaled"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:NpKPmjDBgUfBms6tr6JZkTHtfFGcMKsw3eGcmD/sapM=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/fxamacker/cbor/v2",
+   "purl": "pkg:golang/github.com/fxamacker/cbor/v2@v2.9.0",
+   "type": "go-module",
+   "version": "v2.9.0"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscale"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:+w4rnLGNlA2GDVn382Tfe3jOsK5vOr5n4KmigJ9lbTo=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/gaissmai/bart",
+   "purl": "pkg:golang/github.com/gaissmai/bart@v0.26.1",
+   "type": "go-module",
+   "version": "v0.26.1"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscaled"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:+w4rnLGNlA2GDVn382Tfe3jOsK5vOr5n4KmigJ9lbTo=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/gaissmai/bart",
+   "purl": "pkg:golang/github.com/gaissmai/bart@v0.26.1",
+   "type": "go-module",
+   "version": "v0.26.1"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscale"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:vymEbVwYFP/L05h5TKQxvkXoKxNvTpjxYKdF1Nlwuao=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/go-json-experiment/json",
+   "purl": "pkg:golang/github.com/go-json-experiment/json@v0.0.0-20260214004413-d219187c3433",
+   "type": "go-module",
+   "version": "v0.0.0-20260214004413-d219187c3433"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscaled"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:vymEbVwYFP/L05h5TKQxvkXoKxNvTpjxYKdF1Nlwuao=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/go-json-experiment/json",
+   "purl": "pkg:golang/github.com/go-json-experiment/json@v0.0.0-20260214004413-d219187c3433",
+   "type": "go-module",
+   "version": "v0.0.0-20260214004413-d219187c3433"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscale"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:TUR3TgtSVDmjiXOgAAyaZbYmIeP3DPkld3jgKGV8mXQ=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/godbus/dbus/v5",
+   "purl": "pkg:golang/github.com/godbus/dbus/v5@v5.2.2",
+   "type": "go-module",
+   "version": "v5.2.2"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscaled"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:TUR3TgtSVDmjiXOgAAyaZbYmIeP3DPkld3jgKGV8mXQ=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/godbus/dbus/v5",
+   "purl": "pkg:golang/github.com/godbus/dbus/v5@v5.2.2",
+   "type": "go-module",
+   "version": "v5.2.2"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscale"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:DACJavvAHhabrF08vX0COfcOBJRhZ8lUbR+ZWIs0Y5g=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/golang/freetype",
+   "purl": "pkg:golang/github.com/golang/freetype@v0.0.0-20170609003504-e2365dfdc4a0",
+   "type": "go-module",
+   "version": "v0.0.0-20170609003504-e2365dfdc4a0"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscale"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:f+oWsMOmNPc8JmEHVZIycC7hBoQxHH9pNKQORJNozsQ=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/golang/groupcache",
+   "purl": "pkg:golang/github.com/golang/groupcache@v0.0.0-20241129210726-2c02b8208cf8",
+   "type": "go-module",
+   "version": "v0.0.0-20241129210726-2c02b8208cf8"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscaled"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:f+oWsMOmNPc8JmEHVZIycC7hBoQxHH9pNKQORJNozsQ=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/golang/groupcache",
+   "purl": "pkg:golang/github.com/golang/groupcache@v0.0.0-20241129210726-2c02b8208cf8",
+   "type": "go-module",
+   "version": "v0.0.0-20241129210726-2c02b8208cf8"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscaled"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:CVpQJjYgC4VbzxeGVHfvZrv1ctoYCAI8vbl07Fcxlyg=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/google/btree",
+   "purl": "pkg:golang/github.com/google/btree@v1.1.3",
+   "type": "go-module",
+   "version": "v1.1.3"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscaled"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:awZRf9FwOeTunQmHoDYSHJps3ie6f1UlhS1fOdPEt1I=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/google/go-tpm",
+   "purl": "pkg:golang/github.com/google/go-tpm@v0.9.4",
+   "type": "go-module",
+   "version": "v0.9.4"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscaled"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:wG8RYIyctLhdFk6Vl1yPGtSRtwGpVkWyZww1OCil2MI=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/google/nftables",
+   "purl": "pkg:golang/github.com/google/nftables@v0.2.1-0.20240414091927-5e242ec57806",
+   "type": "go-module",
+   "version": "v0.2.1-0.20240414091927-5e242ec57806"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscale"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:NIvaJDMOsjHA8n1jAhLSgzrAzy1Hgr+hNrb57e+94F0=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/google/uuid",
+   "purl": "pkg:golang/github.com/google/uuid@v1.6.0",
+   "type": "go-module",
+   "version": "v1.6.0"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscale"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:37ICyZqdyj0lAZ8P4D1d1id3HqbbG1N3iBb1Tb4rdcU=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/hdevalence/ed25519consensus",
+   "purl": "pkg:golang/github.com/hdevalence/ed25519consensus@v0.2.0",
+   "type": "go-module",
+   "version": "v0.2.0"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscaled"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:37ICyZqdyj0lAZ8P4D1d1id3HqbbG1N3iBb1Tb4rdcU=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/hdevalence/ed25519consensus",
+   "purl": "pkg:golang/github.com/hdevalence/ed25519consensus@v0.2.0",
+   "type": "go-module",
+   "version": "v0.2.0"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscale"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:UvLUlWDNpoUdYzb2TCn+MuTWtcjXKSza2n6CBdQ0xXc=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/huin/goupnp",
+   "purl": "pkg:golang/github.com/huin/goupnp@v1.3.0",
+   "type": "go-module",
+   "version": "v1.3.0"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscaled"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:UvLUlWDNpoUdYzb2TCn+MuTWtcjXKSza2n6CBdQ0xXc=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/huin/goupnp",
+   "purl": "pkg:golang/github.com/huin/goupnp@v1.3.0",
+   "type": "go-module",
+   "version": "v1.3.0"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscaled"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:O7S6vcopHexutmpObkeWsnzMJt/r1hONIEogeVNmJMk=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/illarion/gonotify/v3",
+   "purl": "pkg:golang/github.com/illarion/gonotify/v3@v3.0.2",
+   "type": "go-module",
+   "version": "v3.0.2"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscaled"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:kD8PseueGeYiid/Mmcv17Q0Qqicc4F46jcX22L/e/Hs=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/insomniacslk/dhcp",
+   "purl": "pkg:golang/github.com/insomniacslk/dhcp@v0.0.0-20240129002554-15c9b8791914",
+   "type": "go-module",
+   "version": "v0.0.0-20240129002554-15c9b8791914"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscaled"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:0gPFG0IHHP6xyUyXq+JaD8fwkDCqgqwohXNJBcYE71g=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/jellydator/ttlcache/v3",
+   "purl": "pkg:golang/github.com/jellydator/ttlcache/v3@v3.1.0",
+   "type": "go-module",
+   "version": "v3.1.0"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscale"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:BEgLn5cpjn8UN1mAw4NjwDrS35OdebyEtFe+9YPoQUg=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/jmespath/go-jmespath",
+   "purl": "pkg:golang/github.com/jmespath/go-jmespath@v0.4.0",
+   "type": "go-module",
+   "version": "v0.4.0"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscaled"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:BEgLn5cpjn8UN1mAw4NjwDrS35OdebyEtFe+9YPoQUg=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/jmespath/go-jmespath",
+   "purl": "pkg:golang/github.com/jmespath/go-jmespath@v0.4.0",
+   "type": "go-module",
+   "version": "v0.4.0"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscale"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:JfD4jthWBqZMEffc5RjgmlzpYttAVw1sdnmiNaPO3hE=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/jsimonetti/rtnetlink",
+   "purl": "pkg:golang/github.com/jsimonetti/rtnetlink@v1.4.1",
+   "type": "go-module",
+   "version": "v1.4.1"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscaled"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:JfD4jthWBqZMEffc5RjgmlzpYttAVw1sdnmiNaPO3hE=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/jsimonetti/rtnetlink",
+   "purl": "pkg:golang/github.com/jsimonetti/rtnetlink@v1.4.1",
+   "type": "go-module",
+   "version": "v1.4.1"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscale"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:Z9n2FFNUXsshfwJMBgNA0RU6/i7WVaAegv3PtuIHPMs=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/kballard/go-shellquote",
+   "purl": "pkg:golang/github.com/kballard/go-shellquote@v0.0.0-20180428030007-95032a82bc51",
+   "type": "go-module",
+   "version": "v0.0.0-20180428030007-95032a82bc51"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscaled"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:VsB4HPswih7mmZ8WleSFQ75c/Ui1M4trX5oAsJnhSlk=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/klauspost/compress",
+   "purl": "pkg:golang/github.com/klauspost/compress@v1.19.1",
+   "type": "go-module",
+   "version": "v1.19.1"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscaled"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:+RR6SqnTkDLWyICxS1xpjCi/3dhyV+TgZwA6Ww3KncQ=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/kortschak/wol",
+   "purl": "pkg:golang/github.com/kortschak/wol@v0.0.0-20200729010619-da482cc4850a",
+   "type": "go-module",
+   "version": "v0.0.0-20200729010619-da482cc4850a"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscaled"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:Jskdu9ieNAYnjxsi0LbQp1ulIKZV1LAFgK1tWhpZgl8=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/kr/fs",
+   "purl": "pkg:golang/github.com/kr/fs@v0.1.0",
+   "type": "go-module",
+   "version": "v0.1.0"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscale"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:+u9SLTRGnXv73cEsnsmoZBom+dMU88B2M0aDcWy0/jY=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/mattn/go-colorable",
+   "purl": "pkg:golang/github.com/mattn/go-colorable@v0.1.15",
+   "type": "go-module",
+   "version": "v0.1.15"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscale"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:cYwCQTQf3HB6xUC+BtyCLZNr7IzbOmoZbmssVNzSyiQ=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/mattn/go-isatty",
+   "purl": "pkg:golang/github.com/mattn/go-isatty@v0.0.23",
+   "type": "go-module",
+   "version": "v0.0.23"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscaled"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:KdrNKe+CTu+IbZnm/GVUMXSqBBLqcGpRDa0xkQy56gw=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/mdlayher/genetlink",
+   "purl": "pkg:golang/github.com/mdlayher/genetlink@v1.3.2",
+   "type": "go-module",
+   "version": "v1.3.2"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscale"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:A1Cq6Ysb0GM0tpKMbdCXCIfBclan4oHk1Jb+Hrejirg=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/mdlayher/netlink",
+   "purl": "pkg:golang/github.com/mdlayher/netlink@v1.7.3-0.20250113171957-fbb4dce95f42",
+   "type": "go-module",
+   "version": "v1.7.3-0.20250113171957-fbb4dce95f42"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscaled"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:A1Cq6Ysb0GM0tpKMbdCXCIfBclan4oHk1Jb+Hrejirg=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/mdlayher/netlink",
+   "purl": "pkg:golang/github.com/mdlayher/netlink@v1.7.3-0.20250113171957-fbb4dce95f42",
+   "type": "go-module",
+   "version": "v1.7.3-0.20250113171957-fbb4dce95f42"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscaled"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:Ma9XeLVN/l0qpyx1tNeMSeTjCPH6NtuD6/N9XdTlQ3c=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/mdlayher/sdnotify",
+   "purl": "pkg:golang/github.com/mdlayher/sdnotify@v1.0.0",
+   "type": "go-module",
+   "version": "v1.0.0"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscale"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:ilICZmJcQz70vrWVes1MFera4jGiWNocSkykwwoy3XI=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/mdlayher/socket",
+   "purl": "pkg:golang/github.com/mdlayher/socket@v0.5.0",
+   "type": "go-module",
+   "version": "v0.5.0"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscaled"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:ilICZmJcQz70vrWVes1MFera4jGiWNocSkykwwoy3XI=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/mdlayher/socket",
+   "purl": "pkg:golang/github.com/mdlayher/socket@v0.5.0",
+   "type": "go-module",
+   "version": "v0.5.0"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscale"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:i6ampVEEF4wQFF+bkYfwYgY+F/uYJDktmvLPf7qIgjc=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/mitchellh/go-ps",
+   "purl": "pkg:golang/github.com/mitchellh/go-ps@v1.0.0",
+   "type": "go-module",
+   "version": "v1.0.0"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscaled"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:i6ampVEEF4wQFF+bkYfwYgY+F/uYJDktmvLPf7qIgjc=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/mitchellh/go-ps",
+   "purl": "pkg:golang/github.com/mitchellh/go-ps@v1.0.0",
+   "type": "go-module",
+   "version": "v1.0.0"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscale"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:QBvM/rizZM1cB0p0lGMdmR7HxZeI/ZrBWB4DqLkMUBc=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/peterbourgon/ff/v3",
+   "purl": "pkg:golang/github.com/peterbourgon/ff/v3@v3.4.0",
+   "type": "go-module",
+   "version": "v3.4.0"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscaled"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:GrpZw1gZttORinvzBdXPUXATeqlJjqUG/D87TKMnhjY=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/pierrec/lz4/v4",
+   "purl": "pkg:golang/github.com/pierrec/lz4/v4@v4.1.26",
+   "type": "go-module",
+   "version": "v4.1.26"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscaled"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:9KEixbdJfhrbtjpz/ZwCdWDD2Xem0NZ38qMYaASJgp0=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/pires/go-proxyproto",
+   "purl": "pkg:golang/github.com/pires/go-proxyproto@v0.8.1",
+   "type": "go-module",
+   "version": "v0.8.1"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscaled"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:JFZT4XbOU7l77xGSpOdW+pwIMqP044IyjXX6FGyEKFo=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/pkg/sftp",
+   "purl": "pkg:golang/github.com/pkg/sftp@v1.13.6",
+   "type": "go-module",
+   "version": "v1.13.6"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscaled"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:gimQJpsI6sc1yIqP/y8GYgiXn/NjgvpM0RNoWLVVmP0=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/safchain/ethtool",
+   "purl": "pkg:golang/github.com/safchain/ethtool@v0.3.0",
+   "type": "go-module",
+   "version": "v0.3.0"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscale"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:MRM5ITcdelLK2j1vwZ3Je0FKVCfqOLp5zO6trqMLYs0=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/skip2/go-qrcode",
+   "purl": "pkg:golang/github.com/skip2/go-qrcode@v0.0.0-20200617195104-da1b6568686e",
+   "type": "go-module",
+   "version": "v0.0.0-20200617195104-da1b6568686e"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscaled"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:Azz5ILxxVsHN/KjIu3wkJPAmmtiijucZw4Ax5Ye8n+s=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/tailscale/gliderssh",
+   "purl": "pkg:golang/github.com/tailscale/gliderssh@v0.3.4-0.20260716005906-1a0f895faf28",
+   "type": "go-module",
+   "version": "v0.3.4-0.20260716005906-1a0f895faf28"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscale"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:Rf9uhF1+VJ7ZHqxrG8pJ6YacmHvVCmByDmGbAWCc/gA=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/tailscale/hujson",
+   "purl": "pkg:golang/github.com/tailscale/hujson@v0.0.0-20260302212456-ecc657c15afd",
+   "type": "go-module",
+   "version": "v0.0.0-20260302212456-ecc657c15afd"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscaled"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:Rf9uhF1+VJ7ZHqxrG8pJ6YacmHvVCmByDmGbAWCc/gA=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/tailscale/hujson",
+   "purl": "pkg:golang/github.com/tailscale/hujson@v0.0.0-20260302212456-ecc657c15afd",
+   "type": "go-module",
+   "version": "v0.0.0-20260302212456-ecc657c15afd"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscaled"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:uFsXVBE9Qr4ZoF094vE6iYTLDl0qCiKzYXlL6UeWObU=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/tailscale/netlink",
+   "purl": "pkg:golang/github.com/tailscale/netlink@v1.1.1-0.20240822203006-4d49adab4de7",
+   "type": "go-module",
+   "version": "v1.1.1-0.20240822203006-4d49adab4de7"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscaled"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:24heQPtnFR+yfntqhI3oAu9i27nEojcQ4NuBQOo5ZFA=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/tailscale/peercred",
+   "purl": "pkg:golang/github.com/tailscale/peercred@v0.0.0-20250107143737-35a0c7bd7edc",
+   "type": "go-module",
+   "version": "v0.0.0-20250107143737-35a0c7bd7edc"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscale"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:UBPHPtv8+nEAy2PD8RyAhOYvau1ek0HDJqLS/Pysi14=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/tailscale/web-client-prebuilt",
+   "purl": "pkg:golang/github.com/tailscale/web-client-prebuilt@v0.0.0-20250124233751-d4cd19a26976",
+   "type": "go-module",
+   "version": "v0.0.0-20250124233751-d4cd19a26976"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscaled"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:UBPHPtv8+nEAy2PD8RyAhOYvau1ek0HDJqLS/Pysi14=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/tailscale/web-client-prebuilt",
+   "purl": "pkg:golang/github.com/tailscale/web-client-prebuilt@v0.0.0-20250124233751-d4cd19a26976",
+   "type": "go-module",
+   "version": "v0.0.0-20250124233751-d4cd19a26976"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscaled"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:CnIEL2n7Xql6Ux1k+Vu5S5ubDHCT/kxFgkKCY8FjefU=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/tailscale/wireguard-go",
+   "purl": "pkg:golang/github.com/tailscale/wireguard-go@v0.0.0-20260715223240-2e01ba5b00f0",
+   "type": "go-module",
+   "version": "v0.0.0-20260715223240-2e01ba5b00f0"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscaled"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:zOGKqN5D5hHhiYUp091JqK7DPCqSARyUfduhGUY8Bek=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/tailscale/xnet",
+   "purl": "pkg:golang/github.com/tailscale/xnet@v0.0.0-20240729143630-8497ac4dab2e",
+   "type": "go-module",
+   "version": "v0.0.0-20240729143630-8497ac4dab2e"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscale"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:tVP/gpK69Fx+qMJKsLE7TD8LuGWPnEV71wBN9rrstGQ=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/toqueteos/webbrowser",
+   "purl": "pkg:golang/github.com/toqueteos/webbrowser@v1.2.0",
+   "type": "go-module",
+   "version": "v1.2.0"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscaled"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:Ka4T10EEML7dQ5XDvO9c3MBN8z4nuSnGjcd1jmU2ivg=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/u-root/u-root",
+   "purl": "pkg:golang/github.com/u-root/u-root@v0.14.0",
+   "type": "go-module",
+   "version": "v0.14.0"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscaled"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:pyC9PaHYZFgEKFdlp3G8RaCKgVpHZnecvArXvPXcFkM=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/u-root/uio",
+   "purl": "pkg:golang/github.com/u-root/uio@v0.0.0-20240224005618-d2acac8f3701",
+   "type": "go-module",
+   "version": "v0.0.0-20240224005618-d2acac8f3701"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscaled"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:DfiHV+j8bA32MFM7bfEunvT8IAqQ/NzSJHtcmW5zdEY=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/vishvananda/netns",
+   "purl": "pkg:golang/github.com/vishvananda/netns@v0.0.5",
+   "type": "go-module",
+   "version": "v0.0.5"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscale"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:qLwI1I70+NjRFUR3zs1JPUCgaCXSh3SW62uAKT1mSBM=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/x448/float16",
+   "purl": "pkg:golang/github.com/x448/float16@v0.8.4",
+   "type": "go-module",
+   "version": "v0.8.4"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscaled"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:qLwI1I70+NjRFUR3zs1JPUCgaCXSh3SW62uAKT1mSBM=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "github.com/x448/float16",
+   "purl": "pkg:golang/github.com/x448/float16@v0.8.4",
+   "type": "go-module",
+   "version": "v0.8.4"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscale"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:tuyd0P+2Ont/d6e2rl3be67goVK4R6deVxCUX5vyPaQ=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "go.yaml.in/yaml/v2",
+   "purl": "pkg:golang/go.yaml.in/yaml/v2@v2.4.4",
+   "type": "go-module",
+   "version": "v2.4.4"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscale"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:Tl++JLUCe4sxGu8cTpDzRLd3tN7US4hOxG5YpKCzkek=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "go4.org/mem",
+   "purl": "pkg:golang/go4.org/mem@v0.0.0-20240501181205-ae6ca9944745",
+   "type": "go-module",
+   "version": "v0.0.0-20240501181205-ae6ca9944745"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscaled"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:Tl++JLUCe4sxGu8cTpDzRLd3tN7US4hOxG5YpKCzkek=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "go4.org/mem",
+   "purl": "pkg:golang/go4.org/mem@v0.0.0-20240501181205-ae6ca9944745",
+   "type": "go-module",
+   "version": "v0.0.0-20240501181205-ae6ca9944745"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscale"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:0b9z3AuHCjxk0x/opv64kcgZLBseWJUpBw5I82+2U4M=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "go4.org/netipx",
+   "purl": "pkg:golang/go4.org/netipx@v0.0.0-20231129151722-fdeea329fbba",
+   "type": "go-module",
+   "version": "v0.0.0-20231129151722-fdeea329fbba"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscaled"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:0b9z3AuHCjxk0x/opv64kcgZLBseWJUpBw5I82+2U4M=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "go4.org/netipx",
+   "purl": "pkg:golang/go4.org/netipx@v0.0.0-20231129151722-fdeea329fbba",
+   "type": "go-module",
+   "version": "v0.0.0-20231129151722-fdeea329fbba"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscale"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:GUh5Ii4J5jtcseSMiRqr1jXCNHoxjeV9Fmekc2oLy6Y=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "golang.org/x/crypto",
+   "purl": "pkg:golang/golang.org/x/crypto@v0.56.0",
+   "type": "go-module",
+   "version": "v0.56.0"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscaled"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:GUh5Ii4J5jtcseSMiRqr1jXCNHoxjeV9Fmekc2oLy6Y=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "golang.org/x/crypto",
+   "purl": "pkg:golang/golang.org/x/crypto@v0.56.0",
+   "type": "go-module",
+   "version": "v0.56.0"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscale"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:W3F4c+6OLc6H2lb//N1q4WpJkhzJCK5J6kUi1NTVXfM=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "golang.org/x/exp",
+   "purl": "pkg:golang/golang.org/x/exp@v0.0.0-20260410095643-746e56fc9e2f",
+   "type": "go-module",
+   "version": "v0.0.0-20260410095643-746e56fc9e2f"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscaled"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:W3F4c+6OLc6H2lb//N1q4WpJkhzJCK5J6kUi1NTVXfM=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "golang.org/x/exp",
+   "purl": "pkg:golang/golang.org/x/exp@v0.0.0-20260410095643-746e56fc9e2f",
+   "type": "go-module",
+   "version": "v0.0.0-20260410095643-746e56fc9e2f"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscale"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:8wS72eGJMJaBxK6okTzd4WaXumUlTVlb753MlsSvTCo=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "golang.org/x/image",
+   "purl": "pkg:golang/golang.org/x/image@v0.41.0",
+   "type": "go-module",
+   "version": "v0.41.0"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscale"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:K5+3DljvIuDG9/Jv9rvyMywYNFCQ9RSUY6OOTTkT+tE=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "golang.org/x/net",
+   "purl": "pkg:golang/golang.org/x/net@v0.57.0",
+   "type": "go-module",
+   "version": "v0.57.0"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscaled"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:K5+3DljvIuDG9/Jv9rvyMywYNFCQ9RSUY6OOTTkT+tE=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "golang.org/x/net",
+   "purl": "pkg:golang/golang.org/x/net@v0.57.0",
+   "type": "go-module",
+   "version": "v0.57.0"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscale"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:peZ/1z27fi9hUOFCAZaHyrpWG5lwe0RJEEEeH0ThlIs=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "golang.org/x/oauth2",
+   "purl": "pkg:golang/golang.org/x/oauth2@v0.36.0",
+   "type": "go-module",
+   "version": "v0.36.0"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscale"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:SZjpbeLmrCk4xhRSZFNZW5gFUeCeFgjekvI/+gfScek=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "golang.org/x/sync",
+   "purl": "pkg:golang/golang.org/x/sync@v0.22.0",
+   "type": "go-module",
+   "version": "v0.22.0"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscaled"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:SZjpbeLmrCk4xhRSZFNZW5gFUeCeFgjekvI/+gfScek=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "golang.org/x/sync",
+   "purl": "pkg:golang/golang.org/x/sync@v0.22.0",
+   "type": "go-module",
+   "version": "v0.22.0"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscale"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:o7XGOvZQCADBQQ4Y7VNq2dRWQR7JmOUW8Kxx4ZsNgWs=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "golang.org/x/sys",
+   "purl": "pkg:golang/golang.org/x/sys@v0.47.0",
+   "type": "go-module",
+   "version": "v0.47.0"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscaled"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:o7XGOvZQCADBQQ4Y7VNq2dRWQR7JmOUW8Kxx4ZsNgWs=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "golang.org/x/sys",
+   "purl": "pkg:golang/golang.org/x/sys@v0.47.0",
+   "type": "go-module",
+   "version": "v0.47.0"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscaled"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:NwWyBmoJCbfTHpxrWoZ9C6/VxOf7ic219I8xZZFdrf0=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "golang.org/x/term",
+   "purl": "pkg:golang/golang.org/x/term@v0.45.0",
+   "type": "go-module",
+   "version": "v0.45.0"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscale"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:vz/seA0lnX87Othu2f/0L24RcgrXD9/YFTSuGjj3rH8=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "golang.org/x/text",
+   "purl": "pkg:golang/golang.org/x/text@v0.41.0",
+   "type": "go-module",
+   "version": "v0.41.0"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscaled"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:vz/seA0lnX87Othu2f/0L24RcgrXD9/YFTSuGjj3rH8=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "golang.org/x/text",
+   "purl": "pkg:golang/golang.org/x/text@v0.41.0",
+   "type": "go-module",
+   "version": "v0.41.0"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscale"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:bbrp8t3bGUeFOx08pvsMYRTCVSMk89u4tKbNOZbp88U=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "golang.org/x/time",
+   "purl": "pkg:golang/golang.org/x/time@v0.15.0",
+   "type": "go-module",
+   "version": "v0.15.0"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscaled"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:bbrp8t3bGUeFOx08pvsMYRTCVSMk89u4tKbNOZbp88U=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "golang.org/x/time",
+   "purl": "pkg:golang/golang.org/x/time@v0.15.0",
+   "type": "go-module",
+   "version": "v0.15.0"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscaled"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:Zy8IV/+FMLxy6j6p87vk/vQGKcdnbprwjTxc8UiUtsA=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "gvisor.dev/gvisor",
+   "purl": "pkg:golang/gvisor.dev/gvisor@v0.0.0-20260224225140-573d5e7127a8",
+   "type": "go-module",
+   "version": "v0.0.0-20260224225140-573d5e7127a8"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscale"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:YoWv5r7bsBfb0Hs2jh8SOvFbKzzxyNo0nSb0zC19KZo=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "k8s.io/client-go",
+   "purl": "pkg:golang/k8s.io/client-go@v0.34.0",
+   "type": "go-module",
+   "version": "v0.34.0"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscale"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:G8fkbMSAFqgEFgh4b1wmtzDnioxFCUgTZhlbj5P9QYs=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "sigs.k8s.io/yaml",
+   "purl": "pkg:golang/sigs.k8s.io/yaml@v1.6.0",
+   "type": "go-module",
+   "version": "v1.6.0"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscale"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "h1Digest": "h1:H2g08FrTvSFKUj+D309j1DPfk5APnIdAQAB8aEykJ5k=",
+    "mainModule": "tailscale.com"
+   },
+   "name": "software.sslmate.com/src/go-pkcs12",
+   "purl": "pkg:golang/software.sslmate.com/src/go-pkcs12@v0.4.0",
+   "type": "go-module",
+   "version": "v0.4.0"
+  },
+  {
+   "licenses": [
+    {
+     "locations": [],
+     "spdxExpression": "BSD-3-Clause",
+     "type": "declared",
+     "urls": [],
+     "value": "BSD-3-Clause"
+    }
+   ],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscale"
+    }
+   ],
+   "metadata": {
+    "architecture": "",
+    "goCompiledVersion": "go1.26.8"
+   },
+   "name": "stdlib",
+   "purl": "pkg:golang/stdlib@1.26.8",
+   "type": "go-module",
+   "version": "go1.26.8"
+  },
+  {
+   "licenses": [
+    {
+     "locations": [],
+     "spdxExpression": "BSD-3-Clause",
+     "type": "declared",
+     "urls": [],
+     "value": "BSD-3-Clause"
+    }
+   ],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscaled"
+    }
+   ],
+   "metadata": {
+    "architecture": "",
+    "goCompiledVersion": "go1.26.8"
+   },
+   "name": "stdlib",
+   "purl": "pkg:golang/stdlib@1.26.8",
+   "type": "go-module",
+   "version": "go1.26.8"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscale"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goBuildSettings": [
+     {
+      "key": "-buildmode",
+      "value": "exe"
+     },
+     {
+      "key": "-compiler",
+      "value": "gc"
+     },
+     {
+      "key": "-tags",
+      "value": "ts_kube,ts_package_container"
+     },
+     {
+      "key": "-trimpath",
+      "value": "true"
+     },
+     {
+      "key": "CGO_ENABLED",
+      "value": "0"
+     },
+     {
+      "key": "GOARCH",
+      "value": "amd64"
+     },
+     {
+      "key": "GOOS",
+      "value": "linux"
+     },
+     {
+      "key": "GOAMD64",
+      "value": "v1"
+     }
+    ],
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "mainModule": "tailscale.com"
+   },
+   "name": "tailscale.com",
+   "purl": "pkg:golang/tailscale.com",
+   "type": "go-module",
+   "version": "UNKNOWN"
+  },
+  {
+   "licenses": [],
+   "locations": [
+    {
+     "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+     "path": "/usr/local/bin/tailscaled"
+    }
+   ],
+   "metadata": {
+    "architecture": "amd64",
+    "goBuildSettings": [
+     {
+      "key": "-buildmode",
+      "value": "exe"
+     },
+     {
+      "key": "-compiler",
+      "value": "gc"
+     },
+     {
+      "key": "-tags",
+      "value": "ts_kube,ts_package_container"
+     },
+     {
+      "key": "-trimpath",
+      "value": "true"
+     },
+     {
+      "key": "CGO_ENABLED",
+      "value": "0"
+     },
+     {
+      "key": "GOARCH",
+      "value": "amd64"
+     },
+     {
+      "key": "GOOS",
+      "value": "linux"
+     },
+     {
+      "key": "GOAMD64",
+      "value": "v1"
+     }
+    ],
+    "goCompiledVersion": "go1.26.8",
+    "goCryptoSettings": [
+     "standard-crypto"
+    ],
+    "mainModule": "tailscale.com"
+   },
+   "name": "tailscale.com",
+   "purl": "pkg:golang/tailscale.com",
+   "type": "go-module",
+   "version": "UNKNOWN"
+  }
+ ],
+ "files": [
+  {
+   "digests": [
+    {
+     "algorithm": "sha256",
+     "value": "2b03b1cbe1e9a33992e71fcb31907d3830fd1e7205f1697b189e4ee6d42cd9a0"
+    }
+   ],
+   "location": {
+    "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+    "path": "/usr/local/bin/tailscale"
+   }
+  },
+  {
+   "digests": [
+    {
+     "algorithm": "sha256",
+     "value": "c71196aa2fb03cd0459048626f2df704434c41c58327fac8b4e1423b0b1bbd9a"
+    }
+   ],
+   "location": {
+    "layerID": "sha256:9bc271ff001f586ea7baf4966c1b9fdc3cb93674378b73b5f7123eac45ad30c1",
+    "path": "/usr/local/bin/tailscaled"
+   }
+  }
+ ],
+ "source": {
+  "metadata": {
+   "imageID": "sha256:040824b5c0b3635443cc410db3cd33c4c92f5ab37707a479782e182eadba3187",
+   "manifestDigest": "sha256:b333e4284c0445f55cfaf87f369714652abf5107516128469cc138e40edf1204"
+  },
+  "type": "image"
+ }
+}

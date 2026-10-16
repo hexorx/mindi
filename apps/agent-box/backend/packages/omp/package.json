@@ -1,0 +1,42 @@
+{
+  "name": "@mindi/omp",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.13"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./claude-extension": {
+      "types": "./dist/claude-extension.d.ts",
+      "import": "./dist/claude-extension.js"
+    },
+    "./attachments": {
+      "types": "./dist/attachments.d.ts",
+      "import": "./dist/attachments.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "lint": "eslint src",
+    "acceptance:approvals": "node dist/approval-acceptance.js"
+  },
+  "dependencies": {
+    "@mindi/agent-tools": "workspace:*",
+    "@mindi/agent-runtime": "workspace:*",
+    "@mindi/acp": "workspace:*",
+    "@mindi/desktop": "workspace:*",
+    "@mindi/herdr": "workspace:*"
+  },
+  "devDependencies": {
+    "@mindi/typescript-config": "workspace:*",
+    "@mindi/eslint-config": "workspace:*",
+    "@types/node": "^22.15.3",
+    "typescript": "^5.8.3",
+    "eslint": "^9.28.0"
+  }
+}

@@ -1,0 +1,3 @@
+#!/command/with-contenv sh
+# shellcheck shell=sh
+exec /opt/start-tailscale.sh

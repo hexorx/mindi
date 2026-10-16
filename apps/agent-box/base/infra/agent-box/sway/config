@@ -1,0 +1,33 @@
+# Agent-box Sway — headless wlroots.
+# XWayland is the cua-driver capture bridge (Hermes computer_use).
+# Chrome stays native Wayland; CUA_DRIVER_RS_ENABLE_WAYLAND=1 is the primary path.
+xwayland enable
+
+output HEADLESS-1 resolution 1920x1080 position 0,0
+
+font pango:DejaVu Sans 10
+default_border none
+default_floating_border none
+gaps inner 0
+gaps outer 0
+workspace_layout tabbed
+
+set $mod Mod4
+set $term env GDK_BACKEND=wayland LIBGL_ALWAYS_SOFTWARE=1 GALLIUM_DRIVER=llvmpipe ghostty
+set $browser google-chrome
+set $launcher wofi --show drun --insensitive --allow-images
+
+bindsym $mod+Return exec $term
+bindsym $mod+b exec $browser
+bindsym $mod+d exec $launcher
+bindsym $mod+space exec $launcher
+bindsym Alt+F2 exec $launcher
+
+client.focused #4c6ef5 #4c6ef5 #ffffff #4c6ef5 #4c6ef5
+client.focused_inactive #1a1b2e #1a1b2e #adb5bd #1a1b2e #1a1b2e
+client.unfocused #1a1b2e #1a1b2e #868e96 #1a1b2e #1a1b2e
+
+bar {
+    position bottom
+    swaybar_command waybar
+}

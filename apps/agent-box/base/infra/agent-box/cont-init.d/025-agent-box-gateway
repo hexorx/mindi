@@ -1,0 +1,12 @@
+#!/command/with-contenv sh
+# shellcheck shell=sh
+# After 02-reconcile-profiles has registered s6 gateway slots.
+# Named 025 so it stays after official 02-* and before a future official 03-*.
+set -eu
+if [ "$(id -u)" = 0 ]; then
+    s6-setuidgid hermes /opt/start-gateway.sh \
+        || echo "gateway: start skipped" >&2
+else
+    /opt/start-gateway.sh || echo "gateway: start skipped" >&2
+fi
+exit 0

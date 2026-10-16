@@ -1,0 +1,46 @@
+[
+  {
+    "package": "chromium",
+    "url": "https://snapshot.debian.org/archive/debian-security/20261001T172817Z/pool/updates/main/c/chromium/chromium_154.0.8037.92-1~deb13u1_amd64.deb",
+    "http": "200",
+    "exit": 0,
+    "size": 90613936,
+    "sha256": "ba20f2bf959cc302694147fb4d881586c7b41688c5dd5b1555f560732733e3d5",
+    "expected_size": 90613936,
+    "expected_sha256": "ba20f2bf959cc302694147fb4d881586c7b41688c5dd5b1555f560732733e3d5",
+    "match": true
+  },
+  {
+    "package": "chromium-common",
+    "url": "https://snapshot.debian.org/archive/debian-security/20261001T172817Z/pool/updates/main/c/chromium/chromium-common_154.0.8037.92-1~deb13u1_amd64.deb",
+    "http": "200",
+    "exit": 0,
+    "size": 30604900,
+    "sha256": "ed25b5290168e9775641864aa6f831b15fc53f57e63b30dcc0256d6588fa0831",
+    "expected_size": 30604900,
+    "expected_sha256": "ed25b5290168e9775641864aa6f831b15fc53f57e63b30dcc0256d6588fa0831",
+    "match": true
+  },
+  {
+    "package": "libexpat1",
+    "url": "https://snapshot.debian.org/archive/debian-security/20261001T172817Z/pool/updates/main/e/expat/libexpat1_2.8.3-1~deb13u1_amd64.deb",
+    "http": "200",
+    "exit": 0,
+    "size": 122672,
+    "sha256": "38abe0e710a07688e9c149d74536e67cfee0364bdb64dd6d644c32a1cfad389f",
+    "expected_size": 122672,
+    "expected_sha256": "38abe0e710a07688e9c149d74536e67cfee0364bdb64dd6d644c32a1cfad389f",
+    "match": true
+  },
+  {
+    "package": "libexpat1-dev",
+    "url": "https://snapshot.debian.org/archive/debian-security/20261001T172817Z/pool/updates/main/e/expat/libexpat1-dev_2.8.3-1~deb13u1_amd64.deb",
+    "http": "200",
+    "exit": 0,
+    "size": 178864,
+    "sha256": "13f69f5290374c8403d2114b91cc8d0e6bb7b74e9e2512b7e04557546c922749",
+    "expected_size": 178864,
+    "expected_sha256": "13f69f5290374c8403d2114b91cc8d0e6bb7b74e9e2512b7e04557546c922749",
+    "match": true
+  }
+]

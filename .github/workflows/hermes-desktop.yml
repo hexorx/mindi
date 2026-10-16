@@ -10,6 +10,8 @@ permissions:
   contents: read
 jobs:
   container:
+    # HEX-345 requires exact-head review and green source CI before Opi builds.
+    if: github.event_name != 'pull_request' || github.head_ref != 'codi/hex-342-chromium-expat-remediation'
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:

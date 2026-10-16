@@ -3,6 +3,7 @@ import { FlavorSchema, HttpsEndpointSchema, NameSchema, RelativePathSchema } fro
 
 export const MemoryConfigSchema = z.discriminatedUnion('mode', [
   z.strictObject({ mode: z.literal('embedded') }),
+  z.strictObject({ mode: z.literal('file') }),
   z.strictObject({ mode: z.literal('external'), endpoint: HttpsEndpointSchema }),
 ]);
 

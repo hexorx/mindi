@@ -1,6 +1,6 @@
 # Hermes desktop
 
-One linux/amd64 container, one persistent root/default Hermes profile, and an s6-supervised headless Sway desktop. The official Hermes installation remains sealed at `/opt/hermes`; run it as uid 1000 via `docker exec --user 1000:1000 <container> /opt/hermes/.venv/bin/hermes ...`. Model calls need separately provisioned model credentials; boot and the computer-use smoke need none. There is no autonomous inference loop in this phase. The P7 build includes the Hermes API and P4 embedded memory; optional networking remains separate. Optional settings/personality sources are described in [CONFIG-SOURCES.md](CONFIG-SOURCES.md).
+One linux/amd64 container, one persistent root/default Hermes profile, and an s6-supervised headless Sway desktop. The official Hermes installation remains sealed at `/opt/hermes`; run it as uid 1000 via `docker exec --user 1000:1000 <container> /opt/hermes/.venv/bin/hermes ...`. Model calls use existing Codex subscription OAuth; no provider API key is required. Boot and the computer-use smoke need no subscription credentials. There is no autonomous inference loop in this phase. The release includes the Hermes API and built-in persistent file memory; optional networking remains separate. Optional settings/personality sources are described in [CONFIG-SOURCES.md](CONFIG-SOURCES.md).
 
 ## Run
 
@@ -61,86 +61,44 @@ Runtime adaptations derive only from the approved baseline `mindi-stack@b5ac82d`
 
 This PR does not authorize production deployment. Opi's eventual rollout should use an approved immutable image digest and a fresh canary volume, then run the same smoke. Rollback stops the canary and restores the previous image/configuration; preserve the home volume. No shared database migrations or destructive volume cleanup are part of this change.
 
-## Embedded persistent memory
+## Subscription login
 
-Hindsight `0.6.1` runs in `/opt/hindsight`, isolated from Hermes, with
-`pg0-embedded==0.14.0`. It listens on **127.0.0.2:8888 only** and is not
-published or proxied. Hermes uses `local_external`, so it does not launch a
-second daemon. The container health check also requires Hindsight's database
-health check to pass.
-
-Mount runtime secret files `memory_llm_key` and `memory_embeddings_key` under
-`/run/secrets` (Compose host variables: `MEMORY_LLM_KEY_FILE` and
-`MEMORY_EMBEDDINGS_KEY_FILE`). Both are required, even when using the same
-provider account. Bootstrap validates them and stages mode-0600 copies under
-`/run/user/1000/memory`; only Hindsight receives their values in its process
-environment. Missing keys produce a named, value-redacted diagnostic and fail
-startup. Secret files are never written to either persistent volume.
-
-Operator environment settings (set in the Compose service's `environment`):
-
-| Setting | Default |
-| --- | --- |
-| `MEMORY_LLM_PROVIDER` | `openai` (also supports `anthropic`) |
-| `MEMORY_LLM_MODEL` | `gpt-4o-mini`; Anthropic: `claude-sonnet-4-20250514` |
-| `MEMORY_LLM_BASE_URL` | Provider default |
-| `MEMORY_EMBEDDINGS_MODEL` | `text-embedding-3-small` |
-| `MEMORY_EMBEDDINGS_BASE_URL` | OpenAI default; OpenAI-compatible endpoints supported |
-
-The memory service alone sets `HOME=/var/lib/agent-box/hindsight`. Verified
-against [pg0 v0.14.0 source](https://github.com/vectorize-io/pg0/blob/v0.14.0/src/main.rs):
-its base is `$HOME/.pg0`, and the `hindsight` instance stores data in
-`.pg0/instances/hindsight/data`. The dedicated `box-memory` volume therefore
-contains database data, installation and instance metadata. No guessed pg0
-environment setting or symlink into the profile is used.
-
-`/home/agent/.agent-box/identity.json` persists the stable UUID; the memory bank
-is `box-<UUID>`. The memory volume records its box binding and rejects reuse
-with a different home identity. Keep home and memory volumes together during
-recovery. A new box needs new volumes; copying a box is a separate operation.
-
-## Offline backup and restore
-
-Opi owns production operations. Stop new work, then stop the entire container
-cleanly; a live data-directory copy is not a backup. Back up the matching home
-volume separately using the operator's existing offline volume procedure.
-The helper refuses running or uncleanly stopped containers and refuses to
-replace an existing archive or restore into a nonempty destination:
+Start with a fresh home volume, then log in with the existing Codex subscription:
 
 ```sh
-docker stop --time 20 BOX
-apps/agent-box-hermes/scripts/memory-volume.sh backup BOX memory.tar.gz
-docker volume create memory-restored
-apps/agent-box-hermes/scripts/memory-volume.sh restore BOX memory.tar.gz memory-restored
+docker exec -it --user 1000:1000 BOX /opt/hermes/.venv/bin/hermes auth add openai-codex --type oauth --no-browser
+docker exec -it --user 1000:1000 BOX /opt/hermes/.venv/bin/hermes chat --provider openai-codex
 ```
 
-Recreate the box with its matching home volume and `memory-restored`, the same
-image digest, and fresh runtime secret mounts. Verify health and recall before
-resuming work. Treat archives as private agent data. Before an upgrade, retain
-the old image digest and both volume snapshots. Roll back to that digest with
-matching pre-upgrade snapshots if database migrations prevent downgrade;
-never run an older image against an unverified newer database schema.
+Complete the device login in your browser. OAuth state lives in the private
+persistent `/home/agent/.hermes/auth.json`; do not put it in git, build arguments,
+image layers, logs, or ticket attachments. `HERMES_INFERENCE_MODEL` selects a
+subscription model at first boot (default `gpt-5.6-sol`). `openai-codex` is the
+only bootstrap provider; paid API providers and custom endpoints are rejected.
+There is no API-key fallback. An expired/revoked login requires logging in again.
 
-Container CI performs actual Hindsight retain/recall and checks the pg0 data
-path, bank isolation and loopback listeners across restart, container
-recreation, and restore to a new volume. Only the OpenAI-compatible inference
-HTTP service is a deterministic test fixture; no paid inference is used. A
-production-provider inference check remains part of the approved canary.
+Existing operator config is preserved: a home previously configured for a paid
+provider must not be reused for this release without explicit operator migration.
+Use a fresh home and retain the old home and Hindsight volumes for rollback.
+Do not copy unrelated credentials from a shared agent home into the box.
 
-Hindsight 0.6.1 migration compatibility: the image build applies a fingerprint-guarded
-patch to five upstream migrations, replacing raw SQL COMMIT around concurrent index
-operations with Alembic autocommit blocks for psycopg 3. Dependency upgrades must
-review/remove this patch; changed source fails the build. Normal migration statements
-remain transactional. Container CI validates startup against a fresh pg0 database.
+## Persistent file memory (release limitation)
 
-The pg0 0.14.0 CLI is built from fingerprinted source with a private-loopback
-patch: PostgreSQL `listen_addresses`, setup/client host, port allocation and
-reported connection URIs all use `127.0.0.2`. The pinned Python SDK uses this
-binary in place of its bundled executable. This preserves the `hindsight`
-instance, dynamic port and memory-volume layout; no schema migration is added.
-The build fails if upstream source changes. Both disabled-mode and peer smoke
-checks discover the actual pg0 port and verify that healthy memory services
-cannot be reached through `127.0.0.1` or the tailnet.
+The simplified release uses Hermes built-in `MEMORY.md` / `USER.md` files under
+`/home/agent/.hermes/memories`, and enables the memory tool. The same persistent
+home stores sessions and OAuth state. No embedding model download, embedding
+key, memory LLM key or database is needed. Container readiness covers the actual
+desktop and Hermes API; Hindsight is dormant and is not a readiness dependency.
+
+This is **not Hindsight semantic recall**. Historical Hindsight memories are not
+migrated or automatically imported. Existing `/var/lib/agent-box/hindsight` data
+and the legacy archive helpers are retained, untouched by the new entrypoint.
+Back up the home while the container is stopped; keep previous image/config/home
+and memory volumes together. Roll back by selecting the old image and its saved
+volumes, without overwriting the new home or deleting the frozen image.
+
+See [private release](../../docs/hermes-promotion.md) for the build, layer secret
+scan and real subscription smoke. Opi owns publication and rollout.
 
 ## P7 qualification ingress
 

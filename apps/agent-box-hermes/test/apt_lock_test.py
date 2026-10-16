@@ -28,14 +28,15 @@ class LockFilesTest(unittest.TestCase):
     def test_closure_counts_match_the_resolved_build(self):
         changes = [row[3] for row in self.lock]
         self.assertEqual(changes.count('added'), 121)
-        self.assertEqual(changes.count('upgraded'), 37)
+        self.assertEqual(changes.count('upgraded'), 39)
         self.assertEqual(len(self.inherited), 432)
         self.assertEqual(len(self.final), 553)
 
     def test_every_artifact_is_a_pinned_snapshot_url_with_hash(self):
         for name, version, arch, change, base, suite, url, sha256, size in self.lock:
             archive = 'debian-security' if suite == 'trixie-security' else 'debian'
-            prefix = f'https://snapshot.debian.org/archive/{archive}/{STAMPS[archive]}/pool/'
+            stamp = '20261001T172817Z' if name in {'chromium', 'chromium-common', 'libexpat1', 'libexpat1-dev'} else STAMPS[archive]
+            prefix = f'https://snapshot.debian.org/archive/{archive}/{stamp}/pool/'
             self.assertTrue(url.startswith(prefix), url)
             self.assertTrue(url.endswith(f'_{arch}.deb'), url)
             self.assertRegex(sha256, r'^[0-9a-f]{64}$')
@@ -67,15 +68,19 @@ class LockFilesTest(unittest.TestCase):
         text = (BUILD / 'apt-snapshot.sources').read_text()
         uris = re.findall(r'^URIs: (.+)$', text, re.M)
         self.assertEqual(uris, [f'https://snapshot.debian.org/archive/{a}/{s}'
-                                for a, s in STAMPS.items()])
-        self.assertEqual(text.count('Signed-By: /usr/share/keyrings/debian-archive-keyring.pgp'), 2)
+                                for a, s in STAMPS.items()] +
+                         ['https://snapshot.debian.org/archive/debian-security/20261001T172817Z'])
+        self.assertEqual(text.count('Signed-By: /usr/share/keyrings/debian-archive-keyring.pgp'), 3)
         self.assertNotIn('deb.debian.org', text)
         self.assertNotIn('Trusted:', text)
         pins = [line.split('  ') for line in (BUILD / 'apt-release.sha256').read_text().splitlines()]
-        self.assertEqual(len(pins), 3)
+        self.assertEqual(len(pins), 4)
         for digest, name in pins:
             self.assertRegex(digest, r'^[0-9a-f]{64}$')
             archive = 'debian-security' if 'security' in name else 'debian'
+            if '20261001T172817Z' in name:
+                self.assertEqual(name, 'snapshot.debian.org_archive_debian-security_20261001T172817Z_dists_trixie-security_InRelease')
+                continue
             self.assertTrue(name.startswith(
                 f'snapshot.debian.org_archive_{archive}_{STAMPS[archive]}_dists_'), name)
 
@@ -88,7 +93,7 @@ class LockFilesTest(unittest.TestCase):
             'libmbedcrypto16 libpcre2-8-0 libperl5.40 libpython3.13 libpython3.13-dev '
             'libpython3.13-minimal libpython3.13-stdlib libsqlite3-0 libssh-4 libssh2-1t64 '
             'perl perl-base perl-modules-5.40 python3.13 python3.13-dev python3.13-minimal '
-            'python3.13-venv xserver-common xvfb'.split())
+            'python3.13-venv xserver-common xvfb libexpat1 libexpat1-dev'.split())
 
     def test_chromium_artifacts_match_retained_build_evidence(self):
         import json
@@ -99,6 +104,8 @@ class LockFilesTest(unittest.TestCase):
         additions = rows(evidence / 'chromium-new-lock-rows.tsv')
         self.assertEqual(len(additions), 20)
         for row in additions:
+            if row[0] in {'chromium', 'chromium-common'}:
+                continue  # Replaced by signed HEX-345 inputs; historical bytes remain intact.
             # Historical evidence keeps its old snapshot URL; artifact bytes stay pinned.
             current = next(r for r in self.lock if r[0] == row[0])
             self.assertEqual(current[:6] + current[7:], row[:6] + row[7:])
@@ -114,6 +121,9 @@ STUBS = {
     'dpkg-query': 'cat "$STUB/installed.tsv"\n',
     'apt-get': r'''
 echo "apt-get $*" >> "$STUB/log"
+for option in "$@"; do
+  case "$option" in Dir::Etc::Preferences=*) cp "${option#*=}" "$STUB/preferences" ;; esac
+done
 case " $* " in
   *" update "*) cp "$STUB"/lists/* "$APT_LOCK_ROOT/var/lib/apt/lists/" ;;
   *" -s "*) cat "$STUB/simulation" ;;
@@ -207,6 +217,15 @@ class HelperTest(unittest.TestCase):
         self.assertIn('Dir::Etc::SourceList=/dev/null', log)
         self.assertEqual(log.count('curl '), 2)
         self.assertEqual(list((self.root / 'var/cache/apt/archives').glob('*.deb')), [])
+
+    def test_resolver_pins_exact_inventory_and_excludes_other_versions(self):
+        result, log = self.run_helper()
+        self.assertEqual(result.returncode, 0, result.stderr)
+        preferences = (self.stub / 'preferences').read_text()
+        self.assertIn('Package: libfoo\nPin: version 1.1\nPin-Priority: 1001', preferences)
+        self.assertIn('Package: base-files\nPin: version 13\nPin-Priority: 1001', preferences)
+        self.assertIn('Package: *\nPin: version *\nPin-Priority: -1', preferences)
+        self.assertIn('Dir::Etc::PreferencesParts=-', log)
 
     def test_refuses_version_drift_before_download(self):
         self.simulate('Inst libfoo [1.0] (1.1 x [amd64])\nInst newpkg (3.1 x [all])\n')

@@ -16,6 +16,8 @@ be logged against untrusted input.
 - `RosterSchema`: strict versioned list of unique boxes/endpoints, immutable image
   digest and resolved config revision (full Git SHA or `sha256:<64 hex>`), symbolic
   credential reference, capability claims and nullable company/agent binding.
+  Optional `adapterType` identifies the Paperclip gateway adapter supplied by a
+  flavor; it is data, not an executable plugin or credential.
   A binding contains exactly one company and agent; an agent cannot appear twice.
 - `BoxHealthSchema`: timestamped component observations with bounded diagnostic
   codes. `isRegistrationReady` requires container, desktop, memory and API health,

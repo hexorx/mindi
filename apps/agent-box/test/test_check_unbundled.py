@@ -1,0 +1,123 @@
+"""Regression coverage for image vendor-payload diagnostics."""
+import contextlib
+import io
+from pathlib import Path
+import subprocess
+import sys
+import tarfile
+import tempfile
+import unittest
+from unittest.mock import patch
+
+sys.path.insert(0, str(Path(__file__).parent))
+import check_unbundled
+
+
+class CheckUnbundledTest(unittest.TestCase):
+    def test_filesystem_failure_prints_all_matches_before_exit(self):
+        result = subprocess.CompletedProcess(
+            [], 1,
+            stdout=(
+                'Bundled vendor packages:\n'
+                'google-chrome-stable installed\n'
+                'Bundled vendor filesystem paths:\n'
+                '/opt/mindi-native/node_modules/@anthropic-ai/claude-code\n'
+            ),
+            stderr='',
+        )
+        output = io.StringIO()
+        with patch.object(check_unbundled.subprocess, 'run', return_value=result):
+            with contextlib.redirect_stdout(output):
+                with self.assertRaisesRegex(SystemExit, 'bundled vendor payload'):
+                    check_unbundled.check_filesystem('test-image')
+        self.assertIn('google-chrome-stable installed', output.getvalue())
+        self.assertIn('@anthropic-ai/claude-code', output.getvalue())
+
+    def test_layer_failure_reports_every_matching_path(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            layer = root / 'layer.tar'
+            with tarfile.open(layer, 'w') as archive:
+                for name in (
+                    'opt/mindi-native/node_modules/@anthropic-ai/claude-code/package.json',
+                    'usr/bin/google-chrome-stable',
+                    'opt/hindsight/lib/python3.13/site-packages/claude_agent_sdk/_bundled/claude',
+                    'usr/bin/chromium',
+                ):
+                    info = tarfile.TarInfo(name)
+                    info.size = 0
+                    archive.addfile(info)
+            image = root / 'image.tar'
+            manifest = b'[{"Layers":["layer.tar"]}]'
+            with tarfile.open(image, 'w') as archive:
+                info = tarfile.TarInfo('manifest.json')
+                info.size = len(manifest)
+                archive.addfile(info, io.BytesIO(manifest))
+                archive.add(layer, arcname='layer.tar')
+            with self.assertRaises(SystemExit) as raised:
+                check_unbundled.check_layers(image)
+            message = str(raised.exception)
+            self.assertIn('@anthropic-ai/claude-code/package.json', message)
+            self.assertIn('usr/bin/google-chrome-stable', message)
+            self.assertIn('claude_agent_sdk/_bundled/claude', message)
+            self.assertNotIn('usr/bin/chromium', message)
+
+    def test_hermes_claude_code_guide_is_not_package_payload(self):
+        self.assertFalse(check_unbundled.is_vendor_payload_path(
+            'opt/hermes/skills/autonomous-ai-agents/claude-code/SKILL.md'
+        ))
+
+    def test_claude_code_npm_payload_fails_closed(self):
+        self.assertTrue(check_unbundled.is_vendor_payload_path(
+            'home/agent/node_modules/@anthropic-ai/claude-code-linux-x64/claude'
+        ))
+
+    def test_python_sdk_bundled_cli_fails_closed(self):
+        for path in (
+            'opt/hindsight/lib/python3.13/site-packages/claude_agent_sdk/_bundled/claude',
+            '/opt/hermes/.venv/lib/python3.13/site-packages/claude_agent_sdk/_bundled/claude',
+        ):
+            with self.subTest(path=path):
+                self.assertTrue(check_unbundled.is_vendor_payload_path(path))
+
+    def test_filesystem_scan_detects_python_sdk_cli(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            cli = root / 'opt/hindsight/lib/python3.13/site-packages/claude_agent_sdk/_bundled/claude'
+            cli.parent.mkdir(parents=True)
+            cli.write_bytes(b'proprietary CLI')
+            # Exercise the real shell predicate against an isolated filesystem.
+            script = check_unbundled.FILESYSTEM_CHECK.replace(
+                'find / -xdev', f'find {directory} -xdev'
+            ).replace('dpkg-query -W', 'true')
+            result = subprocess.run(['sh', '-ec', script], text=True, capture_output=True)
+            self.assertEqual(result.returncode, 1)
+            self.assertIn(str(cli), result.stdout)
+
+    def test_sdk_exclusion_is_in_same_uncached_install_layer(self):
+        dockerfile = (Path(__file__).resolve().parents[1] /
+                      'base/infra/agent-box/Dockerfile').read_text()
+        # Join Docker continuations to verify cleanup precedes committing this RUN.
+        instructions = dockerfile.replace('\\\n', ' ').splitlines()
+        install = next(line for line in instructions if 'hindsight-api-slim[embedded-db]' in line)
+        self.assertTrue(install.startswith('RUN '))
+        self.assertIn('pip install --no-cache-dir', install)
+        self.assertIn('&& rm -rf /opt/hindsight/lib/python*/site-packages/claude_agent_sdk/_bundled', install)
+
+    def test_google_chrome_payload_fails_closed(self):
+        for path in (
+            'opt/google/chrome/chrome',
+            'usr/bin/google-chrome-stable',
+            'usr/share/applications/google-chrome.desktop',
+        ):
+            with self.subTest(path=path):
+                self.assertTrue(check_unbundled.is_vendor_payload_path(path))
+
+    def test_runtime_launcher_name_is_not_chrome_payload(self):
+        self.assertFalse(check_unbundled.is_vendor_payload_path(
+            'opt/runtime-browser-launcher'
+        ))
+
+
+if __name__ == '__main__':
+    unittest.main()

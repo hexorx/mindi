@@ -1,0 +1,201 @@
+"""Release safety tests use synthetic layers and responses; never paid inference."""
+import hashlib
+import io
+import json
+import os
+from pathlib import Path
+import subprocess
+import tarfile
+import tempfile
+import unittest
+from unittest.mock import patch
+
+import publish
+import scan_layers
+
+
+class PublicationTests(unittest.TestCase):
+    def setUp(self):
+        gate = patch.object(publish.license_gate, "check", return_value={
+            "manifest_digest": "sha256:" + hashlib.sha256(b"manifest").hexdigest()})
+        self.license_check = gate.start()
+        self.addCleanup(gate.stop)
+
+    def test_release_needs_no_subscription_credentials(self):
+        workflow = (Path(__file__).resolve().parents[2] /
+                    '.github/workflows/hermes-promote.yml').read_text()
+        self.assertNotIn('HERMES_SUBSCRIPTION_AUTH_JSON', workflow)
+        self.assertNotIn('--subscription', workflow)
+        self.assertIn('scripts/hermes-release/publish.py preflight', workflow)
+        self.assertIn('scripts/hermes-release/scan_layers.py', workflow)
+        self.assertIn('apps/agent-box/test/smoke.py hermes-release:local', workflow)
+        self.assertIn('scripts/hermes-release/publish.py publish', workflow)
+
+    def test_public_preflight_checks_all_tag_pages_and_manifest(self):
+        with patch.object(publish, 'anonymous_token', return_value='anonymous'), \
+             patch.object(publish, 'registry_get', side_effect=[
+                 (b'{"tags":["old"]}', '</v2/hexorx/agent-box-hermes/tags/list?n=100&last=old>; rel="next"'),
+                 (b'{"tags":["new"]}', None)]) as get, \
+             patch.object(publish, 'public_manifest') as manifest:
+            self.assertEqual(publish.preflight('a' * 40), 'sha-' + 'a' * 40)
+            self.assertEqual(get.call_count, 2)
+            manifest.assert_called_once_with('new', 'anonymous')
+
+    def test_existing_tag_on_later_page_refuses(self):
+        with patch.object(publish, 'anonymous_token', return_value='anonymous'), \
+             patch.object(publish, 'registry_get', side_effect=[
+                 (b'{"tags":["old"]}', '<?last=old>; rel="next"'),
+                 (json.dumps({'tags': ['sha-' + 'a' * 40]}).encode(), None)]):
+            with self.assertRaisesRegex(ValueError, 'already exists'):
+                publish.preflight('a' * 40)
+
+    def test_registry_errors_fail_closed(self):
+        from urllib.error import HTTPError, URLError
+        for error in [HTTPError(publish.REGISTRY, code, 'denied', {}, None) for code in (401, 403, 404)] + [URLError('transport')]:
+            for stage in ('anonymous_token', 'registry_get', 'public_manifest'):
+                with self.subTest(stage=stage, error=error), \
+                     patch.object(publish, 'anonymous_token', return_value='anonymous') as token, \
+                     patch.object(publish, 'registry_get', return_value=(b'{"tags":["old"]}', None)) as get, \
+                     patch.object(publish, 'public_manifest') as manifest:
+                    {'anonymous_token': token, 'registry_get': get, 'public_manifest': manifest}[stage].side_effect = error
+                    with self.assertRaises((HTTPError, URLError)):
+                        publish.preflight('a' * 40)
+
+    def test_token_request_is_anonymous(self):
+        with patch.object(publish, 'urlopen') as get:
+            get.return_value.__enter__.return_value = io.BytesIO(b'{"token":"anonymous"}')
+            self.assertEqual(publish.anonymous_token(), 'anonymous')
+            self.assertIsInstance(get.call_args.args[0], str)
+            self.assertIn('scope=repository:hexorx/agent-box-hermes:pull', get.call_args.args[0])
+
+    def test_bad_pagination_and_empty_package_refuse(self):
+        for raw, link in [(b'{"tags":[]}', None), (b'{}', None),
+                          (b'{"tags":["old"]}', '<https://other.invalid/>; rel="next"')]:
+            with patch.object(publish, 'anonymous_token', return_value='anonymous'), \
+                 patch.object(publish, 'registry_get', return_value=(raw, link)):
+                with self.assertRaises(ValueError):
+                    publish.preflight('a' * 40)
+
+    def test_preserve_digest_and_verify_remote_before_success_receipt(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            receipt = Path(tmp) / 'receipt.json'
+            sha = 'a' * 40
+            with patch.object(publish, 'preflight', return_value='sha-' + sha), \
+                 patch.object(publish, 'public_manifest'), patch.dict(os.environ, {'REGISTRY_AUTH_FILE': '/private/auth'}), \
+                 patch.object(publish, 'run', side_effect=[
+                     subprocess.CompletedProcess([], 0, b'manifest'),
+                     subprocess.CompletedProcess([], 0, b''),
+                     subprocess.CompletedProcess([], 0, b'different-manifest')]) as run:
+                with self.assertRaisesRegex(ValueError, 'digest mismatch'):
+                    publish.publish(sha, Path('image.oci.tar'), receipt)
+                self.assertIn('--preserve-digests', run.call_args_list[1].args[0])
+                self.assertEqual(json.loads(receipt.read_text())['status'], 'prepared')
+
+    def test_success_requires_matching_anonymous_manifest(self):
+        raw = b'{"schemaVersion":2}'
+        self.license_check.return_value = {'manifest_digest': 'sha256:' + hashlib.sha256(raw).hexdigest()}
+        for public, succeeds in ((raw, True), (b'{"schemaVersion":2,"changed":true}', False)):
+            with tempfile.TemporaryDirectory() as tmp:
+                receipt = Path(tmp) / 'receipt.json'
+                with patch.object(publish, 'preflight', return_value='sha-' + 'a' * 40), \
+                     patch.object(publish, 'public_manifest', return_value=public) as manifest, \
+                     patch.dict(os.environ, {'REGISTRY_AUTH_FILE': '/private/auth'}), \
+                     patch.object(publish, 'run', side_effect=[
+                         subprocess.CompletedProcess([], 0, raw),
+                         subprocess.CompletedProcess([], 0, b''),
+                         subprocess.CompletedProcess([], 0, raw)]):
+                    if succeeds:
+                        publish.publish('a' * 40, Path('image.oci.tar'), receipt)
+                        self.assertEqual(json.loads(receipt.read_text())['visibility'], 'public')
+                    else:
+                        with self.assertRaisesRegex(ValueError, 'Public digest mismatch'):
+                            publish.publish('a' * 40, Path('image.oci.tar'), receipt)
+                        self.assertEqual(json.loads(receipt.read_text())['status'], 'prepared')
+                    manifest.assert_called_once_with('sha-' + 'a' * 40)
+
+
+class SecretTests(unittest.TestCase):
+    def test_allowlist_matches_bytes_rule_path_and_line_not_only_path(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            path = root / 'fixture.txt'
+            path.write_text('not-a-real-secret')
+            row = {'path': '/fixture.txt', 'file_sha256': hashlib.sha256(path.read_bytes()).hexdigest(),
+                   'rule_id': 'fixture', 'lines': [1]}
+            report = {'SchemaVersion': 2, 'Results': [{'Target': 'fixture.txt', 'Secrets': [
+                {'RuleID': 'fixture', 'StartLine': 1, 'Match': 'never-emit-this-value'}]}]}
+            with patch.object(scan_layers.subprocess, 'run', return_value=subprocess.CompletedProcess([], 0, json.dumps(report).encode())):
+                self.assertEqual(scan_layers.scan(root, [row]), [])
+                path.write_text('changed')
+                findings = scan_layers.scan(root, [row])
+                self.assertEqual(len(findings), 1)
+                self.assertNotIn('never-emit', json.dumps(findings))
+                self.assertNotIn('changed', json.dumps(findings))
+
+    def test_package_results_do_not_hide_secret_findings(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            (root / 'fixture.txt').write_text('synthetic fixture')
+            packages = [
+                {'Class': 'os-pkgs', 'Target': '/private/scan/1 (none )'},
+                {'Class': 'lang-pkgs', 'Target': 'Python', 'Secrets': []},
+            ]
+            finding = {'RuleID': 'fixture', 'StartLine': 1, 'Match': 'never-emit'}
+            for results, expected in (
+                    (packages, []),
+                    (packages + [{'Target': str(root / 'fixture.txt'), 'Secrets': [finding]}],
+                     [{'path': '/fixture.txt', 'rule': 'fixture', 'line': 1}])):
+                with self.subTest(results=results), patch.object(
+                        scan_layers.subprocess, 'run', return_value=subprocess.CompletedProcess(
+                            [], 0, json.dumps({'SchemaVersion': 2, 'Results': results}).encode())):
+                    self.assertEqual(scan_layers.scan(root, []), expected)
+
+    def test_unsafe_secret_targets_still_fail_closed(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            for target in ('/outside', '../outside', 'a/../../outside'):
+                report = {'SchemaVersion': 2, 'Results': [{'Target': target, 'Secrets': [
+                    {'RuleID': 'fixture', 'StartLine': 1}]}]}
+                with self.subTest(target=target), patch.object(
+                        scan_layers.subprocess, 'run', return_value=subprocess.CompletedProcess(
+                            [], 0, json.dumps(report).encode())):
+                    with self.assertRaises(ValueError):
+                        scan_layers.scan(Path(tmp), [])
+
+    def test_deleted_file_is_scanned_in_earlier_layer(self):
+        def tar_bytes(files):
+            result = io.BytesIO()
+            with tarfile.open(fileobj=result, mode='w') as tar:
+                for name, data in files.items():
+                    member = tarfile.TarInfo(name)
+                    member.size = len(data)
+                    tar.addfile(member, io.BytesIO(data))
+            return result.getvalue()
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            image = root / 'image.tar'
+            image.write_bytes(tar_bytes({
+                'manifest.json': json.dumps([{'Config': 'config.json', 'Layers': ['first.tar', 'second.tar']}]).encode(),
+                'config.json': b'{}', 'first.tar': tar_bytes({'secret.txt': b'fixture'}),
+                'second.tar': tar_bytes({'.wh.secret.txt': b''}),
+            }))
+            seen = []
+            def scan(directory, allowlist):
+                seen.append(sorted(p.name for p in directory.iterdir()))
+                return [{'path': '/secret.txt', 'rule': 'fixture', 'line': 1}] if (directory / 'secret.txt').exists() else []
+            with patch.object(scan_layers, 'scan', side_effect=scan), patch.dict(os.environ, {'RUNNER_TEMP': tmp}):
+                with self.assertRaisesRegex(ValueError, 'Secret scan failed'):
+                    scan_layers.check(image, root / 'report.json')
+            self.assertEqual(seen, [['config.json'], ['secret.txt'], ['.wh.secret.txt']])
+            self.assertEqual(len(json.loads((root / 'report.json').read_text())['surfaces']), 3)
+
+    def test_scanner_errors_and_unsafe_paths_fail_closed(self):
+        for path in ('/outside', '../outside', 'a/../../outside'):
+            with self.assertRaises(ValueError):
+                scan_layers.safe_name(path)
+        with patch.object(scan_layers.subprocess, 'run', side_effect=subprocess.CalledProcessError(1, ['trivy'])):
+            with self.assertRaises(subprocess.CalledProcessError):
+                scan_layers.scan(Path('.'), [])
+
+
+if __name__ == '__main__':
+    unittest.main()

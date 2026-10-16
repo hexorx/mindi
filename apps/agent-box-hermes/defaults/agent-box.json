@@ -3,6 +3,6 @@
   "flavor": "hermes",
   "identity": { "name": "helper" },
   "persona": { "instructionsFile": "persona/AGENTS.md" },
-  "memory": { "mode": "embedded" },
+  "memory": { "mode": "file" },
   "network": { "tailscale": false }
 }

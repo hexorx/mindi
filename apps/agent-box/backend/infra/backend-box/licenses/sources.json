@@ -1,0 +1,120 @@
+{
+  "schemaVersion": 1,
+  "observedImage": "ghcr.io/hexorx/agent-box-hermes@sha256:22cbf26f780c11c1bf2b84c1f103599af08de3bd849f988d51c24732f50e275b",
+  "observedRevision": "ae732472d18c4ec784bce87a95b7d5e727ff70c6",
+  "license": {
+    "file": "LICENSE",
+    "source": "repository root LICENSE",
+    "sha256": "cf99fb6a1af278a625bed01a77926972787e6fe7c0be846f966e51a333a68cf3"
+  },
+  "components": [
+    {
+      "name": "aml",
+      "version": "v1.0.0",
+      "license": "ISC",
+      "installedAs": "/usr/lib/x86_64-linux-gnu/libaml*",
+      "source": "https://github.com/any1/aml/blob/v1.0.0/COPYING",
+      "file": "upstream/aml.txt",
+      "sha256": "9171803def98224cfcf4901c0e52c7ee2f7f3b67cb95a79471edccbf5851f422"
+    },
+    {
+      "name": "neatvnc",
+      "version": "v1.0.1",
+      "license": "ISC",
+      "installedAs": "/usr/lib/x86_64-linux-gnu/libneatvnc* (modified: Apple DH security type removed)",
+      "source": "https://github.com/any1/neatvnc/blob/v1.0.1/COPYING",
+      "file": "upstream/neatvnc.txt",
+      "sha256": "12a288d6673ab6e79cfad4de6f69dfc1ac94576c1c8734d198b2a859d7b0de36"
+    },
+    {
+      "name": "wayvnc",
+      "version": "v0.10.1",
+      "license": "ISC",
+      "installedAs": "/usr/bin/wayvnc, /usr/bin/wayvncctl",
+      "source": "https://github.com/any1/wayvnc/blob/v0.10.1/COPYING",
+      "file": "upstream/wayvnc.txt",
+      "sha256": "12a288d6673ab6e79cfad4de6f69dfc1ac94576c1c8734d198b2a859d7b0de36"
+    },
+    {
+      "name": "ghostty",
+      "version": "1.3.1",
+      "license": "MIT",
+      "installedAs": "/usr/bin/ghostty, /usr/share/ghostty",
+      "source": "https://github.com/ghostty-org/ghostty/blob/v1.3.1/LICENSE",
+      "file": "upstream/ghostty.txt",
+      "sha256": "386211873e5b7a02f663ae4d7adf96285999f91608f8f9f31fecfd0f4095e6f1"
+    },
+    {
+      "name": "buzz-cli",
+      "version": "unpinned (git clone --depth 1 of main at build time)",
+      "license": "Apache-2.0",
+      "installedAs": "/usr/local/bin/buzz",
+      "source": "https://github.com/block/buzz/blob/8af2d91f37270365d5cd9170ac48349baa08475e/LICENSE",
+      "file": "upstream/buzz.txt",
+      "sha256": "108cb15997e51b75a8d18b0c1e2c52bd3879d051ab02118973387df1e4aab584"
+    },
+    {
+      "name": "tailscale",
+      "version": "1.102.3 (commit 53a0d659afa51835dd7a9283873cca44261454f8)",
+      "license": "BSD-3-Clause",
+      "installedAs": "/usr/local/bin/tailscale, /usr/local/bin/tailscaled",
+      "source": "https://github.com/tailscale/tailscale/blob/v1.102.3/LICENSE",
+      "file": "upstream/tailscale.txt",
+      "sha256": "a7ca6186a7963a0a60740f6047760eecd7a0234e8c38bd7e1e0bbcb324bda45b"
+    },
+    {
+      "name": "gh",
+      "version": "2.102.0 (cli.github.com apt package; ships no /usr/share/doc/gh/copyright)",
+      "license": "MIT",
+      "installedAs": "/usr/bin/gh",
+      "source": "https://github.com/cli/cli/blob/v2.102.0/LICENSE",
+      "file": "upstream/gh.txt",
+      "sha256": "6da4adc42392c8485e40b4251c7e332fc3352df1947c9ffade71dd60b14a7a4f"
+    },
+    {
+      "name": "chezmoi",
+      "version": "v2.73.0 (unpinned installer)",
+      "license": "MIT",
+      "installedAs": "/usr/local/bin/chezmoi",
+      "source": "https://github.com/twpayne/chezmoi/blob/v2.73.0/LICENSE",
+      "file": "upstream/chezmoi.txt",
+      "sha256": "6ce2375d89522ac7a1417320c8406886bc0ecb984baf41e3c27b8a07a81a30b2"
+    },
+    {
+      "name": "mise",
+      "version": "2026.10.0 (unpinned installer)",
+      "license": "MIT",
+      "installedAs": "/usr/local/bin/mise",
+      "source": "https://github.com/jdx/mise/blob/v2026.10.0/LICENSE",
+      "file": "upstream/mise.txt",
+      "sha256": "4d22d6f9222adef0a45ef895bfdd6f71d6394b1784b1001a4bebb4298b8ddc69"
+    },
+    {
+      "name": "herdr",
+      "version": "0.9.3 (unpinned installer)",
+      "license": "Apache-2.0",
+      "installedAs": "/usr/local/bin/herdr",
+      "source": "https://github.com/herdrdev/herdr/blob/v0.9.3/LICENSE",
+      "file": "upstream/herdr.txt",
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+    },
+    {
+      "name": "cua-driver",
+      "version": "0.32.0 (unpinned installer)",
+      "license": "MIT",
+      "installedAs": "/opt/cua-driver, /usr/local/bin/cua-driver",
+      "source": "https://github.com/trycua/cua/blob/cua-driver-rs-v0.32.0/LICENSE.md",
+      "file": "upstream/cua-driver.txt",
+      "sha256": "c0779290c1d4783169aa3dbfb55feb505e563ef8a004bbf55298ceffcfbda8d9"
+    },
+    {
+      "name": "oh-my-pi (omp)",
+      "version": "18.1.17",
+      "license": "MIT",
+      "installedAs": "/usr/local/bin/omp",
+      "source": "https://github.com/can1357/oh-my-pi/blob/v18.1.17/LICENSE",
+      "file": "upstream/omp.txt",
+      "sha256": "16c45f9d667442781f03fa198914cc39abcaa48ec5ed8f644643e554ca2fbf63"
+    }
+  ]
+}

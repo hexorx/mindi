@@ -130,6 +130,22 @@
           "expectedVersion": "2.10.43"
         }
       ]
+    },
+    {
+      "name": "@grpc/grpc-js",
+      "version": "1.14.5",
+      "url": "https://registry.npmjs.org/@grpc/grpc-js/-/grpc-js-1.14.5.tgz",
+      "sha256": "7619fe0a86a59de7ff47f12cb7416d024d51a1356a260a50b72df6fd0ed34b54",
+      "dependencies": {
+        "@grpc/proto-loader": "^0.8.0",
+        "@js-sdsl/ordered-map": "^4.4.2"
+      },
+      "targets": [
+        {
+          "path": "/opt/hermes/plugins/platforms/photon/sidecar/node_modules/@grpc/grpc-js",
+          "expectedVersion": "1.14.4"
+        }
+      ]
     }
   ]
 }

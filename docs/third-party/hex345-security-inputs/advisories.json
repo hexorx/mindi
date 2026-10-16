@@ -1,0 +1,876 @@
+{
+  "observed_at": "2026-10-02T04:09:06.715161+00:00",
+  "url": "https://security-tracker.debian.org/tracker/data/json",
+  "raw_sha256": "791014394e8288a46530eade57726f5440ffeabce1481093fa7c1d38057a43a1",
+  "groups": [
+    {
+      "group_id": "05d28e44d0e4be635a9c",
+      "native_hashes": [
+        "09278e1f5db974f50b3faf1be1a088b3926e20c82dfbc60bf0d1d2a1aa8e0fc9",
+        "f016be93816b3d20f99cae719db4135a901ed67515f36f020d402dbc2255089d"
+      ],
+      "advisory": "CVE-2026-102329",
+      "source": "chromium",
+      "target": "154.0.8037.92-1~deb13u1",
+      "vendor": {
+        "description": "Cross-site scripting in WebUI in Google Chrome prior to 154.0.8037.92 allowed a remote attacker to bypass web origin policy into a privileged page via a crafted HTML page. (Chromium security severity: High)",
+        "scope": "local",
+        "releases": {
+          "bookworm": {
+            "status": "resolved",
+            "repositories": {
+              "bookworm": "150.0.7871.100-1~deb12u1",
+              "bookworm-security": "154.0.8037.92-1~deb12u1"
+            },
+            "fixed_version": "154.0.8037.92-1~deb12u1",
+            "urgency": "not yet assigned"
+          },
+          "forky": {
+            "status": "open",
+            "repositories": {
+              "forky": "154.0.8037.57-1"
+            },
+            "urgency": "not yet assigned"
+          },
+          "sid": {
+            "status": "resolved",
+            "repositories": {
+              "sid": "154.0.8037.92-1"
+            },
+            "fixed_version": "154.0.8037.92-1",
+            "urgency": "not yet assigned"
+          },
+          "trixie": {
+            "status": "resolved",
+            "repositories": {
+              "trixie": "150.0.7871.181-1~deb13u1",
+              "trixie-security": "154.0.8037.92-1~deb13u1"
+            },
+            "fixed_version": "154.0.8037.92-1~deb13u1",
+            "urgency": "not yet assigned"
+          }
+        }
+      },
+      "range_pass": true,
+      "linux_qualification": "No platform restriction in vendor description; conservatively applicable to Linux web-content processing."
+    },
+    {
+      "group_id": "f70070ef85a6c582a59c",
+      "native_hashes": [
+        "4df85aa6b2506e2298435e8ca710a8fa548b2a7adf9de4e3233bd1d3ea467374",
+        "6996cbcbe4737dcdb59d47fffa86e6a50cc0d5f25091489d703ce231cb2e804b"
+      ],
+      "advisory": "CVE-2026-102310",
+      "source": "chromium",
+      "target": "154.0.8037.92-1~deb13u1",
+      "vendor": {
+        "description": "Missing authorization in Payments in Google Chrome prior to 154.0.8037.92 allowed a remote attacker who had compromised the renderer process to bypass web origin policy via a crafted HTML page. (Chromium security severity: Low)",
+        "scope": "local",
+        "releases": {
+          "bookworm": {
+            "status": "resolved",
+            "repositories": {
+              "bookworm": "150.0.7871.100-1~deb12u1",
+              "bookworm-security": "154.0.8037.92-1~deb12u1"
+            },
+            "fixed_version": "154.0.8037.92-1~deb12u1",
+            "urgency": "not yet assigned"
+          },
+          "forky": {
+            "status": "open",
+            "repositories": {
+              "forky": "154.0.8037.57-1"
+            },
+            "urgency": "not yet assigned"
+          },
+          "sid": {
+            "status": "resolved",
+            "repositories": {
+              "sid": "154.0.8037.92-1"
+            },
+            "fixed_version": "154.0.8037.92-1",
+            "urgency": "not yet assigned"
+          },
+          "trixie": {
+            "status": "resolved",
+            "repositories": {
+              "trixie": "150.0.7871.181-1~deb13u1",
+              "trixie-security": "154.0.8037.92-1~deb13u1"
+            },
+            "fixed_version": "154.0.8037.92-1~deb13u1",
+            "urgency": "not yet assigned"
+          }
+        }
+      },
+      "range_pass": true,
+      "linux_qualification": "No platform restriction in vendor description; conservatively applicable to Linux web-content processing."
+    },
+    {
+      "group_id": "4f2fcf5e072db62c3107",
+      "native_hashes": [
+        "01d0ec901b7ebfc59848c2e23fb0f2a8d125c3bcab40a1735d8bd2efeca1de47",
+        "dd53eea6a8adf502613b5ac43e150ee68f8b6234260d5d6a0da79feca3582446"
+      ],
+      "advisory": "CVE-2026-102320",
+      "source": "chromium",
+      "target": "154.0.8037.92-1~deb13u1",
+      "vendor": {
+        "description": "Missing authorization in CORS in Google Chrome prior to 154.0.8037.92 allowed a remote attacker who had compromised the renderer process to bypass web origin policy via a crafted HTML page. (Chromium security severity: Medium)",
+        "scope": "local",
+        "releases": {
+          "bookworm": {
+            "status": "resolved",
+            "repositories": {
+              "bookworm": "150.0.7871.100-1~deb12u1",
+              "bookworm-security": "154.0.8037.92-1~deb12u1"
+            },
+            "fixed_version": "154.0.8037.92-1~deb12u1",
+            "urgency": "not yet assigned"
+          },
+          "forky": {
+            "status": "open",
+            "repositories": {
+              "forky": "154.0.8037.57-1"
+            },
+            "urgency": "not yet assigned"
+          },
+          "sid": {
+            "status": "resolved",
+            "repositories": {
+              "sid": "154.0.8037.92-1"
+            },
+            "fixed_version": "154.0.8037.92-1",
+            "urgency": "not yet assigned"
+          },
+          "trixie": {
+            "status": "resolved",
+            "repositories": {
+              "trixie": "150.0.7871.181-1~deb13u1",
+              "trixie-security": "154.0.8037.92-1~deb13u1"
+            },
+            "fixed_version": "154.0.8037.92-1~deb13u1",
+            "urgency": "not yet assigned"
+          }
+        }
+      },
+      "range_pass": true,
+      "linux_qualification": "No platform restriction in vendor description; conservatively applicable to Linux web-content processing."
+    },
+    {
+      "group_id": "2c4f0365d41070e60505",
+      "native_hashes": [
+        "58a9fea2aec6fbfa0ce3204a7993f20affe266ddf38c42982b720556409830b8",
+        "d0bba76280f16cd0d91001f8cc578a139a437c0c4b37c77619cc5db56f4918a9"
+      ],
+      "advisory": "CVE-2026-102330",
+      "source": "chromium",
+      "target": "154.0.8037.92-1~deb13u1",
+      "vendor": {
+        "description": "Incorrect authorization in SiteIsolation in Google Chrome prior to 154.0.8037.92 allowed a remote attacker who had compromised the renderer process to bypass web origin policy via a crafted HTML page. (Chromium security severity: Low)",
+        "scope": "local",
+        "releases": {
+          "bookworm": {
+            "status": "resolved",
+            "repositories": {
+              "bookworm": "150.0.7871.100-1~deb12u1",
+              "bookworm-security": "154.0.8037.92-1~deb12u1"
+            },
+            "fixed_version": "154.0.8037.92-1~deb12u1",
+            "urgency": "not yet assigned"
+          },
+          "forky": {
+            "status": "open",
+            "repositories": {
+              "forky": "154.0.8037.57-1"
+            },
+            "urgency": "not yet assigned"
+          },
+          "sid": {
+            "status": "resolved",
+            "repositories": {
+              "sid": "154.0.8037.92-1"
+            },
+            "fixed_version": "154.0.8037.92-1",
+            "urgency": "not yet assigned"
+          },
+          "trixie": {
+            "status": "resolved",
+            "repositories": {
+              "trixie": "150.0.7871.181-1~deb13u1",
+              "trixie-security": "154.0.8037.92-1~deb13u1"
+            },
+            "fixed_version": "154.0.8037.92-1~deb13u1",
+            "urgency": "not yet assigned"
+          }
+        }
+      },
+      "range_pass": true,
+      "linux_qualification": "No platform restriction in vendor description; conservatively applicable to Linux web-content processing."
+    },
+    {
+      "group_id": "7daa7330ac6bda2758f0",
+      "native_hashes": [
+        "9f2087e9f7a02c11fa44cc9fda4e11b229b5f1a2b5106deef294cdaa907b5b90",
+        "2a9c24e39d27f6aa8603b7d1f46c918b13fd499e801d8aef326e6140ff105d33"
+      ],
+      "advisory": "CVE-2026-102307",
+      "source": "chromium",
+      "target": "154.0.8037.92-1~deb13u1",
+      "vendor": {
+        "description": "Uninitialized resource in Dawn in Google Chrome on on Android prior to 154.0.8037.92 allowed a remote attacker to read memory outside the sandbox via a crafted HTML page. (Chromium security severity: High)",
+        "scope": "local",
+        "releases": {
+          "bookworm": {
+            "status": "resolved",
+            "repositories": {
+              "bookworm": "150.0.7871.100-1~deb12u1",
+              "bookworm-security": "154.0.8037.92-1~deb12u1"
+            },
+            "fixed_version": "154.0.8037.92-1~deb12u1",
+            "urgency": "not yet assigned"
+          },
+          "forky": {
+            "status": "open",
+            "repositories": {
+              "forky": "154.0.8037.57-1"
+            },
+            "urgency": "not yet assigned"
+          },
+          "sid": {
+            "status": "resolved",
+            "repositories": {
+              "sid": "154.0.8037.92-1"
+            },
+            "fixed_version": "154.0.8037.92-1",
+            "urgency": "not yet assigned"
+          },
+          "trixie": {
+            "status": "resolved",
+            "repositories": {
+              "trixie": "150.0.7871.181-1~deb13u1",
+              "trixie-security": "154.0.8037.92-1~deb13u1"
+            },
+            "fixed_version": "154.0.8037.92-1~deb13u1",
+            "urgency": "not yet assigned"
+          }
+        }
+      },
+      "range_pass": true,
+      "linux_qualification": "Platform-specific Android advisory; no Linux affected-code claim or new acceptance."
+    },
+    {
+      "group_id": "7a2d194211f93ad7d667",
+      "native_hashes": [
+        "034607c276212d28ebc16d302cd9c0e505aafa11d69a453422539d22f77c3938",
+        "66d40c56a9919460dbc38e11996d60854557e2b011ad5112307e501384988bd7"
+      ],
+      "advisory": "CVE-2026-102313",
+      "source": "chromium",
+      "target": "154.0.8037.92-1~deb13u1",
+      "vendor": {
+        "description": "Uninitialized resource in ANGLE in Google Chrome on on Windows prior to 154.0.8037.92 allowed a remote attacker to read memory outside the sandbox via a crafted HTML page. (Chromium security severity: High)",
+        "scope": "local",
+        "releases": {
+          "bookworm": {
+            "status": "resolved",
+            "repositories": {
+              "bookworm": "150.0.7871.100-1~deb12u1",
+              "bookworm-security": "154.0.8037.92-1~deb12u1"
+            },
+            "fixed_version": "154.0.8037.92-1~deb12u1",
+            "urgency": "not yet assigned"
+          },
+          "forky": {
+            "status": "open",
+            "repositories": {
+              "forky": "154.0.8037.57-1"
+            },
+            "urgency": "not yet assigned"
+          },
+          "sid": {
+            "status": "resolved",
+            "repositories": {
+              "sid": "154.0.8037.92-1"
+            },
+            "fixed_version": "154.0.8037.92-1",
+            "urgency": "not yet assigned"
+          },
+          "trixie": {
+            "status": "resolved",
+            "repositories": {
+              "trixie": "150.0.7871.181-1~deb13u1",
+              "trixie-security": "154.0.8037.92-1~deb13u1"
+            },
+            "fixed_version": "154.0.8037.92-1~deb13u1",
+            "urgency": "not yet assigned"
+          }
+        }
+      },
+      "range_pass": true,
+      "linux_qualification": "Platform-specific Windows advisory; no Linux affected-code claim or new acceptance."
+    },
+    {
+      "group_id": "30ddb0185103cef41c36",
+      "native_hashes": [
+        "7ca7ddfe957443b0f37765d9da38e201037f6c5672388392b6b427c6986bc13c",
+        "b3aedf52dc9360eb9065b445581a6c3fe736110987460aaf0d4c097f9ba4abee"
+      ],
+      "advisory": "CVE-2026-102300",
+      "source": "chromium",
+      "target": "154.0.8037.92-1~deb13u1",
+      "vendor": {
+        "description": "Uninitialized resource in WebGPU in Google Chrome prior to 154.0.8037.92 allowed a remote attacker to obtain cross-origin data via a crafted HTML page. (Chromium security severity: High)",
+        "scope": "local",
+        "releases": {
+          "bookworm": {
+            "status": "resolved",
+            "repositories": {
+              "bookworm": "150.0.7871.100-1~deb12u1",
+              "bookworm-security": "154.0.8037.92-1~deb12u1"
+            },
+            "fixed_version": "154.0.8037.92-1~deb12u1",
+            "urgency": "not yet assigned"
+          },
+          "forky": {
+            "status": "open",
+            "repositories": {
+              "forky": "154.0.8037.57-1"
+            },
+            "urgency": "not yet assigned"
+          },
+          "sid": {
+            "status": "resolved",
+            "repositories": {
+              "sid": "154.0.8037.92-1"
+            },
+            "fixed_version": "154.0.8037.92-1",
+            "urgency": "not yet assigned"
+          },
+          "trixie": {
+            "status": "resolved",
+            "repositories": {
+              "trixie": "150.0.7871.181-1~deb13u1",
+              "trixie-security": "154.0.8037.92-1~deb13u1"
+            },
+            "fixed_version": "154.0.8037.92-1~deb13u1",
+            "urgency": "not yet assigned"
+          }
+        }
+      },
+      "range_pass": true,
+      "linux_qualification": "No platform restriction in vendor description; conservatively applicable to Linux web-content processing."
+    },
+    {
+      "group_id": "97ca57bb6abf32f271fc",
+      "native_hashes": [
+        "618d3ab120d77afabf5290b721c6d4ad74a28567c69045d1fdea85201752140b",
+        "11e28587ab711f5f573a40110a1d3a5ae520d508011cc51a830fee1aa8a5ef6f"
+      ],
+      "advisory": "CVE-2026-102303",
+      "source": "chromium",
+      "target": "154.0.8037.92-1~deb13u1",
+      "vendor": {
+        "description": "Uninitialized resource in GPU in Google Chrome on on Android prior to 154.0.8037.92 allowed a remote attacker to obtain cross-origin data via a crafted HTML page. (Chromium security severity: High)",
+        "scope": "local",
+        "releases": {
+          "bookworm": {
+            "status": "resolved",
+            "repositories": {
+              "bookworm": "150.0.7871.100-1~deb12u1",
+              "bookworm-security": "154.0.8037.92-1~deb12u1"
+            },
+            "fixed_version": "154.0.8037.92-1~deb12u1",
+            "urgency": "not yet assigned"
+          },
+          "forky": {
+            "status": "open",
+            "repositories": {
+              "forky": "154.0.8037.57-1"
+            },
+            "urgency": "not yet assigned"
+          },
+          "sid": {
+            "status": "resolved",
+            "repositories": {
+              "sid": "154.0.8037.92-1"
+            },
+            "fixed_version": "154.0.8037.92-1",
+            "urgency": "not yet assigned"
+          },
+          "trixie": {
+            "status": "resolved",
+            "repositories": {
+              "trixie": "150.0.7871.181-1~deb13u1",
+              "trixie-security": "154.0.8037.92-1~deb13u1"
+            },
+            "fixed_version": "154.0.8037.92-1~deb13u1",
+            "urgency": "not yet assigned"
+          }
+        }
+      },
+      "range_pass": true,
+      "linux_qualification": "Platform-specific Android advisory; no Linux affected-code claim or new acceptance."
+    },
+    {
+      "group_id": "b5495b655c0f270a2309",
+      "native_hashes": [
+        "b504784956b30c0df192f10dbdb8448b030486044d1f6c942ce64216efbc8c73",
+        "d756c85d92388c8ab223626b8d2035bba2cbbe85c35a4db3b71068dbd8acf15e"
+      ],
+      "advisory": "CVE-2026-72522",
+      "source": "expat",
+      "target": "2.8.3-1~deb13u1",
+      "vendor": {
+        "description": "libexpat before 2.8.3 has an out-of-bounds read and resultant infinite loop because low surrogates are treated the same as high surrogates during Unicode processing in the *_toUtf16 functions.",
+        "debianbug": 1144064,
+        "scope": "local",
+        "releases": {
+          "bookworm": {
+            "status": "resolved",
+            "repositories": {
+              "bookworm": "2.5.0-1+deb12u2",
+              "bookworm-security": "2.5.0-1+deb12u4"
+            },
+            "fixed_version": "2.5.0-1+deb12u3",
+            "urgency": "not yet assigned"
+          },
+          "forky": {
+            "status": "resolved",
+            "repositories": {
+              "forky": "2.8.4-2"
+            },
+            "fixed_version": "2.8.3-1",
+            "urgency": "not yet assigned"
+          },
+          "sid": {
+            "status": "resolved",
+            "repositories": {
+              "sid": "2.8.5-2"
+            },
+            "fixed_version": "2.8.3-1",
+            "urgency": "not yet assigned"
+          },
+          "trixie": {
+            "status": "resolved",
+            "repositories": {
+              "trixie": "2.8.3-1~deb13u1",
+              "trixie-security": "2.8.3-1~deb13u1"
+            },
+            "fixed_version": "2.8.3-1~deb13u1",
+            "urgency": "not yet assigned"
+          }
+        }
+      },
+      "range_pass": true,
+      "linux_qualification": "UTF-16 conversion reachability in non-wide builds remains unresolved; no linkage-to-invocation inference."
+    },
+    {
+      "group_id": "3bbfb44eb3cca297d1ce",
+      "native_hashes": [
+        "f2d0447e8dfdd2175f1e5b76573e9dca5d6ea32e9eccc5ffe9c5f997c116b1df",
+        "e78948e50bdc1aa74cbf15446432a760f4915487c643c5d05adfd8d6aed2795a"
+      ],
+      "advisory": "CVE-2026-102312",
+      "source": "chromium",
+      "target": "154.0.8037.92-1~deb13u1",
+      "vendor": {
+        "description": "UI misrepresentation in Omnibox in Google Chrome on on Android prior to 154.0.8037.92 allowed a remote attacker to spoof address bar via a crafted HTML page. (Chromium security severity: High)",
+        "scope": "local",
+        "releases": {
+          "bookworm": {
+            "status": "resolved",
+            "repositories": {
+              "bookworm": "150.0.7871.100-1~deb12u1",
+              "bookworm-security": "154.0.8037.92-1~deb12u1"
+            },
+            "fixed_version": "154.0.8037.92-1~deb12u1",
+            "urgency": "not yet assigned"
+          },
+          "forky": {
+            "status": "open",
+            "repositories": {
+              "forky": "154.0.8037.57-1"
+            },
+            "urgency": "not yet assigned"
+          },
+          "sid": {
+            "status": "resolved",
+            "repositories": {
+              "sid": "154.0.8037.92-1"
+            },
+            "fixed_version": "154.0.8037.92-1",
+            "urgency": "not yet assigned"
+          },
+          "trixie": {
+            "status": "resolved",
+            "repositories": {
+              "trixie": "150.0.7871.181-1~deb13u1",
+              "trixie-security": "154.0.8037.92-1~deb13u1"
+            },
+            "fixed_version": "154.0.8037.92-1~deb13u1",
+            "urgency": "not yet assigned"
+          }
+        }
+      },
+      "range_pass": true,
+      "linux_qualification": "Platform-specific Android advisory; no Linux affected-code claim or new acceptance."
+    },
+    {
+      "group_id": "210153c0692ca26473d4",
+      "native_hashes": [
+        "62f8094a56203f4c104d59809129dc77d29432ff6a8a2a1d15eb8d87a7fa6728",
+        "e32610b3088b4f8bd302ba14b018b8a121a2a9ff15a0264de325556c3fcdce02"
+      ],
+      "advisory": "CVE-2026-102325",
+      "source": "chromium",
+      "target": "154.0.8037.92-1~deb13u1",
+      "vendor": {
+        "description": "Uninitialized resource in Skia in Google Chrome prior to 154.0.8037.92 allowed a remote attacker to obtain cross-origin data via a crafted HTML page. (Chromium security severity: High)",
+        "scope": "local",
+        "releases": {
+          "bookworm": {
+            "status": "resolved",
+            "repositories": {
+              "bookworm": "150.0.7871.100-1~deb12u1",
+              "bookworm-security": "154.0.8037.92-1~deb12u1"
+            },
+            "fixed_version": "154.0.8037.92-1~deb12u1",
+            "urgency": "not yet assigned"
+          },
+          "forky": {
+            "status": "open",
+            "repositories": {
+              "forky": "154.0.8037.57-1"
+            },
+            "urgency": "not yet assigned"
+          },
+          "sid": {
+            "status": "resolved",
+            "repositories": {
+              "sid": "154.0.8037.92-1"
+            },
+            "fixed_version": "154.0.8037.92-1",
+            "urgency": "not yet assigned"
+          },
+          "trixie": {
+            "status": "resolved",
+            "repositories": {
+              "trixie": "150.0.7871.181-1~deb13u1",
+              "trixie-security": "154.0.8037.92-1~deb13u1"
+            },
+            "fixed_version": "154.0.8037.92-1~deb13u1",
+            "urgency": "not yet assigned"
+          }
+        }
+      },
+      "range_pass": true,
+      "linux_qualification": "No platform restriction in vendor description; conservatively applicable to Linux web-content processing."
+    },
+    {
+      "group_id": "567edf27691415e1fce8",
+      "native_hashes": [
+        "728163e0c5b2e9fb87f2e51b39e3fd0e99336d66a00f5975181a82933b048f7a",
+        "cb4eec33703d9624657bba026aff33617a9e49e547a664cc486845b745138deb"
+      ],
+      "advisory": "CVE-2026-102305",
+      "source": "chromium",
+      "target": "154.0.8037.92-1~deb13u1",
+      "vendor": {
+        "description": "UI misrepresentation in SignIn in Google Chrome on on iOS prior to 154.0.8037.92 allowed a remote attacker to spoof UI elements via a crafted HTML page. (Chromium security severity: Low)",
+        "scope": "local",
+        "releases": {
+          "bookworm": {
+            "status": "resolved",
+            "repositories": {
+              "bookworm": "150.0.7871.100-1~deb12u1",
+              "bookworm-security": "154.0.8037.92-1~deb12u1"
+            },
+            "fixed_version": "154.0.8037.92-1~deb12u1",
+            "urgency": "not yet assigned"
+          },
+          "forky": {
+            "status": "open",
+            "repositories": {
+              "forky": "154.0.8037.57-1"
+            },
+            "urgency": "not yet assigned"
+          },
+          "sid": {
+            "status": "resolved",
+            "repositories": {
+              "sid": "154.0.8037.92-1"
+            },
+            "fixed_version": "154.0.8037.92-1",
+            "urgency": "not yet assigned"
+          },
+          "trixie": {
+            "status": "resolved",
+            "repositories": {
+              "trixie": "150.0.7871.181-1~deb13u1",
+              "trixie-security": "154.0.8037.92-1~deb13u1"
+            },
+            "fixed_version": "154.0.8037.92-1~deb13u1",
+            "urgency": "not yet assigned"
+          }
+        }
+      },
+      "range_pass": true,
+      "linux_qualification": "Platform-specific iOS advisory; no Linux affected-code claim or new acceptance."
+    },
+    {
+      "group_id": "290342f0e098942fa4b4",
+      "native_hashes": [
+        "869dcb6e03ba916911daf8dfb4a684aee7cd3c25af1347f201024ca9be885f36",
+        "d688683b84581abf531f51b38dbefb6a7ec4e9f4f8132ed12b294d0d73b9d533"
+      ],
+      "advisory": "CVE-2026-102314",
+      "source": "chromium",
+      "target": "154.0.8037.92-1~deb13u1",
+      "vendor": {
+        "description": "UI misrepresentation in TabStrip in Google Chrome prior to 154.0.8037.92 allowed a remote attacker to spoof UI elements via a crafted HTML page. (Chromium security severity: Low)",
+        "scope": "local",
+        "releases": {
+          "bookworm": {
+            "status": "resolved",
+            "repositories": {
+              "bookworm": "150.0.7871.100-1~deb12u1",
+              "bookworm-security": "154.0.8037.92-1~deb12u1"
+            },
+            "fixed_version": "154.0.8037.92-1~deb12u1",
+            "urgency": "not yet assigned"
+          },
+          "forky": {
+            "status": "open",
+            "repositories": {
+              "forky": "154.0.8037.57-1"
+            },
+            "urgency": "not yet assigned"
+          },
+          "sid": {
+            "status": "resolved",
+            "repositories": {
+              "sid": "154.0.8037.92-1"
+            },
+            "fixed_version": "154.0.8037.92-1",
+            "urgency": "not yet assigned"
+          },
+          "trixie": {
+            "status": "resolved",
+            "repositories": {
+              "trixie": "150.0.7871.181-1~deb13u1",
+              "trixie-security": "154.0.8037.92-1~deb13u1"
+            },
+            "fixed_version": "154.0.8037.92-1~deb13u1",
+            "urgency": "not yet assigned"
+          }
+        }
+      },
+      "range_pass": true,
+      "linux_qualification": "No platform restriction in vendor description; conservatively applicable to Linux web-content processing."
+    },
+    {
+      "group_id": "0f8e40b79f63cd2278ee",
+      "native_hashes": [
+        "506c08f363286778b83c16e047b071e17f39bf24bb3efb4971695ebdcec98691",
+        "8ad8f1826ebf4c23ba63e58e2a8ebab0ff7f59cb71eed0bc14cae70ba75b4d81"
+      ],
+      "advisory": "CVE-2026-102318",
+      "source": "chromium",
+      "target": "154.0.8037.92-1~deb13u1",
+      "vendor": {
+        "description": "Out of bounds read in WebGL in Google Chrome prior to 154.0.8037.92 allowed a remote attacker to read memory outside the sandbox via a crafted HTML page. (Chromium security severity: High)",
+        "scope": "local",
+        "releases": {
+          "bookworm": {
+            "status": "resolved",
+            "repositories": {
+              "bookworm": "150.0.7871.100-1~deb12u1",
+              "bookworm-security": "154.0.8037.92-1~deb12u1"
+            },
+            "fixed_version": "154.0.8037.92-1~deb12u1",
+            "urgency": "not yet assigned"
+          },
+          "forky": {
+            "status": "open",
+            "repositories": {
+              "forky": "154.0.8037.57-1"
+            },
+            "urgency": "not yet assigned"
+          },
+          "sid": {
+            "status": "resolved",
+            "repositories": {
+              "sid": "154.0.8037.92-1"
+            },
+            "fixed_version": "154.0.8037.92-1",
+            "urgency": "not yet assigned"
+          },
+          "trixie": {
+            "status": "resolved",
+            "repositories": {
+              "trixie": "150.0.7871.181-1~deb13u1",
+              "trixie-security": "154.0.8037.92-1~deb13u1"
+            },
+            "fixed_version": "154.0.8037.92-1~deb13u1",
+            "urgency": "not yet assigned"
+          }
+        }
+      },
+      "range_pass": true,
+      "linux_qualification": "No platform restriction in vendor description; conservatively applicable to Linux web-content processing."
+    },
+    {
+      "group_id": "0715cabe66fc232cc5d2",
+      "native_hashes": [
+        "32316ee9fcb818fe85078b532f96138fa958d4ee58b07addd4729907ae889353",
+        "252c82b6e4830678721b98bc76e3de9012a16479271bf8ba0067458da40bae70"
+      ],
+      "advisory": "CVE-2026-102311",
+      "source": "chromium",
+      "target": "154.0.8037.92-1~deb13u1",
+      "vendor": {
+        "description": "Uninitialized resource in GPU in Google Chrome on on Android prior to 154.0.8037.92 allowed a remote attacker who had compromised the renderer process to read memory outside the sandbox via a crafted HTML page. (Chromium security severity: High)",
+        "scope": "local",
+        "releases": {
+          "bookworm": {
+            "status": "resolved",
+            "repositories": {
+              "bookworm": "150.0.7871.100-1~deb12u1",
+              "bookworm-security": "154.0.8037.92-1~deb12u1"
+            },
+            "fixed_version": "154.0.8037.92-1~deb12u1",
+            "urgency": "not yet assigned"
+          },
+          "forky": {
+            "status": "open",
+            "repositories": {
+              "forky": "154.0.8037.57-1"
+            },
+            "urgency": "not yet assigned"
+          },
+          "sid": {
+            "status": "resolved",
+            "repositories": {
+              "sid": "154.0.8037.92-1"
+            },
+            "fixed_version": "154.0.8037.92-1",
+            "urgency": "not yet assigned"
+          },
+          "trixie": {
+            "status": "resolved",
+            "repositories": {
+              "trixie": "150.0.7871.181-1~deb13u1",
+              "trixie-security": "154.0.8037.92-1~deb13u1"
+            },
+            "fixed_version": "154.0.8037.92-1~deb13u1",
+            "urgency": "not yet assigned"
+          }
+        }
+      },
+      "range_pass": true,
+      "linux_qualification": "Platform-specific Android advisory; no Linux affected-code claim or new acceptance."
+    },
+    {
+      "group_id": "4040d223ba118c58adc2",
+      "native_hashes": [
+        "fbfd0f8818f41abd0a1bd399963d776ac482973126bebfee9b2bd8f4bfc4f79e",
+        "4f710b0e899ef71de669090ff924f59230acce7dc2cd304ecb54cff2b72c9d7a"
+      ],
+      "advisory": "CVE-2026-102315",
+      "source": "chromium",
+      "target": "154.0.8037.92-1~deb13u1",
+      "vendor": {
+        "description": "Uninitialized resource in Media in Google Chrome on on Windows prior to 154.0.8037.92 allowed a remote attacker who had compromised the renderer process to read memory outside the sandbox via a crafted HTML page. (Chromium security severity: High)",
+        "scope": "local",
+        "releases": {
+          "bookworm": {
+            "status": "resolved",
+            "repositories": {
+              "bookworm": "150.0.7871.100-1~deb12u1",
+              "bookworm-security": "154.0.8037.92-1~deb12u1"
+            },
+            "fixed_version": "154.0.8037.92-1~deb12u1",
+            "urgency": "not yet assigned"
+          },
+          "forky": {
+            "status": "open",
+            "repositories": {
+              "forky": "154.0.8037.57-1"
+            },
+            "urgency": "not yet assigned"
+          },
+          "sid": {
+            "status": "resolved",
+            "repositories": {
+              "sid": "154.0.8037.92-1"
+            },
+            "fixed_version": "154.0.8037.92-1",
+            "urgency": "not yet assigned"
+          },
+          "trixie": {
+            "status": "resolved",
+            "repositories": {
+              "trixie": "150.0.7871.181-1~deb13u1",
+              "trixie-security": "154.0.8037.92-1~deb13u1"
+            },
+            "fixed_version": "154.0.8037.92-1~deb13u1",
+            "urgency": "not yet assigned"
+          }
+        }
+      },
+      "range_pass": true,
+      "linux_qualification": "Platform-specific Windows advisory; no Linux affected-code claim or new acceptance."
+    },
+    {
+      "group_id": "86863d1c010a85335cac",
+      "native_hashes": [
+        "8929fe7ccd0aebfedbea275a184c6d2e379689e46585c004f65851bf9d0a49d4",
+        "abaa7fea2ba1dfde1f66f98e17dffff4ea6a7fef95be8fc18a7dd60fa493f86e"
+      ],
+      "advisory": "CVE-2026-102319",
+      "source": "chromium",
+      "target": "154.0.8037.92-1~deb13u1",
+      "vendor": {
+        "description": "Uninitialized resource in GPU in Google Chrome prior to 154.0.8037.92 allowed a remote attacker who had compromised the renderer process to read memory outside the sandbox via a crafted HTML page. (Chromium security severity: High)",
+        "scope": "local",
+        "releases": {
+          "bookworm": {
+            "status": "resolved",
+            "repositories": {
+              "bookworm": "150.0.7871.100-1~deb12u1",
+              "bookworm-security": "154.0.8037.92-1~deb12u1"
+            },
+            "fixed_version": "154.0.8037.92-1~deb12u1",
+            "urgency": "not yet assigned"
+          },
+          "forky": {
+            "status": "open",
+            "repositories": {
+              "forky": "154.0.8037.57-1"
+            },
+            "urgency": "not yet assigned"
+          },
+          "sid": {
+            "status": "resolved",
+            "repositories": {
+              "sid": "154.0.8037.92-1"
+            },
+            "fixed_version": "154.0.8037.92-1",
+            "urgency": "not yet assigned"
+          },
+          "trixie": {
+            "status": "resolved",
+            "repositories": {
+              "trixie": "150.0.7871.181-1~deb13u1",
+              "trixie-security": "154.0.8037.92-1~deb13u1"
+            },
+            "fixed_version": "154.0.8037.92-1~deb13u1",
+            "urgency": "not yet assigned"
+          }
+        }
+      },
+      "range_pass": true,
+      "linux_qualification": "No platform restriction in vendor description; conservatively applicable to Linux web-content processing."
+    }
+  ]
+}

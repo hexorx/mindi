@@ -283,7 +283,7 @@ class WiringTest(unittest.TestCase):
 
     def test_image_and_stacks_need_no_tun_capability_or_funnel(self):
         dockerfile = (APP / "Dockerfile").read_text()
-        self.assertRegex(dockerfile, r"FROM tailscale/tailscale:v[0-9.]+@sha256:[0-9a-f]{64} AS tailscale")
+        self.assertRegex(dockerfile, r"FROM golang:[0-9.]+-bookworm@sha256:[0-9a-f]{64} AS tailscale")
         def code(path):
             return "\n".join(line for line in path.read_text().splitlines()
                              if not line.lstrip().startswith("#")).lower()

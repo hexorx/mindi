@@ -1,0 +1,22 @@
+name: Backend identity smoke
+on:
+  pull_request:
+    paths:
+      - apps/agent-box/backend/infra/backend-box/Dockerfile
+      - apps/agent-box/test/smoke.py
+      - .github/workflows/backend-identity.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  container:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - name: Build layered backend image
+        run: |
+          docker build --platform linux/amd64 -t agent-box-base:local -f apps/agent-box/base/infra/agent-box/Dockerfile apps/agent-box/base
+          docker build --platform linux/amd64 --build-arg AGENT_BOX_IMAGE=agent-box-base:local --build-arg SOURCE_REVISION="$GITHUB_SHA" -t backend-identity:smoke -f apps/agent-box/backend/infra/backend-box/Dockerfile apps/agent-box/backend
+      - name: Verify non-root backend with read-only owner-only token across restart
+        run: python3 -B apps/agent-box/test/smoke.py backend-identity:smoke

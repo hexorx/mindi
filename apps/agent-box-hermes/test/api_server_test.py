@@ -62,19 +62,14 @@ class APIServiceTest(unittest.TestCase):
         self.assertEqual(service['mem_limit'], '8g')
         self.assertEqual(service['shm_size'], '2gb')
         self.assertEqual(service['expose'], ['8443'])
-        memory_vars = {'MEMORY_LLM_PROVIDER', 'MEMORY_LLM_MODEL', 'MEMORY_LLM_BASE_URL',
-                       'MEMORY_EMBEDDINGS_PROVIDER', 'MEMORY_EMBEDDINGS_MODEL', 'MEMORY_EMBEDDINGS_BASE_URL'}
-        inference_vars = {'HERMES_INFERENCE_PROVIDER', 'HERMES_INFERENCE_MODEL', 'HERMES_INFERENCE_BASE_URL'}
-        self.assertEqual(set(service['environment']), set(FIXTURE) | memory_vars | inference_vars)
+        inference_vars = {'HERMES_INFERENCE_PROVIDER', 'HERMES_INFERENCE_MODEL'}
+        self.assertEqual(set(service['environment']), set(FIXTURE) | inference_vars)
         self.assertEqual(service['build'], {
             'context': '.', 'dockerfile': 'apps/agent-box-hermes/Dockerfile',
             'args': {'SOURCE_REVISION': '${MINDI_SOURCE_REVISION:?Set MINDI_SOURCE_REVISION to the full built source commit}'},
         })
-        self.assertIn('inference_api_key', service['secrets'])
-        self.assertEqual(compose['secrets']['inference_api_key']['file'],
-                         '${INFERENCE_API_KEY_FILE:?Set INFERENCE_API_KEY_FILE}')
-        for name in memory_vars | inference_vars:
-            self.assertEqual(service['environment'][name], '${' + name + ':-}')
+        self.assertEqual(service['secrets'], ['desktop_password', 'desktop_tls_cert', 'desktop_tls_key'])
+        self.assertEqual(service['environment']['HERMES_INFERENCE_PROVIDER'], '${HERMES_INFERENCE_PROVIDER:-openai-codex}')
         self.assertEqual(service['volumes'], ['box-home:/home/agent', 'box-memory:/var/lib/agent-box/hindsight'])
 
 

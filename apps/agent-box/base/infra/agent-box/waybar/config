@@ -1,0 +1,31 @@
+{
+  "layer": "top",
+  "position": "bottom",
+  "height": 40,
+  "spacing": 8,
+  "modules-left": ["custom/launcher", "custom/terminal", "custom/chrome"],
+  "modules-center": ["sway/workspaces"],
+  "modules-right": ["clock"],
+  "custom/launcher": {
+    "format": "Apps",
+    "tooltip-format": "Application launcher",
+    "on-click": "wofi --show drun --insensitive --allow-images"
+  },
+  "custom/terminal": {
+    "format": "Terminal",
+    "tooltip-format": "Open a terminal",
+    "on-click": "env GDK_BACKEND=wayland LIBGL_ALWAYS_SOFTWARE=1 GALLIUM_DRIVER=llvmpipe ghostty"
+  },
+  "custom/chrome": {
+    "format": "Chrome",
+    "tooltip-format": "Open Google Chrome",
+    "on-click": "google-chrome"
+  },
+  "sway/workspaces": {
+    "disable-scroll": true
+  },
+  "clock": {
+    "format": "{:%Y-%m-%d %H:%M}",
+    "tooltip": false
+  }
+}

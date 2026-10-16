@@ -63,7 +63,7 @@ class SourceTest(unittest.TestCase):
         self.assertEqual(status['source'], 'defaults')
         self.assertEqual(status['state'], 'ready')
         self.assertEqual(self.github.calls, [])
-        self.assertEqual(self.config()['toolsets'], ['computer_use'])
+        self.assertEqual(self.config()['toolsets'], ['computer_use', 'memory'])
         self.assertTrue(self.persona())
         self.assertEqual((self.home / 'config.yaml').stat().st_mode & 0o777, 0o600)
         self.assertFalse((self.home / 'profiles').exists())

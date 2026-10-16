@@ -1,0 +1,29 @@
+{
+  "name": "@grpc/grpc-js",
+  "version": "1.14.5",
+  "dist": {
+    "shasum": "12f97bd9f716358e377ffaa768195d1219eb76a3",
+    "tarball": "https://registry.npmjs.org/@grpc/grpc-js/-/grpc-js-1.14.5.tgz",
+    "fileCount": 681,
+    "integrity": "sha512-7VZM+SVdEcUUqSQeNI3zM8Qs/BhQKZndPo2h5VkYkAM8Iz0wJIa8mKV5ekQGqG8UUsnkQ0NMxIxwkIHYvj0qOw==",
+    "signatures": [
+      {
+        "sig": "MEYCIQDSq6Z/9i4pl67G/SkOegprfNROzHJ9gJKgxezas1RQYwIhAMDJ8aGCHRIK3PUoLV9i4U7Cls6fGrdK9fDoATNodehf",
+        "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+      },
+      {
+        "sig": "MEYCIQC2mI9dKYj4dRQip1vEuuh3Iq39kon3Q4WA4O9ZQhs7awIhANAkoG6n3Gae2A4triJ/6T5rcgVGfI5jUqjfe2bFcD17",
+        "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+      }
+    ],
+    "unpackedSize": 2556108
+  },
+  "dependencies": {
+    "@grpc/proto-loader": "^0.8.0",
+    "@js-sdsl/ordered-map": "^4.4.2"
+  },
+  "engines": {
+    "node": ">=12.10.0"
+  },
+  "license": "Apache-2.0"
+}

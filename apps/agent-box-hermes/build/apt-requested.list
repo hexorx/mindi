@@ -42,3 +42,5 @@ python3.13-minimal
 python3.13-venv
 xserver-common
 xvfb
+libexpat1
+libexpat1-dev
