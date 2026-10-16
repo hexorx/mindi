@@ -14,8 +14,6 @@ No box configuration writes, status activation, callback-key creation, or smoke
 wakes are performed. `registered` means the mapping exists and the agent is
 active/idle/running; it is not a claim that a smoke wake or full
 desktop/memory qualification passed.
-`registered` means the mapping exists and the agent is active/idle/running; it
-is not a claim that a smoke wake or full desktop/memory qualification passed.
 
 Build from the repository root:
 

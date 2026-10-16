@@ -1,12 +1,13 @@
 /* global structuredClone, TextEncoder */
 import { URL } from 'node:url';
+import { createHash } from 'node:crypto';
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { mkdtempSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { spawnSync } from 'node:child_process';
-import { OperationStore, runRegistration, runHire, cleanupHire, hirePayload } from '../dist/index.js';
+import { OperationStore, RequestSchema, runRegistration, runHire, cleanupHire, hirePayload } from '../dist/index.js';
 import { HttpTransport, requestJson } from '../dist/http.js';
 
 const companyId = '10000000-0000-4000-8000-000000000001';
@@ -265,6 +266,29 @@ test('hire persists deployment timeout and recovers without deploying twice', as
     const result = await runHire(input, api, reopened, handoff);
     assert.equal(result.phase, 'registered');
     assert.equal(deploys, 1);
+    assert.equal(recoveries, 1);
+    assert.equal(state.hires, 1);
+  } finally { reopened.close(); }
+});
+
+test('hire recovers a persisted deploying phase after process interruption', async (t) => {
+  const { api, state, store, directory } = fixture(t);
+  const fingerprint = createHash('sha256').update(JSON.stringify(RequestSchema.parse(input))).digest('hex');
+  const key = `${input.companyId}:${input.box.boxId}`;
+  store.acquire();
+  store.saveHire({ key, fingerprint, phase: 'deploying' });
+  store.release();
+  let deploys = 0, recoveries = 0;
+  const handoff = {
+    async deploy() { deploys++; throw new Error('must not dispatch'); },
+    async recover() { recoveries++; return { deploymentId: 'drone-45', box: input.box }; },
+    async cleanup() {},
+  };
+  const reopened = new OperationStore(directory);
+  try {
+    const result = await runHire(input, api, reopened, handoff);
+    assert.equal(result.phase, 'registered');
+    assert.equal(deploys, 0);
     assert.equal(recoveries, 1);
     assert.equal(state.hires, 1);
   } finally { reopened.close(); }

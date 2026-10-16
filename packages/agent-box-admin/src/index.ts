@@ -244,10 +244,11 @@ export async function runHire(input: unknown, api: Transport, store: OperationSt
   const hireKey = `${request.companyId}:${request.box.boxId}`;
   store.acquire();
   try {
-    let operation = store.readHire(hireKey, fingerprint) ?? {
+    const persisted = store.readHire(hireKey, fingerprint);
+    let operation = persisted ?? {
       key: hireKey, fingerprint, phase: 'deploying' as const,
     };
-    if (operation.phase === 'deploying') {
+    if (operation.phase === 'deploying' && !persisted) {
       store.saveHire(operation);
       try {
         const result = await deployment.deploy(hireKey);
@@ -259,7 +260,7 @@ export async function runHire(input: unknown, api: Transport, store: OperationSt
         return operation;
       }
       store.saveHire(operation);
-    } else if (operation.phase === 'deployment_uncertain') {
+    } else if (operation.phase === 'deploying' || operation.phase === 'deployment_uncertain') {
       const result = await deployment.recover(hireKey, operation.deploymentId);
       if (!result) return operation;
       if (result.box.boxId !== request.box.boxId) fail('deployment_box_mismatch');
