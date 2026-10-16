@@ -37,6 +37,14 @@ const OperationSchema = z.strictObject({
   agentId: uuid.optional(), approvalId: uuid.optional(),
   lastError: z.enum(['hire_outcome_unknown', 'server_read_failed']).optional(),
 });
+const HireSchema = z.strictObject({
+  key: z.string(), fingerprint: z.string(), phase: z.enum([
+    'deploying', 'deployment_uncertain', 'registering', 'registered', 'pending_approval',
+    'rejected', 'uncertain', 'inactive',
+  ]), deploymentId: z.string().optional(), box: RosterBoxSchema.optional(),
+  agentId: uuid.optional(), approvalId: uuid.optional(),
+});
+export type HireOperation = z.infer<typeof HireSchema>;
 export type Operation = z.infer<typeof OperationSchema>;
 export interface Transport {
   request(method: 'GET' | 'POST', path: string, body?: unknown): Promise<unknown>;
@@ -68,7 +76,8 @@ export class OperationStore {
       CREATE TABLE IF NOT EXISTS operations (
         key TEXT PRIMARY KEY, box_id TEXT UNIQUE NOT NULL,
         endpoint TEXT UNIQUE NOT NULL, record TEXT NOT NULL
-      )`);
+      );
+      CREATE TABLE IF NOT EXISTS hires (key TEXT PRIMARY KEY, record TEXT NOT NULL)`);
   }
   acquire(): void {
     if (this.held) fail('reservation_busy');
@@ -91,6 +100,20 @@ export class OperationStore {
     this.state.prepare(`INSERT INTO operations VALUES (?, ?, ?, ?)
       ON CONFLICT(key) DO UPDATE SET record = excluded.record`)
       .run(record.key, record.boxId, record.endpoint, JSON.stringify(record));
+  }
+  readHire(hireKey: string, inputFingerprint: string): HireOperation | undefined {
+    const row = this.state.prepare('SELECT record FROM hires WHERE key = ?').get(hireKey);
+    if (!row) return undefined;
+    const operation = HireSchema.parse(JSON.parse(String(row.record)));
+    if (operation.fingerprint !== inputFingerprint) fail('operation_input_changed');
+    return operation;
+  }
+  saveHire(operation: HireOperation): void {
+    if (!this.held) fail('reservation_required');
+    const record = HireSchema.parse(operation);
+    this.state.prepare(`INSERT INTO hires VALUES (?, ?)
+      ON CONFLICT(key) DO UPDATE SET record = excluded.record`)
+      .run(record.key, JSON.stringify(record));
   }
   close(): void { this.release(); this.state.close(); this.lock.close(); }
 }
@@ -204,4 +227,64 @@ export async function runRegistration(input: unknown, command: 'register' | 'rec
     store.save(op);
     return op;
   } finally { store.release(); }
+}
+
+/** Opi owns the implementation of this deployment handoff. A timeout is
+ * reconciled by deployment ID; it never authorizes a second deployment. */
+export interface DeploymentHandoff {
+  deploy(key: string): Promise<{ deploymentId: string; box: RegistrationRequest['box'] }>;
+  recover(key: string, deploymentId?: string): Promise<{ deploymentId: string; box: RegistrationRequest['box'] } | undefined>;
+  cleanup(deploymentId: string, options: { preserveVolumes: true }): Promise<void>;
+}
+
+export async function runHire(input: unknown, api: Transport, store: OperationStore,
+  deployment: DeploymentHandoff): Promise<HireOperation> {
+  const request = RequestSchema.parse(input);
+  const fingerprint = createHash('sha256').update(JSON.stringify(request)).digest('hex');
+  const hireKey = `${request.companyId}:${request.box.boxId}`;
+  store.acquire();
+  try {
+    const persisted = store.readHire(hireKey, fingerprint);
+    let operation = persisted ?? {
+      key: hireKey, fingerprint, phase: 'deploying' as const,
+    };
+    if (operation.phase === 'deploying' && !persisted) {
+      store.saveHire(operation);
+      try {
+        const result = await deployment.deploy(hireKey);
+        if (result.box.boxId !== request.box.boxId) fail('deployment_box_mismatch');
+        operation = { ...operation, phase: 'registering', ...result };
+      } catch {
+        operation = { ...operation, phase: 'deployment_uncertain' };
+        store.saveHire(operation);
+        return operation;
+      }
+      store.saveHire(operation);
+    } else if (operation.phase === 'deploying' || operation.phase === 'deployment_uncertain') {
+      const result = await deployment.recover(hireKey, operation.deploymentId);
+      if (!result) return operation;
+      if (result.box.boxId !== request.box.boxId) fail('deployment_box_mismatch');
+      operation = { ...operation, phase: 'registering', ...result };
+      store.saveHire(operation);
+    }
+    if (!['registering', 'pending_approval', 'uncertain'].includes(operation.phase) || !operation.box) return operation;
+    const command = operation.phase === 'pending_approval' ? 'reconcile' : 'register';
+    store.release();
+    const result = await runRegistration({ ...request, box: operation.box }, command, api, store);
+    if (!result || typeof result !== 'object' || !('phase' in result)) fail('registration_state_invalid');
+    const registration = result as Operation;
+    operation = { ...operation, phase: registration.phase === 'registered' ? 'registered' :
+      registration.phase === 'pending_approval' ? 'pending_approval' :
+      registration.phase === 'rejected' ? 'rejected' : registration.phase === 'uncertain' ? 'uncertain' : 'inactive',
+    agentId: registration.agentId, approvalId: registration.approvalId };
+    store.acquire();
+    store.saveHire(operation);
+    return operation;
+  } finally { store.release(); }
+}
+
+/** Cleanup is explicit and always asks Opi to retain persistent data volumes. */
+export async function cleanupHire(operation: HireOperation, deployment: DeploymentHandoff): Promise<void> {
+  if (!operation.deploymentId) fail('deployment_id_required');
+  await deployment.cleanup(operation.deploymentId, { preserveVolumes: true });
 }
